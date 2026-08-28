@@ -1,0 +1,41 @@
+{
+  "version": "v28-video4-5-word-safe",
+  "fps": "30000/1001",
+  "notes": "Combined delivery map. Canonical per-video maps are edit-map-v28-video4.json and edit-map-v28-video5.json.",
+  "videos": [
+    {
+      "composition": "BriskyShortV28Video4",
+      "source": "ad04.mp4",
+      "playbackSpeed": 1.12,
+      "segments": [
+        {"pieces": [[49.18,52.38],[52.72,54.24],[54.56,56.70]], "transcript": "Con học tiếng Anh nhiều năm nhưng vẫn sợ, học trước quên sau và điểm số chưa cao."},
+        {"pieces": [[96.94,102.78]], "transcript": "Con không phải không thể học tiếng Anh mà là chưa được tiếp cận đúng phương pháp."},
+        {"pieces": [[115.56,119.96]], "transcript": "Có bạn hổng từ vựng, học hôm nay thì ngày mai lại quên."},
+        {"pieces": [[125.13,126.85],[135.24,138.36]], "transcript": "Có bạn hổng câu đơn, biết từ nhưng không ghép được thành câu."},
+        {"pieces": [[142.45,144.21],[144.67,146.93]], "transcript": "Có bạn hổng ngữ pháp, học rồi nhưng không biết áp dụng."},
+        {"pieces": [[156.99,159.65],[160.39,161.25]], "transcript": "Biết từng câu nhưng không hiểu cả đoạn."},
+        {"pieces": [[234.16,236.58]], "transcript": "Và càng lên lớp cao, con càng đuối."},
+        {"pieces": [[387.19,392.31]], "transcript": "Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+        {"pieces": [[502.62,508.26]], "transcript": "Đây là 3 buổi Zoom dành cho cha mẹ có con từ lớp 3 đến lớp 9."},
+        {"pieces": [[570.61,575.27]], "transcript": "Ba mẹ dễ dàng nhận biết con đang yếu phần nào."},
+        {"pieces": [[575.47,580.03]], "transcript": "Ví dụ phần đọc, phần viết, ngữ pháp hoặc kỹ năng làm bài."}
+      ]
+    },
+    {
+      "composition": "BriskyShortV28Video5",
+      "source": "ad05.mp4",
+      "playbackSpeed": 1.12,
+      "segments": [
+        {"pieces": [[32.94,34.70],[38.98,40.84]], "transcript": "Cứ nhắc đến tiếng Anh là con sợ. Ba mẹ đừng vội nghĩ con lười."},
+        {"pieces": [[51.71,56.69]], "transcript": "Nhiều con đã mất gốc và đang mông lung về định hướng."},
+        {"pieces": [[80.21,82.51]], "transcript": "Học từ vựng trước rồi lại quên sau."},
+        {"pieces": [[111.46,114.54]], "transcript": "Khi càng đuối, con càng chán nản trong học tập."},
+        {"pieces": [[181.04,183.52],[183.72,186.24]], "transcript": "Ba mẹ không biết làm thế nào để con có thể yêu tiếng Anh."},
+        {"pieces": [[154.19,163.25]], "transcript": "Chương trình Bí mật lấy gốc tiếng Anh gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3 đến lớp 9."},
+        {"pieces": [[189.08,189.68],[190.66,193.44],[209.42,213.90],[311.59,320.93]], "transcript": "Thầy từng bước chia sẻ phương pháp để ba mẹ lựa chọn cách phù hợp. Sau chương trình, ba mẹ có định hướng rõ ràng để con không còn học trong trạng thái mơ hồ."},
+        {"pieces": [[383.49,386.11]], "transcript": "Từ đó ba mẹ biết lộ trình của con sẽ như thế nào."},
+        {"pieces": [[374.17,377.67],[378.21,383.07]], "transcript": "Ngoài 3 buổi Zoom, ba mẹ có thể đăng ký cho con trải nghiệm và kiểm tra trình độ để biết con đang ở đâu."}
+      ]
+    }
+  ]
+}

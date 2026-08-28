@@ -1,0 +1,24 @@
+{
+  "source": "Buoi-1-IMG_2421.MOV",
+  "blocks": [
+    {
+      "start": 1.62,
+      "end": 13.44
+    },
+    {
+      "start": 40.56,
+      "end": 59.72
+    },
+    {
+      "start": 96.74,
+      "end": 122.42
+    },
+    {
+      "start": 131.18,
+      "end": 141.96
+    }
+  ],
+  "speed": 1.07,
+  "durationAfterSpeed": 63.02803738317756,
+  "totalFrames": 1891
+}

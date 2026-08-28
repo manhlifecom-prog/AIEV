@@ -1,0 +1,27 @@
+{
+  "source": "Buoi-1-IMG_2421.MOV",
+  "variant": "reminder",
+  "blocks": [
+    {
+      "start": 1.44,
+      "end": 13.85
+    },
+    {
+      "start": 40.44,
+      "end": 59.81
+    },
+    {
+      "start": 96.5,
+      "end": 122.55
+    },
+    {
+      "start": 131.07,
+      "end": 142.3
+    }
+  ],
+  "speed": 1.07,
+  "speechDurationAfterSpeed": 64.54205607476636,
+  "speechFrames": 1936,
+  "posterFrames": 90,
+  "totalFrames": 2026
+}

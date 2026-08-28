@@ -1,5 +1,6 @@
 node_modules/
 .env
+.env.local
 .next/
 dist/
 
@@ -91,3 +92,10 @@ start/update-target.txt
 # Trạng thái cục bộ của script khởi động: dấu vân tay mã nguồn của bản build
 # gần nhất (build.json) và của lần chạy hiện tại (run.json). Riêng từng máy.
 /.aiev/
+/.claude/
+
+# Codex/video processing scratch data; regenerated locally and may contain
+# large intermediate media.
+/.tmp/
+**/__pycache__/
+engines/remotion/.runtime/

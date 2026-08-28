@@ -1,0 +1,24 @@
+{
+  "version": "v23-video2-review",
+  "notes": "Video 2 only. Faster 1.10x visual rhythm; safe tails retained after phan nao and yeu tieng Anh hon.",
+  "videos": [
+    {
+      "composition": "BriskyShortV23Video2",
+      "source": "ad02.mp4",
+      "playbackSpeed": 1.10,
+      "segments": [
+        {"pieces":[[3.00,8.16]],"transcript":"Một học sinh lớp 7 từng mất gốc tiếng Anh."},
+        {"pieces":[[15.17,22.72]],"transcript":"Sau một năm nỗ lực, con kết thúc năm học với 8 điểm môn tiếng Anh."},
+        {"pieces":[[36.17,41.81]],"transcript":"Con từ 3–4 điểm lên 8 điểm là cả một quá trình và sự nỗ lực."},
+        {"pieces":[[65.74,70.70]],"transcript":"Thúc ép con học theo cách cũ vô tình tạo thêm áp lực."},
+        {"pieces":[[81.98,89.90]],"transcript":"Bắt con học theo cách cũ càng khiến con sợ hãi và tâm lý trước mỗi kỳ thi."},
+        {"pieces":[[112.53,126.47]],"transcript":"Thầy đúc rút một lộ trình và chia sẻ trong 3 buổi Zoom cho cha mẹ có con lớp 3–9."},
+        {"pieces":[[129.95,137.58]],"transcript":"Ba mẹ hiểu vì sao con học nhiều năm vẫn hổng kiến thức và con thường hổng ở phần nào."},
+        {"pieces":[[139.23,147.13]],"transcript":"Ba mẹ nhận lộ trình giúp con xây lại từ gốc, học chắc và làm bài tốt hơn."},
+        {"pieces":[[165.41,171.93],[172.17,174.65]],"transcript":"Thầy chia sẻ cách khơi gợi niềm yêu thích tiếng Anh để con tự giác, chủ động và yêu tiếng Anh hơn."},
+        {"pieces":[[198.84,208.64]],"transcript":"Con được kiểm tra trình độ miễn phí và nhận lộ trình học tập từ gốc."}
+      ]
+    }
+  ]
+}
+

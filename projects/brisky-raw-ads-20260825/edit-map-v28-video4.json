@@ -1,0 +1,25 @@
+{
+  "version": "v28-video4-word-safe",
+  "fps": "30000/1001",
+  "notes": "Video 4 rebuilt from ad04.mp4 with word-safe micro-cuts. No xfade/acrossfade; dedicated dialogue WAV at 1.12x.",
+  "videos": [
+    {
+      "composition": "BriskyShortV28Video4",
+      "source": "ad04.mp4",
+      "playbackSpeed": 1.12,
+      "segments": [
+        {"pieces": [[49.18,52.38],[52.72,54.24],[54.56,56.70]], "transcript": "Con học tiếng Anh nhiều năm nhưng vẫn sợ, học trước quên sau và điểm số chưa cao."},
+        {"pieces": [[96.94,102.78]], "transcript": "Con không phải không thể học tiếng Anh mà là chưa được tiếp cận đúng phương pháp."},
+        {"pieces": [[115.56,119.96]], "transcript": "Có bạn hổng từ vựng, học hôm nay thì ngày mai lại quên."},
+        {"pieces": [[125.13,126.85],[135.24,138.36]], "transcript": "Có bạn hổng câu đơn, biết từ nhưng không ghép được thành câu."},
+        {"pieces": [[142.45,144.21],[144.67,146.93]], "transcript": "Có bạn hổng ngữ pháp, học rồi nhưng không biết áp dụng."},
+        {"pieces": [[156.99,159.65],[160.39,161.25]], "transcript": "Biết từng câu nhưng không hiểu cả đoạn."},
+        {"pieces": [[234.16,236.58]], "transcript": "Và càng lên lớp cao, con càng đuối."},
+        {"pieces": [[387.19,392.31]], "transcript": "Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+        {"pieces": [[502.62,508.26]], "transcript": "Đây là 3 buổi Zoom dành cho cha mẹ có con từ lớp 3 đến lớp 9."},
+        {"pieces": [[570.61,575.27]], "transcript": "Ba mẹ dễ dàng nhận biết con đang yếu phần nào."},
+        {"pieces": [[575.47,580.03]], "transcript": "Ví dụ phần đọc, phần viết, ngữ pháp hoặc kỹ năng làm bài."}
+      ]
+    }
+  ]
+}

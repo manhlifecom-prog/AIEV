@@ -1,14 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Router } from "express";
-import { apiToken, hasClaudeAuth, repoRoot } from "../config.js";
+import { apiToken, repoRoot } from "../config.js";
+import { hasOpenAIAuth } from "../openaiConfig.js";
 import { execFileCapture, hyperframesCli, isLocalRequest } from "../util.js";
 
 export interface HealthChecks {
   ffmpeg: boolean;
   node: string;
   /** Có xác thực Claude (subscription OAuth của Claude Code hoặc API key trong .env) */
-  claudeAuth: boolean;
+  openaiAuth: boolean;
   hyperframes: boolean;
 }
 
@@ -49,7 +50,7 @@ export async function getHealth(): Promise<HealthResult> {
     checks: {
       ffmpeg,
       node: process.version,
-      claudeAuth: hasClaudeAuth(),
+      openaiAuth: hasOpenAIAuth(),
       hyperframes,
     },
   };

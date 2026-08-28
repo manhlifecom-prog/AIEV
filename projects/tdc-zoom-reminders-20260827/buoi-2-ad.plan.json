@@ -1,0 +1,41 @@
+{
+  "source": "Buoi-2-IMG_2423.MOV",
+  "variant": "ad",
+  "blocks": [
+    {
+      "start": 1.94,
+      "end": 8.07
+    },
+    {
+      "start": 19.4,
+      "end": 35.63
+    },
+    {
+      "start": 58.52,
+      "end": 69.86
+    },
+    {
+      "start": 80.18,
+      "end": 88.22
+    },
+    {
+      "start": 100.56,
+      "end": 106.52
+    },
+    {
+      "start": 1.1,
+      "end": 12.35,
+      "source": "imports/drive-128bcNdTYBkx10pYqKBONMrc2vMYDDWpx/video-qc-1/11.MOV"
+    },
+    {
+      "start": 8.68,
+      "end": 10.55,
+      "source": "imports/drive-128bcNdTYBkx10pYqKBONMrc2vMYDDWpx/video-chuc-mung/1.MOV"
+    }
+  ],
+  "speed": 1.07,
+  "speechDurationAfterSpeed": 56.84112149532709,
+  "speechFrames": 1705,
+  "posterFrames": 90,
+  "totalFrames": 1795
+}

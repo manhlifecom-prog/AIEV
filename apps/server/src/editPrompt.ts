@@ -493,11 +493,11 @@ export function buildEditPrompt(input: {
   lines.push("## Skill");
   if (brief.skill) {
     lines.push(
-      `Dùng skill \`${brief.skill}\` làm quy trình chính - đọc \`.claude/skills/${brief.skill}/SKILL.md\` và làm theo.`,
+      `Dùng skill \`${brief.skill}\` làm quy trình chính - đọc \`.aiev/skills/${brief.skill}/SKILL.md\` và làm theo.`,
     );
   } else {
     lines.push(
-      "Tự chọn skill phù hợp nhất trong `.claude/skills/` (đọc mô tả các skill rồi quyết định) làm quy trình chính.",
+      "Tự chọn skill phù hợp nhất trong `.aiev/skills/` (đọc mô tả các skill rồi quyết định) làm quy trình chính.",
     );
   }
   // Nhắc lại ranh giới NGAY TẠI ĐÂY. Đọc tới mục Skill là agent chuẩn bị mở

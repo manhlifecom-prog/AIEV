@@ -30,6 +30,15 @@ const EXIT_NO_MODULE = 97;
 const MAX_WHISPER_MS = 2 * 60 * 60 * 1000;
 const MIN_WHISPER_MS = 10 * 60 * 1000;
 
+/**
+ * large-v3 vẫn là mặc định chất lượng cao. Batch có phụ đề cháy sẵn có thể dùng
+ * model nhẹ hơn chỉ để lập kế hoạch cắt bằng AIEV_WHISPER_MODEL=small/medium.
+ */
+function configuredWhisperModel(): string {
+  const value = String(process.env.AIEV_WHISPER_MODEL || "").trim();
+  return /^[a-z0-9][a-z0-9._-]{0,63}$/i.test(value) ? value : "large-v3";
+}
+
 // ------------------------------------------------------------------ Python
 
 let cachedPython: string | null = null;
@@ -112,6 +121,7 @@ function pythonScript(): string {
     "LANG = None if sys.argv[3] == 'auto' else sys.argv[3]",
     "TOTAL = float(sys.argv[4])",
     "LOGFILE = sys.argv[5]",
+    "MODEL = sys.argv[6]",
     "",
     "def log(msg):",
     "    # Ghi ca stderr (Node gom lai khi ket thuc) va file log (Node doc dan de hien tien do)",
@@ -144,7 +154,7 @@ function pythonScript(): string {
     // Vì vậy phải bọc CẢ lượt chạy đầu tiên: chỉ khi model đã đọc được thật thì
     // mới coi là GPU dùng được.
     "def build(dev):",
-    '    return WhisperModel("large-v3", device=dev, compute_type=("float16" if dev == "cuda" else "int8"))',
+    '    return WhisperModel(MODEL, device=dev, compute_type=("float16" if dev == "cuda" else "int8"))',
     "",
     "def run(dev):",
     "    m = build(dev)",
@@ -160,7 +170,7 @@ function pythonScript(): string {
     '    device = "cpu"',
     '    model, segments, info, _first = run("cpu")',
     "",
-    'log("[whisper] bat dau - device=" + device + " model=large-v3 lang=" + (LANG or "auto"))',
+    'log("[whisper] bat dau - device=" + device + " model=" + MODEL + " lang=" + (LANG or "auto"))',
     "",
     // `segments` là generator ĐÃ tiêu mất phần tử đầu ở bước dò trên - nối lại
     // để không mất câu mở đầu của video.
@@ -412,8 +422,9 @@ export async function transcribeVideo(input: {
       Math.max(MIN_WHISPER_MS, durationSec * 2000),
       MAX_WHISPER_MS,
     );
+    const whisperModel = configuredWhisperModel();
     log(
-      `[transcribe] chạy faster-whisper large-v3 (${python}, lang=${language}, ` +
+      `[transcribe] chạy faster-whisper ${whisperModel} (${python}, lang=${language}, ` +
         `trần ${Math.round(whisperTimeout / 60_000)} phút)`,
     );
 
@@ -422,7 +433,7 @@ export async function transcribeVideo(input: {
     try {
       run = await execFileCaptureAll(
         python,
-        [pyAbs, wavAbs, tmpJsonAbs, language, String(durationSec), logAbs],
+        [pyAbs, wavAbs, tmpJsonAbs, language, String(durationSec), logAbs, whisperModel],
         { timeoutMs: whisperTimeout, isCanceled },
       );
     } finally {

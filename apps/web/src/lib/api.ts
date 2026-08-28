@@ -9,7 +9,7 @@ export interface HealthChecks {
   ffmpeg: boolean;
   node: string;
   /** Có xác thực Claude (subscription OAuth của Claude Code hoặc API key) */
-  claudeAuth: boolean;
+  openaiAuth: boolean;
   hyperframes: boolean;
 }
 
@@ -458,7 +458,7 @@ export interface UploadEvent {
 /** Mode trên UI map sang effort của Agent SDK: Nhanh=low, Chuẩn=medium, Sâu=high. */
 export type AgentEffort = "low" | "medium" | "high";
 
-export type ProviderRole = "edit" | "chat" | "image";
+export type ProviderRole = "edit" | "chat" | "image" | "transcription";
 
 export interface ProviderModel {
   id: string;
@@ -466,7 +466,7 @@ export interface ProviderModel {
 }
 
 export interface Provider {
-  id: "claude" | "gemini";
+  id: "openai";
   label: string;
   connected: boolean;
   /** oauth = subscription Claude Code; api-key = key trong .env. */
@@ -489,7 +489,7 @@ export interface ConnectionKeyInfo {
 
 /** Một provider trên trang Kết nối - GET /api/connections. */
 export interface ConnectionInfo {
-  id: "claude" | "gemini" | "openai";
+  id: "openai";
   label: string;
   roles: string[];
   connected: boolean;
@@ -1462,9 +1462,8 @@ export const getProviders = () =>
   request<{ providers: Provider[] }>("/api/providers");
 
 /** Kết quả GET /api/providers/gemini/image-models. */
-export interface GeminiImageModels {
-  /** google = danh sách live mới nhất; static = fallback khi chưa có key / lỗi mạng. */
-  source: "google" | "static";
+export interface OpenAIImageModels {
+  source: "openai" | "static";
   models: ProviderModel[];
 }
 
@@ -1472,13 +1471,13 @@ export interface GeminiImageModels {
  * Danh sách model ảnh Gemini MỚI NHẤT - KHÔNG cache phía client (server đã cache 1h)
  * để mỗi lần mở select đều nhận được model mới Google vừa phát hành.
  */
-export const getGeminiImageModels = () =>
-  request<GeminiImageModels>("/api/providers/gemini/image-models");
+export const getOpenAIImageModels = () =>
+  request<OpenAIImageModels>("/api/providers/openai/image-models");
+export const getGeminiImageModels = getOpenAIImageModels;
 
 /** Kết quả GET /api/providers/claude/models. */
-export interface ClaudeModels {
-  /** anthropic = danh sách live từ Models API; static = fallback (chỉ OAuth / lỗi mạng). */
-  source: "anthropic" | "static";
+export interface OpenAIModels {
+  source: "openai" | "static";
   models: ProviderModel[];
 }
 
@@ -1486,8 +1485,8 @@ export interface ClaudeModels {
  * Danh sách model Claude MỚI NHẤT - server cache 10 phút; chưa fetch xong
  * thì UI dùng danh sách tĩnh từ /api/providers.
  */
-export const getClaudeModels = () =>
-  request<ClaudeModels>("/api/providers/claude/models");
+export const getOpenAIModels = () =>
+  request<OpenAIModels>("/api/providers/openai/models");
 
 // ============ Kết nối (API key providers) ============
 

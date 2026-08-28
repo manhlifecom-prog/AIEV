@@ -1,0 +1,27 @@
+{
+  "source": "Buoi-3-IMG_2425.MOV",
+  "variant": "reminder",
+  "blocks": [
+    {
+      "start": 2.44,
+      "end": 13.06
+    },
+    {
+      "start": 33.82,
+      "end": 48.73
+    },
+    {
+      "start": 51.24,
+      "end": 72.6
+    },
+    {
+      "start": 72.75,
+      "end": 104.2
+    }
+  ],
+  "speed": 1.07,
+  "speechDurationAfterSpeed": 73.21495327102802,
+  "speechFrames": 2196,
+  "posterFrames": 90,
+  "totalFrames": 2286
+}

@@ -68,7 +68,7 @@ function healthProblems(
   const c = overview.health?.checks;
   if (!c) return problems;
   if (!c.ffmpeg) problems.push(t("dash.health.ffmpeg"));
-  if (!c.claudeAuth) problems.push(t("dash.health.claude"));
+  if (!c.openaiAuth) problems.push(t("dash.health.openai"));
   if (!c.hyperframes) problems.push(t("dash.health.hyperframes"));
   return problems;
 }
@@ -90,8 +90,6 @@ const USAGE_DAYS_OPTIONS = [7, 30, 90] as const;
  * lùi về viết hoa chữ đầu chứ không để trống.
  */
 const PROVIDER_LABEL: Record<string, string> = {
-  claude: "Claude",
-  gemini: "Gemini",
   openai: "OpenAI",
 };
 

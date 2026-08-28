@@ -1,0 +1,20 @@
+{
+  "version":"v25-video3-wake-oao-remix",
+  "fps":"30000/1001",
+  "notes":"Video 3 only. Dialogue, cuts, subtitles and visuals are unchanged from v22; music changed to the user-supplied Wake - OAO Remix TikTok sound.",
+  "videos":[
+    {
+      "composition":"BriskyShortV25Video3",
+      "source":"ad03.mp4",
+      "playbackSpeed":1.08,
+      "segments":[
+        {"pieces":[[6.97,14.83]],"transcript":"Trước mỗi kỳ thi, ba mẹ lo con không làm được bài hoặc lại bị điểm kém."},
+        {"pieces":[[25.88,29.06],[29.58,39.78]],"transcript":"Con học từ vựng rồi quên, ngại bài đọc dài, khoanh theo cảm tính và không biết áp dụng ngữ pháp."},
+        {"pieces":[[59.54,69.98]],"transcript":"Càng lên lớp cao, bài đọc càng dài, cấu trúc nhiều hơn, từ vựng khó hơn và con học ngày càng vất vả."},
+        {"pieces":[[82.82,89.32],[91.80,105.12]],"transcript":"Khi đã sợ tiếng Anh, con càng học càng nản; thầy tổ chức chương trình Zoom 3 buổi cho cha mẹ có con lớp 3–9."},
+        {"pieces":[[106.98,108.12],[108.62,129.13]],"transcript":"Ba mẹ hiểu nguyên nhân mất gốc, phần kiến thức con đang hổng, nhận lộ trình học lại và khơi động lực tự giác."},
+        {"pieces":[[144.54,157.98]],"transcript":"Con được tặng một buổi kiểm tra trình độ tiếng Anh hoàn toàn miễn phí."}
+      ]
+    }
+  ]
+}

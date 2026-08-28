@@ -131,7 +131,7 @@ export function BriefFields({
 
   // Ảnh minh họa AI - model Gemini lazy fetch khi user chạm select "Model vẽ"
   const { providers } = useProviders();
-  const gemini = providers?.find((p) => p.id === "gemini");
+  const gemini = providers?.find((p) => p.id === "openai");
   // providers chưa về → chưa kết luận được, không nháy cảnh báo
   const geminiConnected = providers ? (gemini?.connected ?? false) : true;
   const {

@@ -320,7 +320,7 @@ export function ImageProjectFields({
   const { prompt, kind, aspect, overlay, model, styleId } = value;
   const { providers } = useProviders();
   const geminiModels =
-    providers?.find((p) => p.id === "gemini")?.models ?? [];
+    providers?.find((p) => p.id === "openai")?.models ?? [];
   const {
     models: liveModels,
     loading: modelsLoading,

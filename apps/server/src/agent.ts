@@ -1,7 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
-import { query, type Query } from "@anthropic-ai/claude-agent-sdk";
-import { hasClaudeAuth, paths, repoRoot } from "./config.js";
+import { query, type Query } from "./directorProvider.js";
+import { paths, repoRoot } from "./config.js";
+import { hasOpenAIAuth } from "./openaiConfig.js";
 import * as db from "./db.js";
 import { broadcast } from "./events.js";
 import { normOutput, readMeta } from "./meta.js";
@@ -259,12 +260,12 @@ export async function runAgent(
   message: string,
   opts: { continueRun?: boolean } = {},
 ): Promise<void> {
-  if (!hasClaudeAuth()) {
+  if (!hasOpenAIAuth()) {
     emit({
       sessionId,
       kind: "error",
       error:
-        "Chưa có xác thực Claude. Cách 1 (khuyên dùng): đăng nhập Claude Code trên máy này (VSCode extension hoặc chạy `claude` trong terminal rồi /login) - hệ thống tự dùng gói subscription. Cách 2: điền ANTHROPIC_API_KEY vào file .env rồi khởi động lại server.",
+        "Chưa có OPENAI_API_KEY. Mở Kết nối > OpenAI để thêm key.",
     });
     // "done" phải kèm status rõ ràng: thiếu status thì web mặc định coi là
     // thành công, trong khi lượt này thất bại ngay từ guard
@@ -298,8 +299,8 @@ export async function runAgent(
   let prompt = message;
   if (!sdkSessionId) {
     try {
-      const claudeMd = fs.readFileSync(path.join(repoRoot, "CLAUDE.md"), "utf8");
-      prompt = `<project-instructions source="CLAUDE.md">\n${claudeMd}\n</project-instructions>\n\n${message}`;
+      const projectMd = fs.readFileSync(path.join(repoRoot, "AIEV.md"), "utf8");
+      prompt = `<project-instructions>\n${projectMd}\n</project-instructions>\n\n${message}`;
     } catch {
       /* không có CLAUDE.md thì thôi */
     }
@@ -328,7 +329,7 @@ export async function runAgent(
   try {
     q = query({
       prompt,
-      options: options as Parameters<typeof query>[0]["options"],
+    options,
     });
   } catch (err) {
     db.finishChatRun(sessionId);
@@ -451,7 +452,7 @@ export async function runAgent(
       // Có tiến bộ từ lượt trước (job done tăng / renders đổi / output xuất hiện) → reset đếm
       const attempts = s ? refreshResumeProgress(s) : 0;
       const cap = s ? maxResumeAttemptsFor(s) : MAX_RESUME_ATTEMPTS;
-      const canRetry = s !== undefined && s.autoResume !== 0 && attempts < cap && hasClaudeAuth();
+      const canRetry = s !== undefined && s.autoResume !== 0 && attempts < cap && hasOpenAIAuth();
       if (canRetry) {
         db.setChatSessionStatus(sessionId, "running");
         db.bumpResumeAttempts(sessionId);
@@ -493,7 +494,7 @@ export async function runAgent(
       fresh !== undefined &&
       fresh.autoResume !== 0 &&
       freshAttempts < maxResumeAttemptsFor(fresh) &&
-      hasClaudeAuth();
+      hasOpenAIAuth();
 
     if (shouldResume) {
       db.bumpResumeAttempts(sessionId);
@@ -520,7 +521,7 @@ export async function runAgent(
  * index.ts gọi ~15s sau khi server listen. Tuần tự cách nhau 2s để không dồn cùng lúc.
  */
 export async function autoResumeStartup(): Promise<void> {
-  if (!hasClaudeAuth()) return;
+  if (!hasOpenAIAuth()) return;
   for (const id of db.startupInterruptedSessions) {
     const session = db.getChatSession(id);
     if (!session || session.status !== "interrupted" || session.autoResume === 0) continue;

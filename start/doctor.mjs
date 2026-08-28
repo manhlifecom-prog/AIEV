@@ -171,8 +171,8 @@ let envCache = null;
 function envFileVars() {
   if (envCache) return envCache;
   const out = {};
-  const file = path.join(ROOT, ".env");
-  if (fs.existsSync(file)) {
+  for (const file of [path.join(ROOT, ".env"), path.join(ROOT, ".env.local")]) {
+    if (!fs.existsSync(file)) continue;
     for (const line of fs.readFileSync(file, "utf8").split(/\r?\n/)) {
       const s = line.trim();
       if (!s || s.startsWith("#")) continue;
@@ -471,38 +471,15 @@ export function runDoctor() {
         : { auto: false, manual: "https://google.com/chrome", url: "https://www.google.com/chrome/" },
   });
 
-  // --- Claude Code CLI ---
-  // KHÔNG bắt buộc: backend gọi Claude qua @anthropic-ai/claude-agent-sdk trong
-  // node_modules (SDK tự mang CLI riêng). CLI toàn cục chỉ là MỘT trong hai cách
-  // lấy được xác thực (`claude` -> /login), cách kia là ANTHROPIC_API_KEY.
-  // Đã đăng nhập rồi thì nó thành thừa -> hạ xuống "info" để không báo động giả.
-  const authed = claudeAuthed();
-  const claudeCli = run(IS_WIN ? "claude.cmd" : "claude", ["--version"], 15_000);
+  // --- OpenAI runtime ---
+  const authed = !!envVar("OPENAI_API_KEY");
   checks.push({
-    id: "claude-cli",
-    label: "Claude Code",
-    level: authed ? "info" : "optional",
-    status: claudeCli.ok ? "ok" : "missing",
-    detail: claudeCli.ok ? firstLine(claudeCli.out) : "",
-    note: !claudeCli.ok && authed ? "not-needed" : null,
-    fix: {
-      auto: true,
-      size: "~40 MB",
-      cmd: [NPM, ["install", "-g", "@anthropic-ai/claude-code", "--no-audit", "--no-fund"]],
-      manual: "npm install -g @anthropic-ai/claude-code",
-      command: "npm install -g @anthropic-ai/claude-code",
-    },
-  });
-
-  // --- Đăng nhập Claude ---
-  checks.push({
-    id: "claude-auth",
-    label: "Claude login",
+    id: "openai",
+    label: "OpenAI API key",
     level: "required",
     status: authed ? "ok" : "missing",
-    detail: authed ? (envVar("ANTHROPIC_API_KEY") ? "API key" : "subscription") : "",
-    // Đăng nhập là việc tương tác (mở trình duyệt, nhập mã) - không tự làm thay được
-    fix: { auto: false, manual: "claude -> /login", link: "/connections" },
+    detail: authed ? "OPENAI_API_KEY" : "",
+    fix: { auto: false, manual: "OpenAI API key", link: "/connections", url: "https://platform.openai.com/api-keys" },
   });
 
   // --- Python: venv của dự án + faster-whisper + VieNeu ---
@@ -620,23 +597,6 @@ export function runDoctor() {
           manual: `move "${legacyModels}" -> "${RUNTIME_DIRS.models}"`,
         }
       : null,
-  });
-
-  // --- Gemini API key (tạo ảnh) ---
-  const gemini = !!envVar("GEMINI_API_KEY");
-  checks.push({
-    id: "gemini",
-    label: "Gemini API key",
-    level: "optional",
-    status: gemini ? "ok" : "missing",
-    detail: "",
-    // Dán key ngay trong trang Kết nối - không cần mở file .env
-    fix: {
-      auto: false,
-      manual: "GEMINI_API_KEY (aistudio.google.com/apikey)",
-      link: "/connections",
-      url: "https://aistudio.google.com/apikey",
-    },
   });
 
   // --- cloudflared (tunnel) ---

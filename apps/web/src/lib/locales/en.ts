@@ -221,6 +221,7 @@ export const en: Record<string, string> = {
   "dash.job.translate-video": "Translate video",
   "dash.health.ffmpeg": "FFmpeg is not on PATH - renders will fail.",
   "dash.health.claude": "No Claude authentication - sign in to Claude Code on this machine (VSCode) or set ANTHROPIC_API_KEY in .env.",
+  "dash.health.openai": "No OpenAI API key - open Connections and add OPENAI_API_KEY.",
   "dash.health.hyperframes": "HyperFrames is not installed - scenes cannot be rendered.",
   "dash.scope.all": "All",
   "dash.scope.video": "Video",

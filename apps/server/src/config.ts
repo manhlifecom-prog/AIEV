@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import { nanoid } from "nanoid";
 
 /**
- * Tìm repo root bằng cách đi ngược lên đến khi gặp file CLAUDE.md.
+ * Tìm repo root bằng cách đi ngược lên đến khi gặp file AIEV.md.
  * Thử từ vị trí file này (chạy được cả src/ lẫn dist/) rồi tới cwd.
  */
 function findRepoRoot(): string {
@@ -14,25 +14,26 @@ function findRepoRoot(): string {
   for (const start of starts) {
     let dir = start;
     for (;;) {
-      if (fs.existsSync(path.join(dir, "CLAUDE.md"))) return dir;
+      if (fs.existsSync(path.join(dir, "AIEV.md"))) return dir;
       const parent = path.dirname(dir);
       if (parent === dir) break;
       dir = parent;
     }
   }
   throw new Error(
-    "Không tìm thấy repo root (file CLAUDE.md). Hãy chạy server bên trong repo Edit-Video-AI.",
+    "Không tìm thấy repo root (file AIEV.md). Hãy chạy server bên trong repo AIEV.",
   );
 }
 
 export const repoRoot = findRepoRoot();
 
-// Nạp .env từ repo root (ANTHROPIC_API_KEY, SERVER_PORT, ...)
+// .env.local chứa secret (ưu tiên), .env giữ cấu hình tương thích bản cũ.
+dotenv.config({ path: path.join(repoRoot, ".env.local"), quiet: true });
 dotenv.config({ path: path.join(repoRoot, ".env"), quiet: true });
 
 export const SERVER_PORT = Number(process.env.SERVER_PORT || 6869);
 
-const ENV_FILE = path.join(repoRoot, ".env");
+const ENV_FILE = path.join(repoRoot, ".env.local");
 
 /**
  * Upsert/xóa một biến trong .env - giữ nguyên comment và các dòng khác.
@@ -186,7 +187,7 @@ export const paths = {
   musicDir: path.join(repoRoot, "assets", "music"),
   outputsDir: path.join(repoRoot, "outputs"),
   importsDir: path.join(repoRoot, "imports"),
-  skillsDir: path.join(repoRoot, ".claude", "skills"),
+  skillsDir: path.join(repoRoot, ".aiev", "skills"),
   remotionDir: path.join(repoRoot, "engines", "remotion"),
   /** Nơi stage asset bằng hardlink cho Remotion staticFile() */
   stagingDir: path.join(repoRoot, "engines", "remotion", "public", "staging"),

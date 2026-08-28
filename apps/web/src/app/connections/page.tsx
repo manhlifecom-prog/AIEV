@@ -29,7 +29,6 @@ import {
   Eye,
   EyeOff,
   Globe,
-  Image as ImageIcon,
   KeyRound,
   Bot,
   Loader2,
@@ -37,7 +36,6 @@ import {
   Play,
   Plug,
   PlugZap,
-  Sparkles,
   Square,
   Trash2,
   type LucideIcon,
@@ -87,18 +85,15 @@ const ROLE_LABELS: Record<string, string> = {
   edit: "conn.role.edit",
   chat: "conn.role.chat",
   image: "conn.role.image",
+  transcription: "Bóc lời cloud",
 };
 
 const PROVIDER_ICONS: Record<ConnectionInfo["id"], LucideIcon> = {
-  claude: Sparkles,
-  gemini: ImageIcon,
   openai: Bot,
 };
 
 const KEY_PLACEHOLDERS: Record<ConnectionInfo["id"], string> = {
-  claude: "sk-ant-...",
-  gemini: "AIza...",
-  openai: "sk-...",
+  openai: "sk-proj-...",
 };
 
 /** Một hàng thiết lập - cùng nhịp dọc với trang Cấu hình. */
@@ -418,13 +413,6 @@ function ProviderCard({
           </div>
         </Row>
 
-        {conn.id === "claude" && (
-          <Row>
-            <p className="text-meta text-[var(--text-muted)]">
-              {t("conn.claude-note")}
-            </p>
-          </Row>
-        )}
       </div>
 
       {/* Modal xác nhận xóa API key - bắt gõ DELETE */}

@@ -278,7 +278,11 @@ async function stepCut(ctx: JobCtx, id: string): Promise<void> {
       fps: Math.max(1, Math.round(outFps)),
       copyFiles: [{ srcAbs: cutAbs, destRel: fileName }],
       // KHÔNG đặt from/to: file đã cắt sẵn đúng khoảng, đặt thêm sẽ cắt chồng lần hai
-      scenes: [{ id: "src", srcVideo: sceneAssetPath(fileName) }],
+      scenes: [{
+        durationInFrames: Math.max(1, Math.round((seg.end - seg.start) * outFps)),
+        id: "src",
+        srcVideo: sceneAssetPath(fileName),
+      }],
       brief: {
         // Cấu hình edit người dùng đặt cho cả phiên (phụ đề, highlight, bố cục key,
         // sound effect, nhạc nền, ảnh minh họa, skill...) - nhờ vậy project con

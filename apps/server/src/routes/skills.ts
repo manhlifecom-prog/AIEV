@@ -2,10 +2,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { Router } from "express";
 import matter from "gray-matter";
-import { nanoid } from "nanoid";
-import { query } from "@anthropic-ai/claude-agent-sdk";
-import { hasClaudeAuth, paths, repoRoot } from "../config.js";
-import { addTokenUsage } from "../db.js";
+import { paths } from "../config.js";
+import { generateText } from "../aiText.js";
+import { hasOpenAIAuth } from "../openaiConfig.js";
 import { HttpError, ensureDir, isKebabCase, toKebabAscii } from "../util.js";
 
 const router = Router();
@@ -104,11 +103,11 @@ router.post("/generate", async (req, res) => {
     baseSkillContent = fs.readFileSync(file, "utf8");
   }
 
-  if (!hasClaudeAuth()) {
+  if (!hasOpenAIAuth()) {
     throw new HttpError(
       503,
-      "NO_CLAUDE_AUTH",
-      "Chưa có xác thực Claude. Cách 1 (khuyên dùng): đăng nhập Claude Code trên máy này (VSCode extension hoặc chạy `claude` trong terminal rồi /login) - hệ thống tự dùng gói subscription. Cách 2: điền ANTHROPIC_API_KEY vào file .env rồi khởi động lại server.",
+      "NO_OPENAI_AUTH",
+      "Chưa có OPENAI_API_KEY. Mở Kết nối > OpenAI để thêm key.",
     );
   }
 
@@ -150,81 +149,20 @@ router.post("/generate", async (req, res) => {
     "## Yêu cầu đầu ra\n\nTrả về DUY NHẤT nội dung file SKILL.md hoàn chỉnh trong một code fence ```markdown. Frontmatter có name (kebab-case) + description (nêu rõ KHI NÀO dùng, viết bằng TIẾNG ANH). **Thân skill viết bằng TIẾNG ANH** theo đúng chuẩn skill-authoring - riêng các chuỗi ví dụ đặc thù tiếng Việt (chữ có dấu để minh họa lỗi font, ví dụ filler \"ừm/à/kiểu\") thì GIỮ NGUYÊN tiếng Việt vì dịch đi là mất ý nghĩa minh họa. Có OUTPUT SPEC (kích thước px theo aspect, fps), quy tắc caption/highlight/SFX theo câu trả lời, mục '⚖️ STYLE DESIGN - PRIORITY RULE' ngay sau heading đầu (xem skill mẫu), và mục 'Known issues' để tích lũy về sau.",
   );
 
-  // Gọi Agent SDK - một lượt, không tool, không nạp settings/CLAUDE.md
-  const options: Record<string, unknown> = {
-    cwd: repoRoot,
-    maxTurns: 1,
-    allowedTools: [],
-    settingSources: [],
-    permissionMode: "default",
-  };
-
   let resultText = "";
   let inTok = 0;
   let outTok = 0;
-  let cost = 0;
-
   try {
-    const q = query({
-      prompt: promptParts.join("\n\n"),
-      options: options as Parameters<typeof query>[0]["options"],
-    });
-
-    const run = (async () => {
-      for await (const raw of q) {
-        const msg = raw as {
-          type?: string;
-          result?: string;
-          total_cost_usd?: number;
-          usage?: {
-            input_tokens?: number;
-            output_tokens?: number;
-            cache_read_input_tokens?: number;
-            cache_creation_input_tokens?: number;
-          };
-        };
-        if (msg.type === "result") {
-          // Cộng cache vào input như agent.ts
-          inTok =
-            (msg.usage?.input_tokens ?? 0) +
-            (msg.usage?.cache_creation_input_tokens ?? 0) +
-            (msg.usage?.cache_read_input_tokens ?? 0);
-          outTok = msg.usage?.output_tokens ?? 0;
-          cost = typeof msg.total_cost_usd === "number" ? msg.total_cost_usd : 0;
-          if (typeof msg.result === "string") resultText = msg.result;
-        }
-      }
-    })();
-    // Nếu timeout thắng race, run có thể reject sau đó (do interrupt) - nuốt để không unhandled
-    run.catch(() => {});
-
-    let timer: NodeJS.Timeout | undefined;
-    const timeout = new Promise<never>((_, reject) => {
-      timer = setTimeout(() => {
-        void q.interrupt().catch(() => {});
-        reject(new Error(`Quá ${GEN_TIMEOUT_MS / 60_000} phút chưa có kết quả`));
-      }, GEN_TIMEOUT_MS);
-    });
-    try {
-      await Promise.race([run, timeout]);
-    } finally {
-      clearTimeout(timer);
-    }
+    const generated = await generateText({ prompt: promptParts.join("\n\n"), usageTag: "skillgen", timeoutMs: GEN_TIMEOUT_MS });
+    resultText = generated.text;
+    inTok = generated.inputTokens;
+    outTok = generated.outputTokens;
   } catch (err) {
     throw new HttpError(
       500,
       "GENERATION_FAILED",
       `Tạo skill thất bại: ${err instanceof Error ? err.message : String(err)}`,
     );
-  }
-
-  // Ghi token đã dùng (kể cả khi output không parse được - token vẫn đã tiêu)
-  try {
-    if (inTok > 0 || outTok > 0 || cost > 0) {
-      addTokenUsage(`skillgen_${nanoid(8)}`, null, inTok, outTok, cost, "claude");
-    }
-  } catch {
-    /* usage là phụ */
   }
 
   // Parse + validate frontmatter

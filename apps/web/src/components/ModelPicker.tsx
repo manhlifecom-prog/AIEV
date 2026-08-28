@@ -10,7 +10,7 @@
  * đó dành cho tính năng Tạo ảnh, không dùng cho chat/edit.
  */
 
-import { AlertTriangle, Info } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/Badge";
 import { Banner } from "@/components/Banner";
@@ -18,7 +18,7 @@ import { Field } from "@/components/Field";
 import { InfoHint } from "@/components/InfoHint";
 import { Panel } from "@/components/Panel";
 import {
-  getClaudeModels,
+  getOpenAIModels,
   getProviders,
   type AgentEffort,
   type Provider,
@@ -44,7 +44,7 @@ import { useT } from "@/lib/i18n";
  * bước. Người dùng vẫn chọn được model mạnh hơn trong ô ngay cạnh; đây chỉ là
  * điểm khởi đầu hợp lý, không phải giới hạn.
  */
-export const DEFAULT_MODEL = "claude-sonnet-5";
+export const DEFAULT_MODEL = "gpt-5.5";
 export const DEFAULT_EFFORT: AgentEffort = "medium";
 
 export const EFFORT_OPTIONS: {
@@ -64,11 +64,9 @@ export const EFFORT_OPTIONS: {
  * nên đổi model mặc định mà quên chỗ này là ô select hiện sai tên model, người
  * dùng tưởng đang chạy model khác hẳn với thứ thật sự được gọi.
  */
-const FALLBACK_MODELS = [{ id: DEFAULT_MODEL, label: "Claude Sonnet 5" }];
+const FALLBACK_MODELS = [{ id: DEFAULT_MODEL, label: "GPT-5.5" }];
 
 // KEY dictionary - dịch bằng t() lúc render
-const GEMINI_TOOLTIP = "model.gemini-tooltip";
-
 // Cache module-level - providers thay đổi khi sửa .env/đăng nhập lại,
 // một lần fetch mỗi phiên UI là đủ.
 let providersCache: Provider[] | null = null;
@@ -129,7 +127,7 @@ export function useClaudeModels() {
     if (startedRef.current) return;
     startedRef.current = true;
     try {
-      const { models } = await getClaudeModels();
+      const { models } = await getOpenAIModels();
       setModels(models);
     } catch {
       // lỗi mạng → cho phép thử lại ở lần focus sau, UI vẫn còn danh sách tĩnh
@@ -148,8 +146,8 @@ interface PickerProps {
   disabled?: boolean;
 }
 
-function claudeModels(claude: Provider | undefined) {
-  return claude && claude.models.length > 0 ? claude.models : FALLBACK_MODELS;
+function openaiModels(openai: Provider | undefined) {
+  return openai && openai.models.length > 0 ? openai.models : FALLBACK_MODELS;
 }
 
 /** Khối "AI thực hiện" trong modal Bắt đầu edit - model + mode + trạng thái kết nối. */
@@ -162,11 +160,10 @@ export function AiModelBlock({
 }: PickerProps) {
   const { t } = useT();
   const { providers } = useProviders();
-  const claude = providers?.find((p) => p.id === "claude");
-  const gemini = providers?.find((p) => p.id === "gemini");
+  const claude = providers?.find((p) => p.id === "openai");
   const { models: liveModels, load: loadClaudeModels } = useClaudeModels();
   // Chưa fetch live → tạm dùng danh sách tĩnh từ /api/providers
-  const models = liveModels ?? claudeModels(claude);
+  const models = liveModels ?? openaiModels(claude);
   // Model đã lưu không (chưa) nằm trong danh sách → vẫn hiển thị bằng id thô
   const modelMissing = model !== "" && !models.some((m) => m.id === model);
 
@@ -179,7 +176,7 @@ export function AiModelBlock({
         // kết nối. Bản cũ có chữ này, chuyển sang Panel thì rơi mất.
         claude && (
           <span className="flex items-center gap-2">
-            <span className="text-meta font-medium">Claude</span>
+            <span className="text-meta font-medium">OpenAI</span>
             {claude.connected ? (
               <Badge
                 tone="success"
@@ -254,17 +251,6 @@ export function AiModelBlock({
           </>
         }
       />
-      {gemini && (
-        <p
-          className="flex items-center gap-2 text-meta text-[var(--text-muted)]"
-          title={t(GEMINI_TOOLTIP)}
-        >
-          <Info size={14} strokeWidth={2} className="shrink-0" />
-          {gemini.connected
-            ? t("model.gemini-connected")
-            : t("model.gemini-not-connected")}
-        </p>
-      )}
     </Panel>
   );
 }
@@ -279,11 +265,10 @@ export function AiModelInlineRow({
 }: PickerProps) {
   const { t } = useT();
   const { providers } = useProviders();
-  const claude = providers?.find((p) => p.id === "claude");
-  const gemini = providers?.find((p) => p.id === "gemini");
+  const claude = providers?.find((p) => p.id === "openai");
   const { models: liveModels, load: loadClaudeModels } = useClaudeModels();
   // Chưa fetch live → tạm dùng danh sách tĩnh từ /api/providers
-  const models = liveModels ?? claudeModels(claude);
+  const models = liveModels ?? openaiModels(claude);
   // Model đã lưu không (chưa) nằm trong danh sách → vẫn hiển thị bằng id thô
   const modelMissing = model !== "" && !models.some((m) => m.id === model);
 
@@ -326,15 +311,6 @@ export function AiModelInlineRow({
         >
           <AlertTriangle size={13} strokeWidth={2} className="shrink-0" />
           {t("model.claude-not-connected")}
-        </span>
-      )}
-      {gemini && (
-        <span
-          className="inline-flex items-center gap-1 text-meta text-[var(--text-muted)]"
-          title={t(GEMINI_TOOLTIP)}
-        >
-          <Info size={13} strokeWidth={2} className="shrink-0" />
-          {t("model.gemini-images-only")}
         </span>
       )}
     </div>

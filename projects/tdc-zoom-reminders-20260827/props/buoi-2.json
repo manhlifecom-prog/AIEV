@@ -1,0 +1,2225 @@
+{
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "scenes": [
+    {
+      "render": "staging/tdc-zoom-reminders/buoi-2-clean.mp4",
+      "durationInFrames": 2020
+    }
+  ],
+  "captions": [
+    {
+      "from": 0,
+      "durationInFrames": 53,
+      "words": [
+        {
+          "text": "Treo",
+          "start": 0,
+          "end": 11
+        },
+        {
+          "text": "thưởng",
+          "start": 11,
+          "end": 16
+        },
+        {
+          "text": "dọa",
+          "start": 30,
+          "end": 32
+        },
+        {
+          "text": "nạt",
+          "start": 32,
+          "end": 35
+        },
+        {
+          "text": "là",
+          "start": 35,
+          "end": 49
+        },
+        {
+          "text": "cách",
+          "start": 49,
+          "end": 53
+        }
+      ]
+    },
+    {
+      "from": 53,
+      "durationInFrames": 28,
+      "words": [
+        {
+          "text": "thức",
+          "start": 53,
+          "end": 58
+        },
+        {
+          "text": "mà",
+          "start": 58,
+          "end": 66
+        },
+        {
+          "text": "rất",
+          "start": 66,
+          "end": 66
+        },
+        {
+          "text": "nhiều",
+          "start": 66,
+          "end": 71
+        },
+        {
+          "text": "bố",
+          "start": 71,
+          "end": 77
+        },
+        {
+          "text": "mẹ",
+          "start": 77,
+          "end": 81
+        }
+      ]
+    },
+    {
+      "from": 81,
+      "durationInFrames": 32,
+      "words": [
+        {
+          "text": "ngày",
+          "start": 81,
+          "end": 90
+        },
+        {
+          "text": "nay",
+          "start": 90,
+          "end": 90
+        },
+        {
+          "text": "đang",
+          "start": 90,
+          "end": 97
+        },
+        {
+          "text": "áp",
+          "start": 97,
+          "end": 100
+        },
+        {
+          "text": "dụng",
+          "start": 100,
+          "end": 108
+        },
+        {
+          "text": "với",
+          "start": 108,
+          "end": 113
+        }
+      ]
+    },
+    {
+      "from": 113,
+      "durationInFrames": 30,
+      "words": [
+        {
+          "text": "mong",
+          "start": 113,
+          "end": 118
+        },
+        {
+          "text": "muốn",
+          "start": 118,
+          "end": 121
+        },
+        {
+          "text": "là",
+          "start": 121,
+          "end": 130
+        },
+        {
+          "text": "con",
+          "start": 130,
+          "end": 130
+        },
+        {
+          "text": "còn",
+          "start": 130,
+          "end": 140
+        },
+        {
+          "text": "động",
+          "start": 140,
+          "end": 143
+        }
+      ]
+    },
+    {
+      "from": 143,
+      "durationInFrames": 39,
+      "words": [
+        {
+          "text": "lực",
+          "start": 143,
+          "end": 147
+        },
+        {
+          "text": "học",
+          "start": 147,
+          "end": 161
+        },
+        {
+          "text": "tập",
+          "start": 161,
+          "end": 166
+        },
+        {
+          "text": "Nhưng",
+          "start": 166,
+          "end": 174
+        },
+        {
+          "text": "mà",
+          "start": 174,
+          "end": 177
+        },
+        {
+          "text": "thưa",
+          "start": 177,
+          "end": 182
+        }
+      ]
+    },
+    {
+      "from": 182,
+      "durationInFrames": 38,
+      "words": [
+        {
+          "text": "với",
+          "start": 182,
+          "end": 186
+        },
+        {
+          "text": "các",
+          "start": 186,
+          "end": 190
+        },
+        {
+          "text": "anh",
+          "start": 190,
+          "end": 194
+        },
+        {
+          "text": "chị",
+          "start": 194,
+          "end": 200
+        },
+        {
+          "text": "đó",
+          "start": 207,
+          "end": 213
+        },
+        {
+          "text": "chỉ",
+          "start": 213,
+          "end": 220
+        }
+      ]
+    },
+    {
+      "from": 220,
+      "durationInFrames": 41,
+      "words": [
+        {
+          "text": "là",
+          "start": 220,
+          "end": 229
+        },
+        {
+          "text": "cái",
+          "start": 229,
+          "end": 239
+        },
+        {
+          "text": "bề",
+          "start": 239,
+          "end": 240
+        },
+        {
+          "text": "nổi",
+          "start": 240,
+          "end": 247
+        },
+        {
+          "text": "của",
+          "start": 247,
+          "end": 255
+        },
+        {
+          "text": "tảng",
+          "start": 255,
+          "end": 261
+        }
+      ]
+    },
+    {
+      "from": 261,
+      "durationInFrames": 46,
+      "words": [
+        {
+          "text": "băng",
+          "start": 261,
+          "end": 270
+        },
+        {
+          "text": "chìm",
+          "start": 270,
+          "end": 287
+        },
+        {
+          "text": "Khi",
+          "start": 287,
+          "end": 295
+        },
+        {
+          "text": "mà",
+          "start": 295,
+          "end": 299
+        },
+        {
+          "text": "chúng",
+          "start": 299,
+          "end": 302
+        },
+        {
+          "text": "ta",
+          "start": 302,
+          "end": 307
+        }
+      ]
+    },
+    {
+      "from": 307,
+      "durationInFrames": 34,
+      "words": [
+        {
+          "text": "treo",
+          "start": 307,
+          "end": 315
+        },
+        {
+          "text": "thưởng",
+          "start": 315,
+          "end": 318
+        },
+        {
+          "text": "chúng",
+          "start": 330,
+          "end": 335
+        },
+        {
+          "text": "ta",
+          "start": 335,
+          "end": 335
+        },
+        {
+          "text": "dọa",
+          "start": 335,
+          "end": 337
+        },
+        {
+          "text": "nạt",
+          "start": 337,
+          "end": 341
+        }
+      ]
+    },
+    {
+      "from": 341,
+      "durationInFrames": 45,
+      "words": [
+        {
+          "text": "thì",
+          "start": 341,
+          "end": 352
+        },
+        {
+          "text": "chúng",
+          "start": 352,
+          "end": 355
+        },
+        {
+          "text": "ta",
+          "start": 355,
+          "end": 362
+        },
+        {
+          "text": "cảm",
+          "start": 362,
+          "end": 370
+        },
+        {
+          "text": "nhận",
+          "start": 370,
+          "end": 374
+        },
+        {
+          "text": "rằng",
+          "start": 374,
+          "end": 386
+        }
+      ]
+    },
+    {
+      "from": 386,
+      "durationInFrames": 49,
+      "words": [
+        {
+          "text": "là",
+          "start": 386,
+          "end": 403
+        },
+        {
+          "text": "con",
+          "start": 403,
+          "end": 404
+        },
+        {
+          "text": "hành",
+          "start": 404,
+          "end": 414
+        },
+        {
+          "text": "động",
+          "start": 414,
+          "end": 418
+        },
+        {
+          "text": "rất",
+          "start": 418,
+          "end": 425
+        },
+        {
+          "text": "là",
+          "start": 425,
+          "end": 435
+        }
+      ]
+    },
+    {
+      "from": 435,
+      "durationInFrames": 38,
+      "words": [
+        {
+          "text": "nhanh",
+          "start": 435,
+          "end": 437
+        },
+        {
+          "text": "gõ",
+          "start": 437,
+          "end": 442
+        },
+        {
+          "text": "hành",
+          "start": 446,
+          "end": 458
+        },
+        {
+          "text": "động",
+          "start": 458,
+          "end": 458
+        },
+        {
+          "text": "rất",
+          "start": 458,
+          "end": 463
+        },
+        {
+          "text": "là",
+          "start": 463,
+          "end": 473
+        }
+      ]
+    },
+    {
+      "from": 473,
+      "durationInFrames": 47,
+      "words": [
+        {
+          "text": "khẩn",
+          "start": 473,
+          "end": 473
+        },
+        {
+          "text": "trương",
+          "start": 473,
+          "end": 480
+        },
+        {
+          "text": "Tuy",
+          "start": 482,
+          "end": 493
+        },
+        {
+          "text": "nhiên",
+          "start": 493,
+          "end": 497
+        },
+        {
+          "text": "nó",
+          "start": 497,
+          "end": 514
+        },
+        {
+          "text": "lại",
+          "start": 514,
+          "end": 520
+        }
+      ]
+    },
+    {
+      "from": 520,
+      "durationInFrames": 43,
+      "words": [
+        {
+          "text": "không",
+          "start": 520,
+          "end": 525
+        },
+        {
+          "text": "đánh",
+          "start": 525,
+          "end": 534
+        },
+        {
+          "text": "thức",
+          "start": 534,
+          "end": 541
+        },
+        {
+          "text": "được",
+          "start": 541,
+          "end": 551
+        },
+        {
+          "text": "cái",
+          "start": 551,
+          "end": 562
+        },
+        {
+          "text": "nội",
+          "start": 562,
+          "end": 563
+        }
+      ]
+    },
+    {
+      "from": 563,
+      "durationInFrames": 37,
+      "words": [
+        {
+          "text": "lực",
+          "start": 563,
+          "end": 566
+        },
+        {
+          "text": "học",
+          "start": 566,
+          "end": 578
+        },
+        {
+          "text": "tập",
+          "start": 578,
+          "end": 578
+        },
+        {
+          "text": "tự",
+          "start": 578,
+          "end": 588
+        },
+        {
+          "text": "thân",
+          "start": 588,
+          "end": 590
+        },
+        {
+          "text": "bên",
+          "start": 590,
+          "end": 600
+        }
+      ]
+    },
+    {
+      "from": 600,
+      "durationInFrames": 36,
+      "words": [
+        {
+          "text": "trong",
+          "start": 600,
+          "end": 607
+        },
+        {
+          "text": "của",
+          "start": 607,
+          "end": 612
+        },
+        {
+          "text": "các",
+          "start": 612,
+          "end": 617
+        },
+        {
+          "text": "con",
+          "start": 617,
+          "end": 620
+        },
+        {
+          "text": "Nó",
+          "start": 620,
+          "end": 631
+        },
+        {
+          "text": "không",
+          "start": 631,
+          "end": 636
+        }
+      ]
+    },
+    {
+      "from": 636,
+      "durationInFrames": 44,
+      "words": [
+        {
+          "text": "xuất",
+          "start": 636,
+          "end": 642
+        },
+        {
+          "text": "phát",
+          "start": 642,
+          "end": 647
+        },
+        {
+          "text": "từ",
+          "start": 647,
+          "end": 657
+        },
+        {
+          "text": "cái",
+          "start": 657,
+          "end": 674
+        },
+        {
+          "text": "niềm",
+          "start": 674,
+          "end": 674
+        },
+        {
+          "text": "vui",
+          "start": 674,
+          "end": 680
+        }
+      ]
+    },
+    {
+      "from": 680,
+      "durationInFrames": 43,
+      "words": [
+        {
+          "text": "của",
+          "start": 680,
+          "end": 693
+        },
+        {
+          "text": "sự",
+          "start": 693,
+          "end": 700
+        },
+        {
+          "text": "tiến",
+          "start": 700,
+          "end": 705
+        },
+        {
+          "text": "bộ",
+          "start": 705,
+          "end": 709
+        },
+        {
+          "text": "nó",
+          "start": 716,
+          "end": 719
+        },
+        {
+          "text": "không",
+          "start": 719,
+          "end": 723
+        }
+      ]
+    },
+    {
+      "from": 723,
+      "durationInFrames": 36,
+      "words": [
+        {
+          "text": "xuất",
+          "start": 723,
+          "end": 737
+        },
+        {
+          "text": "phát",
+          "start": 737,
+          "end": 737
+        },
+        {
+          "text": "từ",
+          "start": 737,
+          "end": 742
+        },
+        {
+          "text": "cái",
+          "start": 742,
+          "end": 751
+        },
+        {
+          "text": "niềm",
+          "start": 751,
+          "end": 754
+        },
+        {
+          "text": "vui",
+          "start": 754,
+          "end": 759
+        }
+      ]
+    },
+    {
+      "from": 759,
+      "durationInFrames": 32,
+      "words": [
+        {
+          "text": "của",
+          "start": 759,
+          "end": 764
+        },
+        {
+          "text": "chính",
+          "start": 764,
+          "end": 770
+        },
+        {
+          "text": "việc",
+          "start": 770,
+          "end": 776
+        },
+        {
+          "text": "học",
+          "start": 776,
+          "end": 781
+        },
+        {
+          "text": "mang",
+          "start": 781,
+          "end": 787
+        },
+        {
+          "text": "lại",
+          "start": 787,
+          "end": 791
+        }
+      ]
+    },
+    {
+      "from": 791,
+      "durationInFrames": 33,
+      "words": [
+        {
+          "text": "cho",
+          "start": 791,
+          "end": 795
+        },
+        {
+          "text": "các",
+          "start": 795,
+          "end": 797
+        },
+        {
+          "text": "con",
+          "start": 797,
+          "end": 801
+        },
+        {
+          "text": "Mà",
+          "start": 804,
+          "end": 815
+        },
+        {
+          "text": "nó",
+          "start": 815,
+          "end": 823
+        },
+        {
+          "text": "xuất",
+          "start": 823,
+          "end": 824
+        }
+      ]
+    },
+    {
+      "from": 824,
+      "durationInFrames": 45,
+      "words": [
+        {
+          "text": "phát",
+          "start": 824,
+          "end": 829
+        },
+        {
+          "text": "từ",
+          "start": 829,
+          "end": 834
+        },
+        {
+          "text": "những",
+          "start": 834,
+          "end": 842
+        },
+        {
+          "text": "yếu",
+          "start": 842,
+          "end": 844
+        },
+        {
+          "text": "tố",
+          "start": 844,
+          "end": 848
+        },
+        {
+          "text": "ngoại",
+          "start": 848,
+          "end": 869
+        }
+      ]
+    },
+    {
+      "from": 869,
+      "durationInFrames": 56,
+      "words": [
+        {
+          "text": "lực",
+          "start": 869,
+          "end": 879
+        },
+        {
+          "text": "ngoại",
+          "start": 887,
+          "end": 895
+        },
+        {
+          "text": "cảnh",
+          "start": 895,
+          "end": 902
+        },
+        {
+          "text": "bên",
+          "start": 902,
+          "end": 910
+        },
+        {
+          "text": "ngoài",
+          "start": 910,
+          "end": 917
+        },
+        {
+          "text": "thưa",
+          "start": 921,
+          "end": 925
+        }
+      ]
+    },
+    {
+      "from": 925,
+      "durationInFrames": 24,
+      "words": [
+        {
+          "text": "với",
+          "start": 925,
+          "end": 927
+        },
+        {
+          "text": "các",
+          "start": 927,
+          "end": 932
+        },
+        {
+          "text": "anh",
+          "start": 932,
+          "end": 932
+        },
+        {
+          "text": "chị",
+          "start": 932,
+          "end": 936
+        },
+        {
+          "text": "Thì",
+          "start": 936,
+          "end": 947
+        },
+        {
+          "text": "tối",
+          "start": 947,
+          "end": 949
+        }
+      ]
+    },
+    {
+      "from": 949,
+      "durationInFrames": 26,
+      "words": [
+        {
+          "text": "ngày",
+          "start": 949,
+          "end": 949
+        },
+        {
+          "text": "hôm",
+          "start": 949,
+          "end": 954
+        },
+        {
+          "text": "nay",
+          "start": 954,
+          "end": 958
+        },
+        {
+          "text": "Thành",
+          "start": 958,
+          "end": 964
+        },
+        {
+          "text": "sẽ",
+          "start": 964,
+          "end": 969
+        },
+        {
+          "text": "chia",
+          "start": 969,
+          "end": 975
+        }
+      ]
+    },
+    {
+      "from": 975,
+      "durationInFrames": 37,
+      "words": [
+        {
+          "text": "sẻ",
+          "start": 975,
+          "end": 978
+        },
+        {
+          "text": "với",
+          "start": 978,
+          "end": 983
+        },
+        {
+          "text": "các",
+          "start": 983,
+          "end": 989
+        },
+        {
+          "text": "anh",
+          "start": 989,
+          "end": 989
+        },
+        {
+          "text": "chị",
+          "start": 989,
+          "end": 993
+        },
+        {
+          "text": "3",
+          "start": 993,
+          "end": 1012
+        }
+      ]
+    },
+    {
+      "from": 1012,
+      "durationInFrames": 42,
+      "words": [
+        {
+          "text": "cái",
+          "start": 1012,
+          "end": 1022
+        },
+        {
+          "text": "động",
+          "start": 1022,
+          "end": 1022
+        },
+        {
+          "text": "lực",
+          "start": 1022,
+          "end": 1024
+        },
+        {
+          "text": "tự",
+          "start": 1024,
+          "end": 1035
+        },
+        {
+          "text": "thân",
+          "start": 1035,
+          "end": 1042
+        },
+        {
+          "text": "rất",
+          "start": 1042,
+          "end": 1054
+        }
+      ]
+    },
+    {
+      "from": 1054,
+      "durationInFrames": 31,
+      "words": [
+        {
+          "text": "mạnh",
+          "start": 1054,
+          "end": 1059
+        },
+        {
+          "text": "mẽ",
+          "start": 1059,
+          "end": 1068
+        },
+        {
+          "text": "mà",
+          "start": 1068,
+          "end": 1078
+        },
+        {
+          "text": "các",
+          "start": 1078,
+          "end": 1082
+        },
+        {
+          "text": "anh",
+          "start": 1082,
+          "end": 1082
+        },
+        {
+          "text": "chị",
+          "start": 1082,
+          "end": 1085
+        }
+      ]
+    },
+    {
+      "from": 1085,
+      "durationInFrames": 44,
+      "words": [
+        {
+          "text": "không",
+          "start": 1085,
+          "end": 1093
+        },
+        {
+          "text": "cần",
+          "start": 1093,
+          "end": 1101
+        },
+        {
+          "text": "phải",
+          "start": 1101,
+          "end": 1110
+        },
+        {
+          "text": "treo",
+          "start": 1110,
+          "end": 1117
+        },
+        {
+          "text": "thưởng",
+          "start": 1117,
+          "end": 1120
+        },
+        {
+          "text": "các",
+          "start": 1120,
+          "end": 1129
+        }
+      ]
+    },
+    {
+      "from": 1129,
+      "durationInFrames": 25,
+      "words": [
+        {
+          "text": "anh",
+          "start": 1129,
+          "end": 1129
+        },
+        {
+          "text": "chị",
+          "start": 1129,
+          "end": 1129
+        },
+        {
+          "text": "không",
+          "start": 1129,
+          "end": 1134
+        },
+        {
+          "text": "cần",
+          "start": 1134,
+          "end": 1138
+        },
+        {
+          "text": "phải",
+          "start": 1138,
+          "end": 1148
+        },
+        {
+          "text": "dọa",
+          "start": 1148,
+          "end": 1154
+        }
+      ]
+    },
+    {
+      "from": 1154,
+      "durationInFrames": 43,
+      "words": [
+        {
+          "text": "nạt",
+          "start": 1154,
+          "end": 1160
+        },
+        {
+          "text": "Vậy",
+          "start": 1160,
+          "end": 1170
+        },
+        {
+          "text": "thì",
+          "start": 1170,
+          "end": 1176
+        },
+        {
+          "text": "chúng",
+          "start": 1176,
+          "end": 1190
+        },
+        {
+          "text": "ta",
+          "start": 1190,
+          "end": 1192
+        },
+        {
+          "text": "sẽ",
+          "start": 1192,
+          "end": 1197
+        }
+      ]
+    },
+    {
+      "from": 1197,
+      "durationInFrames": 47,
+      "words": [
+        {
+          "text": "cùng",
+          "start": 1197,
+          "end": 1204
+        },
+        {
+          "text": "tìm",
+          "start": 1204,
+          "end": 1209
+        },
+        {
+          "text": "hiểu",
+          "start": 1209,
+          "end": 1213
+        },
+        {
+          "text": "về",
+          "start": 1213,
+          "end": 1229
+        },
+        {
+          "text": "3",
+          "start": 1229,
+          "end": 1236
+        },
+        {
+          "text": "cái",
+          "start": 1236,
+          "end": 1244
+        }
+      ]
+    },
+    {
+      "from": 1244,
+      "durationInFrames": 31,
+      "words": [
+        {
+          "text": "động",
+          "start": 1244,
+          "end": 1244
+        },
+        {
+          "text": "lực",
+          "start": 1244,
+          "end": 1248
+        },
+        {
+          "text": "để",
+          "start": 1248,
+          "end": 1261
+        },
+        {
+          "text": "thôi",
+          "start": 1261,
+          "end": 1268
+        },
+        {
+          "text": "thúc",
+          "start": 1268,
+          "end": 1270
+        },
+        {
+          "text": "các",
+          "start": 1270,
+          "end": 1275
+        }
+      ]
+    },
+    {
+      "from": 1275,
+      "durationInFrames": 28,
+      "words": [
+        {
+          "text": "con",
+          "start": 1275,
+          "end": 1279
+        },
+        {
+          "text": "tự",
+          "start": 1279,
+          "end": 1286
+        },
+        {
+          "text": "chủ",
+          "start": 1286,
+          "end": 1290
+        },
+        {
+          "text": "và",
+          "start": 1290,
+          "end": 1295
+        },
+        {
+          "text": "ham",
+          "start": 1295,
+          "end": 1301
+        },
+        {
+          "text": "học",
+          "start": 1301,
+          "end": 1303
+        }
+      ]
+    },
+    {
+      "from": 1303,
+      "durationInFrames": 24,
+      "words": [
+        {
+          "text": "trong",
+          "start": 1303,
+          "end": 1310
+        },
+        {
+          "text": "buổi",
+          "start": 1310,
+          "end": 1314
+        },
+        {
+          "text": "tối",
+          "start": 1314,
+          "end": 1317
+        },
+        {
+          "text": "ngày",
+          "start": 1317,
+          "end": 1322
+        },
+        {
+          "text": "hôm",
+          "start": 1322,
+          "end": 1324
+        },
+        {
+          "text": "nay",
+          "start": 1324,
+          "end": 1327
+        }
+      ]
+    },
+    {
+      "from": 1327,
+      "durationInFrames": 119,
+      "words": [
+        {
+          "text": "Thế",
+          "start": 1327,
+          "end": 1337
+        },
+        {
+          "text": "nên",
+          "start": 1337,
+          "end": 1341
+        },
+        {
+          "text": "các",
+          "start": 1341,
+          "end": 1349
+        },
+        {
+          "text": "anh",
+          "start": 1349,
+          "end": 1349
+        },
+        {
+          "text": "chị",
+          "start": 1349,
+          "end": 1352
+        },
+        {
+          "text": "hãy",
+          "start": 1352,
+          "end": 1446
+        }
+      ]
+    },
+    {
+      "from": 1446,
+      "durationInFrames": 93,
+      "words": [
+        {
+          "text": "nhớ",
+          "start": 1446,
+          "end": 1451
+        },
+        {
+          "text": "là",
+          "start": 1451,
+          "end": 1515
+        },
+        {
+          "text": "có",
+          "start": 1515,
+          "end": 1518
+        },
+        {
+          "text": "mặt",
+          "start": 1518,
+          "end": 1521
+        },
+        {
+          "text": "sớm",
+          "start": 1521,
+          "end": 1530
+        },
+        {
+          "text": "và",
+          "start": 1530,
+          "end": 1539
+        }
+      ]
+    },
+    {
+      "from": 1539,
+      "durationInFrames": 25,
+      "words": [
+        {
+          "text": "đúng",
+          "start": 1539,
+          "end": 1539
+        },
+        {
+          "text": "giờ",
+          "start": 1539,
+          "end": 1545
+        },
+        {
+          "text": "trong",
+          "start": 1545,
+          "end": 1551
+        },
+        {
+          "text": "buổi",
+          "start": 1551,
+          "end": 1557
+        },
+        {
+          "text": "tối",
+          "start": 1557,
+          "end": 1559
+        },
+        {
+          "text": "ngày",
+          "start": 1559,
+          "end": 1564
+        }
+      ]
+    },
+    {
+      "from": 1564,
+      "durationInFrames": 53,
+      "words": [
+        {
+          "text": "hôm",
+          "start": 1564,
+          "end": 1564
+        },
+        {
+          "text": "nay",
+          "start": 1564,
+          "end": 1567
+        },
+        {
+          "text": "đúng",
+          "start": 1571,
+          "end": 1573
+        },
+        {
+          "text": "2",
+          "start": 1573,
+          "end": 1584
+        },
+        {
+          "text": "giờ",
+          "start": 1584,
+          "end": 1588
+        },
+        {
+          "text": "đúng",
+          "start": 1614,
+          "end": 1617
+        }
+      ]
+    },
+    {
+      "from": 1617,
+      "durationInFrames": 37,
+      "words": [
+        {
+          "text": "20",
+          "start": 1617,
+          "end": 1628
+        },
+        {
+          "text": "giờ",
+          "start": 1628,
+          "end": 1632
+        },
+        {
+          "text": "thì",
+          "start": 1632,
+          "end": 1640
+        },
+        {
+          "text": "Thành",
+          "start": 1640,
+          "end": 1644
+        },
+        {
+          "text": "sẽ",
+          "start": 1644,
+          "end": 1651
+        },
+        {
+          "text": "bắt",
+          "start": 1651,
+          "end": 1654
+        }
+      ]
+    },
+    {
+      "from": 1654,
+      "durationInFrames": 25,
+      "words": [
+        {
+          "text": "đầu",
+          "start": 1654,
+          "end": 1658
+        },
+        {
+          "text": "buổi",
+          "start": 1658,
+          "end": 1665
+        },
+        {
+          "text": "tối",
+          "start": 1665,
+          "end": 1667
+        },
+        {
+          "text": "ngày",
+          "start": 1667,
+          "end": 1673
+        },
+        {
+          "text": "hôm",
+          "start": 1673,
+          "end": 1673
+        },
+        {
+          "text": "nay",
+          "start": 1673,
+          "end": 1679
+        }
+      ]
+    },
+    {
+      "from": 1679,
+      "durationInFrames": 31,
+      "words": [
+        {
+          "text": "Hẹn",
+          "start": 1679,
+          "end": 1691
+        },
+        {
+          "text": "gặp",
+          "start": 1691,
+          "end": 1694
+        },
+        {
+          "text": "lại",
+          "start": 1694,
+          "end": 1700
+        },
+        {
+          "text": "các",
+          "start": 1700,
+          "end": 1705
+        },
+        {
+          "text": "anh",
+          "start": 1705,
+          "end": 1705
+        },
+        {
+          "text": "chị",
+          "start": 1705,
+          "end": 1710
+        }
+      ]
+    },
+    {
+      "from": 1710,
+      "durationInFrames": 89,
+      "words": [
+        {
+          "text": "tối",
+          "start": 1710,
+          "end": 1715
+        },
+        {
+          "text": "nay",
+          "start": 1715,
+          "end": 1738
+        },
+        {
+          "text": "lúc",
+          "start": 1738,
+          "end": 1776
+        },
+        {
+          "text": "20",
+          "start": 1776,
+          "end": 1787
+        },
+        {
+          "text": "giờ",
+          "start": 1787,
+          "end": 1792
+        },
+        {
+          "text": "trong",
+          "start": 1792,
+          "end": 1799
+        }
+      ]
+    },
+    {
+      "from": 1799,
+      "durationInFrames": 36,
+      "words": [
+        {
+          "text": "buổi",
+          "start": 1799,
+          "end": 1802
+        },
+        {
+          "text": "2",
+          "start": 1802,
+          "end": 1812
+        },
+        {
+          "text": "của",
+          "start": 1812,
+          "end": 1819
+        },
+        {
+          "text": "Bí",
+          "start": 1819,
+          "end": 1822
+        },
+        {
+          "text": "mật",
+          "start": 1822,
+          "end": 1827
+        },
+        {
+          "text": "giúp",
+          "start": 1827,
+          "end": 1835
+        }
+      ]
+    },
+    {
+      "from": 1835,
+      "durationInFrames": 38,
+      "words": [
+        {
+          "text": "con",
+          "start": 1835,
+          "end": 1840
+        },
+        {
+          "text": "ham",
+          "start": 1840,
+          "end": 1848
+        },
+        {
+          "text": "học",
+          "start": 1848,
+          "end": 1852
+        },
+        {
+          "text": "với",
+          "start": 1852,
+          "end": 1863
+        },
+        {
+          "text": "chủ",
+          "start": 1863,
+          "end": 1867
+        },
+        {
+          "text": "đề",
+          "start": 1867,
+          "end": 1873
+        }
+      ]
+    },
+    {
+      "from": 1873,
+      "durationInFrames": 53,
+      "words": [
+        {
+          "text": "kích",
+          "start": 1873,
+          "end": 1888
+        },
+        {
+          "text": "hoạt",
+          "start": 1888,
+          "end": 1895
+        },
+        {
+          "text": "năng",
+          "start": 1895,
+          "end": 1904
+        },
+        {
+          "text": "lực",
+          "start": 1904,
+          "end": 1910
+        },
+        {
+          "text": "tự",
+          "start": 1910,
+          "end": 1922
+        },
+        {
+          "text": "học",
+          "start": 1922,
+          "end": 1926
+        }
+      ]
+    },
+    {
+      "from": 1926,
+      "durationInFrames": 53,
+      "words": [
+        {
+          "text": "từ",
+          "start": 1926,
+          "end": 1950
+        },
+        {
+          "text": "sâu",
+          "start": 1950,
+          "end": 1956
+        },
+        {
+          "text": "bên",
+          "start": 1956,
+          "end": 1960
+        },
+        {
+          "text": "trong",
+          "start": 1960,
+          "end": 1965
+        },
+        {
+          "text": "con",
+          "start": 1965,
+          "end": 1973
+        },
+        {
+          "text": "mà",
+          "start": 1973,
+          "end": 1979
+        }
+      ]
+    },
+    {
+      "from": 1979,
+      "durationInFrames": 41,
+      "words": [
+        {
+          "text": "không",
+          "start": 1979,
+          "end": 1987
+        },
+        {
+          "text": "cần",
+          "start": 1987,
+          "end": 1995
+        },
+        {
+          "text": "thưởng",
+          "start": 1995,
+          "end": 2004
+        },
+        {
+          "text": "hay",
+          "start": 2004,
+          "end": 2013
+        },
+        {
+          "text": "dọa",
+          "start": 2013,
+          "end": 2016
+        },
+        {
+          "text": "nản",
+          "start": 2016,
+          "end": 2020
+        }
+      ]
+    }
+  ],
+  "speakerScale": 1.006,
+  "speakerMotionBoost": 1.0,
+  "speakerDriftBoost": 1.0,
+  "speakerOffsetY": 0,
+  "motionCues": [
+    {
+      "from": 0,
+      "durationInFrames": 90,
+      "fromScale": 1.0,
+      "toScale": 1.045,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 90,
+      "durationInFrames": 90,
+      "fromScale": 1.045,
+      "toScale": 1.015,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 180,
+      "durationInFrames": 90,
+      "fromScale": 1.015,
+      "toScale": 1.065,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 270,
+      "durationInFrames": 90,
+      "fromScale": 1.065,
+      "toScale": 1.025,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 360,
+      "durationInFrames": 90,
+      "fromScale": 1.025,
+      "toScale": 1.055,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 450,
+      "durationInFrames": 90,
+      "fromScale": 1.055,
+      "toScale": 1.0,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 540,
+      "durationInFrames": 90,
+      "fromScale": 1.0,
+      "toScale": 1.045,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 630,
+      "durationInFrames": 90,
+      "fromScale": 1.045,
+      "toScale": 1.015,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 720,
+      "durationInFrames": 90,
+      "fromScale": 1.015,
+      "toScale": 1.065,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 810,
+      "durationInFrames": 90,
+      "fromScale": 1.065,
+      "toScale": 1.025,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 900,
+      "durationInFrames": 90,
+      "fromScale": 1.025,
+      "toScale": 1.055,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 990,
+      "durationInFrames": 90,
+      "fromScale": 1.055,
+      "toScale": 1.0,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1080,
+      "durationInFrames": 90,
+      "fromScale": 1.0,
+      "toScale": 1.045,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 1170,
+      "durationInFrames": 90,
+      "fromScale": 1.045,
+      "toScale": 1.015,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1260,
+      "durationInFrames": 90,
+      "fromScale": 1.015,
+      "toScale": 1.065,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1350,
+      "durationInFrames": 90,
+      "fromScale": 1.065,
+      "toScale": 1.025,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 1440,
+      "durationInFrames": 90,
+      "fromScale": 1.025,
+      "toScale": 1.055,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1530,
+      "durationInFrames": 90,
+      "fromScale": 1.055,
+      "toScale": 1.0,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1620,
+      "durationInFrames": 90,
+      "fromScale": 1.0,
+      "toScale": 1.045,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 1710,
+      "durationInFrames": 90,
+      "fromScale": 1.045,
+      "toScale": 1.015,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1800,
+      "durationInFrames": 90,
+      "fromScale": 1.015,
+      "toScale": 1.065,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    },
+    {
+      "from": 1890,
+      "durationInFrames": 90,
+      "fromScale": 1.065,
+      "toScale": 1.025,
+      "fromX": 3,
+      "toX": -3,
+      "fromY": 1,
+      "toY": -1
+    },
+    {
+      "from": 1980,
+      "durationInFrames": 40,
+      "fromScale": 1.025,
+      "toScale": 1.055,
+      "fromX": -3,
+      "toX": 3,
+      "fromY": 0,
+      "toY": 1
+    }
+  ],
+  "editorials": [
+    {
+      "from": 0,
+      "durationInFrames": 135,
+      "eyebrow": "BỐ MẸ THƯỜNG LÀM",
+      "lines": [
+        [
+          {
+            "text": "Treo thưởng"
+          }
+        ],
+        [
+          {
+            "text": "hoặc dọa nạt",
+            "color": "orange"
+          }
+        ]
+      ],
+      "offsetX": 0
+    },
+    {
+      "from": 168,
+      "durationInFrames": 135,
+      "eyebrow": "CHỈ LÀ BỀ NỔI",
+      "lines": [
+        [
+          {
+            "text": "Con hành động nhanh"
+          }
+        ],
+        [
+          {
+            "text": "nhưng không bền vững",
+            "color": "cyan"
+          }
+        ]
+      ],
+      "offsetX": -60
+    },
+    {
+      "from": 627,
+      "durationInFrames": 135,
+      "eyebrow": "ĐỘNG LỰC BÊN NGOÀI",
+      "lines": [
+        [
+          {
+            "text": "Không tạo ra"
+          }
+        ],
+        [
+          {
+            "text": "niềm vui học tập",
+            "color": "orange"
+          }
+        ]
+      ],
+      "offsetX": 64
+    },
+    {
+      "from": 942,
+      "durationInFrames": 135,
+      "eyebrow": "NỘI DUNG BUỔI 2",
+      "lines": [
+        [
+          {
+            "text": "3 động lực"
+          }
+        ],
+        [
+          {
+            "text": "từ sâu bên trong",
+            "color": "cyan"
+          }
+        ]
+      ],
+      "offsetX": -44
+    },
+    {
+      "from": 1176,
+      "durationInFrames": 135,
+      "eyebrow": "CHỈ CÒN 2 TIẾNG",
+      "lines": [
+        [
+          {
+            "text": "Có mặt sớm"
+          }
+        ],
+        [
+          {
+            "text": "đúng giờ",
+            "color": "orange"
+          }
+        ]
+      ],
+      "offsetX": 55
+    },
+    {
+      "from": 1686,
+      "durationInFrames": 135,
+      "eyebrow": "BÍ MẬT GIÚP CON HAM HỌC",
+      "lines": [
+        [
+          {
+            "text": "Buổi 2"
+          }
+        ],
+        [
+          {
+            "text": "Kích hoạt năng lực tự học",
+            "color": "cyan"
+          }
+        ]
+      ],
+      "offsetX": 0
+    }
+  ],
+  "infographics": [
+    {
+      "from": 723,
+      "durationInFrames": 84,
+      "eyebrow": "ĐỘNG LỰC BỀN VỮNG",
+      "title": "Đến từ bên trong",
+      "accent": "cyan",
+      "rows": [
+        "Niềm vui tiến bộ",
+        "Cảm giác làm chủ",
+        "Ý nghĩa của việc học"
+      ]
+    },
+    {
+      "from": 1476,
+      "durationInFrames": 84,
+      "eyebrow": "NHẮC LỊCH ZOOM",
+      "title": "20:00 tối nay",
+      "accent": "orange",
+      "rows": [
+        "Có mặt sớm 5 phút",
+        "Chuẩn bị sổ và bút",
+        "Kiểm tra đường link Zoom"
+      ]
+    }
+  ],
+  "illustrationCues": [
+    {
+      "from": 0,
+      "durationInFrames": 57,
+      "type": "quote",
+      "position": "left-upper",
+      "accent": "orange",
+      "label": "Thưởng và phạt"
+    },
+    {
+      "from": 562,
+      "durationInFrames": 57,
+      "type": "target",
+      "position": "right-upper",
+      "accent": "cyan",
+      "label": "Động lực tự thân"
+    },
+    {
+      "from": 674,
+      "durationInFrames": 57,
+      "type": "growth",
+      "position": "left-mid",
+      "accent": "orange",
+      "label": "Niềm vui tiến bộ"
+    },
+    {
+      "from": 993,
+      "durationInFrames": 57,
+      "type": "number",
+      "position": "right-mid",
+      "accent": "cyan",
+      "label": "Ba động lực",
+      "value": "03"
+    },
+    {
+      "from": 1515,
+      "durationInFrames": 57,
+      "type": "clock",
+      "position": "left-upper",
+      "accent": "orange",
+      "label": "Có mặt đúng giờ"
+    },
+    {
+      "from": 1617,
+      "durationInFrames": 57,
+      "type": "video",
+      "position": "right-upper",
+      "accent": "cyan",
+      "label": "Zoom lúc 20:00"
+    }
+  ],
+  "emphasisCues": [
+    {
+      "from": 1819,
+      "durationInFrames": 90,
+      "kind": "program"
+    }
+  ],
+  "brollCues": [],
+  "sfxCues": [
+    {
+      "from": 0,
+      "file": "quick-swoosh.mp3",
+      "gain": 0.06
+    },
+    {
+      "from": 566,
+      "file": "pop-2.mp3",
+      "gain": 0.03
+    },
+    {
+      "from": 627,
+      "file": "quick-swoosh.mp3",
+      "gain": 0.06
+    },
+    {
+      "from": 723,
+      "file": "swoosh.mp3",
+      "gain": 0.06
+    },
+    {
+      "from": 997,
+      "file": "pop-2.mp3",
+      "gain": 0.03
+    },
+    {
+      "from": 1176,
+      "file": "quick-swoosh.mp3",
+      "gain": 0.06
+    },
+    {
+      "from": 1476,
+      "file": "swoosh.mp3",
+      "gain": 0.06
+    },
+    {
+      "from": 1621,
+      "file": "pop-2.mp3",
+      "gain": 0.03
+    },
+    {
+      "from": 1819,
+      "file": "quick-ting.mp3",
+      "gain": 0.04
+    }
+  ]
+}

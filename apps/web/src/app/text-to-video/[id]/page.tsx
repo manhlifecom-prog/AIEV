@@ -356,7 +356,7 @@ function ScriptModelSelect({
 }) {
   const { t } = useT();
   const { providers } = useProviders();
-  const claude = providers?.find((p) => p.id === "claude");
+  const claude = providers?.find((p) => p.id === "openai");
   const { models: liveModels, load } = useClaudeModels();
   // Chưa fetch live → tạm dùng danh sách tĩnh từ /api/providers
   const models = liveModels ?? claude?.models ?? [];
@@ -396,7 +396,7 @@ function ScriptModelSelect({
 function ClaudeAuthLine() {
   const { t } = useT();
   const { providers } = useProviders();
-  const claude = providers?.find((p) => p.id === "claude");
+  const claude = providers?.find((p) => p.id === "openai");
   if (!claude) return null;
   return (
     <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-sm text-[var(--text-muted)]">

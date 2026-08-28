@@ -1,0 +1,2526 @@
+{
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.84,
+      "text": "Rất nhiều bạn không phải là không có khả năng học tiếng Anh, vấn đề là các con đã bị hổng các kiến thức và mất gốc quá lâu rồi nhưng mà chưa được học lại một cách đúng đắn.",
+      "words": [
+        {
+          "word": " Rất",
+          "start": 0.0,
+          "end": 0.18
+        },
+        {
+          "word": " nhiều",
+          "start": 0.18,
+          "end": 0.24
+        },
+        {
+          "word": " bạn",
+          "start": 0.24,
+          "end": 0.52
+        },
+        {
+          "word": " không",
+          "start": 0.52,
+          "end": 0.94
+        },
+        {
+          "word": " phải",
+          "start": 0.94,
+          "end": 1.1
+        },
+        {
+          "word": " là",
+          "start": 1.1,
+          "end": 1.2
+        },
+        {
+          "word": " không",
+          "start": 1.2,
+          "end": 1.32
+        },
+        {
+          "word": " có",
+          "start": 1.32,
+          "end": 1.48
+        },
+        {
+          "word": " khả",
+          "start": 1.48,
+          "end": 1.62
+        },
+        {
+          "word": " năng",
+          "start": 1.62,
+          "end": 1.74
+        },
+        {
+          "word": " học",
+          "start": 1.74,
+          "end": 1.82
+        },
+        {
+          "word": " tiếng",
+          "start": 1.82,
+          "end": 1.94
+        },
+        {
+          "word": " Anh,",
+          "start": 1.94,
+          "end": 2.1
+        },
+        {
+          "word": " vấn",
+          "start": 2.14,
+          "end": 2.34
+        },
+        {
+          "word": " đề",
+          "start": 2.34,
+          "end": 2.58
+        },
+        {
+          "word": " là",
+          "start": 2.58,
+          "end": 2.74
+        },
+        {
+          "word": " các",
+          "start": 2.74,
+          "end": 2.84
+        },
+        {
+          "word": " con",
+          "start": 2.84,
+          "end": 3.02
+        },
+        {
+          "word": " đã",
+          "start": 3.02,
+          "end": 3.08
+        },
+        {
+          "word": " bị",
+          "start": 3.08,
+          "end": 3.24
+        },
+        {
+          "word": " hổng",
+          "start": 3.24,
+          "end": 3.5
+        },
+        {
+          "word": " các",
+          "start": 3.5,
+          "end": 3.7
+        },
+        {
+          "word": " kiến",
+          "start": 3.7,
+          "end": 4.1
+        },
+        {
+          "word": " thức",
+          "start": 4.1,
+          "end": 4.26
+        },
+        {
+          "word": " và",
+          "start": 4.26,
+          "end": 4.48
+        },
+        {
+          "word": " mất",
+          "start": 4.48,
+          "end": 4.68
+        },
+        {
+          "word": " gốc",
+          "start": 4.68,
+          "end": 4.88
+        },
+        {
+          "word": " quá",
+          "start": 4.88,
+          "end": 5.08
+        },
+        {
+          "word": " lâu",
+          "start": 5.08,
+          "end": 5.36
+        },
+        {
+          "word": " rồi",
+          "start": 5.36,
+          "end": 5.5
+        },
+        {
+          "word": " nhưng",
+          "start": 5.5,
+          "end": 5.96
+        },
+        {
+          "word": " mà",
+          "start": 5.96,
+          "end": 6.06
+        },
+        {
+          "word": " chưa",
+          "start": 6.06,
+          "end": 6.3
+        },
+        {
+          "word": " được",
+          "start": 6.3,
+          "end": 6.62
+        },
+        {
+          "word": " học",
+          "start": 6.62,
+          "end": 6.82
+        },
+        {
+          "word": " lại",
+          "start": 6.82,
+          "end": 7.02
+        },
+        {
+          "word": " một",
+          "start": 7.02,
+          "end": 7.34
+        },
+        {
+          "word": " cách",
+          "start": 7.34,
+          "end": 7.52
+        },
+        {
+          "word": " đúng",
+          "start": 7.52,
+          "end": 7.66
+        },
+        {
+          "word": " đắn.",
+          "start": 7.66,
+          "end": 7.84
+        }
+      ]
+    },
+    {
+      "start": 7.92,
+      "end": 11.38,
+      "text": "Ba mẹ đã cho con đi học thêm nhiều nơi nhưng mà điểm vẫn không lên.",
+      "words": [
+        {
+          "word": " Ba",
+          "start": 7.92,
+          "end": 8.16
+        },
+        {
+          "word": " mẹ",
+          "start": 8.16,
+          "end": 8.28
+        },
+        {
+          "word": " đã",
+          "start": 8.28,
+          "end": 8.36
+        },
+        {
+          "word": " cho",
+          "start": 8.36,
+          "end": 8.48
+        },
+        {
+          "word": " con",
+          "start": 8.48,
+          "end": 8.62
+        },
+        {
+          "word": " đi",
+          "start": 8.62,
+          "end": 8.82
+        },
+        {
+          "word": " học",
+          "start": 8.82,
+          "end": 8.96
+        },
+        {
+          "word": " thêm",
+          "start": 8.96,
+          "end": 9.2
+        },
+        {
+          "word": " nhiều",
+          "start": 9.2,
+          "end": 9.52
+        },
+        {
+          "word": " nơi",
+          "start": 9.52,
+          "end": 9.94
+        },
+        {
+          "word": " nhưng",
+          "start": 9.94,
+          "end": 10.38
+        },
+        {
+          "word": " mà",
+          "start": 10.38,
+          "end": 10.48
+        },
+        {
+          "word": " điểm",
+          "start": 10.48,
+          "end": 10.78
+        },
+        {
+          "word": " vẫn",
+          "start": 10.78,
+          "end": 10.98
+        },
+        {
+          "word": " không",
+          "start": 10.98,
+          "end": 11.18
+        },
+        {
+          "word": " lên.",
+          "start": 11.18,
+          "end": 11.38
+        }
+      ]
+    },
+    {
+      "start": 11.56,
+      "end": 16.84,
+      "text": "Các con càng học càng mệt, càng kiểm tra thì lại càng sợ, các con càng lên lớp cao thì lại càng đuối.",
+      "words": [
+        {
+          "word": " Các",
+          "start": 11.56,
+          "end": 11.96
+        },
+        {
+          "word": " con",
+          "start": 11.96,
+          "end": 12.12
+        },
+        {
+          "word": " càng",
+          "start": 12.12,
+          "end": 12.46
+        },
+        {
+          "word": " học",
+          "start": 12.46,
+          "end": 12.64
+        },
+        {
+          "word": " càng",
+          "start": 12.64,
+          "end": 12.88
+        },
+        {
+          "word": " mệt,",
+          "start": 12.88,
+          "end": 13.1
+        },
+        {
+          "word": " càng",
+          "start": 13.18,
+          "end": 13.48
+        },
+        {
+          "word": " kiểm",
+          "start": 13.48,
+          "end": 13.64
+        },
+        {
+          "word": " tra",
+          "start": 13.64,
+          "end": 13.92
+        },
+        {
+          "word": " thì",
+          "start": 13.92,
+          "end": 14.24
+        },
+        {
+          "word": " lại",
+          "start": 14.24,
+          "end": 14.3
+        },
+        {
+          "word": " càng",
+          "start": 14.3,
+          "end": 14.52
+        },
+        {
+          "word": " sợ,",
+          "start": 14.52,
+          "end": 14.82
+        },
+        {
+          "word": " các",
+          "start": 14.88,
+          "end": 15.08
+        },
+        {
+          "word": " con",
+          "start": 15.08,
+          "end": 15.24
+        },
+        {
+          "word": " càng",
+          "start": 15.24,
+          "end": 15.5
+        },
+        {
+          "word": " lên",
+          "start": 15.5,
+          "end": 15.6
+        },
+        {
+          "word": " lớp",
+          "start": 15.6,
+          "end": 15.78
+        },
+        {
+          "word": " cao",
+          "start": 15.78,
+          "end": 16.08
+        },
+        {
+          "word": " thì",
+          "start": 16.08,
+          "end": 16.3
+        },
+        {
+          "word": " lại",
+          "start": 16.3,
+          "end": 16.4
+        },
+        {
+          "word": " càng",
+          "start": 16.4,
+          "end": 16.62
+        },
+        {
+          "word": " đuối.",
+          "start": 16.62,
+          "end": 16.84
+        }
+      ]
+    },
+    {
+      "start": 16.96,
+      "end": 22.28,
+      "text": "Chính vì vậy, những bạn mà bị hổng kiến thức, bị mất gốc thì sẽ cần phải có một lộ trình học tập bài bản.",
+      "words": [
+        {
+          "word": " Chính",
+          "start": 16.96,
+          "end": 17.26
+        },
+        {
+          "word": " vì",
+          "start": 17.26,
+          "end": 17.34
+        },
+        {
+          "word": " vậy,",
+          "start": 17.34,
+          "end": 17.58
+        },
+        {
+          "word": " những",
+          "start": 17.62,
+          "end": 17.86
+        },
+        {
+          "word": " bạn",
+          "start": 17.86,
+          "end": 18.06
+        },
+        {
+          "word": " mà",
+          "start": 18.06,
+          "end": 18.26
+        },
+        {
+          "word": " bị",
+          "start": 18.26,
+          "end": 18.4
+        },
+        {
+          "word": " hổng",
+          "start": 18.4,
+          "end": 18.68
+        },
+        {
+          "word": " kiến",
+          "start": 18.68,
+          "end": 18.84
+        },
+        {
+          "word": " thức,",
+          "start": 18.84,
+          "end": 18.98
+        },
+        {
+          "word": " bị",
+          "start": 19.04,
+          "end": 19.22
+        },
+        {
+          "word": " mất",
+          "start": 19.22,
+          "end": 19.4
+        },
+        {
+          "word": " gốc",
+          "start": 19.4,
+          "end": 19.56
+        },
+        {
+          "word": " thì",
+          "start": 19.56,
+          "end": 19.68
+        },
+        {
+          "word": " sẽ",
+          "start": 19.68,
+          "end": 20.22
+        },
+        {
+          "word": " cần",
+          "start": 20.22,
+          "end": 20.48
+        },
+        {
+          "word": " phải",
+          "start": 20.48,
+          "end": 20.54
+        },
+        {
+          "word": " có",
+          "start": 20.54,
+          "end": 20.68
+        },
+        {
+          "word": " một",
+          "start": 20.68,
+          "end": 20.78
+        },
+        {
+          "word": " lộ",
+          "start": 20.78,
+          "end": 21.08
+        },
+        {
+          "word": " trình",
+          "start": 21.08,
+          "end": 21.28
+        },
+        {
+          "word": " học",
+          "start": 21.28,
+          "end": 21.46
+        },
+        {
+          "word": " tập",
+          "start": 21.46,
+          "end": 21.72
+        },
+        {
+          "word": " bài",
+          "start": 21.72,
+          "end": 22.04
+        },
+        {
+          "word": " bản.",
+          "start": 22.04,
+          "end": 22.28
+        }
+      ]
+    },
+    {
+      "start": 22.36,
+      "end": 28.98,
+      "text": "Và sau rất nhiều năm trực tiếp giảng dạy cho các bạn học sinh mất gốc thì thầy thấy rằng mất gốc không phải là điều gì đó quá tồi tệ.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 22.36,
+          "end": 22.54
+        },
+        {
+          "word": " sau",
+          "start": 22.54,
+          "end": 22.68
+        },
+        {
+          "word": " rất",
+          "start": 22.68,
+          "end": 22.78
+        },
+        {
+          "word": " nhiều",
+          "start": 22.78,
+          "end": 22.94
+        },
+        {
+          "word": " năm",
+          "start": 22.94,
+          "end": 23.18
+        },
+        {
+          "word": " trực",
+          "start": 23.18,
+          "end": 23.42
+        },
+        {
+          "word": " tiếp",
+          "start": 23.42,
+          "end": 23.56
+        },
+        {
+          "word": " giảng",
+          "start": 23.56,
+          "end": 23.72
+        },
+        {
+          "word": " dạy",
+          "start": 23.72,
+          "end": 23.86
+        },
+        {
+          "word": " cho",
+          "start": 23.86,
+          "end": 24.02
+        },
+        {
+          "word": " các",
+          "start": 24.02,
+          "end": 24.08
+        },
+        {
+          "word": " bạn",
+          "start": 24.08,
+          "end": 24.28
+        },
+        {
+          "word": " học",
+          "start": 24.28,
+          "end": 24.4
+        },
+        {
+          "word": " sinh",
+          "start": 24.4,
+          "end": 24.58
+        },
+        {
+          "word": " mất",
+          "start": 24.58,
+          "end": 25.0
+        },
+        {
+          "word": " gốc",
+          "start": 25.0,
+          "end": 25.22
+        },
+        {
+          "word": " thì",
+          "start": 25.22,
+          "end": 25.46
+        },
+        {
+          "word": " thầy",
+          "start": 25.46,
+          "end": 25.66
+        },
+        {
+          "word": " thấy",
+          "start": 25.66,
+          "end": 25.82
+        },
+        {
+          "word": " rằng",
+          "start": 25.82,
+          "end": 26.04
+        },
+        {
+          "word": " mất",
+          "start": 26.04,
+          "end": 26.48
+        },
+        {
+          "word": " gốc",
+          "start": 26.48,
+          "end": 26.74
+        },
+        {
+          "word": " không",
+          "start": 26.74,
+          "end": 27.1
+        },
+        {
+          "word": " phải",
+          "start": 27.1,
+          "end": 27.4
+        },
+        {
+          "word": " là",
+          "start": 27.4,
+          "end": 27.56
+        },
+        {
+          "word": " điều",
+          "start": 27.56,
+          "end": 27.72
+        },
+        {
+          "word": " gì",
+          "start": 27.72,
+          "end": 27.92
+        },
+        {
+          "word": " đó",
+          "start": 27.92,
+          "end": 28.12
+        },
+        {
+          "word": " quá",
+          "start": 28.12,
+          "end": 28.46
+        },
+        {
+          "word": " tồi",
+          "start": 28.46,
+          "end": 28.78
+        },
+        {
+          "word": " tệ.",
+          "start": 28.78,
+          "end": 28.98
+        }
+      ]
+    },
+    {
+      "start": 28.98,
+      "end": 36.92,
+      "text": "Nhưng mà nếu như cái vấn đề đó mà không được giải quyết thì nó sẽ đeo bám các bạn học sinh và khiến cho các bạn ngày càng sợ tiếng Anh.",
+      "words": [
+        {
+          "word": " Nhưng",
+          "start": 28.98,
+          "end": 29.4
+        },
+        {
+          "word": " mà",
+          "start": 29.4,
+          "end": 29.5
+        },
+        {
+          "word": " nếu",
+          "start": 29.5,
+          "end": 29.92
+        },
+        {
+          "word": " như",
+          "start": 29.92,
+          "end": 30.1
+        },
+        {
+          "word": " cái",
+          "start": 30.1,
+          "end": 30.38
+        },
+        {
+          "word": " vấn",
+          "start": 30.38,
+          "end": 30.6
+        },
+        {
+          "word": " đề",
+          "start": 30.6,
+          "end": 30.76
+        },
+        {
+          "word": " đó",
+          "start": 30.76,
+          "end": 30.92
+        },
+        {
+          "word": " mà",
+          "start": 30.92,
+          "end": 31.38
+        },
+        {
+          "word": " không",
+          "start": 31.38,
+          "end": 31.62
+        },
+        {
+          "word": " được",
+          "start": 31.62,
+          "end": 31.88
+        },
+        {
+          "word": " giải",
+          "start": 31.88,
+          "end": 32.12
+        },
+        {
+          "word": " quyết",
+          "start": 32.12,
+          "end": 32.34
+        },
+        {
+          "word": " thì",
+          "start": 32.34,
+          "end": 32.7
+        },
+        {
+          "word": " nó",
+          "start": 32.7,
+          "end": 33.16
+        },
+        {
+          "word": " sẽ",
+          "start": 33.16,
+          "end": 33.52
+        },
+        {
+          "word": " đeo",
+          "start": 33.52,
+          "end": 33.86
+        },
+        {
+          "word": " bám",
+          "start": 33.86,
+          "end": 34.14
+        },
+        {
+          "word": " các",
+          "start": 34.14,
+          "end": 34.28
+        },
+        {
+          "word": " bạn",
+          "start": 34.28,
+          "end": 34.42
+        },
+        {
+          "word": " học",
+          "start": 34.42,
+          "end": 34.54
+        },
+        {
+          "word": " sinh",
+          "start": 34.54,
+          "end": 34.72
+        },
+        {
+          "word": " và",
+          "start": 34.72,
+          "end": 35.02
+        },
+        {
+          "word": " khiến",
+          "start": 35.02,
+          "end": 35.36
+        },
+        {
+          "word": " cho",
+          "start": 35.36,
+          "end": 35.4
+        },
+        {
+          "word": " các",
+          "start": 35.4,
+          "end": 35.5
+        },
+        {
+          "word": " bạn",
+          "start": 35.5,
+          "end": 35.68
+        },
+        {
+          "word": " ngày",
+          "start": 35.68,
+          "end": 36.04
+        },
+        {
+          "word": " càng",
+          "start": 36.04,
+          "end": 36.36
+        },
+        {
+          "word": " sợ",
+          "start": 36.36,
+          "end": 36.56
+        },
+        {
+          "word": " tiếng",
+          "start": 36.56,
+          "end": 36.8
+        },
+        {
+          "word": " Anh.",
+          "start": 36.8,
+          "end": 36.92
+        }
+      ]
+    },
+    {
+      "start": 37.06,
+      "end": 41.56,
+      "text": "Chính vì vậy, thầy cùng đội ngũ sẽ tổ chức một cái chương trình có tên là Bí mật lấy gốc tiếng Anh cho con.",
+      "words": [
+        {
+          "word": " Chính",
+          "start": 37.06,
+          "end": 37.42
+        },
+        {
+          "word": " vì",
+          "start": 37.42,
+          "end": 37.5
+        },
+        {
+          "word": " vậy,",
+          "start": 37.5,
+          "end": 37.68
+        },
+        {
+          "word": " thầy",
+          "start": 37.72,
+          "end": 37.9
+        },
+        {
+          "word": " cùng",
+          "start": 37.9,
+          "end": 38.02
+        },
+        {
+          "word": " đội",
+          "start": 38.02,
+          "end": 38.22
+        },
+        {
+          "word": " ngũ",
+          "start": 38.22,
+          "end": 38.34
+        },
+        {
+          "word": " sẽ",
+          "start": 38.34,
+          "end": 38.7
+        },
+        {
+          "word": " tổ",
+          "start": 38.7,
+          "end": 38.92
+        },
+        {
+          "word": " chức",
+          "start": 38.92,
+          "end": 39.04
+        },
+        {
+          "word": " một",
+          "start": 39.04,
+          "end": 39.14
+        },
+        {
+          "word": " cái",
+          "start": 39.14,
+          "end": 39.2
+        },
+        {
+          "word": " chương",
+          "start": 39.2,
+          "end": 39.32
+        },
+        {
+          "word": " trình",
+          "start": 39.32,
+          "end": 39.48
+        },
+        {
+          "word": " có",
+          "start": 39.48,
+          "end": 39.62
+        },
+        {
+          "word": " tên",
+          "start": 39.62,
+          "end": 39.82
+        },
+        {
+          "word": " là",
+          "start": 39.82,
+          "end": 39.98
+        },
+        {
+          "word": " Bí",
+          "start": 39.98,
+          "end": 40.42
+        },
+        {
+          "word": " mật",
+          "start": 40.42,
+          "end": 40.64
+        },
+        {
+          "word": " lấy",
+          "start": 40.64,
+          "end": 40.9
+        },
+        {
+          "word": " gốc",
+          "start": 40.9,
+          "end": 41.02
+        },
+        {
+          "word": " tiếng",
+          "start": 41.02,
+          "end": 41.22
+        },
+        {
+          "word": " Anh",
+          "start": 41.22,
+          "end": 41.32
+        },
+        {
+          "word": " cho",
+          "start": 41.32,
+          "end": 41.42
+        },
+        {
+          "word": " con.",
+          "start": 41.42,
+          "end": 41.56
+        }
+      ]
+    },
+    {
+      "start": 41.78,
+      "end": 46.76,
+      "text": "Đây là một chương trình Zoom 3 buổi dành riêng cho các ba mẹ đang có con từ lớp 3 đến lớp 9.",
+      "words": [
+        {
+          "word": " Đây",
+          "start": 41.78,
+          "end": 42.14
+        },
+        {
+          "word": " là",
+          "start": 42.14,
+          "end": 42.26
+        },
+        {
+          "word": " một",
+          "start": 42.26,
+          "end": 42.38
+        },
+        {
+          "word": " chương",
+          "start": 42.38,
+          "end": 42.7
+        },
+        {
+          "word": " trình",
+          "start": 42.7,
+          "end": 42.86
+        },
+        {
+          "word": " Zoom",
+          "start": 42.86,
+          "end": 43.06
+        },
+        {
+          "word": " 3",
+          "start": 43.06,
+          "end": 43.42
+        },
+        {
+          "word": " buổi",
+          "start": 43.42,
+          "end": 43.72
+        },
+        {
+          "word": " dành",
+          "start": 43.72,
+          "end": 44.14
+        },
+        {
+          "word": " riêng",
+          "start": 44.14,
+          "end": 44.52
+        },
+        {
+          "word": " cho",
+          "start": 44.52,
+          "end": 44.58
+        },
+        {
+          "word": " các",
+          "start": 44.58,
+          "end": 44.66
+        },
+        {
+          "word": " ba",
+          "start": 44.66,
+          "end": 44.76
+        },
+        {
+          "word": " mẹ",
+          "start": 44.76,
+          "end": 44.98
+        },
+        {
+          "word": " đang",
+          "start": 44.98,
+          "end": 45.2
+        },
+        {
+          "word": " có",
+          "start": 45.2,
+          "end": 45.3
+        },
+        {
+          "word": " con",
+          "start": 45.3,
+          "end": 45.54
+        },
+        {
+          "word": " từ",
+          "start": 45.54,
+          "end": 45.72
+        },
+        {
+          "word": " lớp",
+          "start": 45.72,
+          "end": 45.98
+        },
+        {
+          "word": " 3",
+          "start": 45.98,
+          "end": 46.22
+        },
+        {
+          "word": " đến",
+          "start": 46.22,
+          "end": 46.4
+        },
+        {
+          "word": " lớp",
+          "start": 46.4,
+          "end": 46.56
+        },
+        {
+          "word": " 9.",
+          "start": 46.56,
+          "end": 46.76
+        }
+      ]
+    },
+    {
+      "start": 46.96,
+      "end": 56.56,
+      "text": "Vậy thì trong 3 buổi này thì thầy sẽ chia sẻ với ba mẹ về một cái lộ trình giúp con có thể học lại từ gốc để giúp con có thể học chắc hơn, làm bài tốt hơn, đạt được điểm cao ở trên trường.",
+      "words": [
+        {
+          "word": " Vậy",
+          "start": 46.96,
+          "end": 47.28
+        },
+        {
+          "word": " thì",
+          "start": 47.28,
+          "end": 47.32
+        },
+        {
+          "word": " trong",
+          "start": 47.32,
+          "end": 47.46
+        },
+        {
+          "word": " 3",
+          "start": 47.46,
+          "end": 47.58
+        },
+        {
+          "word": " buổi",
+          "start": 47.58,
+          "end": 47.78
+        },
+        {
+          "word": " này",
+          "start": 47.78,
+          "end": 47.92
+        },
+        {
+          "word": " thì",
+          "start": 47.92,
+          "end": 48.26
+        },
+        {
+          "word": " thầy",
+          "start": 48.26,
+          "end": 48.46
+        },
+        {
+          "word": " sẽ",
+          "start": 48.46,
+          "end": 48.6
+        },
+        {
+          "word": " chia",
+          "start": 48.6,
+          "end": 48.8
+        },
+        {
+          "word": " sẻ",
+          "start": 48.8,
+          "end": 48.98
+        },
+        {
+          "word": " với",
+          "start": 48.98,
+          "end": 49.06
+        },
+        {
+          "word": " ba",
+          "start": 49.06,
+          "end": 49.18
+        },
+        {
+          "word": " mẹ",
+          "start": 49.18,
+          "end": 49.44
+        },
+        {
+          "word": " về",
+          "start": 49.44,
+          "end": 49.68
+        },
+        {
+          "word": " một",
+          "start": 49.68,
+          "end": 49.78
+        },
+        {
+          "word": " cái",
+          "start": 49.78,
+          "end": 49.88
+        },
+        {
+          "word": " lộ",
+          "start": 49.88,
+          "end": 50.04
+        },
+        {
+          "word": " trình",
+          "start": 50.04,
+          "end": 50.28
+        },
+        {
+          "word": " giúp",
+          "start": 50.28,
+          "end": 50.56
+        },
+        {
+          "word": " con",
+          "start": 50.56,
+          "end": 50.74
+        },
+        {
+          "word": " có",
+          "start": 50.74,
+          "end": 50.9
+        },
+        {
+          "word": " thể",
+          "start": 50.9,
+          "end": 51.06
+        },
+        {
+          "word": " học",
+          "start": 51.06,
+          "end": 51.32
+        },
+        {
+          "word": " lại",
+          "start": 51.32,
+          "end": 51.48
+        },
+        {
+          "word": " từ",
+          "start": 51.48,
+          "end": 51.64
+        },
+        {
+          "word": " gốc",
+          "start": 51.64,
+          "end": 51.9
+        },
+        {
+          "word": " để",
+          "start": 51.9,
+          "end": 52.34
+        },
+        {
+          "word": " giúp",
+          "start": 52.34,
+          "end": 52.6
+        },
+        {
+          "word": " con",
+          "start": 52.6,
+          "end": 52.78
+        },
+        {
+          "word": " có",
+          "start": 52.78,
+          "end": 52.88
+        },
+        {
+          "word": " thể",
+          "start": 52.88,
+          "end": 52.96
+        },
+        {
+          "word": " học",
+          "start": 52.96,
+          "end": 53.14
+        },
+        {
+          "word": " chắc",
+          "start": 53.14,
+          "end": 53.46
+        },
+        {
+          "word": " hơn,",
+          "start": 53.46,
+          "end": 53.66
+        },
+        {
+          "word": " làm",
+          "start": 53.76,
+          "end": 54.22
+        },
+        {
+          "word": " bài",
+          "start": 54.22,
+          "end": 54.48
+        },
+        {
+          "word": " tốt",
+          "start": 54.48,
+          "end": 54.74
+        },
+        {
+          "word": " hơn,",
+          "start": 54.74,
+          "end": 54.96
+        },
+        {
+          "word": " đạt",
+          "start": 55.04,
+          "end": 55.64
+        },
+        {
+          "word": " được",
+          "start": 55.64,
+          "end": 55.72
+        },
+        {
+          "word": " điểm",
+          "start": 55.72,
+          "end": 55.92
+        },
+        {
+          "word": " cao",
+          "start": 55.92,
+          "end": 56.14
+        },
+        {
+          "word": " ở",
+          "start": 56.14,
+          "end": 56.2
+        },
+        {
+          "word": " trên",
+          "start": 56.2,
+          "end": 56.32
+        },
+        {
+          "word": " trường.",
+          "start": 56.32,
+          "end": 56.56
+        }
+      ]
+    },
+    {
+      "start": 56.68,
+      "end": 58.82,
+      "text": "Và đặc biệt nữa đó chính là làm thế nào.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 56.68,
+          "end": 56.98
+        },
+        {
+          "word": " đặc",
+          "start": 56.98,
+          "end": 57.34
+        },
+        {
+          "word": " biệt",
+          "start": 57.34,
+          "end": 57.5
+        },
+        {
+          "word": " nữa",
+          "start": 57.5,
+          "end": 57.64
+        },
+        {
+          "word": " đó",
+          "start": 57.64,
+          "end": 57.92
+        },
+        {
+          "word": " chính",
+          "start": 57.92,
+          "end": 58.08
+        },
+        {
+          "word": " là",
+          "start": 58.08,
+          "end": 58.2
+        },
+        {
+          "word": " làm",
+          "start": 58.2,
+          "end": 58.48
+        },
+        {
+          "word": " thế",
+          "start": 58.48,
+          "end": 58.62
+        },
+        {
+          "word": " nào.",
+          "start": 58.62,
+          "end": 58.82
+        }
+      ]
+    },
+    {
+      "start": 58.98,
+      "end": 65.5,
+      "text": "Để ba mẹ có thể thúc đẩy động lực học tập bên trong của con để giúp các con có thể tự giác hơn, chủ động hơn và yêu tiếng Anh hơn.",
+      "words": [
+        {
+          "word": " Để",
+          "start": 58.98,
+          "end": 59.08
+        },
+        {
+          "word": " ba",
+          "start": 59.08,
+          "end": 59.16
+        },
+        {
+          "word": " mẹ",
+          "start": 59.16,
+          "end": 59.32
+        },
+        {
+          "word": " có",
+          "start": 59.32,
+          "end": 59.42
+        },
+        {
+          "word": " thể",
+          "start": 59.42,
+          "end": 59.52
+        },
+        {
+          "word": " thúc",
+          "start": 59.52,
+          "end": 59.8
+        },
+        {
+          "word": " đẩy",
+          "start": 59.8,
+          "end": 60.06
+        },
+        {
+          "word": " động",
+          "start": 60.06,
+          "end": 60.36
+        },
+        {
+          "word": " lực",
+          "start": 60.36,
+          "end": 60.58
+        },
+        {
+          "word": " học",
+          "start": 60.58,
+          "end": 60.72
+        },
+        {
+          "word": " tập",
+          "start": 60.72,
+          "end": 60.94
+        },
+        {
+          "word": " bên",
+          "start": 60.94,
+          "end": 61.1
+        },
+        {
+          "word": " trong",
+          "start": 61.1,
+          "end": 61.28
+        },
+        {
+          "word": " của",
+          "start": 61.28,
+          "end": 61.4
+        },
+        {
+          "word": " con",
+          "start": 61.4,
+          "end": 61.52
+        },
+        {
+          "word": " để",
+          "start": 61.52,
+          "end": 61.84
+        },
+        {
+          "word": " giúp",
+          "start": 61.84,
+          "end": 62.2
+        },
+        {
+          "word": " các",
+          "start": 62.2,
+          "end": 62.3
+        },
+        {
+          "word": " con",
+          "start": 62.3,
+          "end": 62.48
+        },
+        {
+          "word": " có",
+          "start": 62.48,
+          "end": 62.6
+        },
+        {
+          "word": " thể",
+          "start": 62.6,
+          "end": 62.74
+        },
+        {
+          "word": " tự",
+          "start": 62.74,
+          "end": 62.96
+        },
+        {
+          "word": " giác",
+          "start": 62.96,
+          "end": 63.22
+        },
+        {
+          "word": " hơn,",
+          "start": 63.22,
+          "end": 63.44
+        },
+        {
+          "word": " chủ",
+          "start": 63.54,
+          "end": 63.96
+        },
+        {
+          "word": " động",
+          "start": 63.96,
+          "end": 64.1
+        },
+        {
+          "word": " hơn",
+          "start": 64.1,
+          "end": 64.36
+        },
+        {
+          "word": " và",
+          "start": 64.36,
+          "end": 64.6
+        },
+        {
+          "word": " yêu",
+          "start": 64.6,
+          "end": 65.0
+        },
+        {
+          "word": " tiếng",
+          "start": 65.0,
+          "end": 65.24
+        },
+        {
+          "word": " Anh",
+          "start": 65.24,
+          "end": 65.32
+        },
+        {
+          "word": " hơn.",
+          "start": 65.32,
+          "end": 65.5
+        }
+      ]
+    },
+    {
+      "start": 65.6,
+      "end": 75.14,
+      "text": "Và ngoài ra, thầy cũng hướng dẫn ba mẹ các cái cách thức và các cái tiêu chí để giúp cho ba mẹ có thể là lựa chọn được các lớp tiếng Anh phù hợp cho con, lựa chọn được các cái thầy cô phù hợp cho các con.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 65.6,
+          "end": 65.84
+        },
+        {
+          "word": " ngoài",
+          "start": 65.84,
+          "end": 66.12
+        },
+        {
+          "word": " ra,",
+          "start": 66.12,
+          "end": 66.28
+        },
+        {
+          "word": " thầy",
+          "start": 66.36,
+          "end": 66.88
+        },
+        {
+          "word": " cũng",
+          "start": 66.88,
+          "end": 67.0
+        },
+        {
+          "word": " hướng",
+          "start": 67.0,
+          "end": 67.18
+        },
+        {
+          "word": " dẫn",
+          "start": 67.18,
+          "end": 67.28
+        },
+        {
+          "word": " ba",
+          "start": 67.28,
+          "end": 67.38
+        },
+        {
+          "word": " mẹ",
+          "start": 67.38,
+          "end": 67.6
+        },
+        {
+          "word": " các",
+          "start": 67.6,
+          "end": 67.84
+        },
+        {
+          "word": " cái",
+          "start": 67.84,
+          "end": 67.98
+        },
+        {
+          "word": " cách",
+          "start": 67.98,
+          "end": 68.22
+        },
+        {
+          "word": " thức",
+          "start": 68.22,
+          "end": 68.44
+        },
+        {
+          "word": " và",
+          "start": 68.44,
+          "end": 68.6
+        },
+        {
+          "word": " các",
+          "start": 68.6,
+          "end": 68.74
+        },
+        {
+          "word": " cái",
+          "start": 68.74,
+          "end": 68.88
+        },
+        {
+          "word": " tiêu",
+          "start": 68.88,
+          "end": 69.06
+        },
+        {
+          "word": " chí",
+          "start": 69.06,
+          "end": 69.36
+        },
+        {
+          "word": " để",
+          "start": 69.36,
+          "end": 69.52
+        },
+        {
+          "word": " giúp",
+          "start": 69.52,
+          "end": 69.76
+        },
+        {
+          "word": " cho",
+          "start": 69.76,
+          "end": 69.82
+        },
+        {
+          "word": " ba",
+          "start": 69.82,
+          "end": 69.94
+        },
+        {
+          "word": " mẹ",
+          "start": 69.94,
+          "end": 70.12
+        },
+        {
+          "word": " có",
+          "start": 70.12,
+          "end": 70.24
+        },
+        {
+          "word": " thể",
+          "start": 70.24,
+          "end": 70.42
+        },
+        {
+          "word": " là",
+          "start": 70.42,
+          "end": 70.56
+        },
+        {
+          "word": " lựa",
+          "start": 70.56,
+          "end": 71.16
+        },
+        {
+          "word": " chọn",
+          "start": 71.16,
+          "end": 71.44
+        },
+        {
+          "word": " được",
+          "start": 71.44,
+          "end": 71.56
+        },
+        {
+          "word": " các",
+          "start": 71.56,
+          "end": 71.7
+        },
+        {
+          "word": " lớp",
+          "start": 71.7,
+          "end": 71.92
+        },
+        {
+          "word": " tiếng",
+          "start": 71.92,
+          "end": 72.06
+        },
+        {
+          "word": " Anh",
+          "start": 72.06,
+          "end": 72.22
+        },
+        {
+          "word": " phù",
+          "start": 72.22,
+          "end": 72.4
+        },
+        {
+          "word": " hợp",
+          "start": 72.4,
+          "end": 72.5
+        },
+        {
+          "word": " cho",
+          "start": 72.5,
+          "end": 72.58
+        },
+        {
+          "word": " con,",
+          "start": 72.58,
+          "end": 72.7
+        },
+        {
+          "word": " lựa",
+          "start": 72.88,
+          "end": 73.34
+        },
+        {
+          "word": " chọn",
+          "start": 73.34,
+          "end": 73.56
+        },
+        {
+          "word": " được",
+          "start": 73.56,
+          "end": 73.68
+        },
+        {
+          "word": " các",
+          "start": 73.68,
+          "end": 73.8
+        },
+        {
+          "word": " cái",
+          "start": 73.8,
+          "end": 73.92
+        },
+        {
+          "word": " thầy",
+          "start": 73.92,
+          "end": 74.24
+        },
+        {
+          "word": " cô",
+          "start": 74.24,
+          "end": 74.32
+        },
+        {
+          "word": " phù",
+          "start": 74.32,
+          "end": 74.62
+        },
+        {
+          "word": " hợp",
+          "start": 74.62,
+          "end": 74.72
+        },
+        {
+          "word": " cho",
+          "start": 74.72,
+          "end": 74.8
+        },
+        {
+          "word": " các",
+          "start": 74.8,
+          "end": 74.92
+        },
+        {
+          "word": " con.",
+          "start": 74.92,
+          "end": 75.14
+        }
+      ]
+    },
+    {
+      "start": 75.24,
+      "end": 78.54,
+      "text": "Và tất nhiên rồi, ba mẹ sẽ không cần phải giỏi tiếng Anh để có thể tham gia nhé.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 75.24,
+          "end": 75.56
+        },
+        {
+          "word": " tất",
+          "start": 75.56,
+          "end": 75.68
+        },
+        {
+          "word": " nhiên",
+          "start": 75.68,
+          "end": 75.76
+        },
+        {
+          "word": " rồi,",
+          "start": 75.76,
+          "end": 75.9
+        },
+        {
+          "word": " ba",
+          "start": 76.06,
+          "end": 76.44
+        },
+        {
+          "word": " mẹ",
+          "start": 76.44,
+          "end": 76.66
+        },
+        {
+          "word": " sẽ",
+          "start": 76.66,
+          "end": 76.78
+        },
+        {
+          "word": " không",
+          "start": 76.78,
+          "end": 76.98
+        },
+        {
+          "word": " cần",
+          "start": 76.98,
+          "end": 77.16
+        },
+        {
+          "word": " phải",
+          "start": 77.16,
+          "end": 77.28
+        },
+        {
+          "word": " giỏi",
+          "start": 77.28,
+          "end": 77.42
+        },
+        {
+          "word": " tiếng",
+          "start": 77.42,
+          "end": 77.6
+        },
+        {
+          "word": " Anh",
+          "start": 77.6,
+          "end": 77.74
+        },
+        {
+          "word": " để",
+          "start": 77.74,
+          "end": 77.84
+        },
+        {
+          "word": " có",
+          "start": 77.84,
+          "end": 77.96
+        },
+        {
+          "word": " thể",
+          "start": 77.96,
+          "end": 78.0
+        },
+        {
+          "word": " tham",
+          "start": 78.0,
+          "end": 78.18
+        },
+        {
+          "word": " gia",
+          "start": 78.18,
+          "end": 78.28
+        },
+        {
+          "word": " nhé.",
+          "start": 78.28,
+          "end": 78.54
+        }
+      ]
+    },
+    {
+      "start": 78.58,
+      "end": 86.04,
+      "text": "Và ngoài 3 buổi Zoom online này ra, thầy sẽ còn dành tặng cho các con 1 buổi kiểm tra trình độ tiếng Anh hoàn toàn được phí.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 78.58,
+          "end": 78.8
+        },
+        {
+          "word": " ngoài",
+          "start": 78.8,
+          "end": 79.32
+        },
+        {
+          "word": " 3",
+          "start": 79.32,
+          "end": 79.54
+        },
+        {
+          "word": " buổi",
+          "start": 79.54,
+          "end": 79.9
+        },
+        {
+          "word": " Zoom",
+          "start": 79.9,
+          "end": 80.14
+        },
+        {
+          "word": " online",
+          "start": 80.14,
+          "end": 80.48
+        },
+        {
+          "word": " này",
+          "start": 80.48,
+          "end": 80.64
+        },
+        {
+          "word": " ra,",
+          "start": 80.64,
+          "end": 80.76
+        },
+        {
+          "word": " thầy",
+          "start": 80.92,
+          "end": 81.36
+        },
+        {
+          "word": " sẽ",
+          "start": 81.36,
+          "end": 81.48
+        },
+        {
+          "word": " còn",
+          "start": 81.48,
+          "end": 81.62
+        },
+        {
+          "word": " dành",
+          "start": 81.62,
+          "end": 81.86
+        },
+        {
+          "word": " tặng",
+          "start": 81.86,
+          "end": 82.02
+        },
+        {
+          "word": " cho",
+          "start": 82.02,
+          "end": 82.18
+        },
+        {
+          "word": " các",
+          "start": 82.18,
+          "end": 82.28
+        },
+        {
+          "word": " con",
+          "start": 82.28,
+          "end": 82.52
+        },
+        {
+          "word": " 1",
+          "start": 82.52,
+          "end": 83.08
+        },
+        {
+          "word": " buổi",
+          "start": 83.08,
+          "end": 83.48
+        },
+        {
+          "word": " kiểm",
+          "start": 83.48,
+          "end": 83.94
+        },
+        {
+          "word": " tra",
+          "start": 83.94,
+          "end": 84.14
+        },
+        {
+          "word": " trình",
+          "start": 84.14,
+          "end": 84.4
+        },
+        {
+          "word": " độ",
+          "start": 84.4,
+          "end": 84.54
+        },
+        {
+          "word": " tiếng",
+          "start": 84.54,
+          "end": 84.76
+        },
+        {
+          "word": " Anh",
+          "start": 84.76,
+          "end": 84.9
+        },
+        {
+          "word": " hoàn",
+          "start": 84.9,
+          "end": 85.36
+        },
+        {
+          "word": " toàn",
+          "start": 85.36,
+          "end": 85.62
+        },
+        {
+          "word": " được",
+          "start": 85.62,
+          "end": 85.74
+        },
+        {
+          "word": " phí.",
+          "start": 85.74,
+          "end": 86.04
+        }
+      ]
+    },
+    {
+      "start": 86.04,
+      "end": 92.64,
+      "text": "Và sau đó thì thầy sẽ còn gửi tặng cho mẹ và các con 1 cái lộ trình học tập chuẩn dành riêng cho các bạn đang bị hổng các cái kiến thức của Phật Nam.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 86.04,
+          "end": 86.48
+        },
+        {
+          "word": " sau",
+          "start": 86.48,
+          "end": 87.1
+        },
+        {
+          "word": " đó",
+          "start": 87.1,
+          "end": 87.3
+        },
+        {
+          "word": " thì",
+          "start": 87.3,
+          "end": 87.52
+        },
+        {
+          "word": " thầy",
+          "start": 87.52,
+          "end": 87.7
+        },
+        {
+          "word": " sẽ",
+          "start": 87.7,
+          "end": 87.78
+        },
+        {
+          "word": " còn",
+          "start": 87.78,
+          "end": 87.9
+        },
+        {
+          "word": " gửi",
+          "start": 87.9,
+          "end": 88.16
+        },
+        {
+          "word": " tặng",
+          "start": 88.16,
+          "end": 88.32
+        },
+        {
+          "word": " cho",
+          "start": 88.32,
+          "end": 88.38
+        },
+        {
+          "word": " mẹ",
+          "start": 88.38,
+          "end": 88.56
+        },
+        {
+          "word": " và",
+          "start": 88.56,
+          "end": 88.62
+        },
+        {
+          "word": " các",
+          "start": 88.62,
+          "end": 88.68
+        },
+        {
+          "word": " con",
+          "start": 88.68,
+          "end": 88.92
+        },
+        {
+          "word": " 1",
+          "start": 88.92,
+          "end": 89.02
+        },
+        {
+          "word": " cái",
+          "start": 89.02,
+          "end": 89.14
+        },
+        {
+          "word": " lộ",
+          "start": 89.14,
+          "end": 89.3
+        },
+        {
+          "word": " trình",
+          "start": 89.3,
+          "end": 89.52
+        },
+        {
+          "word": " học",
+          "start": 89.52,
+          "end": 89.66
+        },
+        {
+          "word": " tập",
+          "start": 89.66,
+          "end": 89.86
+        },
+        {
+          "word": " chuẩn",
+          "start": 89.86,
+          "end": 90.28
+        },
+        {
+          "word": " dành",
+          "start": 90.28,
+          "end": 90.48
+        },
+        {
+          "word": " riêng",
+          "start": 90.48,
+          "end": 90.72
+        },
+        {
+          "word": " cho",
+          "start": 90.72,
+          "end": 90.76
+        },
+        {
+          "word": " các",
+          "start": 90.76,
+          "end": 90.84
+        },
+        {
+          "word": " bạn",
+          "start": 90.84,
+          "end": 91.04
+        },
+        {
+          "word": " đang",
+          "start": 91.04,
+          "end": 91.34
+        },
+        {
+          "word": " bị",
+          "start": 91.34,
+          "end": 91.5
+        },
+        {
+          "word": " hổng",
+          "start": 91.5,
+          "end": 91.8
+        },
+        {
+          "word": " các",
+          "start": 91.8,
+          "end": 91.9
+        },
+        {
+          "word": " cái",
+          "start": 91.9,
+          "end": 92.04
+        },
+        {
+          "word": " kiến",
+          "start": 92.04,
+          "end": 92.18
+        },
+        {
+          "word": " thức",
+          "start": 92.18,
+          "end": 92.3
+        },
+        {
+          "word": " của",
+          "start": 92.3,
+          "end": 92.34
+        },
+        {
+          "word": " Phật",
+          "start": 92.34,
+          "end": 92.52
+        },
+        {
+          "word": " Nam.",
+          "start": 92.52,
+          "end": 92.64
+        }
+      ]
+    },
+    {
+      "start": 92.76,
+      "end": 98.9,
+      "text": "Và rất đơn giản thôi, ba mẹ chỉ cần click vào cái link bên dưới và sau đó các thầy cô giáo hỗ trợ sẽ liên hệ tới ba mẹ và các con.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 92.76,
+          "end": 92.96
+        },
+        {
+          "word": " rất",
+          "start": 92.96,
+          "end": 93.18
+        },
+        {
+          "word": " đơn",
+          "start": 93.18,
+          "end": 93.32
+        },
+        {
+          "word": " giản",
+          "start": 93.32,
+          "end": 93.48
+        },
+        {
+          "word": " thôi,",
+          "start": 93.48,
+          "end": 93.58
+        },
+        {
+          "word": " ba",
+          "start": 93.62,
+          "end": 93.7
+        },
+        {
+          "word": " mẹ",
+          "start": 93.7,
+          "end": 93.88
+        },
+        {
+          "word": " chỉ",
+          "start": 93.88,
+          "end": 93.98
+        },
+        {
+          "word": " cần",
+          "start": 93.98,
+          "end": 94.12
+        },
+        {
+          "word": " click",
+          "start": 94.12,
+          "end": 94.34
+        },
+        {
+          "word": " vào",
+          "start": 94.34,
+          "end": 94.52
+        },
+        {
+          "word": " cái",
+          "start": 94.52,
+          "end": 94.6
+        },
+        {
+          "word": " link",
+          "start": 94.6,
+          "end": 94.74
+        },
+        {
+          "word": " bên",
+          "start": 94.74,
+          "end": 94.98
+        },
+        {
+          "word": " dưới",
+          "start": 94.98,
+          "end": 95.28
+        },
+        {
+          "word": " và",
+          "start": 95.28,
+          "end": 95.48
+        },
+        {
+          "word": " sau",
+          "start": 95.48,
+          "end": 95.7
+        },
+        {
+          "word": " đó",
+          "start": 95.7,
+          "end": 95.82
+        },
+        {
+          "word": " các",
+          "start": 95.82,
+          "end": 95.96
+        },
+        {
+          "word": " thầy",
+          "start": 95.96,
+          "end": 96.22
+        },
+        {
+          "word": " cô",
+          "start": 96.22,
+          "end": 96.3
+        },
+        {
+          "word": " giáo",
+          "start": 96.3,
+          "end": 96.74
+        },
+        {
+          "word": " hỗ",
+          "start": 96.74,
+          "end": 96.94
+        },
+        {
+          "word": " trợ",
+          "start": 96.94,
+          "end": 97.2
+        },
+        {
+          "word": " sẽ",
+          "start": 97.2,
+          "end": 97.36
+        },
+        {
+          "word": " liên",
+          "start": 97.36,
+          "end": 97.7
+        },
+        {
+          "word": " hệ",
+          "start": 97.7,
+          "end": 97.82
+        },
+        {
+          "word": " tới",
+          "start": 97.82,
+          "end": 97.98
+        },
+        {
+          "word": " ba",
+          "start": 97.98,
+          "end": 98.32
+        },
+        {
+          "word": " mẹ",
+          "start": 98.32,
+          "end": 98.5
+        },
+        {
+          "word": " và",
+          "start": 98.5,
+          "end": 98.58
+        },
+        {
+          "word": " các",
+          "start": 98.58,
+          "end": 98.68
+        },
+        {
+          "word": " con.",
+          "start": 98.68,
+          "end": 98.9
+        }
+      ]
+    },
+    {
+      "start": 98.98,
+      "end": 100.74,
+      "text": "Và hẹn gặp lại ba mẹ và các con trong chương trình.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 98.98,
+          "end": 99.26
+        },
+        {
+          "word": " hẹn",
+          "start": 99.26,
+          "end": 99.5
+        },
+        {
+          "word": " gặp",
+          "start": 99.5,
+          "end": 99.74
+        },
+        {
+          "word": " lại",
+          "start": 99.74,
+          "end": 99.78
+        },
+        {
+          "word": " ba",
+          "start": 99.78,
+          "end": 99.92
+        },
+        {
+          "word": " mẹ",
+          "start": 99.92,
+          "end": 100.08
+        },
+        {
+          "word": " và",
+          "start": 100.08,
+          "end": 100.14
+        },
+        {
+          "word": " các",
+          "start": 100.14,
+          "end": 100.22
+        },
+        {
+          "word": " con",
+          "start": 100.22,
+          "end": 100.36
+        },
+        {
+          "word": " trong",
+          "start": 100.36,
+          "end": 100.48
+        },
+        {
+          "word": " chương",
+          "start": 100.48,
+          "end": 100.62
+        },
+        {
+          "word": " trình.",
+          "start": 100.62,
+          "end": 100.74
+        }
+      ]
+    }
+  ],
+  "language": "vi",
+  "duration": 101.167875,
+  "model": "large-v3"
+}

@@ -1,0 +1,23 @@
+{
+  "version": "v28-video5-word-safe",
+  "fps": "30000/1001",
+  "notes": "Video 5 rebuilt from ad05.mp4 with word-safe micro-cuts. The repeated connector 'và bên cạnh đó' is excluded. No xfade/acrossfade; dedicated dialogue WAV at 1.12x.",
+  "videos": [
+    {
+      "composition": "BriskyShortV28Video5",
+      "source": "ad05.mp4",
+      "playbackSpeed": 1.12,
+      "segments": [
+        {"pieces": [[32.94,34.70],[38.98,40.84]], "transcript": "Cứ nhắc đến tiếng Anh là con sợ. Ba mẹ đừng vội nghĩ con lười."},
+        {"pieces": [[51.71,56.69]], "transcript": "Nhiều con đã mất gốc và đang mông lung về định hướng."},
+        {"pieces": [[80.21,82.51]], "transcript": "Học từ vựng trước rồi lại quên sau."},
+        {"pieces": [[111.46,114.54]], "transcript": "Khi càng đuối, con càng chán nản trong học tập."},
+        {"pieces": [[181.04,183.52],[183.72,186.24]], "transcript": "Ba mẹ không biết làm thế nào để con có thể yêu tiếng Anh."},
+        {"pieces": [[154.19,163.25]], "transcript": "Chương trình Bí mật lấy gốc tiếng Anh gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3 đến lớp 9."},
+        {"pieces": [[189.08,189.68],[190.66,193.44],[209.42,213.90],[311.59,320.93]], "transcript": "Thầy từng bước chia sẻ phương pháp để ba mẹ lựa chọn cách phù hợp. Sau chương trình, ba mẹ có định hướng rõ ràng để con không còn học trong trạng thái mơ hồ."},
+        {"pieces": [[383.49,386.11]], "transcript": "Từ đó ba mẹ biết lộ trình của con sẽ như thế nào."},
+        {"pieces": [[374.17,377.67],[378.21,383.07]], "transcript": "Ngoài 3 buổi Zoom, ba mẹ có thể đăng ký cho con trải nghiệm và kiểm tra trình độ để biết con đang ở đâu."}
+      ]
+    }
+  ]
+}

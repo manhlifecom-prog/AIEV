@@ -1,0 +1,32 @@
+{
+  "source": "Buoi-2-IMG_2423.MOV",
+  "blocks": [
+    {
+      "start": 2.12,
+      "end": 8.04
+    },
+    {
+      "start": 19.4,
+      "end": 35.58
+    },
+    {
+      "start": 58.56,
+      "end": 69.86
+    },
+    {
+      "start": 80.24,
+      "end": 88.2
+    },
+    {
+      "start": 100.56,
+      "end": 119.08
+    },
+    {
+      "start": 128.16,
+      "end": 140.32
+    }
+  ],
+  "speed": 1.07,
+  "durationAfterSpeed": 67.32710280373831,
+  "totalFrames": 2020
+}

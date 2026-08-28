@@ -27,6 +27,12 @@ Cách thủ công: chép file audio vào thư mục này rồi thêm một entry
 
 Entry trỏ tới file không tồn tại sẽ bị bỏ qua khi đọc thư viện, không làm hỏng gì.
 
+## Quy ước kho Brisky / TDC
+
+- Gắn tag `brisky` và/hoặc `tdc` để ghi phạm vi dự án; các tag mood vẫn là căn cứ chính để AI chọn nhạc.
+- Nguồn sưu tầm từ TikTok phải có tag `tiktok`, `suu-tam`, URL gốc trong `description`, và chưa được coi là đã có quyền dùng thương mại.
+- File nhạc được giữ nguyên; không ghi đè hay xóa bản đang dùng trong video cũ.
+
 ## Chọn nhạc thế nào
 
 Khi brief bật **Nhạc nền: auto**, AI đọc thư viện này, chọn bài theo mood khớp nội dung video rồi khai vào `meta.json` mục `audio.music`. Khâu lắp ráp Remotion tự hạ âm lượng nhạc xuống khi có tiếng nói (auto-ducking) và nâng lại ở quãng nghỉ. Chi tiết ở skill `background-music`.

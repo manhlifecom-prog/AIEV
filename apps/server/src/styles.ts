@@ -92,6 +92,19 @@ export function defaultStyle(): StyleDesign {
   };
 }
 
+export function thayVinhToanStyle(): StyleDesign {
+  const style = defaultStyle();
+  style.id = "thayvinhtoan-vn";
+  style.name = "ThayVinhToan.vn";
+  style.tags = ["education", "ads", "vertical"];
+  style.colors = { primary: "#0b5cff", secondary: "#14b8a6", background: "#08152f", text: "#ffffff", accent: "#facc15" };
+  style.fonts = { heading: "Be Vietnam Pro", body: "Be Vietnam Pro" };
+  style.effects = { gradient: true, liquidGlass: true };
+  style.tone = "Giáo dục hiện đại, premium, sạch, dễ đọc, không màu mè; phù hợp Facebook Ads, TikTok và Reels.";
+  style.guidelines = "Mặc định 9:16 1080x1920 30fps. Headline ở vùng trên. Subtitle karaoke tối đa 2-3 dòng, highlight keyword, tránh che mặt và giữ safe area. Logo do người dùng upload và Remotion chèn từ file thật.";
+  return style;
+}
+
 /** Chuẩn hóa tags: string, trim, bỏ rỗng, dedupe */
 export function normStyleTags(raw: unknown): string[] {
   if (!Array.isArray(raw)) return [];
@@ -174,7 +187,9 @@ export function readStyles(): StylesFile {
   if (!fs.existsSync(file)) {
     const migrated = migrateFromLegacy();
     if (migrated) return migrated;
-    return { defaultId: null, styles: [] };
+    const seeded = { defaultId: "thayvinhtoan-vn", styles: [thayVinhToanStyle()] };
+    writeStyles(seeded);
+    return seeded;
   }
   try {
     const raw = JSON.parse(fs.readFileSync(file, "utf8")) as unknown;

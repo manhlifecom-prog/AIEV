@@ -221,6 +221,7 @@ export const vi: Record<string, string> = {
   "dash.job.translate-video": "Dịch video",
   "dash.health.ffmpeg": "FFmpeg không có trên PATH - render sẽ thất bại.",
   "dash.health.claude": "Chưa có xác thực Claude - đăng nhập Claude Code trên máy này (VSCode) hoặc điền ANTHROPIC_API_KEY vào .env.",
+  "dash.health.openai": "Chưa có OpenAI API key - mở trang Kết nối để thêm OPENAI_API_KEY.",
   "dash.health.hyperframes": "HyperFrames chưa cài - không render được scene.",
   "dash.scope.all": "Tất cả",
   "dash.scope.video": "Video",

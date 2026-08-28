@@ -1,0 +1,13 @@
+{
+  "version":"v34-video5-video4-standard","fps":"30000/1001","notes":"Video 5 rebuilt to Video 4 v33 standard: complete phrase cuts, denser semantic visuals, explicit program/free/audience cards, 1.04x.",
+  "videos":[{"composition":"BriskyShortV34Video5","source":"ad05.mp4","playbackSpeed":1.04,"segments":[
+    {"pieces":[[32.94,34.70],[38.98,40.84]],"transcript":"Cứ nhắc đến tiếng Anh là con rất sợ. Ba mẹ đừng vội nghĩ con lười."},
+    {"pieces":[[50.49,56.81]],"transcript":"Vấn đề là nhiều con đã mất gốc và đang mông lung về định hướng."},
+    {"pieces":[[79.13,82.51]],"transcript":"Có bạn học từ vựng trước rồi lại quên sau."},
+    {"pieces":[[106.04,110.86],[111.32,114.54]],"transcript":"Khi con lên lớp 6, kiến thức dài hơn, khó hơn thì con cảm thấy đuối. Từ khi đuối, con rất chán nản trong học tập."},
+    {"pieces":[[176.98,181.04]],"transcript":"Con vẫn sợ tiếng Anh và không biết cần bắt đầu từ đâu."},
+    {"pieces":[[153.19,163.37]],"transcript":"Chương trình Bí mật lấy gốc tiếng Anh gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3 đến lớp 9."},
+    {"pieces":[[187.50,188.80],[189.08,189.68],[190.66,193.56],[209.42,213.90]],"transcript":"Trong 3 buổi tối, thầy sẽ từng bước chia sẻ với ba mẹ về các phương pháp. Từ đó ba mẹ lựa chọn được phương pháp phù hợp."},
+    {"pieces":[[374.09,377.79],[378.13,383.19]],"transcript":"Ngoài 3 buổi Zoom, ba mẹ có thể đăng ký cho con trải nghiệm bài kiểm tra trình độ để biết năng lực của con đang ở đâu."}
+  ]}]
+}

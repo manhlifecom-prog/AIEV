@@ -1,0 +1,5381 @@
+{
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.3,
+      "text": "Cũng nhờ các thầy cô tại trung câm giúp đỡ nên là con mới được điểm như vậy.",
+      "words": [
+        {
+          "word": " Cũng",
+          "start": 0.0,
+          "end": 0.22
+        },
+        {
+          "word": " nhờ",
+          "start": 0.22,
+          "end": 0.58
+        },
+        {
+          "word": " các",
+          "start": 0.58,
+          "end": 0.7
+        },
+        {
+          "word": " thầy",
+          "start": 0.7,
+          "end": 0.88
+        },
+        {
+          "word": " cô",
+          "start": 0.88,
+          "end": 1.0
+        },
+        {
+          "word": " tại",
+          "start": 1.0,
+          "end": 1.14
+        },
+        {
+          "word": " trung",
+          "start": 1.14,
+          "end": 1.34
+        },
+        {
+          "word": " câm",
+          "start": 1.34,
+          "end": 1.58
+        },
+        {
+          "word": " giúp",
+          "start": 1.58,
+          "end": 1.78
+        },
+        {
+          "word": " đỡ",
+          "start": 1.78,
+          "end": 1.96
+        },
+        {
+          "word": " nên",
+          "start": 1.96,
+          "end": 2.12
+        },
+        {
+          "word": " là",
+          "start": 2.12,
+          "end": 2.26
+        },
+        {
+          "word": " con",
+          "start": 2.26,
+          "end": 2.44
+        },
+        {
+          "word": " mới",
+          "start": 2.44,
+          "end": 2.64
+        },
+        {
+          "word": " được",
+          "start": 2.64,
+          "end": 2.74
+        },
+        {
+          "word": " điểm",
+          "start": 2.74,
+          "end": 2.94
+        },
+        {
+          "word": " như",
+          "start": 2.94,
+          "end": 3.06
+        },
+        {
+          "word": " vậy.",
+          "start": 3.06,
+          "end": 3.3
+        }
+      ]
+    },
+    {
+      "start": 3.52,
+      "end": 7.84,
+      "text": "Thì thúng thật với thầy là thời điểm đầu tham gia lớp học thì mẹ con cũng không tin tưởng lắm đâu.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 3.52,
+          "end": 3.88
+        },
+        {
+          "word": " thúng",
+          "start": 3.88,
+          "end": 4.22
+        },
+        {
+          "word": " thật",
+          "start": 4.22,
+          "end": 4.42
+        },
+        {
+          "word": " với",
+          "start": 4.42,
+          "end": 4.52
+        },
+        {
+          "word": " thầy",
+          "start": 4.52,
+          "end": 4.7
+        },
+        {
+          "word": " là",
+          "start": 4.7,
+          "end": 4.78
+        },
+        {
+          "word": " thời",
+          "start": 4.78,
+          "end": 4.96
+        },
+        {
+          "word": " điểm",
+          "start": 4.96,
+          "end": 5.2
+        },
+        {
+          "word": " đầu",
+          "start": 5.2,
+          "end": 5.38
+        },
+        {
+          "word": " tham",
+          "start": 5.38,
+          "end": 5.62
+        },
+        {
+          "word": " gia",
+          "start": 5.62,
+          "end": 5.76
+        },
+        {
+          "word": " lớp",
+          "start": 5.76,
+          "end": 5.94
+        },
+        {
+          "word": " học",
+          "start": 5.94,
+          "end": 6.08
+        },
+        {
+          "word": " thì",
+          "start": 6.08,
+          "end": 6.28
+        },
+        {
+          "word": " mẹ",
+          "start": 6.28,
+          "end": 6.68
+        },
+        {
+          "word": " con",
+          "start": 6.68,
+          "end": 6.78
+        },
+        {
+          "word": " cũng",
+          "start": 6.78,
+          "end": 6.94
+        },
+        {
+          "word": " không",
+          "start": 6.94,
+          "end": 7.1
+        },
+        {
+          "word": " tin",
+          "start": 7.1,
+          "end": 7.3
+        },
+        {
+          "word": " tưởng",
+          "start": 7.3,
+          "end": 7.52
+        },
+        {
+          "word": " lắm",
+          "start": 7.52,
+          "end": 7.66
+        },
+        {
+          "word": " đâu.",
+          "start": 7.66,
+          "end": 7.84
+        }
+      ]
+    },
+    {
+      "start": 8.0,
+      "end": 10.78,
+      "text": "Cái việc học online này thì sợ cũng không được hiệu quả.",
+      "words": [
+        {
+          "word": " Cái",
+          "start": 8.0,
+          "end": 8.18
+        },
+        {
+          "word": " việc",
+          "start": 8.18,
+          "end": 8.3
+        },
+        {
+          "word": " học",
+          "start": 8.3,
+          "end": 8.42
+        },
+        {
+          "word": " online",
+          "start": 8.42,
+          "end": 8.66
+        },
+        {
+          "word": " này",
+          "start": 8.66,
+          "end": 8.94
+        },
+        {
+          "word": " thì",
+          "start": 8.94,
+          "end": 9.22
+        },
+        {
+          "word": " sợ",
+          "start": 9.22,
+          "end": 9.86
+        },
+        {
+          "word": " cũng",
+          "start": 9.86,
+          "end": 10.02
+        },
+        {
+          "word": " không",
+          "start": 10.02,
+          "end": 10.22
+        },
+        {
+          "word": " được",
+          "start": 10.22,
+          "end": 10.32
+        },
+        {
+          "word": " hiệu",
+          "start": 10.32,
+          "end": 10.5
+        },
+        {
+          "word": " quả.",
+          "start": 10.5,
+          "end": 10.78
+        }
+      ]
+    },
+    {
+      "start": 10.92,
+      "end": 17.7,
+      "text": "Xin chào ba mẹ. Và hôm nay trong video này thì thầy xin mời ba mẹ cùng con này cùng lắng nghe một cuộc hội thoại của thầy với mẹ một bạn học sinh.",
+      "words": [
+        {
+          "word": " Xin",
+          "start": 10.92,
+          "end": 11.14
+        },
+        {
+          "word": " chào",
+          "start": 11.14,
+          "end": 11.34
+        },
+        {
+          "word": " ba",
+          "start": 11.34,
+          "end": 11.42
+        },
+        {
+          "word": " mẹ.",
+          "start": 11.42,
+          "end": 11.54
+        },
+        {
+          "word": " Và",
+          "start": 11.66,
+          "end": 12.02
+        },
+        {
+          "word": " hôm",
+          "start": 12.02,
+          "end": 12.24
+        },
+        {
+          "word": " nay",
+          "start": 12.24,
+          "end": 12.34
+        },
+        {
+          "word": " trong",
+          "start": 12.34,
+          "end": 12.54
+        },
+        {
+          "word": " video",
+          "start": 12.54,
+          "end": 12.74
+        },
+        {
+          "word": " này",
+          "start": 12.74,
+          "end": 12.9
+        },
+        {
+          "word": " thì",
+          "start": 12.9,
+          "end": 13.04
+        },
+        {
+          "word": " thầy",
+          "start": 13.04,
+          "end": 13.2
+        },
+        {
+          "word": " xin",
+          "start": 13.2,
+          "end": 13.4
+        },
+        {
+          "word": " mời",
+          "start": 13.4,
+          "end": 13.56
+        },
+        {
+          "word": " ba",
+          "start": 13.56,
+          "end": 13.62
+        },
+        {
+          "word": " mẹ",
+          "start": 13.62,
+          "end": 13.9
+        },
+        {
+          "word": " cùng",
+          "start": 13.9,
+          "end": 14.18
+        },
+        {
+          "word": " con",
+          "start": 14.18,
+          "end": 14.28
+        },
+        {
+          "word": " này",
+          "start": 14.28,
+          "end": 14.5
+        },
+        {
+          "word": " cùng",
+          "start": 14.5,
+          "end": 14.66
+        },
+        {
+          "word": " lắng",
+          "start": 14.66,
+          "end": 14.82
+        },
+        {
+          "word": " nghe",
+          "start": 14.82,
+          "end": 15.02
+        },
+        {
+          "word": " một",
+          "start": 15.02,
+          "end": 15.12
+        },
+        {
+          "word": " cuộc",
+          "start": 15.12,
+          "end": 15.28
+        },
+        {
+          "word": " hội",
+          "start": 15.28,
+          "end": 15.66
+        },
+        {
+          "word": " thoại",
+          "start": 15.66,
+          "end": 15.96
+        },
+        {
+          "word": " của",
+          "start": 15.96,
+          "end": 16.1
+        },
+        {
+          "word": " thầy",
+          "start": 16.1,
+          "end": 16.34
+        },
+        {
+          "word": " với",
+          "start": 16.34,
+          "end": 16.5
+        },
+        {
+          "word": " mẹ",
+          "start": 16.5,
+          "end": 16.96
+        },
+        {
+          "word": " một",
+          "start": 16.96,
+          "end": 17.08
+        },
+        {
+          "word": " bạn",
+          "start": 17.08,
+          "end": 17.26
+        },
+        {
+          "word": " học",
+          "start": 17.26,
+          "end": 17.4
+        },
+        {
+          "word": " sinh.",
+          "start": 17.4,
+          "end": 17.7
+        }
+      ]
+    },
+    {
+      "start": 17.72,
+      "end": 26.68,
+      "text": "Và bạn ấy trước khi bắt đầu chương trình thì bạn ấy là một học sinh rất là lười biếng, rất là thụ động và thường xuyên là phải dụng làm bài.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 17.72,
+          "end": 18.04
+        },
+        {
+          "word": " bạn",
+          "start": 18.04,
+          "end": 18.34
+        },
+        {
+          "word": " ấy",
+          "start": 18.34,
+          "end": 18.48
+        },
+        {
+          "word": " trước",
+          "start": 18.48,
+          "end": 19.36
+        },
+        {
+          "word": " khi",
+          "start": 19.36,
+          "end": 19.54
+        },
+        {
+          "word": " bắt",
+          "start": 19.54,
+          "end": 19.72
+        },
+        {
+          "word": " đầu",
+          "start": 19.72,
+          "end": 19.84
+        },
+        {
+          "word": " chương",
+          "start": 19.84,
+          "end": 20.1
+        },
+        {
+          "word": " trình",
+          "start": 20.1,
+          "end": 20.26
+        },
+        {
+          "word": " thì",
+          "start": 20.26,
+          "end": 20.4
+        },
+        {
+          "word": " bạn",
+          "start": 20.4,
+          "end": 20.66
+        },
+        {
+          "word": " ấy",
+          "start": 20.66,
+          "end": 20.78
+        },
+        {
+          "word": " là",
+          "start": 20.78,
+          "end": 20.9
+        },
+        {
+          "word": " một",
+          "start": 20.9,
+          "end": 21.0
+        },
+        {
+          "word": " học",
+          "start": 21.0,
+          "end": 21.12
+        },
+        {
+          "word": " sinh",
+          "start": 21.12,
+          "end": 21.32
+        },
+        {
+          "word": " rất",
+          "start": 21.32,
+          "end": 21.54
+        },
+        {
+          "word": " là",
+          "start": 21.54,
+          "end": 21.72
+        },
+        {
+          "word": " lười",
+          "start": 21.72,
+          "end": 22.02
+        },
+        {
+          "word": " biếng,",
+          "start": 22.02,
+          "end": 22.42
+        },
+        {
+          "word": " rất",
+          "start": 22.46,
+          "end": 23.06
+        },
+        {
+          "word": " là",
+          "start": 23.06,
+          "end": 23.32
+        },
+        {
+          "word": " thụ",
+          "start": 23.32,
+          "end": 23.54
+        },
+        {
+          "word": " động",
+          "start": 23.54,
+          "end": 23.76
+        },
+        {
+          "word": " và",
+          "start": 23.76,
+          "end": 24.12
+        },
+        {
+          "word": " thường",
+          "start": 24.12,
+          "end": 24.5
+        },
+        {
+          "word": " xuyên",
+          "start": 24.5,
+          "end": 24.76
+        },
+        {
+          "word": " là",
+          "start": 24.76,
+          "end": 24.86
+        },
+        {
+          "word": " phải",
+          "start": 24.86,
+          "end": 25.08
+        },
+        {
+          "word": " dụng",
+          "start": 25.08,
+          "end": 25.78
+        },
+        {
+          "word": " làm",
+          "start": 25.78,
+          "end": 26.34
+        },
+        {
+          "word": " bài.",
+          "start": 26.34,
+          "end": 26.68
+        }
+      ]
+    },
+    {
+      "start": 26.68,
+      "end": 35.14,
+      "text": "Thế thì cũng rất là tuyệt vời là xong qua những cái chương trình ở tại trung câm thì bạn ấy đã có những cái sự chuyển hóa hết sức là đáng thích lệ.",
+      "words": [
+        {
+          "word": " Thế",
+          "start": 26.68,
+          "end": 27.3
+        },
+        {
+          "word": " thì",
+          "start": 27.3,
+          "end": 27.34
+        },
+        {
+          "word": " cũng",
+          "start": 27.34,
+          "end": 28.2
+        },
+        {
+          "word": " rất",
+          "start": 28.2,
+          "end": 28.36
+        },
+        {
+          "word": " là",
+          "start": 28.36,
+          "end": 28.54
+        },
+        {
+          "word": " tuyệt",
+          "start": 28.54,
+          "end": 28.96
+        },
+        {
+          "word": " vời",
+          "start": 28.96,
+          "end": 29.12
+        },
+        {
+          "word": " là",
+          "start": 29.12,
+          "end": 29.24
+        },
+        {
+          "word": " xong",
+          "start": 29.24,
+          "end": 29.44
+        },
+        {
+          "word": " qua",
+          "start": 29.44,
+          "end": 29.58
+        },
+        {
+          "word": " những",
+          "start": 29.58,
+          "end": 29.72
+        },
+        {
+          "word": " cái",
+          "start": 29.72,
+          "end": 29.76
+        },
+        {
+          "word": " chương",
+          "start": 29.76,
+          "end": 29.94
+        },
+        {
+          "word": " trình",
+          "start": 29.94,
+          "end": 30.1
+        },
+        {
+          "word": " ở",
+          "start": 30.1,
+          "end": 30.2
+        },
+        {
+          "word": " tại",
+          "start": 30.2,
+          "end": 30.36
+        },
+        {
+          "word": " trung",
+          "start": 30.36,
+          "end": 31.02
+        },
+        {
+          "word": " câm",
+          "start": 31.02,
+          "end": 31.18
+        },
+        {
+          "word": " thì",
+          "start": 31.18,
+          "end": 31.6
+        },
+        {
+          "word": " bạn",
+          "start": 31.6,
+          "end": 31.92
+        },
+        {
+          "word": " ấy",
+          "start": 31.92,
+          "end": 32.02
+        },
+        {
+          "word": " đã",
+          "start": 32.02,
+          "end": 32.1
+        },
+        {
+          "word": " có",
+          "start": 32.1,
+          "end": 32.26
+        },
+        {
+          "word": " những",
+          "start": 32.26,
+          "end": 32.38
+        },
+        {
+          "word": " cái",
+          "start": 32.38,
+          "end": 32.5
+        },
+        {
+          "word": " sự",
+          "start": 32.5,
+          "end": 32.6
+        },
+        {
+          "word": " chuyển",
+          "start": 32.6,
+          "end": 32.8
+        },
+        {
+          "word": " hóa",
+          "start": 32.8,
+          "end": 33.08
+        },
+        {
+          "word": " hết",
+          "start": 33.08,
+          "end": 33.94
+        },
+        {
+          "word": " sức",
+          "start": 33.94,
+          "end": 34.16
+        },
+        {
+          "word": " là",
+          "start": 34.16,
+          "end": 34.3
+        },
+        {
+          "word": " đáng",
+          "start": 34.3,
+          "end": 34.8
+        },
+        {
+          "word": " thích",
+          "start": 34.8,
+          "end": 34.96
+        },
+        {
+          "word": " lệ.",
+          "start": 34.96,
+          "end": 35.14
+        }
+      ]
+    },
+    {
+      "start": 35.24,
+      "end": 41.6,
+      "text": "Thế thì cái điểm số của học kỳ 1 vừa rồi của bạn ấy là 8.5. Thì thầy biết rằng là điểm 8.5 nó không phải là một điểm số quá cao.",
+      "words": [
+        {
+          "word": " Thế",
+          "start": 35.24,
+          "end": 35.56
+        },
+        {
+          "word": " thì",
+          "start": 35.56,
+          "end": 35.64
+        },
+        {
+          "word": " cái",
+          "start": 35.64,
+          "end": 35.88
+        },
+        {
+          "word": " điểm",
+          "start": 35.88,
+          "end": 36.24
+        },
+        {
+          "word": " số",
+          "start": 36.24,
+          "end": 36.44
+        },
+        {
+          "word": " của",
+          "start": 36.44,
+          "end": 36.68
+        },
+        {
+          "word": " học",
+          "start": 36.68,
+          "end": 36.88
+        },
+        {
+          "word": " kỳ",
+          "start": 36.88,
+          "end": 37.06
+        },
+        {
+          "word": " 1",
+          "start": 37.06,
+          "end": 37.18
+        },
+        {
+          "word": " vừa",
+          "start": 37.18,
+          "end": 37.32
+        },
+        {
+          "word": " rồi",
+          "start": 37.32,
+          "end": 37.44
+        },
+        {
+          "word": " của",
+          "start": 37.44,
+          "end": 37.54
+        },
+        {
+          "word": " bạn",
+          "start": 37.54,
+          "end": 37.62
+        },
+        {
+          "word": " ấy",
+          "start": 37.62,
+          "end": 37.72
+        },
+        {
+          "word": " là",
+          "start": 37.72,
+          "end": 37.82
+        },
+        {
+          "word": " 8",
+          "start": 37.82,
+          "end": 38.24
+        },
+        {
+          "word": ".5.",
+          "start": 38.24,
+          "end": 38.7
+        },
+        {
+          "word": " Thì",
+          "start": 38.86,
+          "end": 39.18
+        },
+        {
+          "word": " thầy",
+          "start": 39.18,
+          "end": 39.26
+        },
+        {
+          "word": " biết",
+          "start": 39.26,
+          "end": 39.38
+        },
+        {
+          "word": " rằng",
+          "start": 39.38,
+          "end": 39.5
+        },
+        {
+          "word": " là",
+          "start": 39.5,
+          "end": 39.58
+        },
+        {
+          "word": " điểm",
+          "start": 39.58,
+          "end": 39.74
+        },
+        {
+          "word": " 8",
+          "start": 39.74,
+          "end": 39.9
+        },
+        {
+          "word": ".5",
+          "start": 39.9,
+          "end": 40.16
+        },
+        {
+          "word": " nó",
+          "start": 40.16,
+          "end": 40.3
+        },
+        {
+          "word": " không",
+          "start": 40.3,
+          "end": 40.4
+        },
+        {
+          "word": " phải",
+          "start": 40.4,
+          "end": 40.5
+        },
+        {
+          "word": " là",
+          "start": 40.5,
+          "end": 40.58
+        },
+        {
+          "word": " một",
+          "start": 40.58,
+          "end": 40.58
+        },
+        {
+          "word": " điểm",
+          "start": 40.58,
+          "end": 40.78
+        },
+        {
+          "word": " số",
+          "start": 40.78,
+          "end": 40.96
+        },
+        {
+          "word": " quá",
+          "start": 40.96,
+          "end": 41.18
+        },
+        {
+          "word": " cao.",
+          "start": 41.18,
+          "end": 41.6
+        }
+      ]
+    },
+    {
+      "start": 41.82,
+      "end": 49.82,
+      "text": "Thế nhưng mà với một bạn học sinh là mất gốc này, là lười biếng này và trước đây rất là sợ học và thụ động thì đấy là một hành trình, một cái kết quả vô cùng là thích lệ.",
+      "words": [
+        {
+          "word": " Thế",
+          "start": 41.82,
+          "end": 42.14
+        },
+        {
+          "word": " nhưng",
+          "start": 42.14,
+          "end": 42.2
+        },
+        {
+          "word": " mà",
+          "start": 42.2,
+          "end": 42.4
+        },
+        {
+          "word": " với",
+          "start": 42.4,
+          "end": 42.62
+        },
+        {
+          "word": " một",
+          "start": 42.62,
+          "end": 42.78
+        },
+        {
+          "word": " bạn",
+          "start": 42.78,
+          "end": 42.94
+        },
+        {
+          "word": " học",
+          "start": 42.94,
+          "end": 43.04
+        },
+        {
+          "word": " sinh",
+          "start": 43.04,
+          "end": 43.24
+        },
+        {
+          "word": " là",
+          "start": 43.24,
+          "end": 43.44
+        },
+        {
+          "word": " mất",
+          "start": 43.44,
+          "end": 43.7
+        },
+        {
+          "word": " gốc",
+          "start": 43.7,
+          "end": 43.96
+        },
+        {
+          "word": " này,",
+          "start": 43.96,
+          "end": 44.08
+        },
+        {
+          "word": " là",
+          "start": 44.12,
+          "end": 44.32
+        },
+        {
+          "word": " lười",
+          "start": 44.32,
+          "end": 44.56
+        },
+        {
+          "word": " biếng",
+          "start": 44.56,
+          "end": 44.88
+        },
+        {
+          "word": " này",
+          "start": 44.88,
+          "end": 45.0
+        },
+        {
+          "word": " và",
+          "start": 45.0,
+          "end": 45.38
+        },
+        {
+          "word": " trước",
+          "start": 45.38,
+          "end": 45.48
+        },
+        {
+          "word": " đây",
+          "start": 45.48,
+          "end": 45.6
+        },
+        {
+          "word": " rất",
+          "start": 45.6,
+          "end": 45.7
+        },
+        {
+          "word": " là",
+          "start": 45.7,
+          "end": 45.82
+        },
+        {
+          "word": " sợ",
+          "start": 45.82,
+          "end": 46.12
+        },
+        {
+          "word": " học",
+          "start": 46.12,
+          "end": 46.34
+        },
+        {
+          "word": " và",
+          "start": 46.34,
+          "end": 46.76
+        },
+        {
+          "word": " thụ",
+          "start": 46.76,
+          "end": 46.94
+        },
+        {
+          "word": " động",
+          "start": 46.94,
+          "end": 47.06
+        },
+        {
+          "word": " thì",
+          "start": 47.06,
+          "end": 47.18
+        },
+        {
+          "word": " đấy",
+          "start": 47.18,
+          "end": 47.36
+        },
+        {
+          "word": " là",
+          "start": 47.36,
+          "end": 47.58
+        },
+        {
+          "word": " một",
+          "start": 47.58,
+          "end": 47.78
+        },
+        {
+          "word": " hành",
+          "start": 47.78,
+          "end": 47.96
+        },
+        {
+          "word": " trình,",
+          "start": 47.96,
+          "end": 48.16
+        },
+        {
+          "word": " một",
+          "start": 48.2,
+          "end": 48.46
+        },
+        {
+          "word": " cái",
+          "start": 48.46,
+          "end": 48.72
+        },
+        {
+          "word": " kết",
+          "start": 48.72,
+          "end": 48.96
+        },
+        {
+          "word": " quả",
+          "start": 48.96,
+          "end": 49.08
+        },
+        {
+          "word": " vô",
+          "start": 49.08,
+          "end": 49.26
+        },
+        {
+          "word": " cùng",
+          "start": 49.26,
+          "end": 49.38
+        },
+        {
+          "word": " là",
+          "start": 49.38,
+          "end": 49.48
+        },
+        {
+          "word": " thích",
+          "start": 49.48,
+          "end": 49.66
+        },
+        {
+          "word": " lệ.",
+          "start": 49.66,
+          "end": 49.82
+        }
+      ]
+    },
+    {
+      "start": 50.06,
+      "end": 54.98,
+      "text": "Thế thì ngày hôm nay cùng với thầy là cùng xem là mẹ bạn ấy là cùng gọi điện thoại chúc mừng này.",
+      "words": [
+        {
+          "word": " Thế",
+          "start": 50.06,
+          "end": 50.38
+        },
+        {
+          "word": " thì",
+          "start": 50.38,
+          "end": 50.44
+        },
+        {
+          "word": " ngày",
+          "start": 50.44,
+          "end": 50.54
+        },
+        {
+          "word": " hôm",
+          "start": 50.54,
+          "end": 50.7
+        },
+        {
+          "word": " nay",
+          "start": 50.7,
+          "end": 50.8
+        },
+        {
+          "word": " cùng",
+          "start": 50.8,
+          "end": 50.96
+        },
+        {
+          "word": " với",
+          "start": 50.96,
+          "end": 51.16
+        },
+        {
+          "word": " thầy",
+          "start": 51.16,
+          "end": 51.34
+        },
+        {
+          "word": " là",
+          "start": 51.34,
+          "end": 51.48
+        },
+        {
+          "word": " cùng",
+          "start": 51.48,
+          "end": 51.68
+        },
+        {
+          "word": " xem",
+          "start": 51.68,
+          "end": 52.28
+        },
+        {
+          "word": " là",
+          "start": 52.28,
+          "end": 52.44
+        },
+        {
+          "word": " mẹ",
+          "start": 52.44,
+          "end": 52.76
+        },
+        {
+          "word": " bạn",
+          "start": 52.76,
+          "end": 52.86
+        },
+        {
+          "word": " ấy",
+          "start": 52.86,
+          "end": 53.04
+        },
+        {
+          "word": " là",
+          "start": 53.04,
+          "end": 53.3
+        },
+        {
+          "word": " cùng",
+          "start": 53.3,
+          "end": 54.12
+        },
+        {
+          "word": " gọi",
+          "start": 54.12,
+          "end": 54.34
+        },
+        {
+          "word": " điện",
+          "start": 54.34,
+          "end": 54.46
+        },
+        {
+          "word": " thoại",
+          "start": 54.46,
+          "end": 54.54
+        },
+        {
+          "word": " chúc",
+          "start": 54.54,
+          "end": 54.7
+        },
+        {
+          "word": " mừng",
+          "start": 54.7,
+          "end": 54.86
+        },
+        {
+          "word": " này.",
+          "start": 54.86,
+          "end": 54.98
+        }
+      ]
+    },
+    {
+      "start": 54.98,
+      "end": 59.88,
+      "text": "Và cùng lắng nghe một số những cái chia sẻ, trao đổi của mẹ bạn ấy, của vợ của mẹ ấy nhé.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 54.98,
+          "end": 55.2
+        },
+        {
+          "word": " cùng",
+          "start": 55.2,
+          "end": 55.52
+        },
+        {
+          "word": " lắng",
+          "start": 55.52,
+          "end": 55.74
+        },
+        {
+          "word": " nghe",
+          "start": 55.74,
+          "end": 55.9
+        },
+        {
+          "word": " một",
+          "start": 55.9,
+          "end": 56.06
+        },
+        {
+          "word": " số",
+          "start": 56.06,
+          "end": 56.26
+        },
+        {
+          "word": " những",
+          "start": 56.26,
+          "end": 56.42
+        },
+        {
+          "word": " cái",
+          "start": 56.42,
+          "end": 56.6
+        },
+        {
+          "word": " chia",
+          "start": 56.6,
+          "end": 56.86
+        },
+        {
+          "word": " sẻ,",
+          "start": 56.86,
+          "end": 57.18
+        },
+        {
+          "word": " trao",
+          "start": 57.18,
+          "end": 57.54
+        },
+        {
+          "word": " đổi",
+          "start": 57.54,
+          "end": 57.7
+        },
+        {
+          "word": " của",
+          "start": 57.7,
+          "end": 57.78
+        },
+        {
+          "word": " mẹ",
+          "start": 57.78,
+          "end": 57.92
+        },
+        {
+          "word": " bạn",
+          "start": 57.92,
+          "end": 58.04
+        },
+        {
+          "word": " ấy,",
+          "start": 58.04,
+          "end": 58.16
+        },
+        {
+          "word": " của",
+          "start": 58.2,
+          "end": 58.44
+        },
+        {
+          "word": " vợ",
+          "start": 58.44,
+          "end": 58.66
+        },
+        {
+          "word": " của",
+          "start": 58.66,
+          "end": 58.84
+        },
+        {
+          "word": " mẹ",
+          "start": 58.84,
+          "end": 59.58
+        },
+        {
+          "word": " ấy",
+          "start": 59.58,
+          "end": 59.64
+        },
+        {
+          "word": " nhé.",
+          "start": 59.64,
+          "end": 59.88
+        }
+      ]
+    },
+    {
+      "start": 60.18,
+      "end": 60.54,
+      "text": "Rồi.",
+      "words": [
+        {
+          "word": " Rồi.",
+          "start": 60.18,
+          "end": 60.54
+        }
+      ]
+    },
+    {
+      "start": 64.53,
+      "end": 67.45,
+      "text": "Thầy chào thầy Quyền. Hôm nay có việc gì mà thầy lại gọi cha mẹ thế?",
+      "words": [
+        {
+          "word": " Thầy",
+          "start": 64.53,
+          "end": 64.89
+        },
+        {
+          "word": " chào",
+          "start": 64.89,
+          "end": 65.03
+        },
+        {
+          "word": " thầy",
+          "start": 65.03,
+          "end": 65.13
+        },
+        {
+          "word": " Quyền.",
+          "start": 65.13,
+          "end": 65.47
+        },
+        {
+          "word": " Hôm",
+          "start": 65.57,
+          "end": 65.89
+        },
+        {
+          "word": " nay",
+          "start": 65.89,
+          "end": 65.93
+        },
+        {
+          "word": " có",
+          "start": 65.93,
+          "end": 66.05
+        },
+        {
+          "word": " việc",
+          "start": 66.05,
+          "end": 66.17
+        },
+        {
+          "word": " gì",
+          "start": 66.17,
+          "end": 66.37
+        },
+        {
+          "word": " mà",
+          "start": 66.37,
+          "end": 66.51
+        },
+        {
+          "word": " thầy",
+          "start": 66.51,
+          "end": 66.83
+        },
+        {
+          "word": " lại",
+          "start": 66.83,
+          "end": 66.93
+        },
+        {
+          "word": " gọi",
+          "start": 66.93,
+          "end": 67.09
+        },
+        {
+          "word": " cha",
+          "start": 67.09,
+          "end": 67.17
+        },
+        {
+          "word": " mẹ",
+          "start": 67.17,
+          "end": 67.35
+        },
+        {
+          "word": " thế?",
+          "start": 67.35,
+          "end": 67.45
+        }
+      ]
+    },
+    {
+      "start": 68.11,
+      "end": 69.57,
+      "text": "Dạ vâng, chào mẹ anh Trang nhé.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 68.11,
+          "end": 68.47
+        },
+        {
+          "word": " vâng,",
+          "start": 68.47,
+          "end": 68.63
+        },
+        {
+          "word": " chào",
+          "start": 68.65,
+          "end": 68.83
+        },
+        {
+          "word": " mẹ",
+          "start": 68.83,
+          "end": 68.99
+        },
+        {
+          "word": " anh",
+          "start": 68.99,
+          "end": 69.05
+        },
+        {
+          "word": " Trang",
+          "start": 69.05,
+          "end": 69.33
+        },
+        {
+          "word": " nhé.",
+          "start": 69.33,
+          "end": 69.57
+        }
+      ]
+    },
+    {
+      "start": 70.07,
+      "end": 74.27,
+      "text": "Thì không biết là bây giờ mẹ có tiện nghe máy khoảng tầm 5-10 phút không mẹ?",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 70.07,
+          "end": 70.43
+        },
+        {
+          "word": " không",
+          "start": 70.43,
+          "end": 70.79
+        },
+        {
+          "word": " biết",
+          "start": 70.79,
+          "end": 71.15
+        },
+        {
+          "word": " là",
+          "start": 71.15,
+          "end": 71.23
+        },
+        {
+          "word": " bây",
+          "start": 71.23,
+          "end": 71.33
+        },
+        {
+          "word": " giờ",
+          "start": 71.33,
+          "end": 71.39
+        },
+        {
+          "word": " mẹ",
+          "start": 71.39,
+          "end": 71.57
+        },
+        {
+          "word": " có",
+          "start": 71.57,
+          "end": 71.65
+        },
+        {
+          "word": " tiện",
+          "start": 71.65,
+          "end": 71.87
+        },
+        {
+          "word": " nghe",
+          "start": 71.87,
+          "end": 72.05
+        },
+        {
+          "word": " máy",
+          "start": 72.05,
+          "end": 72.21
+        },
+        {
+          "word": " khoảng",
+          "start": 72.21,
+          "end": 72.45
+        },
+        {
+          "word": " tầm",
+          "start": 72.45,
+          "end": 72.87
+        },
+        {
+          "word": " 5",
+          "start": 72.87,
+          "end": 73.63
+        },
+        {
+          "word": "-10",
+          "start": 73.63,
+          "end": 73.89
+        },
+        {
+          "word": " phút",
+          "start": 73.89,
+          "end": 74.03
+        },
+        {
+          "word": " không",
+          "start": 74.03,
+          "end": 74.07
+        },
+        {
+          "word": " mẹ?",
+          "start": 74.07,
+          "end": 74.27
+        }
+      ]
+    },
+    {
+      "start": 74.45,
+      "end": 76.01,
+      "text": "Có tiện nghe hay là được ạ?",
+      "words": [
+        {
+          "word": " Có",
+          "start": 74.45,
+          "end": 74.73
+        },
+        {
+          "word": " tiện",
+          "start": 74.73,
+          "end": 75.03
+        },
+        {
+          "word": " nghe",
+          "start": 75.35,
+          "end": 75.47
+        },
+        {
+          "word": " hay",
+          "start": 75.47,
+          "end": 75.59
+        },
+        {
+          "word": " là",
+          "start": 75.59,
+          "end": 75.71
+        },
+        {
+          "word": " được",
+          "start": 75.71,
+          "end": 75.93
+        },
+        {
+          "word": " ạ?",
+          "start": 75.93,
+          "end": 76.01
+        }
+      ]
+    },
+    {
+      "start": 76.39,
+      "end": 83.51,
+      "text": "Dạ vâng, đấy thì thầy cũng vừa được các cô báo là trong cái đợt thi học kỳ 1 vừa rồi con cũng rất là tiến bộ, con đã đạt được điểm 8.5.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 76.39,
+          "end": 76.59
+        },
+        {
+          "word": " vâng,",
+          "start": 76.59,
+          "end": 76.77
+        },
+        {
+          "word": " đấy",
+          "start": 76.77,
+          "end": 76.99
+        },
+        {
+          "word": " thì",
+          "start": 76.99,
+          "end": 77.15
+        },
+        {
+          "word": " thầy",
+          "start": 77.15,
+          "end": 77.83
+        },
+        {
+          "word": " cũng",
+          "start": 77.83,
+          "end": 77.99
+        },
+        {
+          "word": " vừa",
+          "start": 77.99,
+          "end": 78.25
+        },
+        {
+          "word": " được",
+          "start": 78.25,
+          "end": 78.35
+        },
+        {
+          "word": " các",
+          "start": 78.35,
+          "end": 78.45
+        },
+        {
+          "word": " cô",
+          "start": 78.45,
+          "end": 78.65
+        },
+        {
+          "word": " báo",
+          "start": 78.65,
+          "end": 78.97
+        },
+        {
+          "word": " là",
+          "start": 78.97,
+          "end": 79.11
+        },
+        {
+          "word": " trong",
+          "start": 79.11,
+          "end": 79.73
+        },
+        {
+          "word": " cái",
+          "start": 79.73,
+          "end": 79.83
+        },
+        {
+          "word": " đợt",
+          "start": 79.83,
+          "end": 79.95
+        },
+        {
+          "word": " thi",
+          "start": 79.95,
+          "end": 80.05
+        },
+        {
+          "word": " học",
+          "start": 80.05,
+          "end": 80.17
+        },
+        {
+          "word": " kỳ",
+          "start": 80.17,
+          "end": 80.33
+        },
+        {
+          "word": " 1",
+          "start": 80.33,
+          "end": 80.47
+        },
+        {
+          "word": " vừa",
+          "start": 80.47,
+          "end": 80.65
+        },
+        {
+          "word": " rồi",
+          "start": 80.65,
+          "end": 80.81
+        },
+        {
+          "word": " con",
+          "start": 80.81,
+          "end": 81.07
+        },
+        {
+          "word": " cũng",
+          "start": 81.07,
+          "end": 81.33
+        },
+        {
+          "word": " rất",
+          "start": 81.33,
+          "end": 81.93
+        },
+        {
+          "word": " là",
+          "start": 81.93,
+          "end": 82.05
+        },
+        {
+          "word": " tiến",
+          "start": 82.05,
+          "end": 82.19
+        },
+        {
+          "word": " bộ,",
+          "start": 82.19,
+          "end": 82.41
+        },
+        {
+          "word": " con",
+          "start": 82.43,
+          "end": 82.53
+        },
+        {
+          "word": " đã",
+          "start": 82.53,
+          "end": 82.63
+        },
+        {
+          "word": " đạt",
+          "start": 82.63,
+          "end": 82.87
+        },
+        {
+          "word": " được",
+          "start": 82.87,
+          "end": 82.95
+        },
+        {
+          "word": " điểm",
+          "start": 82.95,
+          "end": 83.09
+        },
+        {
+          "word": " 8",
+          "start": 83.09,
+          "end": 83.29
+        },
+        {
+          "word": ".5.",
+          "start": 83.29,
+          "end": 83.51
+        }
+      ]
+    },
+    {
+      "start": 83.73,
+      "end": 88.29,
+      "text": "Thì so với bạn ấy lúc trước thì đây là một cái điểm số cũng hết sức là...",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 83.73,
+          "end": 84.09
+        },
+        {
+          "word": " so",
+          "start": 84.09,
+          "end": 84.21
+        },
+        {
+          "word": " với",
+          "start": 84.21,
+          "end": 84.33
+        },
+        {
+          "word": " bạn",
+          "start": 84.33,
+          "end": 84.51
+        },
+        {
+          "word": " ấy",
+          "start": 84.51,
+          "end": 84.69
+        },
+        {
+          "word": " lúc",
+          "start": 84.69,
+          "end": 85.27
+        },
+        {
+          "word": " trước",
+          "start": 85.27,
+          "end": 85.49
+        },
+        {
+          "word": " thì",
+          "start": 85.49,
+          "end": 85.63
+        },
+        {
+          "word": " đây",
+          "start": 85.63,
+          "end": 86.35
+        },
+        {
+          "word": " là",
+          "start": 86.35,
+          "end": 86.45
+        },
+        {
+          "word": " một",
+          "start": 86.45,
+          "end": 86.53
+        },
+        {
+          "word": " cái",
+          "start": 86.53,
+          "end": 86.63
+        },
+        {
+          "word": " điểm",
+          "start": 86.63,
+          "end": 86.73
+        },
+        {
+          "word": " số",
+          "start": 86.73,
+          "end": 86.93
+        },
+        {
+          "word": " cũng",
+          "start": 86.93,
+          "end": 87.27
+        },
+        {
+          "word": " hết",
+          "start": 87.27,
+          "end": 87.87
+        },
+        {
+          "word": " sức",
+          "start": 87.87,
+          "end": 88.11
+        },
+        {
+          "word": " là...",
+          "start": 88.11,
+          "end": 88.29
+        }
+      ]
+    },
+    {
+      "start": 88.69,
+      "end": 89.53,
+      "text": "Đáng kích lệ ấy mẹ.",
+      "words": [
+        {
+          "word": " Đáng",
+          "start": 88.69,
+          "end": 88.87
+        },
+        {
+          "word": " kích",
+          "start": 88.87,
+          "end": 89.05
+        },
+        {
+          "word": " lệ",
+          "start": 89.05,
+          "end": 89.21
+        },
+        {
+          "word": " ấy",
+          "start": 89.21,
+          "end": 89.33
+        },
+        {
+          "word": " mẹ.",
+          "start": 89.33,
+          "end": 89.53
+        }
+      ]
+    },
+    {
+      "start": 89.67,
+      "end": 91.73,
+      "text": "Nên là thầy cũng gọi điện thoại để chúc hình con.",
+      "words": [
+        {
+          "word": " Nên",
+          "start": 89.67,
+          "end": 90.03
+        },
+        {
+          "word": " là",
+          "start": 90.03,
+          "end": 90.11
+        },
+        {
+          "word": " thầy",
+          "start": 90.11,
+          "end": 90.31
+        },
+        {
+          "word": " cũng",
+          "start": 90.31,
+          "end": 90.41
+        },
+        {
+          "word": " gọi",
+          "start": 90.41,
+          "end": 90.59
+        },
+        {
+          "word": " điện",
+          "start": 90.59,
+          "end": 90.73
+        },
+        {
+          "word": " thoại",
+          "start": 90.73,
+          "end": 90.83
+        },
+        {
+          "word": " để",
+          "start": 90.83,
+          "end": 90.99
+        },
+        {
+          "word": " chúc",
+          "start": 90.99,
+          "end": 91.43
+        },
+        {
+          "word": " hình",
+          "start": 91.43,
+          "end": 91.53
+        },
+        {
+          "word": " con.",
+          "start": 91.53,
+          "end": 91.73
+        }
+      ]
+    },
+    {
+      "start": 92.05,
+      "end": 92.87,
+      "text": "Dạ vâng ạ.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 92.05,
+          "end": 92.41
+        },
+        {
+          "word": " vâng",
+          "start": 92.41,
+          "end": 92.67
+        },
+        {
+          "word": " ạ.",
+          "start": 92.67,
+          "end": 92.87
+        }
+      ]
+    },
+    {
+      "start": 92.97,
+      "end": 94.31,
+      "text": "Mẹ con hôn thầy nhiều nhé.",
+      "words": [
+        {
+          "word": " Mẹ",
+          "start": 92.97,
+          "end": 93.33
+        },
+        {
+          "word": " con",
+          "start": 93.33,
+          "end": 93.41
+        },
+        {
+          "word": " hôn",
+          "start": 93.41,
+          "end": 93.55
+        },
+        {
+          "word": " thầy",
+          "start": 93.55,
+          "end": 93.75
+        },
+        {
+          "word": " nhiều",
+          "start": 93.75,
+          "end": 93.95
+        },
+        {
+          "word": " nhé.",
+          "start": 93.95,
+          "end": 94.31
+        }
+      ]
+    },
+    {
+      "start": 94.49,
+      "end": 97.89,
+      "text": "Cũng nhờ các thầy cô tại trung câm giúp đỡ nên là con mới được điểm như vậy.",
+      "words": [
+        {
+          "word": " Cũng",
+          "start": 94.49,
+          "end": 94.85
+        },
+        {
+          "word": " nhờ",
+          "start": 94.85,
+          "end": 95.21
+        },
+        {
+          "word": " các",
+          "start": 95.21,
+          "end": 95.33
+        },
+        {
+          "word": " thầy",
+          "start": 95.33,
+          "end": 95.55
+        },
+        {
+          "word": " cô",
+          "start": 95.55,
+          "end": 95.63
+        },
+        {
+          "word": " tại",
+          "start": 95.63,
+          "end": 95.77
+        },
+        {
+          "word": " trung",
+          "start": 95.77,
+          "end": 95.99
+        },
+        {
+          "word": " câm",
+          "start": 95.99,
+          "end": 96.21
+        },
+        {
+          "word": " giúp",
+          "start": 96.21,
+          "end": 96.41
+        },
+        {
+          "word": " đỡ",
+          "start": 96.41,
+          "end": 96.59
+        },
+        {
+          "word": " nên",
+          "start": 96.59,
+          "end": 96.75
+        },
+        {
+          "word": " là",
+          "start": 96.75,
+          "end": 96.89
+        },
+        {
+          "word": " con",
+          "start": 96.89,
+          "end": 97.07
+        },
+        {
+          "word": " mới",
+          "start": 97.07,
+          "end": 97.27
+        },
+        {
+          "word": " được",
+          "start": 97.27,
+          "end": 97.37
+        },
+        {
+          "word": " điểm",
+          "start": 97.37,
+          "end": 97.57
+        },
+        {
+          "word": " như",
+          "start": 97.57,
+          "end": 97.69
+        },
+        {
+          "word": " vậy.",
+          "start": 97.69,
+          "end": 97.89
+        }
+      ]
+    },
+    {
+      "start": 98.17,
+      "end": 102.45,
+      "text": "Thì thúng thật với thầy là thời điểm đầu tham gia lớp học ấy, thì mẹ con cũng không tin tưởng lắm đâu.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 98.17,
+          "end": 98.53
+        },
+        {
+          "word": " thúng",
+          "start": 98.53,
+          "end": 98.87
+        },
+        {
+          "word": " thật",
+          "start": 98.87,
+          "end": 99.05
+        },
+        {
+          "word": " với",
+          "start": 99.05,
+          "end": 99.15
+        },
+        {
+          "word": " thầy",
+          "start": 99.15,
+          "end": 99.33
+        },
+        {
+          "word": " là",
+          "start": 99.33,
+          "end": 99.41
+        },
+        {
+          "word": " thời",
+          "start": 99.41,
+          "end": 99.61
+        },
+        {
+          "word": " điểm",
+          "start": 99.61,
+          "end": 99.81
+        },
+        {
+          "word": " đầu",
+          "start": 99.81,
+          "end": 100.01
+        },
+        {
+          "word": " tham",
+          "start": 100.01,
+          "end": 100.25
+        },
+        {
+          "word": " gia",
+          "start": 100.25,
+          "end": 100.39
+        },
+        {
+          "word": " lớp",
+          "start": 100.39,
+          "end": 100.57
+        },
+        {
+          "word": " học",
+          "start": 100.57,
+          "end": 100.73
+        },
+        {
+          "word": " ấy,",
+          "start": 100.73,
+          "end": 100.89
+        },
+        {
+          "word": " thì",
+          "start": 100.91,
+          "end": 101.13
+        },
+        {
+          "word": " mẹ",
+          "start": 101.13,
+          "end": 101.31
+        },
+        {
+          "word": " con",
+          "start": 101.31,
+          "end": 101.45
+        },
+        {
+          "word": " cũng",
+          "start": 101.45,
+          "end": 101.59
+        },
+        {
+          "word": " không",
+          "start": 101.59,
+          "end": 101.71
+        },
+        {
+          "word": " tin",
+          "start": 101.71,
+          "end": 101.95
+        },
+        {
+          "word": " tưởng",
+          "start": 101.95,
+          "end": 102.13
+        },
+        {
+          "word": " lắm",
+          "start": 102.13,
+          "end": 102.29
+        },
+        {
+          "word": " đâu.",
+          "start": 102.29,
+          "end": 102.45
+        }
+      ]
+    },
+    {
+      "start": 102.65,
+      "end": 105.41,
+      "text": "Cái việc học online này thì sợ cũng không được hiệu quả.",
+      "words": [
+        {
+          "word": " Cái",
+          "start": 102.65,
+          "end": 102.81
+        },
+        {
+          "word": " việc",
+          "start": 102.81,
+          "end": 102.91
+        },
+        {
+          "word": " học",
+          "start": 102.91,
+          "end": 103.03
+        },
+        {
+          "word": " online",
+          "start": 103.03,
+          "end": 103.31
+        },
+        {
+          "word": " này",
+          "start": 103.31,
+          "end": 103.57
+        },
+        {
+          "word": " thì",
+          "start": 103.57,
+          "end": 103.85
+        },
+        {
+          "word": " sợ",
+          "start": 103.85,
+          "end": 104.49
+        },
+        {
+          "word": " cũng",
+          "start": 104.49,
+          "end": 104.63
+        },
+        {
+          "word": " không",
+          "start": 104.63,
+          "end": 104.85
+        },
+        {
+          "word": " được",
+          "start": 104.85,
+          "end": 104.95
+        },
+        {
+          "word": " hiệu",
+          "start": 104.95,
+          "end": 105.13
+        },
+        {
+          "word": " quả.",
+          "start": 105.13,
+          "end": 105.41
+        }
+      ]
+    },
+    {
+      "start": 105.53,
+      "end": 109.93,
+      "text": "Vì cái đợt trước là con cũng học ở cái đợt Covid ấy, thì con cũng học online trên trường.",
+      "words": [
+        {
+          "word": " Vì",
+          "start": 105.53,
+          "end": 105.85
+        },
+        {
+          "word": " cái",
+          "start": 105.85,
+          "end": 105.89
+        },
+        {
+          "word": " đợt",
+          "start": 105.89,
+          "end": 106.07
+        },
+        {
+          "word": " trước",
+          "start": 106.07,
+          "end": 106.27
+        },
+        {
+          "word": " là",
+          "start": 106.27,
+          "end": 106.49
+        },
+        {
+          "word": " con",
+          "start": 106.49,
+          "end": 106.89
+        },
+        {
+          "word": " cũng",
+          "start": 106.89,
+          "end": 107.07
+        },
+        {
+          "word": " học",
+          "start": 107.07,
+          "end": 107.27
+        },
+        {
+          "word": " ở",
+          "start": 107.27,
+          "end": 107.63
+        },
+        {
+          "word": " cái",
+          "start": 107.63,
+          "end": 107.91
+        },
+        {
+          "word": " đợt",
+          "start": 107.91,
+          "end": 108.09
+        },
+        {
+          "word": " Covid",
+          "start": 108.09,
+          "end": 108.33
+        },
+        {
+          "word": " ấy,",
+          "start": 108.33,
+          "end": 108.61
+        },
+        {
+          "word": " thì",
+          "start": 108.65,
+          "end": 108.79
+        },
+        {
+          "word": " con",
+          "start": 108.79,
+          "end": 108.91
+        },
+        {
+          "word": " cũng",
+          "start": 108.91,
+          "end": 108.99
+        },
+        {
+          "word": " học",
+          "start": 108.99,
+          "end": 109.11
+        },
+        {
+          "word": " online",
+          "start": 109.11,
+          "end": 109.35
+        },
+        {
+          "word": " trên",
+          "start": 109.35,
+          "end": 109.53
+        },
+        {
+          "word": " trường.",
+          "start": 109.53,
+          "end": 109.93
+        }
+      ]
+    },
+    {
+      "start": 109.99,
+      "end": 112.63,
+      "text": "Và bạn nhà em thì cũng khó tập trung và lại lười nữa.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 109.99,
+          "end": 110.13
+        },
+        {
+          "word": " bạn",
+          "start": 110.13,
+          "end": 110.29
+        },
+        {
+          "word": " nhà",
+          "start": 110.29,
+          "end": 110.45
+        },
+        {
+          "word": " em",
+          "start": 110.45,
+          "end": 110.63
+        },
+        {
+          "word": " thì",
+          "start": 110.63,
+          "end": 110.79
+        },
+        {
+          "word": " cũng",
+          "start": 110.79,
+          "end": 111.07
+        },
+        {
+          "word": " khó",
+          "start": 111.07,
+          "end": 111.43
+        },
+        {
+          "word": " tập",
+          "start": 111.43,
+          "end": 111.63
+        },
+        {
+          "word": " trung",
+          "start": 111.63,
+          "end": 111.89
+        },
+        {
+          "word": " và",
+          "start": 111.89,
+          "end": 112.05
+        },
+        {
+          "word": " lại",
+          "start": 112.05,
+          "end": 112.17
+        },
+        {
+          "word": " lười",
+          "start": 112.17,
+          "end": 112.45
+        },
+        {
+          "word": " nữa.",
+          "start": 112.45,
+          "end": 112.63
+        }
+      ]
+    },
+    {
+      "start": 112.89,
+      "end": 114.39,
+      "text": "Thật ý thì con cũng kêu chán đấy ạ.",
+      "words": [
+        {
+          "word": " Thật",
+          "start": 112.89,
+          "end": 113.25
+        },
+        {
+          "word": " ý",
+          "start": 113.25,
+          "end": 113.33
+        },
+        {
+          "word": " thì",
+          "start": 113.33,
+          "end": 113.41
+        },
+        {
+          "word": " con",
+          "start": 113.41,
+          "end": 113.59
+        },
+        {
+          "word": " cũng",
+          "start": 113.59,
+          "end": 113.67
+        },
+        {
+          "word": " kêu",
+          "start": 113.67,
+          "end": 113.89
+        },
+        {
+          "word": " chán",
+          "start": 113.89,
+          "end": 114.15
+        },
+        {
+          "word": " đấy",
+          "start": 114.15,
+          "end": 114.29
+        },
+        {
+          "word": " ạ.",
+          "start": 114.29,
+          "end": 114.39
+        }
+      ]
+    },
+    {
+      "start": 114.39,
+      "end": 117.63,
+      "text": "Đấy nhưng mà trộm vết thế nào mà từ khi tham gia chương trình lớp học bên thầy ấy.",
+      "words": [
+        {
+          "word": " Đấy",
+          "start": 114.39,
+          "end": 114.65
+        },
+        {
+          "word": " nhưng",
+          "start": 114.65,
+          "end": 114.79
+        },
+        {
+          "word": " mà",
+          "start": 114.79,
+          "end": 114.99
+        },
+        {
+          "word": " trộm",
+          "start": 114.99,
+          "end": 115.21
+        },
+        {
+          "word": " vết",
+          "start": 115.21,
+          "end": 115.33
+        },
+        {
+          "word": " thế",
+          "start": 115.33,
+          "end": 115.43
+        },
+        {
+          "word": " nào",
+          "start": 115.43,
+          "end": 115.67
+        },
+        {
+          "word": " mà",
+          "start": 115.67,
+          "end": 115.79
+        },
+        {
+          "word": " từ",
+          "start": 115.79,
+          "end": 115.93
+        },
+        {
+          "word": " khi",
+          "start": 115.93,
+          "end": 116.09
+        },
+        {
+          "word": " tham",
+          "start": 116.09,
+          "end": 116.29
+        },
+        {
+          "word": " gia",
+          "start": 116.29,
+          "end": 116.39
+        },
+        {
+          "word": " chương",
+          "start": 116.39,
+          "end": 116.61
+        },
+        {
+          "word": " trình",
+          "start": 116.61,
+          "end": 116.79
+        },
+        {
+          "word": " lớp",
+          "start": 116.79,
+          "end": 116.99
+        },
+        {
+          "word": " học",
+          "start": 116.99,
+          "end": 117.13
+        },
+        {
+          "word": " bên",
+          "start": 117.13,
+          "end": 117.23
+        },
+        {
+          "word": " thầy",
+          "start": 117.23,
+          "end": 117.53
+        },
+        {
+          "word": " ấy.",
+          "start": 117.53,
+          "end": 117.63
+        }
+      ]
+    },
+    {
+      "start": 117.69,
+      "end": 121.71,
+      "text": "Thì đầu tiên là chương trình 45 ngày lấy gốc, mẹ thầy trái con cũng tiến bộ.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 117.69,
+          "end": 117.95
+        },
+        {
+          "word": " đầu",
+          "start": 117.95,
+          "end": 118.09
+        },
+        {
+          "word": " tiên",
+          "start": 118.09,
+          "end": 118.53
+        },
+        {
+          "word": " là",
+          "start": 118.53,
+          "end": 118.67
+        },
+        {
+          "word": " chương",
+          "start": 118.67,
+          "end": 118.95
+        },
+        {
+          "word": " trình",
+          "start": 118.95,
+          "end": 119.11
+        },
+        {
+          "word": " 45",
+          "start": 119.11,
+          "end": 119.33
+        },
+        {
+          "word": " ngày",
+          "start": 119.33,
+          "end": 119.73
+        },
+        {
+          "word": " lấy",
+          "start": 119.73,
+          "end": 119.91
+        },
+        {
+          "word": " gốc,",
+          "start": 119.91,
+          "end": 120.13
+        },
+        {
+          "word": " mẹ",
+          "start": 120.21,
+          "end": 120.63
+        },
+        {
+          "word": " thầy",
+          "start": 120.63,
+          "end": 120.77
+        },
+        {
+          "word": " trái",
+          "start": 120.77,
+          "end": 120.87
+        },
+        {
+          "word": " con",
+          "start": 120.87,
+          "end": 121.09
+        },
+        {
+          "word": " cũng",
+          "start": 121.09,
+          "end": 121.25
+        },
+        {
+          "word": " tiến",
+          "start": 121.25,
+          "end": 121.49
+        },
+        {
+          "word": " bộ.",
+          "start": 121.49,
+          "end": 121.71
+        }
+      ]
+    },
+    {
+      "start": 121.89,
+      "end": 127.03,
+      "text": "Cái đợt ấy thì em cũng không nghĩ là một đứa mà lười mà suốt ngày em phải dục nó học ấy.",
+      "words": [
+        {
+          "word": " Cái",
+          "start": 121.89,
+          "end": 122.29
+        },
+        {
+          "word": " đợt",
+          "start": 122.29,
+          "end": 122.43
+        },
+        {
+          "word": " ấy",
+          "start": 122.43,
+          "end": 122.53
+        },
+        {
+          "word": " thì",
+          "start": 122.53,
+          "end": 122.71
+        },
+        {
+          "word": " em",
+          "start": 122.71,
+          "end": 122.93
+        },
+        {
+          "word": " cũng",
+          "start": 122.93,
+          "end": 123.11
+        },
+        {
+          "word": " không",
+          "start": 123.11,
+          "end": 123.43
+        },
+        {
+          "word": " nghĩ",
+          "start": 123.43,
+          "end": 123.65
+        },
+        {
+          "word": " là",
+          "start": 123.65,
+          "end": 123.79
+        },
+        {
+          "word": " một",
+          "start": 123.79,
+          "end": 123.93
+        },
+        {
+          "word": " đứa",
+          "start": 123.93,
+          "end": 124.13
+        },
+        {
+          "word": " mà",
+          "start": 124.13,
+          "end": 124.27
+        },
+        {
+          "word": " lười",
+          "start": 124.27,
+          "end": 124.75
+        },
+        {
+          "word": " mà",
+          "start": 124.75,
+          "end": 124.93
+        },
+        {
+          "word": " suốt",
+          "start": 124.93,
+          "end": 125.21
+        },
+        {
+          "word": " ngày",
+          "start": 125.21,
+          "end": 125.33
+        },
+        {
+          "word": " em",
+          "start": 125.33,
+          "end": 125.55
+        },
+        {
+          "word": " phải",
+          "start": 125.55,
+          "end": 125.89
+        },
+        {
+          "word": " dục",
+          "start": 125.89,
+          "end": 126.17
+        },
+        {
+          "word": " nó",
+          "start": 126.17,
+          "end": 126.33
+        },
+        {
+          "word": " học",
+          "start": 126.33,
+          "end": 126.79
+        },
+        {
+          "word": " ấy.",
+          "start": 126.79,
+          "end": 127.03
+        }
+      ]
+    },
+    {
+      "start": 127.19,
+      "end": 129.53,
+      "text": "Mà bây giờ nó lại tự chủ động làm bài như vậy.",
+      "words": [
+        {
+          "word": " Mà",
+          "start": 127.19,
+          "end": 127.59
+        },
+        {
+          "word": " bây",
+          "start": 127.59,
+          "end": 127.71
+        },
+        {
+          "word": " giờ",
+          "start": 127.71,
+          "end": 127.79
+        },
+        {
+          "word": " nó",
+          "start": 127.79,
+          "end": 127.91
+        },
+        {
+          "word": " lại",
+          "start": 127.91,
+          "end": 128.05
+        },
+        {
+          "word": " tự",
+          "start": 128.05,
+          "end": 128.29
+        },
+        {
+          "word": " chủ",
+          "start": 128.29,
+          "end": 128.57
+        },
+        {
+          "word": " động",
+          "start": 128.57,
+          "end": 128.73
+        },
+        {
+          "word": " làm",
+          "start": 128.73,
+          "end": 128.91
+        },
+        {
+          "word": " bài",
+          "start": 128.91,
+          "end": 129.23
+        },
+        {
+          "word": " như",
+          "start": 129.23,
+          "end": 129.31
+        },
+        {
+          "word": " vậy.",
+          "start": 129.31,
+          "end": 129.53
+        }
+      ]
+    },
+    {
+      "start": 129.65,
+      "end": 131.83,
+      "text": "Thật sự là em cũng rất là mừng và bất ngờ.",
+      "words": [
+        {
+          "word": " Thật",
+          "start": 129.65,
+          "end": 129.91
+        },
+        {
+          "word": " sự",
+          "start": 129.91,
+          "end": 130.07
+        },
+        {
+          "word": " là",
+          "start": 130.07,
+          "end": 130.21
+        },
+        {
+          "word": " em",
+          "start": 130.21,
+          "end": 130.37
+        },
+        {
+          "word": " cũng",
+          "start": 130.37,
+          "end": 130.51
+        },
+        {
+          "word": " rất",
+          "start": 130.51,
+          "end": 130.71
+        },
+        {
+          "word": " là",
+          "start": 130.71,
+          "end": 130.81
+        },
+        {
+          "word": " mừng",
+          "start": 130.81,
+          "end": 131.15
+        },
+        {
+          "word": " và",
+          "start": 131.15,
+          "end": 131.37
+        },
+        {
+          "word": " bất",
+          "start": 131.37,
+          "end": 131.59
+        },
+        {
+          "word": " ngờ.",
+          "start": 131.59,
+          "end": 131.83
+        }
+      ]
+    },
+    {
+      "start": 131.93,
+      "end": 137.01,
+      "text": "Đúng là các thầy cô thì cũng tổ chức các chương trình, các chương trình cho con.",
+      "words": [
+        {
+          "word": " Đúng",
+          "start": 131.93,
+          "end": 132.33
+        },
+        {
+          "word": " là",
+          "start": 132.33,
+          "end": 132.63
+        },
+        {
+          "word": " các",
+          "start": 132.63,
+          "end": 133.13
+        },
+        {
+          "word": " thầy",
+          "start": 133.13,
+          "end": 133.39
+        },
+        {
+          "word": " cô",
+          "start": 133.39,
+          "end": 133.61
+        },
+        {
+          "word": " thì",
+          "start": 133.61,
+          "end": 133.89
+        },
+        {
+          "word": " cũng",
+          "start": 133.89,
+          "end": 134.39
+        },
+        {
+          "word": " tổ",
+          "start": 134.39,
+          "end": 135.15
+        },
+        {
+          "word": " chức",
+          "start": 135.15,
+          "end": 135.39
+        },
+        {
+          "word": " các",
+          "start": 135.39,
+          "end": 135.55
+        },
+        {
+          "word": " chương",
+          "start": 135.55,
+          "end": 135.83
+        },
+        {
+          "word": " trình,",
+          "start": 135.83,
+          "end": 136.05
+        },
+        {
+          "word": " các",
+          "start": 136.07,
+          "end": 136.21
+        },
+        {
+          "word": " chương",
+          "start": 136.21,
+          "end": 136.37
+        },
+        {
+          "word": " trình",
+          "start": 136.37,
+          "end": 136.53
+        },
+        {
+          "word": " cho",
+          "start": 136.53,
+          "end": 136.71
+        },
+        {
+          "word": " con.",
+          "start": 136.71,
+          "end": 137.01
+        }
+      ]
+    },
+    {
+      "start": 137.35,
+      "end": 139.47,
+      "text": "Làm cho con kiểu có các cuộc thi đua ấy.",
+      "words": [
+        {
+          "word": " Làm",
+          "start": 137.35,
+          "end": 137.75
+        },
+        {
+          "word": " cho",
+          "start": 137.75,
+          "end": 137.85
+        },
+        {
+          "word": " con",
+          "start": 137.85,
+          "end": 138.07
+        },
+        {
+          "word": " kiểu",
+          "start": 138.07,
+          "end": 138.21
+        },
+        {
+          "word": " có",
+          "start": 138.21,
+          "end": 138.37
+        },
+        {
+          "word": " các",
+          "start": 138.37,
+          "end": 138.65
+        },
+        {
+          "word": " cuộc",
+          "start": 138.65,
+          "end": 138.83
+        },
+        {
+          "word": " thi",
+          "start": 138.83,
+          "end": 139.07
+        },
+        {
+          "word": " đua",
+          "start": 139.07,
+          "end": 139.33
+        },
+        {
+          "word": " ấy.",
+          "start": 139.33,
+          "end": 139.47
+        }
+      ]
+    },
+    {
+      "start": 139.49,
+      "end": 140.57,
+      "text": "Con cũng rất là hào hứng.",
+      "words": [
+        {
+          "word": " Con",
+          "start": 139.49,
+          "end": 139.71
+        },
+        {
+          "word": " cũng",
+          "start": 139.71,
+          "end": 139.91
+        },
+        {
+          "word": " rất",
+          "start": 139.91,
+          "end": 140.05
+        },
+        {
+          "word": " là",
+          "start": 140.05,
+          "end": 140.15
+        },
+        {
+          "word": " hào",
+          "start": 140.15,
+          "end": 140.31
+        },
+        {
+          "word": " hứng.",
+          "start": 140.31,
+          "end": 140.57
+        }
+      ]
+    },
+    {
+      "start": 140.73,
+      "end": 141.67,
+      "text": "Sau đó thì...",
+      "words": [
+        {
+          "word": " Sau",
+          "start": 140.73,
+          "end": 141.11
+        },
+        {
+          "word": " đó",
+          "start": 141.11,
+          "end": 141.27
+        },
+        {
+          "word": " thì...",
+          "start": 141.27,
+          "end": 141.67
+        }
+      ]
+    },
+    {
+      "start": 142.49,
+      "end": 143.79,
+      "text": "Sau đó thì vào cái...",
+      "words": [
+        {
+          "word": " Sau",
+          "start": 142.49,
+          "end": 142.89
+        },
+        {
+          "word": " đó",
+          "start": 142.89,
+          "end": 143.09
+        },
+        {
+          "word": " thì",
+          "start": 143.09,
+          "end": 143.23
+        },
+        {
+          "word": " vào",
+          "start": 143.23,
+          "end": 143.49
+        },
+        {
+          "word": " cái...",
+          "start": 143.49,
+          "end": 143.79
+        }
+      ]
+    },
+    {
+      "start": 144.39,
+      "end": 144.59,
+      "text": "Bữa chính ấy.",
+      "words": [
+        {
+          "word": " Bữa",
+          "start": 144.39,
+          "end": 144.39
+        },
+        {
+          "word": " chính",
+          "start": 144.39,
+          "end": 144.43
+        },
+        {
+          "word": " ấy.",
+          "start": 144.43,
+          "end": 144.59
+        }
+      ]
+    },
+    {
+      "start": 145.37,
+      "end": 147.69,
+      "text": "Thì các thầy cô hỗ trợ ứng rất là nhiệt tình.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 145.37,
+          "end": 145.73
+        },
+        {
+          "word": " các",
+          "start": 145.73,
+          "end": 146.09
+        },
+        {
+          "word": " thầy",
+          "start": 146.09,
+          "end": 146.29
+        },
+        {
+          "word": " cô",
+          "start": 146.29,
+          "end": 146.45
+        },
+        {
+          "word": " hỗ",
+          "start": 146.45,
+          "end": 146.73
+        },
+        {
+          "word": " trợ",
+          "start": 146.73,
+          "end": 146.87
+        },
+        {
+          "word": " ứng",
+          "start": 146.87,
+          "end": 147.01
+        },
+        {
+          "word": " rất",
+          "start": 147.01,
+          "end": 147.13
+        },
+        {
+          "word": " là",
+          "start": 147.13,
+          "end": 147.23
+        },
+        {
+          "word": " nhiệt",
+          "start": 147.23,
+          "end": 147.37
+        },
+        {
+          "word": " tình.",
+          "start": 147.37,
+          "end": 147.69
+        }
+      ]
+    },
+    {
+      "start": 147.83,
+      "end": 150.09,
+      "text": "Hai buổi chính là em thấy cô Mai nhỉ.",
+      "words": [
+        {
+          "word": " Hai",
+          "start": 147.83,
+          "end": 148.19
+        },
+        {
+          "word": " buổi",
+          "start": 148.19,
+          "end": 148.41
+        },
+        {
+          "word": " chính",
+          "start": 148.41,
+          "end": 148.59
+        },
+        {
+          "word": " là",
+          "start": 148.59,
+          "end": 148.75
+        },
+        {
+          "word": " em",
+          "start": 148.75,
+          "end": 149.29
+        },
+        {
+          "word": " thấy",
+          "start": 149.29,
+          "end": 149.47
+        },
+        {
+          "word": " cô",
+          "start": 149.47,
+          "end": 149.61
+        },
+        {
+          "word": " Mai",
+          "start": 149.61,
+          "end": 149.89
+        },
+        {
+          "word": " nhỉ.",
+          "start": 149.89,
+          "end": 150.09
+        }
+      ]
+    },
+    {
+      "start": 150.15,
+      "end": 152.87,
+      "text": "Cô Mai hướng dẫn rất là chi tiết, dễ hiểu.",
+      "words": [
+        {
+          "word": " Cô",
+          "start": 150.15,
+          "end": 150.51
+        },
+        {
+          "word": " Mai",
+          "start": 150.51,
+          "end": 150.67
+        },
+        {
+          "word": " hướng",
+          "start": 150.67,
+          "end": 151.19
+        },
+        {
+          "word": " dẫn",
+          "start": 151.19,
+          "end": 151.29
+        },
+        {
+          "word": " rất",
+          "start": 151.29,
+          "end": 151.39
+        },
+        {
+          "word": " là",
+          "start": 151.39,
+          "end": 151.53
+        },
+        {
+          "word": " chi",
+          "start": 151.53,
+          "end": 151.83
+        },
+        {
+          "word": " tiết,",
+          "start": 151.83,
+          "end": 152.21
+        },
+        {
+          "word": " dễ",
+          "start": 152.21,
+          "end": 152.47
+        },
+        {
+          "word": " hiểu.",
+          "start": 152.47,
+          "end": 152.87
+        }
+      ]
+    },
+    {
+      "start": 153.05,
+      "end": 156.69,
+      "text": "Nhiều khi mà ngồi cạnh con là em cũng học được chút ít kiến thức đấy thầy ạ.",
+      "words": [
+        {
+          "word": " Nhiều",
+          "start": 153.05,
+          "end": 153.41
+        },
+        {
+          "word": " khi",
+          "start": 153.41,
+          "end": 153.57
+        },
+        {
+          "word": " mà",
+          "start": 153.57,
+          "end": 153.75
+        },
+        {
+          "word": " ngồi",
+          "start": 153.75,
+          "end": 153.97
+        },
+        {
+          "word": " cạnh",
+          "start": 153.97,
+          "end": 154.15
+        },
+        {
+          "word": " con",
+          "start": 154.15,
+          "end": 154.37
+        },
+        {
+          "word": " là",
+          "start": 154.37,
+          "end": 154.55
+        },
+        {
+          "word": " em",
+          "start": 154.55,
+          "end": 154.81
+        },
+        {
+          "word": " cũng",
+          "start": 154.81,
+          "end": 154.93
+        },
+        {
+          "word": " học",
+          "start": 154.93,
+          "end": 155.17
+        },
+        {
+          "word": " được",
+          "start": 155.17,
+          "end": 155.35
+        },
+        {
+          "word": " chút",
+          "start": 155.35,
+          "end": 155.79
+        },
+        {
+          "word": " ít",
+          "start": 155.79,
+          "end": 155.97
+        },
+        {
+          "word": " kiến",
+          "start": 155.97,
+          "end": 156.15
+        },
+        {
+          "word": " thức",
+          "start": 156.15,
+          "end": 156.31
+        },
+        {
+          "word": " đấy",
+          "start": 156.31,
+          "end": 156.43
+        },
+        {
+          "word": " thầy",
+          "start": 156.43,
+          "end": 156.57
+        },
+        {
+          "word": " ạ.",
+          "start": 156.57,
+          "end": 156.69
+        }
+      ]
+    },
+    {
+      "start": 156.83,
+      "end": 157.29,
+      "text": "Dạ vâng.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 156.83,
+          "end": 157.19
+        },
+        {
+          "word": " vâng.",
+          "start": 157.19,
+          "end": 157.29
+        }
+      ]
+    },
+    {
+      "start": 159.07,
+      "end": 162.85,
+      "text": "Rồi thì các cô giáo chủ nhiệm trong nhóm cũng rất quan tâm với con thầy ạ.",
+      "words": [
+        {
+          "word": " Rồi",
+          "start": 159.07,
+          "end": 159.43
+        },
+        {
+          "word": " thì",
+          "start": 159.43,
+          "end": 159.55
+        },
+        {
+          "word": " các",
+          "start": 159.55,
+          "end": 159.95
+        },
+        {
+          "word": " cô",
+          "start": 159.95,
+          "end": 160.29
+        },
+        {
+          "word": " giáo",
+          "start": 160.29,
+          "end": 160.59
+        },
+        {
+          "word": " chủ",
+          "start": 160.59,
+          "end": 160.85
+        },
+        {
+          "word": " nhiệm",
+          "start": 160.85,
+          "end": 161.07
+        },
+        {
+          "word": " trong",
+          "start": 161.07,
+          "end": 161.19
+        },
+        {
+          "word": " nhóm",
+          "start": 161.19,
+          "end": 161.51
+        },
+        {
+          "word": " cũng",
+          "start": 161.51,
+          "end": 161.63
+        },
+        {
+          "word": " rất",
+          "start": 161.63,
+          "end": 161.79
+        },
+        {
+          "word": " quan",
+          "start": 161.79,
+          "end": 161.95
+        },
+        {
+          "word": " tâm",
+          "start": 161.95,
+          "end": 162.19
+        },
+        {
+          "word": " với",
+          "start": 162.19,
+          "end": 162.29
+        },
+        {
+          "word": " con",
+          "start": 162.29,
+          "end": 162.45
+        },
+        {
+          "word": " thầy",
+          "start": 162.45,
+          "end": 162.71
+        },
+        {
+          "word": " ạ.",
+          "start": 162.71,
+          "end": 162.85
+        }
+      ]
+    },
+    {
+      "start": 163.13,
+      "end": 166.49,
+      "text": "Giao bài này, xong rồi check bài này, truyền cảm hứng cho các bạn.",
+      "words": [
+        {
+          "word": " Giao",
+          "start": 163.13,
+          "end": 163.49
+        },
+        {
+          "word": " bài",
+          "start": 163.49,
+          "end": 163.87
+        },
+        {
+          "word": " này,",
+          "start": 163.87,
+          "end": 163.99
+        },
+        {
+          "word": " xong",
+          "start": 164.11,
+          "end": 164.37
+        },
+        {
+          "word": " rồi",
+          "start": 164.37,
+          "end": 164.49
+        },
+        {
+          "word": " check",
+          "start": 164.49,
+          "end": 164.71
+        },
+        {
+          "word": " bài",
+          "start": 164.71,
+          "end": 165.09
+        },
+        {
+          "word": " này,",
+          "start": 165.09,
+          "end": 165.19
+        },
+        {
+          "word": " truyền",
+          "start": 165.25,
+          "end": 165.51
+        },
+        {
+          "word": " cảm",
+          "start": 165.51,
+          "end": 165.71
+        },
+        {
+          "word": " hứng",
+          "start": 165.71,
+          "end": 165.97
+        },
+        {
+          "word": " cho",
+          "start": 165.97,
+          "end": 166.11
+        },
+        {
+          "word": " các",
+          "start": 166.11,
+          "end": 166.19
+        },
+        {
+          "word": " bạn.",
+          "start": 166.19,
+          "end": 166.49
+        }
+      ]
+    },
+    {
+      "start": 166.55,
+      "end": 170.27,
+      "text": "Thì bạn ấy học tập cũng tập trung hơn và cũng nỗ lực hơn là nhiều.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 166.55,
+          "end": 166.65
+        },
+        {
+          "word": " bạn",
+          "start": 166.65,
+          "end": 166.79
+        },
+        {
+          "word": " ấy",
+          "start": 166.79,
+          "end": 166.95
+        },
+        {
+          "word": " học",
+          "start": 166.95,
+          "end": 167.27
+        },
+        {
+          "word": " tập",
+          "start": 167.27,
+          "end": 167.63
+        },
+        {
+          "word": " cũng",
+          "start": 167.63,
+          "end": 168.29
+        },
+        {
+          "word": " tập",
+          "start": 168.29,
+          "end": 168.61
+        },
+        {
+          "word": " trung",
+          "start": 168.61,
+          "end": 168.75
+        },
+        {
+          "word": " hơn",
+          "start": 168.75,
+          "end": 168.93
+        },
+        {
+          "word": " và",
+          "start": 168.93,
+          "end": 169.11
+        },
+        {
+          "word": " cũng",
+          "start": 169.11,
+          "end": 169.27
+        },
+        {
+          "word": " nỗ",
+          "start": 169.27,
+          "end": 169.55
+        },
+        {
+          "word": " lực",
+          "start": 169.55,
+          "end": 169.75
+        },
+        {
+          "word": " hơn",
+          "start": 169.75,
+          "end": 169.89
+        },
+        {
+          "word": " là",
+          "start": 169.89,
+          "end": 170.03
+        },
+        {
+          "word": " nhiều.",
+          "start": 170.03,
+          "end": 170.27
+        }
+      ]
+    },
+    {
+      "start": 170.65,
+      "end": 173.27,
+      "text": "Thôi thì trước khát thì thấy bạn cũng vui vẻ.",
+      "words": [
+        {
+          "word": " Thôi",
+          "start": 170.65,
+          "end": 171.01
+        },
+        {
+          "word": " thì",
+          "start": 171.01,
+          "end": 171.07
+        },
+        {
+          "word": " trước",
+          "start": 171.07,
+          "end": 171.21
+        },
+        {
+          "word": " khát",
+          "start": 171.21,
+          "end": 171.43
+        },
+        {
+          "word": " thì",
+          "start": 171.43,
+          "end": 171.53
+        },
+        {
+          "word": " thấy",
+          "start": 171.53,
+          "end": 171.75
+        },
+        {
+          "word": " bạn",
+          "start": 171.75,
+          "end": 171.97
+        },
+        {
+          "word": " cũng",
+          "start": 171.97,
+          "end": 172.19
+        },
+        {
+          "word": " vui",
+          "start": 172.19,
+          "end": 173.03
+        },
+        {
+          "word": " vẻ.",
+          "start": 173.03,
+          "end": 173.27
+        }
+      ]
+    },
+    {
+      "start": 173.57,
+      "end": 174.25,
+      "text": "Và cũng ham.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 173.57,
+          "end": 173.93
+        },
+        {
+          "word": " cũng",
+          "start": 173.93,
+          "end": 174.01
+        },
+        {
+          "word": " ham.",
+          "start": 174.01,
+          "end": 174.25
+        }
+      ]
+    },
+    {
+      "start": 174.39,
+      "end": 177.95,
+      "text": "Học với cái chương trình online này thì cũng gia đình cũng rất là mừng.",
+      "words": [
+        {
+          "word": " Học",
+          "start": 174.39,
+          "end": 174.55
+        },
+        {
+          "word": " với",
+          "start": 174.55,
+          "end": 174.75
+        },
+        {
+          "word": " cái",
+          "start": 174.75,
+          "end": 174.93
+        },
+        {
+          "word": " chương",
+          "start": 174.93,
+          "end": 175.61
+        },
+        {
+          "word": " trình",
+          "start": 175.61,
+          "end": 175.75
+        },
+        {
+          "word": " online",
+          "start": 175.75,
+          "end": 175.93
+        },
+        {
+          "word": " này",
+          "start": 175.93,
+          "end": 176.27
+        },
+        {
+          "word": " thì",
+          "start": 176.27,
+          "end": 176.69
+        },
+        {
+          "word": " cũng",
+          "start": 176.69,
+          "end": 176.99
+        },
+        {
+          "word": " gia",
+          "start": 176.99,
+          "end": 177.17
+        },
+        {
+          "word": " đình",
+          "start": 177.17,
+          "end": 177.33
+        },
+        {
+          "word": " cũng",
+          "start": 177.33,
+          "end": 177.43
+        },
+        {
+          "word": " rất",
+          "start": 177.43,
+          "end": 177.55
+        },
+        {
+          "word": " là",
+          "start": 177.55,
+          "end": 177.65
+        },
+        {
+          "word": " mừng.",
+          "start": 177.65,
+          "end": 177.95
+        }
+      ]
+    },
+    {
+      "start": 178.89,
+      "end": 180.71,
+      "text": "Cảm ơn thầy và cùng trung tâm.",
+      "words": [
+        {
+          "word": " Cảm",
+          "start": 178.89,
+          "end": 179.25
+        },
+        {
+          "word": " ơn",
+          "start": 179.25,
+          "end": 179.41
+        },
+        {
+          "word": " thầy",
+          "start": 179.41,
+          "end": 179.79
+        },
+        {
+          "word": " và",
+          "start": 179.79,
+          "end": 179.89
+        },
+        {
+          "word": " cùng",
+          "start": 179.89,
+          "end": 180.19
+        },
+        {
+          "word": " trung",
+          "start": 180.19,
+          "end": 180.47
+        },
+        {
+          "word": " tâm.",
+          "start": 180.47,
+          "end": 180.71
+        }
+      ]
+    },
+    {
+      "start": 181.01,
+      "end": 186.23,
+      "text": "Mong thầy cô cùng trung tâm sẽ đồng hành con cùng với con trong cái thời gian tới ạ.",
+      "words": [
+        {
+          "word": " Mong",
+          "start": 181.01,
+          "end": 181.37
+        },
+        {
+          "word": " thầy",
+          "start": 181.37,
+          "end": 181.85
+        },
+        {
+          "word": " cô",
+          "start": 181.85,
+          "end": 182.03
+        },
+        {
+          "word": " cùng",
+          "start": 182.03,
+          "end": 182.33
+        },
+        {
+          "word": " trung",
+          "start": 182.33,
+          "end": 182.59
+        },
+        {
+          "word": " tâm",
+          "start": 182.59,
+          "end": 182.77
+        },
+        {
+          "word": " sẽ",
+          "start": 182.77,
+          "end": 182.95
+        },
+        {
+          "word": " đồng",
+          "start": 182.95,
+          "end": 183.33
+        },
+        {
+          "word": " hành",
+          "start": 183.33,
+          "end": 183.57
+        },
+        {
+          "word": " con",
+          "start": 183.57,
+          "end": 183.77
+        },
+        {
+          "word": " cùng",
+          "start": 183.77,
+          "end": 184.45
+        },
+        {
+          "word": " với",
+          "start": 184.45,
+          "end": 184.65
+        },
+        {
+          "word": " con",
+          "start": 184.65,
+          "end": 184.89
+        },
+        {
+          "word": " trong",
+          "start": 184.89,
+          "end": 185.11
+        },
+        {
+          "word": " cái",
+          "start": 185.11,
+          "end": 185.23
+        },
+        {
+          "word": " thời",
+          "start": 185.23,
+          "end": 185.39
+        },
+        {
+          "word": " gian",
+          "start": 185.39,
+          "end": 185.61
+        },
+        {
+          "word": " tới",
+          "start": 185.61,
+          "end": 185.91
+        },
+        {
+          "word": " ạ.",
+          "start": 185.91,
+          "end": 186.23
+        }
+      ]
+    },
+    {
+      "start": 186.95,
+      "end": 187.61,
+      "text": "Dạ vâng.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 186.95,
+          "end": 187.31
+        },
+        {
+          "word": " vâng.",
+          "start": 187.31,
+          "end": 187.61
+        }
+      ]
+    },
+    {
+      "start": 187.61,
+      "end": 190.39,
+      "text": "Đấy thì có những lời tâm sự chia sẻ của mẹ như thế này",
+      "words": [
+        {
+          "word": " Đấy",
+          "start": 187.61,
+          "end": 187.77
+        },
+        {
+          "word": " thì",
+          "start": 187.77,
+          "end": 187.91
+        },
+        {
+          "word": " có",
+          "start": 187.91,
+          "end": 188.61
+        },
+        {
+          "word": " những",
+          "start": 188.61,
+          "end": 188.75
+        },
+        {
+          "word": " lời",
+          "start": 188.75,
+          "end": 188.99
+        },
+        {
+          "word": " tâm",
+          "start": 188.99,
+          "end": 189.11
+        },
+        {
+          "word": " sự",
+          "start": 189.11,
+          "end": 189.29
+        },
+        {
+          "word": " chia",
+          "start": 189.29,
+          "end": 189.45
+        },
+        {
+          "word": " sẻ",
+          "start": 189.45,
+          "end": 189.73
+        },
+        {
+          "word": " của",
+          "start": 189.73,
+          "end": 189.83
+        },
+        {
+          "word": " mẹ",
+          "start": 189.83,
+          "end": 190.03
+        },
+        {
+          "word": " như",
+          "start": 190.03,
+          "end": 190.15
+        },
+        {
+          "word": " thế",
+          "start": 190.15,
+          "end": 190.27
+        },
+        {
+          "word": " này",
+          "start": 190.27,
+          "end": 190.39
+        }
+      ]
+    },
+    {
+      "start": 190.39,
+      "end": 193.09,
+      "text": "thì nó cũng là nguồn động lực rất là lớn cho các thầy cô.",
+      "words": [
+        {
+          "word": " thì",
+          "start": 190.39,
+          "end": 190.55
+        },
+        {
+          "word": " nó",
+          "start": 190.55,
+          "end": 191.27
+        },
+        {
+          "word": " cũng",
+          "start": 191.27,
+          "end": 191.41
+        },
+        {
+          "word": " là",
+          "start": 191.41,
+          "end": 191.53
+        },
+        {
+          "word": " nguồn",
+          "start": 191.53,
+          "end": 191.75
+        },
+        {
+          "word": " động",
+          "start": 191.75,
+          "end": 191.89
+        },
+        {
+          "word": " lực",
+          "start": 191.89,
+          "end": 192.03
+        },
+        {
+          "word": " rất",
+          "start": 192.03,
+          "end": 192.17
+        },
+        {
+          "word": " là",
+          "start": 192.17,
+          "end": 192.25
+        },
+        {
+          "word": " lớn",
+          "start": 192.25,
+          "end": 192.51
+        },
+        {
+          "word": " cho",
+          "start": 192.51,
+          "end": 192.61
+        },
+        {
+          "word": " các",
+          "start": 192.61,
+          "end": 192.75
+        },
+        {
+          "word": " thầy",
+          "start": 192.75,
+          "end": 192.99
+        },
+        {
+          "word": " cô.",
+          "start": 192.99,
+          "end": 193.09
+        }
+      ]
+    },
+    {
+      "start": 193.43,
+      "end": 197.27,
+      "text": "Đấy thì em cũng xin phép là sẽ chuyển lời tới cô Mai",
+      "words": [
+        {
+          "word": " Đấy",
+          "start": 193.43,
+          "end": 193.79
+        },
+        {
+          "word": " thì",
+          "start": 193.79,
+          "end": 193.89
+        },
+        {
+          "word": " em",
+          "start": 193.89,
+          "end": 194.07
+        },
+        {
+          "word": " cũng",
+          "start": 194.07,
+          "end": 194.15
+        },
+        {
+          "word": " xin",
+          "start": 194.15,
+          "end": 194.29
+        },
+        {
+          "word": " phép",
+          "start": 194.29,
+          "end": 194.41
+        },
+        {
+          "word": " là",
+          "start": 194.41,
+          "end": 194.51
+        },
+        {
+          "word": " sẽ",
+          "start": 194.51,
+          "end": 194.73
+        },
+        {
+          "word": " chuyển",
+          "start": 194.73,
+          "end": 195.99
+        },
+        {
+          "word": " lời",
+          "start": 195.99,
+          "end": 196.25
+        },
+        {
+          "word": " tới",
+          "start": 196.25,
+          "end": 196.47
+        },
+        {
+          "word": " cô",
+          "start": 196.47,
+          "end": 197.07
+        },
+        {
+          "word": " Mai",
+          "start": 197.07,
+          "end": 197.27
+        }
+      ]
+    },
+    {
+      "start": 197.27,
+      "end": 198.95,
+      "text": "cũng như là các thầy cô giáo chủ nhiệm.",
+      "words": [
+        {
+          "word": " cũng",
+          "start": 197.27,
+          "end": 197.59
+        },
+        {
+          "word": " như",
+          "start": 197.59,
+          "end": 197.79
+        },
+        {
+          "word": " là",
+          "start": 197.79,
+          "end": 197.91
+        },
+        {
+          "word": " các",
+          "start": 197.91,
+          "end": 198.05
+        },
+        {
+          "word": " thầy",
+          "start": 198.05,
+          "end": 198.25
+        },
+        {
+          "word": " cô",
+          "start": 198.25,
+          "end": 198.31
+        },
+        {
+          "word": " giáo",
+          "start": 198.31,
+          "end": 198.49
+        },
+        {
+          "word": " chủ",
+          "start": 198.49,
+          "end": 198.67
+        },
+        {
+          "word": " nhiệm.",
+          "start": 198.67,
+          "end": 198.95
+        }
+      ]
+    },
+    {
+      "start": 199.27,
+      "end": 201.87,
+      "text": "Đấy thì hôm nay thì cũng gọi điện thoại cho mẹ",
+      "words": [
+        {
+          "word": " Đấy",
+          "start": 199.27,
+          "end": 199.63
+        },
+        {
+          "word": " thì",
+          "start": 199.63,
+          "end": 199.73
+        },
+        {
+          "word": " hôm",
+          "start": 199.73,
+          "end": 200.03
+        },
+        {
+          "word": " nay",
+          "start": 200.03,
+          "end": 200.15
+        },
+        {
+          "word": " thì",
+          "start": 200.15,
+          "end": 200.29
+        },
+        {
+          "word": " cũng",
+          "start": 200.29,
+          "end": 200.49
+        },
+        {
+          "word": " gọi",
+          "start": 200.49,
+          "end": 201.11
+        },
+        {
+          "word": " điện",
+          "start": 201.11,
+          "end": 201.27
+        },
+        {
+          "word": " thoại",
+          "start": 201.27,
+          "end": 201.45
+        },
+        {
+          "word": " cho",
+          "start": 201.45,
+          "end": 201.61
+        },
+        {
+          "word": " mẹ",
+          "start": 201.61,
+          "end": 201.87
+        }
+      ]
+    },
+    {
+      "start": 201.87,
+      "end": 203.51,
+      "text": "thì cũng nhờ mẹ là gửi lời",
+      "words": [
+        {
+          "word": " thì",
+          "start": 201.87,
+          "end": 202.01
+        },
+        {
+          "word": " cũng",
+          "start": 202.01,
+          "end": 202.13
+        },
+        {
+          "word": " nhờ",
+          "start": 202.13,
+          "end": 202.77
+        },
+        {
+          "word": " mẹ",
+          "start": 202.77,
+          "end": 202.99
+        },
+        {
+          "word": " là",
+          "start": 202.99,
+          "end": 203.09
+        },
+        {
+          "word": " gửi",
+          "start": 203.09,
+          "end": 203.29
+        },
+        {
+          "word": " lời",
+          "start": 203.29,
+          "end": 203.51
+        }
+      ]
+    },
+    {
+      "start": 204.27,
+      "end": 205.37,
+      "text": "chúc mừng của thầy đến con.",
+      "words": [
+        {
+          "word": " chúc",
+          "start": 204.27,
+          "end": 204.59
+        },
+        {
+          "word": " mừng",
+          "start": 204.59,
+          "end": 204.71
+        },
+        {
+          "word": " của",
+          "start": 204.71,
+          "end": 204.81
+        },
+        {
+          "word": " thầy",
+          "start": 204.81,
+          "end": 204.99
+        },
+        {
+          "word": " đến",
+          "start": 204.99,
+          "end": 205.13
+        },
+        {
+          "word": " con.",
+          "start": 205.13,
+          "end": 205.37
+        }
+      ]
+    },
+    {
+      "start": 205.49,
+      "end": 209.69,
+      "text": "Thì bên kia trung tâm là cũng chúc mừng con đã có được cái sự tiến bộ như vậy.",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 205.49,
+          "end": 205.77
+        },
+        {
+          "word": " bên",
+          "start": 205.77,
+          "end": 205.93
+        },
+        {
+          "word": " kia",
+          "start": 205.93,
+          "end": 206.11
+        },
+        {
+          "word": " trung",
+          "start": 206.11,
+          "end": 206.29
+        },
+        {
+          "word": " tâm",
+          "start": 206.29,
+          "end": 206.51
+        },
+        {
+          "word": " là",
+          "start": 206.51,
+          "end": 206.59
+        },
+        {
+          "word": " cũng",
+          "start": 206.59,
+          "end": 206.75
+        },
+        {
+          "word": " chúc",
+          "start": 206.75,
+          "end": 207.61
+        },
+        {
+          "word": " mừng",
+          "start": 207.61,
+          "end": 207.77
+        },
+        {
+          "word": " con",
+          "start": 207.77,
+          "end": 207.87
+        },
+        {
+          "word": " đã",
+          "start": 207.87,
+          "end": 208.05
+        },
+        {
+          "word": " có",
+          "start": 208.05,
+          "end": 208.23
+        },
+        {
+          "word": " được",
+          "start": 208.23,
+          "end": 208.43
+        },
+        {
+          "word": " cái",
+          "start": 208.43,
+          "end": 208.55
+        },
+        {
+          "word": " sự",
+          "start": 208.55,
+          "end": 208.81
+        },
+        {
+          "word": " tiến",
+          "start": 208.81,
+          "end": 209.03
+        },
+        {
+          "word": " bộ",
+          "start": 209.03,
+          "end": 209.23
+        },
+        {
+          "word": " như",
+          "start": 209.23,
+          "end": 209.49
+        },
+        {
+          "word": " vậy.",
+          "start": 209.49,
+          "end": 209.69
+        }
+      ]
+    },
+    {
+      "start": 209.97,
+      "end": 213.47,
+      "text": "Và các thầy cô cũng sẽ có một cái món quà nhỏ nhỏ gửi tặng con đấy mẹ ạ.",
+      "words": [
+        {
+          "word": " Và",
+          "start": 209.97,
+          "end": 210.29
+        },
+        {
+          "word": " các",
+          "start": 210.29,
+          "end": 210.65
+        },
+        {
+          "word": " thầy",
+          "start": 210.65,
+          "end": 210.85
+        },
+        {
+          "word": " cô",
+          "start": 210.85,
+          "end": 210.91
+        },
+        {
+          "word": " cũng",
+          "start": 210.91,
+          "end": 211.05
+        },
+        {
+          "word": " sẽ",
+          "start": 211.05,
+          "end": 211.21
+        },
+        {
+          "word": " có",
+          "start": 211.21,
+          "end": 211.53
+        },
+        {
+          "word": " một",
+          "start": 211.53,
+          "end": 211.83
+        },
+        {
+          "word": " cái",
+          "start": 211.83,
+          "end": 211.97
+        },
+        {
+          "word": " món",
+          "start": 211.97,
+          "end": 212.09
+        },
+        {
+          "word": " quà",
+          "start": 212.09,
+          "end": 212.31
+        },
+        {
+          "word": " nhỏ",
+          "start": 212.31,
+          "end": 212.47
+        },
+        {
+          "word": " nhỏ",
+          "start": 212.47,
+          "end": 212.63
+        },
+        {
+          "word": " gửi",
+          "start": 212.63,
+          "end": 212.77
+        },
+        {
+          "word": " tặng",
+          "start": 212.77,
+          "end": 212.91
+        },
+        {
+          "word": " con",
+          "start": 212.91,
+          "end": 213.05
+        },
+        {
+          "word": " đấy",
+          "start": 213.05,
+          "end": 213.21
+        },
+        {
+          "word": " mẹ",
+          "start": 213.21,
+          "end": 213.33
+        },
+        {
+          "word": " ạ.",
+          "start": 213.33,
+          "end": 213.47
+        }
+      ]
+    },
+    {
+      "start": 213.57,
+      "end": 215.51,
+      "text": "Mẹ cứ nhắn cho con như vậy con mừng nhá.",
+      "words": [
+        {
+          "word": " Mẹ",
+          "start": 213.57,
+          "end": 213.89
+        },
+        {
+          "word": " cứ",
+          "start": 213.89,
+          "end": 213.99
+        },
+        {
+          "word": " nhắn",
+          "start": 213.99,
+          "end": 214.25
+        },
+        {
+          "word": " cho",
+          "start": 214.25,
+          "end": 214.41
+        },
+        {
+          "word": " con",
+          "start": 214.41,
+          "end": 214.65
+        },
+        {
+          "word": " như",
+          "start": 214.65,
+          "end": 214.79
+        },
+        {
+          "word": " vậy",
+          "start": 214.79,
+          "end": 214.87
+        },
+        {
+          "word": " con",
+          "start": 214.87,
+          "end": 215.09
+        },
+        {
+          "word": " mừng",
+          "start": 215.09,
+          "end": 215.29
+        },
+        {
+          "word": " nhá.",
+          "start": 215.29,
+          "end": 215.51
+        }
+      ]
+    },
+    {
+      "start": 216.01,
+      "end": 216.35,
+      "text": "Dạ vâng.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 216.01,
+          "end": 216.33
+        },
+        {
+          "word": " vâng.",
+          "start": 216.33,
+          "end": 216.35
+        }
+      ]
+    },
+    {
+      "start": 216.35,
+      "end": 218.03,
+      "text": "Dạ vâng. Mẹ cảm ơn thầy cô nhiều ạ.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 216.35,
+          "end": 216.35
+        },
+        {
+          "word": " vâng.",
+          "start": 216.35,
+          "end": 216.43
+        },
+        {
+          "word": " Mẹ",
+          "start": 216.47,
+          "end": 216.55
+        },
+        {
+          "word": " cảm",
+          "start": 216.55,
+          "end": 216.67
+        },
+        {
+          "word": " ơn",
+          "start": 216.67,
+          "end": 216.87
+        },
+        {
+          "word": " thầy",
+          "start": 216.87,
+          "end": 217.43
+        },
+        {
+          "word": " cô",
+          "start": 217.43,
+          "end": 217.49
+        },
+        {
+          "word": " nhiều",
+          "start": 217.49,
+          "end": 217.77
+        },
+        {
+          "word": " ạ.",
+          "start": 217.77,
+          "end": 218.03
+        }
+      ]
+    },
+    {
+      "start": 218.31,
+      "end": 218.87,
+      "text": "Dạ vâng.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 218.31,
+          "end": 218.63
+        },
+        {
+          "word": " vâng.",
+          "start": 218.63,
+          "end": 218.87
+        }
+      ]
+    },
+    {
+      "start": 218.99,
+      "end": 221.61,
+      "text": "Đấy thế thôi em xin phép cũng tra đổi nhanh với mẹ như vậy thôi.",
+      "words": [
+        {
+          "word": " Đấy",
+          "start": 218.99,
+          "end": 219.31
+        },
+        {
+          "word": " thế",
+          "start": 219.31,
+          "end": 219.43
+        },
+        {
+          "word": " thôi",
+          "start": 219.43,
+          "end": 219.59
+        },
+        {
+          "word": " em",
+          "start": 219.59,
+          "end": 219.71
+        },
+        {
+          "word": " xin",
+          "start": 219.71,
+          "end": 219.91
+        },
+        {
+          "word": " phép",
+          "start": 219.91,
+          "end": 220.09
+        },
+        {
+          "word": " cũng",
+          "start": 220.09,
+          "end": 220.39
+        },
+        {
+          "word": " tra",
+          "start": 220.39,
+          "end": 220.57
+        },
+        {
+          "word": " đổi",
+          "start": 220.57,
+          "end": 220.75
+        },
+        {
+          "word": " nhanh",
+          "start": 220.75,
+          "end": 220.95
+        },
+        {
+          "word": " với",
+          "start": 220.95,
+          "end": 221.05
+        },
+        {
+          "word": " mẹ",
+          "start": 221.05,
+          "end": 221.21
+        },
+        {
+          "word": " như",
+          "start": 221.21,
+          "end": 221.29
+        },
+        {
+          "word": " vậy",
+          "start": 221.29,
+          "end": 221.41
+        },
+        {
+          "word": " thôi.",
+          "start": 221.41,
+          "end": 221.61
+        }
+      ]
+    },
+    {
+      "start": 221.71,
+      "end": 225.27,
+      "text": "Thì có gì thì nếu như mà trong quá trình học tập mà mẹ có cái vấn đề gì",
+      "words": [
+        {
+          "word": " Thì",
+          "start": 221.71,
+          "end": 221.89
+        },
+        {
+          "word": " có",
+          "start": 221.89,
+          "end": 221.99
+        },
+        {
+          "word": " gì",
+          "start": 221.99,
+          "end": 222.15
+        },
+        {
+          "word": " thì",
+          "start": 222.15,
+          "end": 222.33
+        },
+        {
+          "word": " nếu",
+          "start": 222.33,
+          "end": 223.19
+        },
+        {
+          "word": " như",
+          "start": 223.19,
+          "end": 223.29
+        },
+        {
+          "word": " mà",
+          "start": 223.29,
+          "end": 223.43
+        },
+        {
+          "word": " trong",
+          "start": 223.43,
+          "end": 223.59
+        },
+        {
+          "word": " quá",
+          "start": 223.59,
+          "end": 223.73
+        },
+        {
+          "word": " trình",
+          "start": 223.73,
+          "end": 223.91
+        },
+        {
+          "word": " học",
+          "start": 223.91,
+          "end": 224.05
+        },
+        {
+          "word": " tập",
+          "start": 224.05,
+          "end": 224.25
+        },
+        {
+          "word": " mà",
+          "start": 224.25,
+          "end": 224.35
+        },
+        {
+          "word": " mẹ",
+          "start": 224.35,
+          "end": 224.53
+        },
+        {
+          "word": " có",
+          "start": 224.53,
+          "end": 224.67
+        },
+        {
+          "word": " cái",
+          "start": 224.67,
+          "end": 224.81
+        },
+        {
+          "word": " vấn",
+          "start": 224.81,
+          "end": 224.99
+        },
+        {
+          "word": " đề",
+          "start": 224.99,
+          "end": 225.13
+        },
+        {
+          "word": " gì",
+          "start": 225.13,
+          "end": 225.27
+        }
+      ]
+    },
+    {
+      "start": 225.27,
+      "end": 227.87,
+      "text": "hay là có thắc mắc gì thì mẹ cứ liên hệ tra đổi cùng các cô nhá.",
+      "words": [
+        {
+          "word": " hay",
+          "start": 225.27,
+          "end": 225.47
+        },
+        {
+          "word": " là",
+          "start": 225.47,
+          "end": 225.57
+        },
+        {
+          "word": " có",
+          "start": 225.57,
+          "end": 225.75
+        },
+        {
+          "word": " thắc",
+          "start": 225.75,
+          "end": 226.01
+        },
+        {
+          "word": " mắc",
+          "start": 226.01,
+          "end": 226.11
+        },
+        {
+          "word": " gì",
+          "start": 226.11,
+          "end": 226.21
+        },
+        {
+          "word": " thì",
+          "start": 226.21,
+          "end": 226.31
+        },
+        {
+          "word": " mẹ",
+          "start": 226.31,
+          "end": 226.47
+        },
+        {
+          "word": " cứ",
+          "start": 226.47,
+          "end": 226.55
+        },
+        {
+          "word": " liên",
+          "start": 226.55,
+          "end": 226.73
+        },
+        {
+          "word": " hệ",
+          "start": 226.73,
+          "end": 226.85
+        },
+        {
+          "word": " tra",
+          "start": 226.85,
+          "end": 226.99
+        },
+        {
+          "word": " đổi",
+          "start": 226.99,
+          "end": 227.21
+        },
+        {
+          "word": " cùng",
+          "start": 227.21,
+          "end": 227.33
+        },
+        {
+          "word": " các",
+          "start": 227.33,
+          "end": 227.43
+        },
+        {
+          "word": " cô",
+          "start": 227.43,
+          "end": 227.63
+        },
+        {
+          "word": " nhá.",
+          "start": 227.63,
+          "end": 227.87
+        }
+      ]
+    },
+    {
+      "start": 228.37,
+      "end": 229.63,
+      "text": "Dạ vâng em cảm ơn thầy ạ.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 228.37,
+          "end": 228.69
+        },
+        {
+          "word": " vâng",
+          "start": 228.69,
+          "end": 228.83
+        },
+        {
+          "word": " em",
+          "start": 228.83,
+          "end": 228.95
+        },
+        {
+          "word": " cảm",
+          "start": 228.95,
+          "end": 229.11
+        },
+        {
+          "word": " ơn",
+          "start": 229.11,
+          "end": 229.31
+        },
+        {
+          "word": " thầy",
+          "start": 229.31,
+          "end": 229.45
+        },
+        {
+          "word": " ạ.",
+          "start": 229.45,
+          "end": 229.63
+        }
+      ]
+    },
+    {
+      "start": 229.63,
+      "end": 230.23,
+      "text": "Dạ dạ dạ.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 229.63,
+          "end": 229.91
+        },
+        {
+          "word": " dạ",
+          "start": 229.91,
+          "end": 230.09
+        },
+        {
+          "word": " dạ.",
+          "start": 230.09,
+          "end": 230.23
+        }
+      ]
+    },
+    {
+      "start": 230.29,
+      "end": 230.83,
+      "text": "Cảm ơn thầy ạ.",
+      "words": [
+        {
+          "word": " Cảm",
+          "start": 230.29,
+          "end": 230.45
+        },
+        {
+          "word": " ơn",
+          "start": 230.45,
+          "end": 230.53
+        },
+        {
+          "word": " thầy",
+          "start": 230.53,
+          "end": 230.69
+        },
+        {
+          "word": " ạ.",
+          "start": 230.69,
+          "end": 230.83
+        }
+      ]
+    },
+    {
+      "start": 230.87,
+      "end": 231.29,
+      "text": "Dạ dạ dạ.",
+      "words": [
+        {
+          "word": " Dạ",
+          "start": 230.87,
+          "end": 231.05
+        },
+        {
+          "word": " dạ",
+          "start": 231.05,
+          "end": 231.13
+        },
+        {
+          "word": " dạ.",
+          "start": 231.13,
+          "end": 231.29
+        }
+      ]
+    }
+  ],
+  "language": "vi",
+  "duration": 231.6886875,
+  "model": "large-v3"
+}

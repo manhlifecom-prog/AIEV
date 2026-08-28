@@ -1,0 +1,39 @@
+{
+  "source": "Buoi-2-IMG_2423.MOV",
+  "variant": "reminder",
+  "blocks": [
+    {
+      "start": 1.94,
+      "end": 8.07
+    },
+    {
+      "start": 19.4,
+      "end": 35.63
+    },
+    {
+      "start": 58.52,
+      "end": 69.86
+    },
+    {
+      "start": 80.18,
+      "end": 88.22
+    },
+    {
+      "start": 100.56,
+      "end": 106.52
+    },
+    {
+      "start": 111.87,
+      "end": 115.16
+    },
+    {
+      "start": 116.5,
+      "end": 124.09
+    }
+  ],
+  "speed": 1.07,
+  "speechDurationAfterSpeed": 54.74766355140185,
+  "speechFrames": 1642,
+  "posterFrames": 90,
+  "totalFrames": 1732
+}

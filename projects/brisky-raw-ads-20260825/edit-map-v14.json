@@ -1,0 +1,81 @@
+{
+  "version": "v14",
+  "fps": "30000/1001",
+  "playbackSpeed": 1.08,
+  "boundaryPolicy": {
+    "preRollMs": "60-80",
+    "postRollMs": "100-140",
+    "sentencePauseMs": "80-160",
+    "speechOverlapAllowed": false,
+    "videoCrossfadeAllowed": false
+  },
+  "videos": [
+    {
+      "composition": "BriskyShortV14Video2",
+      "source": "ad02.mp4",
+      "segments": [
+        {"pieces": [[3.05, 7.90]], "transcript": "Một học sinh lớp 7 từng mất gốc tiếng Anh."},
+        {"pieces": [[15.21, 22.49]], "transcript": "Sau một năm nỗ lực, con kết thúc năm học với 8 điểm tiếng Anh."},
+        {"pieces": [[30.09, 41.73]], "transcript": "Từ mức 3–4 điểm lên 8 điểm là cả một quá trình và sự nỗ lực."},
+        {"pieces": [[65.18, 70.64]], "transcript": "Thúc ép con học theo cách cũ vô tình tạo thêm áp lực."},
+        {"pieces": [[106.79, 121.95]], "transcript": "Từ kinh nghiệm giảng dạy, thầy đã đúc rút một lộ trình và chia sẻ trong 3 buổi Zoom cho cha mẹ có con lớp 3–9."},
+        {"pieces": [[129.97, 137.39]], "transcript": "Ba mẹ hiểu vì sao con học nhiều năm vẫn hổng kiến thức và con thường hổng ở đâu."},
+        {"pieces": [[137.53, 147.15]], "transcript": "Ba mẹ nhận lộ trình giúp con xây lại từ gốc, học chắc và làm bài tốt hơn."},
+        {"pieces": [[198.40, 208.60]], "transcript": "Con được kiểm tra trình độ miễn phí và nhận lộ trình học tập từ gốc."}
+      ]
+    },
+    {
+      "composition": "BriskyShortV14Video3",
+      "source": "ad03.mp4",
+      "segments": [
+        {"pieces": [[6.13, 14.79]], "transcript": "Trước mỗi kỳ thi, ba mẹ lo con không làm được bài hoặc lại bị điểm kém."},
+        {"pieces": [[25.04, 27.40], [27.58, 29.00], [29.30, 39.72]], "transcript": "Con học từ vựng rồi quên, ngại bài đọc dài, khoanh theo cảm tính và không biết áp dụng ngữ pháp."},
+        {"pieces": [[82.42, 105.04]], "transcript": "Khi đã sợ tiếng Anh, con càng học càng nản, dễ tụt lại phía sau; vì vậy thầy tổ chức chương trình Zoom 3 buổi cho cha mẹ có con lớp 3–9."},
+        {"pieces": [[105.42, 123.54]], "transcript": "Ba mẹ hiểu nguyên nhân mất gốc, phần kiến thức con đang hổng và nhận lộ trình giúp con học chắc, làm bài tốt hơn."},
+        {"pieces": [[144.10, 150.80]], "transcript": "Con còn được tặng một buổi kiểm tra trình độ tiếng Anh hoàn toàn miễn phí."}
+      ]
+    },
+    {
+      "composition": "BriskyShortV14Video4",
+      "source": "ad04.mp4",
+      "segments": [
+        {"pieces": [[49.18, 56.66]], "transcript": "Con học nhiều năm nhưng vẫn sợ tiếng Anh, học trước quên sau và điểm số chưa cao."},
+        {"pieces": [[96.94, 102.74]], "transcript": "Con không phải không thể học tiếng Anh mà là chưa được tiếp cận đúng phương pháp."},
+        {"pieces": [[115.56, 119.80]], "transcript": "Có bạn hổng từ vựng, học hôm nay thì ngày mai lại quên."},
+        {"pieces": [[133.38, 138.32]], "transcript": "Có bạn hổng câu đơn, biết từ nhưng không ghép được thành câu."},
+        {"pieces": [[142.45, 146.83]], "transcript": "Có bạn hổng ngữ pháp, đã học nhưng không biết áp dụng."},
+        {"pieces": [[153.93, 161.21]], "transcript": "Có bạn hổng đọc hiểu, biết từng từ từng câu nhưng không hiểu cả đoạn."},
+        {"pieces": [[230.12, 236.54]], "transcript": "Con càng học càng mệt, càng kiểm tra càng sợ và càng lên lớp cao càng đuối."},
+        {"pieces": [[387.19, 392.27]], "transcript": "Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+        {"pieces": [[502.62, 520.60]], "transcript": "Đây là 3 buổi Zoom dành cho cha mẹ có con lớp 3–9 đang yếu, mất gốc, học trước quên sau, điểm thấp hoặc học thêm nhiều nơi vẫn chưa tiến bộ."},
+        {"pieces": [[570.61, 579.99]], "transcript": "Ba mẹ sẽ biết con đang hổng phần nào và nhận lộ trình phù hợp để đồng hành cùng con."}
+      ]
+    },
+    {
+      "composition": "BriskyShortV14Video5",
+      "source": "ad05.mp4",
+      "segments": [
+        {"pieces": [[32.94, 34.62], [37.86, 48.34]], "transcript": "Cứ nhắc đến tiếng Anh là con sợ. Điều đầu tiên là ba mẹ đừng vội nghĩ con lười; điểm thấp không có nghĩa là con lười."},
+        {"pieces": [[50.49, 56.72]], "transcript": "Nhiều con đã mất gốc và đang mông lung về định hướng."},
+        {"pieces": [[110.86, 120.96]], "transcript": "Khi càng đuối, con càng chán nản và không biết thoát khỏi tình trạng đó như thế nào."},
+        {"pieces": [[147.03, 163.35]], "transcript": "Chính bởi những điều như vậy, thầy cùng đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh, gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3–9."},
+        {"pieces": [[209.42, 213.90]], "transcript": "Từ đó, ba mẹ có thể lựa chọn những phương pháp phù hợp."},
+        {"pieces": [[231.02, 240.22]], "transcript": "Ba mẹ nhận lộ trình từ cơ bản đến nâng cao và biết con đang ở đâu."},
+        {"pieces": [[320.93, 326.69], [327.49, 335.11]], "transcript": "Ngoài 3 buổi Zoom, con được kiểm tra trình độ để nhận bản đồ học tập phù hợp nhất."}
+      ]
+    },
+    {
+      "composition": "BriskyShortV14Video6",
+      "source": "ad04.mp4",
+      "segments": [
+        {"pieces": [[49.18, 56.66]], "transcript": "Con học nhiều năm nhưng vẫn sợ tiếng Anh, học trước quên sau và điểm số chưa cao."},
+        {"pieces": [[96.94, 102.74]], "transcript": "Con chưa được tiếp cận đúng phương pháp."},
+        {"pieces": [[230.12, 236.54]], "transcript": "Con càng học càng mệt, càng kiểm tra càng sợ và càng lên lớp cao càng đuối."},
+        {"pieces": [[328.34, 342.42]], "transcript": "Với học sinh lớp 7–9, ba mẹ không nên để lâu vì càng lên cao bài càng dài, từ vựng và ngữ pháp càng nặng, áp lực điểm số càng lớn."},
+        {"pieces": [[387.19, 392.27]], "transcript": "Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+        {"pieces": [[502.62, 520.60]], "transcript": "Chương trình gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3–9 đang yếu, mất gốc, học trước quên sau, điểm thấp hoặc học thêm nhiều nơi vẫn chưa tiến bộ."},
+        {"pieces": [[570.61, 579.99]], "transcript": "Ba mẹ biết chính xác con đang hổng phần nào và nhận lộ trình phù hợp."}
+      ]
+    }
+  ]
+}

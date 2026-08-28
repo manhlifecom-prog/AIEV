@@ -1,0 +1,75 @@
+{
+  "project": "Brisky-2026-08-24",
+  "brand": "Brisky Academy",
+  "policy": {
+    "preserveSourceAspect": true,
+    "neutralCta": "Tìm hiểu thêm cùng Brisky Academy",
+    "excludeExpiredZoomDates": true,
+    "excludePrivateCrmData": true,
+    "sourceMutation": "none"
+  },
+  "deliverables": [
+    {
+      "id": "01-bi-mat-lay-goc",
+      "sourceRel": "imports/brisky-20260824/primary/01-bi-mat-lay-goc.mp4",
+      "aspect": "16:9",
+      "minSec": 60,
+      "maxSec": 90,
+      "purpose": "Video giới thiệu phương pháp lấy gốc tiếng Anh cho phụ huynh",
+      "selection": "Chọn một mạch nội dung hoàn chỉnh có mở bài thu hút, nêu vấn đề mất gốc, giải thích giá trị hoặc phương pháp và kết thúc tự nhiên. Tuyệt đối loại mọi ngày Zoom hoặc lịch 13-15/08 đã hết hạn. Không dùng dữ liệu CRM riêng tư."
+    },
+    {
+      "id": "02-ads-ban-1",
+      "sourceRel": "imports/brisky-20260824/primary/02-ads-ban-1.mp4",
+      "aspect": "1:1",
+      "minSec": 35,
+      "maxSec": 50,
+      "purpose": "Quảng cáo vuông ngắn gọn",
+      "selection": "Chọn đoạn quảng cáo thuyết phục nhất, có hook rõ trong vài giây đầu và một ý lợi ích trọn vẹn. Không giữ lịch Zoom hay ngày hết hạn; CTA cuối sẽ là Brisky Academy trung tính."
+    },
+    {
+      "id": "03-video-ads-2-meta",
+      "sourceRel": "imports/brisky-20260824/primary/03-video-ads-2-meta.mp4",
+      "aspect": "1:1",
+      "minSec": 35,
+      "maxSec": 50,
+      "purpose": "Quảng cáo Meta vuông",
+      "selection": "Chọn đoạn có hook mạnh, nêu đúng nỗi đau học tiếng Anh và giải pháp Brisky trong một mạch hoàn chỉnh. Loại ngày/lịch Zoom hết hạn và mọi thông tin riêng tư."
+    },
+    {
+      "id": "04-fb-2-cam-nhan",
+      "sourceRel": "imports/brisky-20260824/primary/04-fb-2-cam-nhan.mp4",
+      "aspect": "9:16",
+      "minSec": 45,
+      "maxSec": 75,
+      "purpose": "Video cảm nhận dọc cho mạng xã hội",
+      "selection": "Chọn một lời chứng thực tự nhiên, đủ bối cảnh trước-sau và kết quả cụ thể, không cắt đứt câu. Không dùng dữ liệu CRM riêng tư hoặc lịch sự kiện đã hết hạn."
+    },
+    {
+      "id": "05-video-cam-nhan",
+      "sourceRel": "imports/brisky-20260824/primary/05-video-cam-nhan.mp4",
+      "aspect": "9:16",
+      "minSec": 45,
+      "maxSec": 75,
+      "purpose": "Video cảm nhận dọc",
+      "selection": "Chọn đoạn chia sẻ đáng tin nhất, có vấn đề ban đầu, trải nghiệm và kết quả hoặc thay đổi rõ ràng. Giữ câu hoàn chỉnh; bỏ chi tiết riêng tư và lịch đã hết hạn."
+    },
+    {
+      "id": "06-video-tai-lieu-1",
+      "sourceRel": "imports/brisky-20260824/primary/06-video-tai-lieu-1.mp4",
+      "aspect": "16:9",
+      "minSec": 180,
+      "maxSec": 300,
+      "purpose": "Video tài liệu giáo dục dài",
+      "selection": "Chọn mạch bài giảng hữu ích và liền lạc nhất, gồm dẫn nhập, các ý chính và kết luận tự nhiên. Cắt phần lặp, khoảng im lặng dài, lịch Zoom/ngày hết hạn và dữ liệu riêng tư."
+    }
+  ],
+  "output": {
+    "videoCodec": "h264",
+    "pixelFormat": "yuv420p",
+    "audioCodec": "aac",
+    "audioRate": 48000,
+    "faststart": true,
+    "targetLufs": -14.5
+  }
+}

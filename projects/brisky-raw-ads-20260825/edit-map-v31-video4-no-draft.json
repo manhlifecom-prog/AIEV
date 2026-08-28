@@ -1,0 +1,22 @@
+{
+  "version": "v31-video4-no-draft",
+  "fps": "30000/1001",
+  "notes": "Video 4 only. Tightened the sentence-gap cut and removed the draft reading-comprehension take containing conversational scratch words.",
+  "videos": [{
+    "composition": "BriskyShortV31Video4",
+    "source": "ad04.mp4",
+    "playbackSpeed": 1.04,
+    "segments": [
+      {"pieces":[[21.44,26.64],[54.56,56.72]],"transcript":"Con học tiếng Anh nhiều năm rồi, nhưng đến giờ vẫn sợ tiếng Anh. Cứ học trước thì lại quên sau. Và điểm số trên trường thì chưa cao."},
+      {"pieces":[[96.94,102.80]],"transcript":"Con không phải không thể học tiếng Anh mà là chưa được tiếp cận đúng phương pháp."},
+      {"pieces":[[115.48,120.02]],"transcript":"Có bạn hổng từ vựng, học hôm nay thì ngày mai lại quên."},
+      {"pieces":[[125.13,126.77],[135.24,138.34]],"transcript":"Có bạn hổng câu đơn, biết từ nhưng không ghép được thành câu."},
+      {"pieces":[[142.37,144.35],[144.59,147.01]],"transcript":"Có bạn hổng ngữ pháp, học rồi nhưng không biết áp dụng."},
+      {"pieces":[[222.58,225.56],[234.16,236.56]],"transcript":"Vì vậy con học thêm càng nhiều nhưng điểm vẫn không lên; và càng lên lớp cao thì lại càng đuối."},
+      {"pieces":[[387.11,392.45]],"transcript":"Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+      {"pieces":[[502.54,508.40]],"transcript":"Đây là 3 buổi Zoom dành cho cha mẹ có con từ lớp 3 đến lớp 9."},
+      {"pieces":[[570.53,575.41]],"transcript":"Ba mẹ dễ dàng nhận biết con đang yếu phần nào."},
+      {"pieces":[[575.39,580.17]],"transcript":"Ví dụ phần đọc, phần viết, ngữ pháp hoặc kỹ năng làm bài."}
+    ]
+  }]
+}

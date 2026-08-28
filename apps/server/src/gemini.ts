@@ -5,6 +5,7 @@ import { addTokenUsage } from "./db.js";
 import type { ImageAspect, ImageKind, ImageTextPosition } from "./imageMeta.js";
 import type { VideoStyle } from "./videoStyles.js";
 import { ensureDir } from "./util.js";
+import { OPENAI_MODELS, openaiApiKey, openaiClient } from "./openaiConfig.js";
 
 /**
  * Gọi Gemini tạo ảnh nền (gemini-3.1-flash-image - "Nano Banana 2").
@@ -14,20 +15,16 @@ import { ensureDir } from "./util.js";
 
 /** Các model tạo ảnh khả dụng - UI cho chọn, meta.model lưu lựa chọn */
 export const IMAGE_MODELS = [
-  { id: "gemini-3.1-flash-image", label: "Nano Banana 2 (khuyên dùng) - gemini-3.1-flash-image" },
-  { id: "gemini-3.1-flash-lite-image", label: "Nano Banana 2 Lite (rẻ, nhanh) - gemini-3.1-flash-lite-image" },
-  { id: "gemini-3-pro-image", label: "Nano Banana Pro (cao cấp, 4K) - gemini-3-pro-image" },
+  { id: "gpt-image-1.5", label: "GPT Image 1.5 (khuyên dùng)" },
+  { id: "gpt-image-1", label: "GPT Image 1" },
+  { id: "gpt-image-1-mini", label: "GPT Image 1 Mini (nhanh, tiết kiệm)" },
 ] as const;
 
-export const DEFAULT_IMAGE_MODEL = "gemini-3.1-flash-image";
-
-function geminiEndpoint(model: string): string {
-  return `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent`;
-}
+export const DEFAULT_IMAGE_MODEL = OPENAI_MODELS.image;
 
 /** GOOGLE_API_KEY thắng nếu có cả hai (theo hợp đồng API) */
 export function geminiApiKey(): string | null {
-  return process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || null;
+  return openaiApiKey();
 }
 
 const KIND_PHRASES: Record<ImageKind, string> = {
@@ -278,7 +275,7 @@ export async function generateBackground(input: {
   const key = geminiApiKey();
   if (!key) {
     throw new Error(
-      "Chưa có GEMINI_API_KEY. Thêm GEMINI_API_KEY vào .env - lấy tại aistudio.google.com/apikey; hoặc tự upload nền rồi chạy bước Hoàn thiện.",
+      "Chưa có OPENAI_API_KEY. Mở Kết nối > OpenAI để thêm key; hoặc tự upload nền rồi chạy bước Hoàn thiện.",
     );
   }
 
@@ -288,63 +285,28 @@ export async function generateBackground(input: {
       ? input.model
       : DEFAULT_IMAGE_MODEL;
   const promptUsed = buildImagePrompt(input);
-  const body = {
-    contents: [{ parts: [{ text: promptUsed }] }],
-    generationConfig: {
-      responseModalities: ["TEXT", "IMAGE"],
-      imageConfig: { aspectRatio: input.aspect, imageSize: "1K" },
-    },
-  };
-
-  let res: Response;
+  const size = input.aspect === "16:9" ? "1536x1024" : input.aspect === "1:1" ? "1024x1024" : "1024x1536";
+  let imageBase64: string | undefined;
   try {
-    res = await fetch(geminiEndpoint(model), {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify(body),
+    const result = await openaiClient().images.generate({
+      model,
+      prompt: promptUsed,
+      size,
+      quality: "medium",
+      output_format: "png",
     });
+    imageBase64 = result.data?.[0]?.b64_json;
   } catch (err) {
-    throw new Error(
-      `Không gọi được Gemini API (lỗi mạng): ${err instanceof Error ? err.message : String(err)}`,
-    );
+    throw new Error(`OpenAI Image API thất bại: ${err instanceof Error ? err.message : String(err)}`);
   }
-
-  if (!res.ok) {
-    const errBody = (await res.text().catch(() => "")).replace(/\s+/g, " ").slice(0, 300);
-    throw new Error(`Gemini API trả lỗi ${res.status}: ${errBody || res.statusText}`);
-  }
-
-  const data = (await res.json()) as GeminiResponse;
-  const geminiParts = data.candidates?.[0]?.content?.parts ?? [];
-  const imagePart = geminiParts.find((p) => typeof p.inlineData?.data === "string" && p.inlineData.data);
-  if (!imagePart?.inlineData?.data) {
-    const text = geminiParts
-      .map((p) => p.text)
-      .filter(Boolean)
-      .join(" ")
-      .slice(0, 300);
-    throw new Error(
-      `Gemini không trả về ảnh${text ? ` - phản hồi: ${text}` : ""}. Thử sửa prompt rồi chạy lại.`,
-    );
-  }
+  if (!imageBase64) throw new Error("OpenAI không trả về dữ liệu ảnh. Thử sửa prompt rồi chạy lại.");
 
   ensureDir(path.dirname(input.outFile));
-  fs.writeFileSync(input.outFile, Buffer.from(imagePart.inlineData.data, "base64"));
+  fs.writeFileSync(input.outFile, Buffer.from(imageBase64, "base64"));
 
   // Ghi nhận token Gemini cho biểu đồ Dashboard (giá gemini-3.1-flash-image: $60/1M output tokens)
   try {
-    const inTok = data.usageMetadata?.promptTokenCount ?? 0;
-    const outTok = data.usageMetadata?.candidatesTokenCount ?? 0;
-    if (inTok > 0 || outTok > 0) {
-      addTokenUsage(
-        `img_${input.usageProjectId ?? "unknown"}`,
-        input.usageProjectId ?? null,
-        inTok,
-        outTok,
-        (outTok * 60) / 1_000_000,
-        "gemini",
-      );
-    }
+    addTokenUsage(`img_${input.usageProjectId ?? "unknown"}`, input.usageProjectId ?? null, 0, 0, 0, "openai");
   } catch {
     /* usage là phụ - không chặn luồng chính */
   }

@@ -204,7 +204,7 @@ export default function ImageProjectDetailPage() {
   const logBoxRef = useRef<HTMLPreElement>(null);
 
   const { providers } = useProviders();
-  const gemini = providers?.find((p) => p.id === "gemini");
+  const gemini = providers?.find((p) => p.id === "openai");
   const geminiConnected = gemini?.connected === true;
 
   const load = useCallback(async () => {

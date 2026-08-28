@@ -1,0 +1,28 @@
+{
+  "source": "Buoi-3-IMG_2425.MOV",
+  "blocks": [
+    {
+      "start": 2.62,
+      "end": 12.96
+    },
+    {
+      "start": 33.82,
+      "end": 48.7
+    },
+    {
+      "start": 53.02,
+      "end": 70.12
+    },
+    {
+      "start": 72.94,
+      "end": 88.38
+    },
+    {
+      "start": 89.16,
+      "end": 103.84
+    }
+  ],
+  "speed": 1.07,
+  "durationAfterSpeed": 67.70093457943926,
+  "totalFrames": 2031
+}

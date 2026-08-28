@@ -1,0 +1,51 @@
+{
+  "version":"v22",
+  "fps":"30000/1001",
+  "policy":{"audioFadeMs":3,"speechOverlap":false,"videoCrossfade":false,"video6":"excluded","wordGuardMs":{"pre":70,"post":140}},
+  "videos":[
+    {"composition":"BriskyShortV22Video2","source":"ad02.mp4","playbackSpeed":1.08,"segments":[
+      {"pieces":[[3.00,8.16]],"transcript":"Một học sinh lớp 7 từng mất gốc tiếng Anh."},
+      {"pieces":[[15.17,22.72]],"transcript":"Sau một năm nỗ lực, con kết thúc năm học với 8 điểm môn tiếng Anh."},
+      {"pieces":[[36.17,41.81]],"transcript":"Con từ 3–4 điểm lên 8 điểm là cả một quá trình và sự nỗ lực."},
+      {"pieces":[[65.74,70.70]],"transcript":"Thúc ép con học theo cách cũ vô tình tạo thêm áp lực."},
+      {"pieces":[[81.98,89.90]],"transcript":"Bắt con học theo cách cũ càng khiến con sợ hãi và tâm lý trước mỗi kỳ thi."},
+      {"pieces":[[112.53,126.47]],"transcript":"Thầy đúc rút một lộ trình và chia sẻ trong 3 buổi Zoom cho cha mẹ có con lớp 3–9."},
+      {"pieces":[[129.95,137.43]],"transcript":"Ba mẹ hiểu vì sao con học nhiều năm vẫn hổng kiến thức và con thường hổng ở đâu."},
+      {"pieces":[[139.23,147.13]],"transcript":"Ba mẹ nhận lộ trình giúp con xây lại từ gốc, học chắc và làm bài tốt hơn."},
+      {"pieces":[[165.41,171.93],[172.17,174.33]],"transcript":"Thầy chia sẻ cách khơi gợi niềm yêu thích tiếng Anh để con tự giác, chủ động hơn."},
+      {"pieces":[[198.84,208.64]],"transcript":"Con được kiểm tra trình độ miễn phí và nhận lộ trình học tập từ gốc."}
+    ]},
+    {"composition":"BriskyShortV22Video3","source":"ad03.mp4","playbackSpeed":1.08,"policy":"dialogue unchanged from v20","segments":[
+      {"pieces":[[6.97,14.83]],"transcript":"Trước mỗi kỳ thi, ba mẹ lo con không làm được bài hoặc lại bị điểm kém."},
+      {"pieces":[[25.88,29.06],[29.58,39.78]],"transcript":"Con học từ vựng rồi quên, ngại bài đọc dài, khoanh theo cảm tính và không biết áp dụng ngữ pháp."},
+      {"pieces":[[59.54,69.98]],"transcript":"Càng lên lớp cao, bài đọc càng dài, cấu trúc nhiều hơn, từ vựng khó hơn và con học ngày càng vất vả."},
+      {"pieces":[[82.82,89.32],[91.80,105.12]],"transcript":"Khi đã sợ tiếng Anh, con càng học càng nản; thầy tổ chức chương trình Zoom 3 buổi cho cha mẹ có con lớp 3–9."},
+      {"pieces":[[106.98,108.12],[108.62,129.13]],"transcript":"Ba mẹ hiểu nguyên nhân mất gốc, phần kiến thức con đang hổng, nhận lộ trình học lại và khơi động lực tự giác."},
+      {"pieces":[[144.54,157.98]],"transcript":"Con được tặng một buổi kiểm tra trình độ tiếng Anh hoàn toàn miễn phí."}
+    ]},
+    {"composition":"BriskyShortV22Video4","source":"ad04.mp4","playbackSpeed":1.12,"segments":[
+      {"pieces":[[49.18,56.70]],"transcript":"Con học tiếng Anh nhiều năm nhưng vẫn sợ, học trước quên sau và điểm số chưa cao."},
+      {"pieces":[[96.94,102.78]],"transcript":"Con không phải không thể học tiếng Anh mà là chưa được tiếp cận đúng phương pháp."},
+      {"pieces":[[115.56,119.84]],"transcript":"Có bạn hổng từ vựng, học hôm nay thì ngày mai lại quên."},
+      {"pieces":[[133.38,138.36]],"transcript":"Có bạn hổng câu đơn, biết từ nhưng không ghép được thành câu."},
+      {"pieces":[[142.45,146.87]],"transcript":"Có bạn hổng ngữ pháp, học rồi nhưng không biết áp dụng."},
+      {"pieces":[[157.89,161.25]],"transcript":"Biết từng câu nhưng không hiểu cả đoạn."},
+      {"pieces":[[234.16,236.58]],"transcript":"Và càng lên lớp cao, con càng đuối."},
+      {"pieces":[[387.19,392.31]],"transcript":"Thầy Quyền và đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh cho con."},
+      {"pieces":[[502.62,508.26]],"transcript":"Đây là 3 buổi Zoom dành cho cha mẹ có con từ lớp 3 đến lớp 9."},
+      {"pieces":[[570.61,575.27]],"transcript":"Ba mẹ dễ dàng nhận biết con đang yếu phần nào."},
+      {"pieces":[[575.47,580.03]],"transcript":"Ví dụ phần đọc, phần viết, ngữ pháp hoặc kỹ năng làm bài."}
+    ]},
+    {"composition":"BriskyShortV22Video5","source":"ad05.mp4","playbackSpeed":1.12,"segments":[
+      {"pieces":[[33.02,34.68],[38.98,40.78]],"transcript":"Cứ nhắc đến tiếng Anh là con sợ. Ba mẹ đừng vội nghĩ con lười."},
+      {"pieces":[[51.71,56.83]],"transcript":"Nhiều con đã mất gốc và đang mông lung về định hướng."},
+      {"pieces":[[79.13,82.51]],"transcript":"Có bạn học từ vựng trước quên sau."},
+      {"pieces":[[111.46,114.54]],"transcript":"Khi càng đuối, con càng chán nản trong học tập."},
+      {"pieces":[[181.04,183.52],[183.72,186.24]],"transcript":"Ba mẹ không biết làm thế nào để con có thể yêu tiếng Anh."},
+      {"pieces":[[153.19,163.39]],"transcript":"Thầy cùng đội ngũ tổ chức chương trình Bí mật lấy gốc tiếng Anh, gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3–9."},
+      {"pieces":[[189.08,189.68],[190.66,193.44],[195.92,196.50]],"transcript":"Thầy từng bước chia sẻ phương pháp giúp con lấy lại gốc tiếng Anh."},
+      {"pieces":[[231.10,234.96],[234.96,237.74],[238.60,240.22]],"transcript":"Thầy cung cấp lộ trình từ cơ bản đến nâng cao để ba mẹ biết con đang ở đâu."},
+      {"pieces":[[322.21,326.59],[327.57,329.35],[331.89,335.11]],"transcript":"Ngoài 3 buổi Zoom, con được kiểm tra trình độ để nhận bản đồ học tập phù hợp."}
+    ]}
+  ]
+}
