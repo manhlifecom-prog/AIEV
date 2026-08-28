@@ -1,0 +1,745 @@
+{
+  "segments": [
+    {
+      "start": 1.01,
+      "end": 5.65,
+      "text": "Đó có thể là chuyện anh chị thấy con chưa tự giác, chưa xây mê, chưa chủ động với việc học.",
+      "words": [
+        {
+          "word": " Đó",
+          "start": 1.01,
+          "end": 1.63
+        },
+        {
+          "word": " có",
+          "start": 1.63,
+          "end": 1.77
+        },
+        {
+          "word": " thể",
+          "start": 1.77,
+          "end": 1.89
+        },
+        {
+          "word": " là",
+          "start": 1.89,
+          "end": 2.01
+        },
+        {
+          "word": " chuyện",
+          "start": 2.01,
+          "end": 2.23
+        },
+        {
+          "word": " anh",
+          "start": 2.23,
+          "end": 2.41
+        },
+        {
+          "word": " chị",
+          "start": 2.41,
+          "end": 2.57
+        },
+        {
+          "word": " thấy",
+          "start": 2.57,
+          "end": 2.79
+        },
+        {
+          "word": " con",
+          "start": 2.79,
+          "end": 3.01
+        },
+        {
+          "word": " chưa",
+          "start": 3.01,
+          "end": 3.25
+        },
+        {
+          "word": " tự",
+          "start": 3.25,
+          "end": 3.47
+        },
+        {
+          "word": " giác,",
+          "start": 3.47,
+          "end": 3.71
+        },
+        {
+          "word": " chưa",
+          "start": 3.99,
+          "end": 4.05
+        },
+        {
+          "word": " xây",
+          "start": 4.05,
+          "end": 4.27
+        },
+        {
+          "word": " mê,",
+          "start": 4.27,
+          "end": 4.49
+        },
+        {
+          "word": " chưa",
+          "start": 4.65,
+          "end": 4.75
+        },
+        {
+          "word": " chủ",
+          "start": 4.75,
+          "end": 4.99
+        },
+        {
+          "word": " động",
+          "start": 4.99,
+          "end": 5.19
+        },
+        {
+          "word": " với",
+          "start": 5.19,
+          "end": 5.33
+        },
+        {
+          "word": " việc",
+          "start": 5.33,
+          "end": 5.47
+        },
+        {
+          "word": " học.",
+          "start": 5.47,
+          "end": 5.65
+        }
+      ]
+    },
+    {
+      "start": 6.05,
+      "end": 8.23,
+      "text": "Con còn mê game, TV, điện thoại.",
+      "words": [
+        {
+          "word": " Con",
+          "start": 6.05,
+          "end": 6.35
+        },
+        {
+          "word": " còn",
+          "start": 6.35,
+          "end": 6.51
+        },
+        {
+          "word": " mê",
+          "start": 6.51,
+          "end": 6.83
+        },
+        {
+          "word": " game,",
+          "start": 6.83,
+          "end": 7.15
+        },
+        {
+          "word": " TV,",
+          "start": 7.37,
+          "end": 7.55
+        },
+        {
+          "word": " điện",
+          "start": 7.81,
+          "end": 7.91
+        },
+        {
+          "word": " thoại.",
+          "start": 7.91,
+          "end": 8.23
+        }
+      ]
+    },
+    {
+      "start": 9.81,
+      "end": 10.91,
+      "text": "Để anh nói tiếp.",
+      "words": [
+        {
+          "word": " Để",
+          "start": 9.81,
+          "end": 10.25
+        },
+        {
+          "word": " anh",
+          "start": 10.25,
+          "end": 10.69
+        },
+        {
+          "word": " nói",
+          "start": 10.69,
+          "end": 10.79
+        },
+        {
+          "word": " tiếp.",
+          "start": 10.79,
+          "end": 10.91
+        }
+      ]
+    },
+    {
+      "start": 13.34,
+      "end": 16.38,
+      "text": "Con ngày càng khó bảo, con thiếu động lực, mục tiêu.",
+      "words": [
+        {
+          "word": " Con",
+          "start": 13.34,
+          "end": 13.56
+        },
+        {
+          "word": " ngày",
+          "start": 13.56,
+          "end": 13.8
+        },
+        {
+          "word": " càng",
+          "start": 13.8,
+          "end": 14.02
+        },
+        {
+          "word": " khó",
+          "start": 14.02,
+          "end": 14.3
+        },
+        {
+          "word": " bảo,",
+          "start": 14.3,
+          "end": 14.54
+        },
+        {
+          "word": " con",
+          "start": 14.94,
+          "end": 15.06
+        },
+        {
+          "word": " thiếu",
+          "start": 15.06,
+          "end": 15.34
+        },
+        {
+          "word": " động",
+          "start": 15.34,
+          "end": 15.48
+        },
+        {
+          "word": " lực,",
+          "start": 15.48,
+          "end": 15.74
+        },
+        {
+          "word": " mục",
+          "start": 15.98,
+          "end": 16.1
+        },
+        {
+          "word": " tiêu.",
+          "start": 16.1,
+          "end": 16.38
+        }
+      ]
+    },
+    {
+      "start": 20.5,
+      "end": 31.55,
+      "text": "Còn hay chống đối, cấu gắt, hoặc đơn giản là anh chị cảm thấy rằng là mình không biết phải làm gì tiếp theo nữa.",
+      "words": [
+        {
+          "word": " Còn",
+          "start": 20.5,
+          "end": 20.94
+        },
+        {
+          "word": " hay",
+          "start": 20.94,
+          "end": 21.24
+        },
+        {
+          "word": " chống",
+          "start": 21.24,
+          "end": 21.5
+        },
+        {
+          "word": " đối,",
+          "start": 21.5,
+          "end": 21.72
+        },
+        {
+          "word": " cấu",
+          "start": 21.96,
+          "end": 22.04
+        },
+        {
+          "word": " gắt,",
+          "start": 22.04,
+          "end": 22.24
+        },
+        {
+          "word": " hoặc",
+          "start": 27.71,
+          "end": 27.95
+        },
+        {
+          "word": " đơn",
+          "start": 27.95,
+          "end": 28.09
+        },
+        {
+          "word": " giản",
+          "start": 28.09,
+          "end": 28.33
+        },
+        {
+          "word": " là",
+          "start": 28.33,
+          "end": 28.49
+        },
+        {
+          "word": " anh",
+          "start": 28.49,
+          "end": 28.59
+        },
+        {
+          "word": " chị",
+          "start": 28.59,
+          "end": 28.69
+        },
+        {
+          "word": " cảm",
+          "start": 28.69,
+          "end": 28.91
+        },
+        {
+          "word": " thấy",
+          "start": 28.91,
+          "end": 29.11
+        },
+        {
+          "word": " rằng",
+          "start": 29.11,
+          "end": 29.29
+        },
+        {
+          "word": " là",
+          "start": 29.29,
+          "end": 29.51
+        },
+        {
+          "word": " mình",
+          "start": 29.51,
+          "end": 30.03
+        },
+        {
+          "word": " không",
+          "start": 30.03,
+          "end": 30.31
+        },
+        {
+          "word": " biết",
+          "start": 30.31,
+          "end": 30.47
+        },
+        {
+          "word": " phải",
+          "start": 30.47,
+          "end": 30.65
+        },
+        {
+          "word": " làm",
+          "start": 30.65,
+          "end": 30.81
+        },
+        {
+          "word": " gì",
+          "start": 30.81,
+          "end": 30.97
+        },
+        {
+          "word": " tiếp",
+          "start": 30.97,
+          "end": 31.17
+        },
+        {
+          "word": " theo",
+          "start": 31.17,
+          "end": 31.41
+        },
+        {
+          "word": " nữa.",
+          "start": 31.41,
+          "end": 31.55
+        }
+      ]
+    },
+    {
+      "start": 37.4,
+      "end": 41.24,
+      "text": "Thầy Thành muốn mời các anh chị tham gia vào buổi Zoom Coaching 1-1.",
+      "words": [
+        {
+          "word": " Thầy",
+          "start": 37.4,
+          "end": 37.84
+        },
+        {
+          "word": " Thành",
+          "start": 37.84,
+          "end": 37.96
+        },
+        {
+          "word": " muốn",
+          "start": 37.96,
+          "end": 38.1
+        },
+        {
+          "word": " mời",
+          "start": 38.1,
+          "end": 38.36
+        },
+        {
+          "word": " các",
+          "start": 38.36,
+          "end": 38.5
+        },
+        {
+          "word": " anh",
+          "start": 38.5,
+          "end": 38.62
+        },
+        {
+          "word": " chị",
+          "start": 38.62,
+          "end": 38.82
+        },
+        {
+          "word": " tham",
+          "start": 38.82,
+          "end": 39.1
+        },
+        {
+          "word": " gia",
+          "start": 39.1,
+          "end": 39.36
+        },
+        {
+          "word": " vào",
+          "start": 39.36,
+          "end": 39.54
+        },
+        {
+          "word": " buổi",
+          "start": 39.54,
+          "end": 39.88
+        },
+        {
+          "word": " Zoom",
+          "start": 39.88,
+          "end": 40.14
+        },
+        {
+          "word": " Coaching",
+          "start": 40.14,
+          "end": 40.64
+        },
+        {
+          "word": " 1",
+          "start": 40.64,
+          "end": 40.9
+        },
+        {
+          "word": "-1.",
+          "start": 40.9,
+          "end": 41.24
+        }
+      ]
+    },
+    {
+      "start": 42.45,
+      "end": 46.49,
+      "text": "Thầy Thành muốn mời các anh chị tham gia vào buổi Coaching 1-1 chuyên sâu cùng với Thầy.",
+      "words": [
+        {
+          "word": " Thầy",
+          "start": 42.45,
+          "end": 42.85
+        },
+        {
+          "word": " Thành",
+          "start": 42.85,
+          "end": 42.99
+        },
+        {
+          "word": " muốn",
+          "start": 42.99,
+          "end": 43.11
+        },
+        {
+          "word": " mời",
+          "start": 43.11,
+          "end": 43.35
+        },
+        {
+          "word": " các",
+          "start": 43.35,
+          "end": 43.47
+        },
+        {
+          "word": " anh",
+          "start": 43.47,
+          "end": 43.57
+        },
+        {
+          "word": " chị",
+          "start": 43.57,
+          "end": 43.73
+        },
+        {
+          "word": " tham",
+          "start": 43.73,
+          "end": 43.99
+        },
+        {
+          "word": " gia",
+          "start": 43.99,
+          "end": 44.21
+        },
+        {
+          "word": " vào",
+          "start": 44.21,
+          "end": 44.35
+        },
+        {
+          "word": " buổi",
+          "start": 44.35,
+          "end": 44.53
+        },
+        {
+          "word": " Coaching",
+          "start": 44.53,
+          "end": 44.93
+        },
+        {
+          "word": " 1",
+          "start": 44.93,
+          "end": 45.17
+        },
+        {
+          "word": "-1",
+          "start": 45.17,
+          "end": 45.41
+        },
+        {
+          "word": " chuyên",
+          "start": 45.41,
+          "end": 45.69
+        },
+        {
+          "word": " sâu",
+          "start": 45.69,
+          "end": 45.93
+        },
+        {
+          "word": " cùng",
+          "start": 45.93,
+          "end": 46.11
+        },
+        {
+          "word": " với",
+          "start": 46.11,
+          "end": 46.25
+        },
+        {
+          "word": " Thầy.",
+          "start": 46.25,
+          "end": 46.49
+        }
+      ]
+    },
+    {
+      "start": 46.77,
+      "end": 52.29,
+      "text": "Nơi mà Thầy sẽ cùng với các anh chị phân tích, đánh giá những nguyên nhân cốt lõi, những vấn đề cốt lõi.",
+      "words": [
+        {
+          "word": " Nơi",
+          "start": 46.77,
+          "end": 47.17
+        },
+        {
+          "word": " mà",
+          "start": 47.17,
+          "end": 47.33
+        },
+        {
+          "word": " Thầy",
+          "start": 47.33,
+          "end": 47.55
+        },
+        {
+          "word": " sẽ",
+          "start": 47.55,
+          "end": 47.67
+        },
+        {
+          "word": " cùng",
+          "start": 47.67,
+          "end": 47.81
+        },
+        {
+          "word": " với",
+          "start": 47.81,
+          "end": 47.95
+        },
+        {
+          "word": " các",
+          "start": 47.95,
+          "end": 48.07
+        },
+        {
+          "word": " anh",
+          "start": 48.07,
+          "end": 48.17
+        },
+        {
+          "word": " chị",
+          "start": 48.17,
+          "end": 48.35
+        },
+        {
+          "word": " phân",
+          "start": 48.35,
+          "end": 48.75
+        },
+        {
+          "word": " tích,",
+          "start": 48.75,
+          "end": 49.07
+        },
+        {
+          "word": " đánh",
+          "start": 49.45,
+          "end": 49.65
+        },
+        {
+          "word": " giá",
+          "start": 49.65,
+          "end": 49.95
+        },
+        {
+          "word": " những",
+          "start": 49.95,
+          "end": 50.09
+        },
+        {
+          "word": " nguyên",
+          "start": 50.09,
+          "end": 50.45
+        },
+        {
+          "word": " nhân",
+          "start": 50.45,
+          "end": 50.63
+        },
+        {
+          "word": " cốt",
+          "start": 50.63,
+          "end": 50.89
+        },
+        {
+          "word": " lõi,",
+          "start": 50.89,
+          "end": 51.23
+        },
+        {
+          "word": " những",
+          "start": 51.29,
+          "end": 51.33
+        },
+        {
+          "word": " vấn",
+          "start": 51.33,
+          "end": 51.55
+        },
+        {
+          "word": " đề",
+          "start": 51.55,
+          "end": 51.67
+        },
+        {
+          "word": " cốt",
+          "start": 51.67,
+          "end": 51.87
+        },
+        {
+          "word": " lõi.",
+          "start": 51.87,
+          "end": 52.29
+        }
+      ]
+    },
+    {
+      "start": 53.89,
+      "end": 57.39,
+      "text": "Ok, lại nha. Em dừng cái video đấy được rồi.",
+      "words": [
+        {
+          "word": " Ok,",
+          "start": 53.89,
+          "end": 54.29
+        },
+        {
+          "word": " lại",
+          "start": 54.49,
+          "end": 54.69
+        },
+        {
+          "word": " nha.",
+          "start": 54.69,
+          "end": 55.03
+        },
+        {
+          "word": " Em",
+          "start": 56.27,
+          "end": 56.39
+        },
+        {
+          "word": " dừng",
+          "start": 56.39,
+          "end": 56.73
+        },
+        {
+          "word": " cái",
+          "start": 56.73,
+          "end": 56.81
+        },
+        {
+          "word": " video",
+          "start": 56.81,
+          "end": 56.97
+        },
+        {
+          "word": " đấy",
+          "start": 56.97,
+          "end": 57.11
+        },
+        {
+          "word": " được",
+          "start": 57.11,
+          "end": 57.19
+        },
+        {
+          "word": " rồi.",
+          "start": 57.19,
+          "end": 57.39
+        }
+      ]
+    }
+  ],
+  "duration": 57.932375,
+  "model": "small-draft",
+  "source": "Video 3\\IMG_2473.MOV"
+}

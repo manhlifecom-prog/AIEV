@@ -1,0 +1,414 @@
+{
+  "segments": [
+    {
+      "start": 1.14,
+      "end": 4.22,
+      "text": "Nếu anh chị đang công cái vấn đề thực sự chăn trở về con,",
+      "words": [
+        {
+          "word": " Nếu",
+          "start": 1.14,
+          "end": 1.78
+        },
+        {
+          "word": " anh",
+          "start": 1.78,
+          "end": 1.9
+        },
+        {
+          "word": " chị",
+          "start": 1.9,
+          "end": 2.06
+        },
+        {
+          "word": " đang",
+          "start": 2.06,
+          "end": 2.26
+        },
+        {
+          "word": " công",
+          "start": 2.26,
+          "end": 2.42
+        },
+        {
+          "word": " cái",
+          "start": 2.42,
+          "end": 2.58
+        },
+        {
+          "word": " vấn",
+          "start": 2.58,
+          "end": 2.74
+        },
+        {
+          "word": " đề",
+          "start": 2.74,
+          "end": 2.94
+        },
+        {
+          "word": " thực",
+          "start": 2.94,
+          "end": 3.14
+        },
+        {
+          "word": " sự",
+          "start": 3.14,
+          "end": 3.42
+        },
+        {
+          "word": " chăn",
+          "start": 3.42,
+          "end": 3.66
+        },
+        {
+          "word": " trở",
+          "start": 3.66,
+          "end": 3.9
+        },
+        {
+          "word": " về",
+          "start": 3.9,
+          "end": 4.02
+        },
+        {
+          "word": " con,",
+          "start": 4.02,
+          "end": 4.22
+        }
+      ]
+    },
+    {
+      "start": 4.52,
+      "end": 6.3,
+      "text": "một cái vấn đề mà anh chị đã suy nghĩ rất nhiều,",
+      "words": [
+        {
+          "word": " một",
+          "start": 4.52,
+          "end": 4.64
+        },
+        {
+          "word": " cái",
+          "start": 4.64,
+          "end": 4.7
+        },
+        {
+          "word": " vấn",
+          "start": 4.7,
+          "end": 4.82
+        },
+        {
+          "word": " đề",
+          "start": 4.82,
+          "end": 5.0
+        },
+        {
+          "word": " mà",
+          "start": 5.0,
+          "end": 5.16
+        },
+        {
+          "word": " anh",
+          "start": 5.16,
+          "end": 5.28
+        },
+        {
+          "word": " chị",
+          "start": 5.28,
+          "end": 5.48
+        },
+        {
+          "word": " đã",
+          "start": 5.48,
+          "end": 5.64
+        },
+        {
+          "word": " suy",
+          "start": 5.64,
+          "end": 5.84
+        },
+        {
+          "word": " nghĩ",
+          "start": 5.84,
+          "end": 5.96
+        },
+        {
+          "word": " rất",
+          "start": 5.96,
+          "end": 6.1
+        },
+        {
+          "word": " nhiều,",
+          "start": 6.1,
+          "end": 6.3
+        }
+      ]
+    },
+    {
+      "start": 6.8,
+      "end": 10.38,
+      "text": "đã khuyên bảo, đã nhắc nhở, đã thưởng phạt.",
+      "words": [
+        {
+          "word": " đã",
+          "start": 6.8,
+          "end": 7.06
+        },
+        {
+          "word": " khuyên",
+          "start": 7.06,
+          "end": 7.42
+        },
+        {
+          "word": " bảo,",
+          "start": 7.42,
+          "end": 7.74
+        },
+        {
+          "word": " đã",
+          "start": 8.24,
+          "end": 8.38
+        },
+        {
+          "word": " nhắc",
+          "start": 8.38,
+          "end": 8.7
+        },
+        {
+          "word": " nhở,",
+          "start": 8.7,
+          "end": 9.04
+        },
+        {
+          "word": " đã",
+          "start": 9.48,
+          "end": 9.64
+        },
+        {
+          "word": " thưởng",
+          "start": 9.64,
+          "end": 9.96
+        },
+        {
+          "word": " phạt.",
+          "start": 9.96,
+          "end": 10.38
+        }
+      ]
+    },
+    {
+      "start": 10.86,
+      "end": 13.8,
+      "text": "Thậm chí là anh chị đã tham gia những lớp học cho phụ huyên",
+      "words": [
+        {
+          "word": " Thậm",
+          "start": 10.86,
+          "end": 11.06
+        },
+        {
+          "word": " chí",
+          "start": 11.06,
+          "end": 11.28
+        },
+        {
+          "word": " là",
+          "start": 11.28,
+          "end": 11.42
+        },
+        {
+          "word": " anh",
+          "start": 11.42,
+          "end": 11.58
+        },
+        {
+          "word": " chị",
+          "start": 11.58,
+          "end": 11.78
+        },
+        {
+          "word": " đã",
+          "start": 11.78,
+          "end": 12.04
+        },
+        {
+          "word": " tham",
+          "start": 12.04,
+          "end": 12.34
+        },
+        {
+          "word": " gia",
+          "start": 12.34,
+          "end": 12.54
+        },
+        {
+          "word": " những",
+          "start": 12.54,
+          "end": 12.64
+        },
+        {
+          "word": " lớp",
+          "start": 12.64,
+          "end": 12.9
+        },
+        {
+          "word": " học",
+          "start": 12.9,
+          "end": 13.04
+        },
+        {
+          "word": " cho",
+          "start": 13.04,
+          "end": 13.18
+        },
+        {
+          "word": " phụ",
+          "start": 13.18,
+          "end": 13.46
+        },
+        {
+          "word": " huyên",
+          "start": 13.46,
+          "end": 13.8
+        }
+      ]
+    },
+    {
+      "start": 13.8,
+      "end": 15.22,
+      "text": "để thay đổi cách mình đồng hành.",
+      "words": [
+        {
+          "word": " để",
+          "start": 13.8,
+          "end": 13.98
+        },
+        {
+          "word": " thay",
+          "start": 13.98,
+          "end": 14.22
+        },
+        {
+          "word": " đổi",
+          "start": 14.22,
+          "end": 14.36
+        },
+        {
+          "word": " cách",
+          "start": 14.36,
+          "end": 14.6
+        },
+        {
+          "word": " mình",
+          "start": 14.6,
+          "end": 14.82
+        },
+        {
+          "word": " đồng",
+          "start": 14.82,
+          "end": 15.0
+        },
+        {
+          "word": " hành.",
+          "start": 15.0,
+          "end": 15.22
+        }
+      ]
+    },
+    {
+      "start": 15.5,
+      "end": 18.8,
+      "text": "Nhưng mà thực sự mọi thứ nó vẫn chưa có sự chuyển biến như anh chị muốn.",
+      "words": [
+        {
+          "word": " Nhưng",
+          "start": 15.5,
+          "end": 15.72
+        },
+        {
+          "word": " mà",
+          "start": 15.72,
+          "end": 15.78
+        },
+        {
+          "word": " thực",
+          "start": 15.78,
+          "end": 15.9
+        },
+        {
+          "word": " sự",
+          "start": 15.9,
+          "end": 16.24
+        },
+        {
+          "word": " mọi",
+          "start": 16.24,
+          "end": 16.48
+        },
+        {
+          "word": " thứ",
+          "start": 16.48,
+          "end": 16.64
+        },
+        {
+          "word": " nó",
+          "start": 16.64,
+          "end": 16.82
+        },
+        {
+          "word": " vẫn",
+          "start": 16.82,
+          "end": 16.92
+        },
+        {
+          "word": " chưa",
+          "start": 16.92,
+          "end": 17.24
+        },
+        {
+          "word": " có",
+          "start": 17.24,
+          "end": 17.46
+        },
+        {
+          "word": " sự",
+          "start": 17.46,
+          "end": 17.7
+        },
+        {
+          "word": " chuyển",
+          "start": 17.7,
+          "end": 18.04
+        },
+        {
+          "word": " biến",
+          "start": 18.04,
+          "end": 18.28
+        },
+        {
+          "word": " như",
+          "start": 18.28,
+          "end": 18.42
+        },
+        {
+          "word": " anh",
+          "start": 18.42,
+          "end": 18.52
+        },
+        {
+          "word": " chị",
+          "start": 18.52,
+          "end": 18.64
+        },
+        {
+          "word": " muốn.",
+          "start": 18.64,
+          "end": 18.8
+        }
+      ]
+    }
+  ],
+  "duration": 22.2665,
+  "model": "small-draft",
+  "source": "Video 3\\IMG_2471.MOV"
+}

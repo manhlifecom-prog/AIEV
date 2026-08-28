@@ -1,0 +1,362 @@
+{
+  "segments": [
+    {
+      "start": 1.04,
+      "end": 5.26,
+      "text": "Thầy Thành muốn mở anh chị tham gia một buổi Zoom Coaching 1-1 cùng với Thầy,",
+      "words": [
+        {
+          "word": " Thầy",
+          "start": 1.04,
+          "end": 1.56
+        },
+        {
+          "word": " Thành",
+          "start": 1.56,
+          "end": 1.68
+        },
+        {
+          "word": " muốn",
+          "start": 1.68,
+          "end": 1.8
+        },
+        {
+          "word": " mở",
+          "start": 1.8,
+          "end": 2.06
+        },
+        {
+          "word": " anh",
+          "start": 2.06,
+          "end": 2.2
+        },
+        {
+          "word": " chị",
+          "start": 2.2,
+          "end": 2.4
+        },
+        {
+          "word": " tham",
+          "start": 2.4,
+          "end": 2.74
+        },
+        {
+          "word": " gia",
+          "start": 2.74,
+          "end": 2.98
+        },
+        {
+          "word": " một",
+          "start": 2.98,
+          "end": 3.12
+        },
+        {
+          "word": " buổi",
+          "start": 3.12,
+          "end": 3.4
+        },
+        {
+          "word": " Zoom",
+          "start": 3.4,
+          "end": 3.64
+        },
+        {
+          "word": " Coaching",
+          "start": 3.64,
+          "end": 4.14
+        },
+        {
+          "word": " 1",
+          "start": 4.14,
+          "end": 4.36
+        },
+        {
+          "word": "-1",
+          "start": 4.36,
+          "end": 4.64
+        },
+        {
+          "word": " cùng",
+          "start": 4.64,
+          "end": 4.86
+        },
+        {
+          "word": " với",
+          "start": 4.86,
+          "end": 5.02
+        },
+        {
+          "word": " Thầy,",
+          "start": 5.02,
+          "end": 5.26
+        }
+      ]
+    },
+    {
+      "start": 5.56,
+      "end": 8.32,
+      "text": "nơi mà chúng ta sẽ cùng phân tích những nguyên nhân sâu xa,",
+      "words": [
+        {
+          "word": " nơi",
+          "start": 5.56,
+          "end": 5.84
+        },
+        {
+          "word": " mà",
+          "start": 5.84,
+          "end": 5.96
+        },
+        {
+          "word": " chúng",
+          "start": 5.96,
+          "end": 6.08
+        },
+        {
+          "word": " ta",
+          "start": 6.08,
+          "end": 6.28
+        },
+        {
+          "word": " sẽ",
+          "start": 6.28,
+          "end": 6.38
+        },
+        {
+          "word": " cùng",
+          "start": 6.38,
+          "end": 6.54
+        },
+        {
+          "word": " phân",
+          "start": 6.54,
+          "end": 6.82
+        },
+        {
+          "word": " tích",
+          "start": 6.82,
+          "end": 7.06
+        },
+        {
+          "word": " những",
+          "start": 7.06,
+          "end": 7.18
+        },
+        {
+          "word": " nguyên",
+          "start": 7.18,
+          "end": 7.58
+        },
+        {
+          "word": " nhân",
+          "start": 7.58,
+          "end": 7.72
+        },
+        {
+          "word": " sâu",
+          "start": 7.72,
+          "end": 8.0
+        },
+        {
+          "word": " xa,",
+          "start": 8.0,
+          "end": 8.32
+        }
+      ]
+    },
+    {
+      "start": 8.44,
+      "end": 11.2,
+      "text": "những vấn đề cốt lõi dẫn tới hành vi hiện tại của con,",
+      "words": [
+        {
+          "word": " những",
+          "start": 8.44,
+          "end": 8.46
+        },
+        {
+          "word": " vấn",
+          "start": 8.46,
+          "end": 8.64
+        },
+        {
+          "word": " đề",
+          "start": 8.64,
+          "end": 8.8
+        },
+        {
+          "word": " cốt",
+          "start": 8.8,
+          "end": 9.04
+        },
+        {
+          "word": " lõi",
+          "start": 9.04,
+          "end": 9.44
+        },
+        {
+          "word": " dẫn",
+          "start": 9.44,
+          "end": 9.8
+        },
+        {
+          "word": " tới",
+          "start": 9.8,
+          "end": 9.98
+        },
+        {
+          "word": " hành",
+          "start": 9.98,
+          "end": 10.28
+        },
+        {
+          "word": " vi",
+          "start": 10.28,
+          "end": 10.48
+        },
+        {
+          "word": " hiện",
+          "start": 10.48,
+          "end": 10.7
+        },
+        {
+          "word": " tại",
+          "start": 10.7,
+          "end": 10.9
+        },
+        {
+          "word": " của",
+          "start": 10.9,
+          "end": 11.02
+        },
+        {
+          "word": " con,",
+          "start": 11.02,
+          "end": 11.2
+        }
+      ]
+    },
+    {
+      "start": 11.46,
+      "end": 13.64,
+      "text": "và cùng nhau tìm ra giải pháp hướng đi,",
+      "words": [
+        {
+          "word": " và",
+          "start": 11.46,
+          "end": 11.54
+        },
+        {
+          "word": " cùng",
+          "start": 11.54,
+          "end": 11.7
+        },
+        {
+          "word": " nhau",
+          "start": 11.7,
+          "end": 11.96
+        },
+        {
+          "word": " tìm",
+          "start": 11.96,
+          "end": 12.26
+        },
+        {
+          "word": " ra",
+          "start": 12.26,
+          "end": 12.42
+        },
+        {
+          "word": " giải",
+          "start": 12.42,
+          "end": 12.88
+        },
+        {
+          "word": " pháp",
+          "start": 12.88,
+          "end": 13.1
+        },
+        {
+          "word": " hướng",
+          "start": 13.1,
+          "end": 13.48
+        },
+        {
+          "word": " đi,",
+          "start": 13.48,
+          "end": 13.64
+        }
+      ]
+    },
+    {
+      "start": 13.74,
+      "end": 16.4,
+      "text": "những sự đồng hành hiệu quả với con trong gia đạn này.",
+      "words": [
+        {
+          "word": " những",
+          "start": 13.74,
+          "end": 13.78
+        },
+        {
+          "word": " sự",
+          "start": 13.78,
+          "end": 14.24
+        },
+        {
+          "word": " đồng",
+          "start": 14.24,
+          "end": 14.52
+        },
+        {
+          "word": " hành",
+          "start": 14.52,
+          "end": 14.74
+        },
+        {
+          "word": " hiệu",
+          "start": 14.74,
+          "end": 15.0
+        },
+        {
+          "word": " quả",
+          "start": 15.0,
+          "end": 15.26
+        },
+        {
+          "word": " với",
+          "start": 15.26,
+          "end": 15.4
+        },
+        {
+          "word": " con",
+          "start": 15.4,
+          "end": 15.66
+        },
+        {
+          "word": " trong",
+          "start": 15.66,
+          "end": 15.96
+        },
+        {
+          "word": " gia",
+          "start": 15.96,
+          "end": 16.14
+        },
+        {
+          "word": " đạn",
+          "start": 16.14,
+          "end": 16.28
+        },
+        {
+          "word": " này.",
+          "start": 16.28,
+          "end": 16.4
+        }
+      ]
+    }
+  ],
+  "duration": 18.22625,
+  "model": "small-draft",
+  "source": "Video 3\\IMG_2474.MOV"
+}

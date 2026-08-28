@@ -1,0 +1,572 @@
+{
+  "segments": [
+    {
+      "start": 1.46,
+      "end": 6.16,
+      "text": "Anh chị đừng chờ đến khi một vấn đề nhỏ trở thành một khoảng cách rất lớn giữa bố mẹ và con.",
+      "words": [
+        {
+          "word": " Anh",
+          "start": 1.46,
+          "end": 1.9
+        },
+        {
+          "word": " chị",
+          "start": 1.9,
+          "end": 2.08
+        },
+        {
+          "word": " đừng",
+          "start": 2.08,
+          "end": 2.34
+        },
+        {
+          "word": " chờ",
+          "start": 2.34,
+          "end": 2.7
+        },
+        {
+          "word": " đến",
+          "start": 2.7,
+          "end": 2.9
+        },
+        {
+          "word": " khi",
+          "start": 2.9,
+          "end": 3.04
+        },
+        {
+          "word": " một",
+          "start": 3.04,
+          "end": 3.18
+        },
+        {
+          "word": " vấn",
+          "start": 3.18,
+          "end": 3.32
+        },
+        {
+          "word": " đề",
+          "start": 3.32,
+          "end": 3.48
+        },
+        {
+          "word": " nhỏ",
+          "start": 3.48,
+          "end": 3.82
+        },
+        {
+          "word": " trở",
+          "start": 3.82,
+          "end": 4.06
+        },
+        {
+          "word": " thành",
+          "start": 4.06,
+          "end": 4.18
+        },
+        {
+          "word": " một",
+          "start": 4.18,
+          "end": 4.26
+        },
+        {
+          "word": " khoảng",
+          "start": 4.26,
+          "end": 4.5
+        },
+        {
+          "word": " cách",
+          "start": 4.5,
+          "end": 4.66
+        },
+        {
+          "word": " rất",
+          "start": 4.66,
+          "end": 4.78
+        },
+        {
+          "word": " lớn",
+          "start": 4.78,
+          "end": 5.16
+        },
+        {
+          "word": " giữa",
+          "start": 5.16,
+          "end": 5.34
+        },
+        {
+          "word": " bố",
+          "start": 5.34,
+          "end": 5.54
+        },
+        {
+          "word": " mẹ",
+          "start": 5.54,
+          "end": 5.74
+        },
+        {
+          "word": " và",
+          "start": 5.74,
+          "end": 5.96
+        },
+        {
+          "word": " con.",
+          "start": 5.96,
+          "end": 6.16
+        }
+      ]
+    },
+    {
+      "start": 6.76,
+      "end": 11.56,
+      "text": "Và vì một lý do nào đó, anh chị chưa biết hoặc là trước kịp đăng ký cái chương trình Coaching 1.1 cùng với Thầy,",
+      "words": [
+        {
+          "word": " Và",
+          "start": 6.76,
+          "end": 6.96
+        },
+        {
+          "word": " vì",
+          "start": 6.96,
+          "end": 7.08
+        },
+        {
+          "word": " một",
+          "start": 7.08,
+          "end": 7.2
+        },
+        {
+          "word": " lý",
+          "start": 7.2,
+          "end": 7.32
+        },
+        {
+          "word": " do",
+          "start": 7.32,
+          "end": 7.44
+        },
+        {
+          "word": " nào",
+          "start": 7.44,
+          "end": 7.54
+        },
+        {
+          "word": " đó,",
+          "start": 7.54,
+          "end": 7.72
+        },
+        {
+          "word": " anh",
+          "start": 7.92,
+          "end": 7.96
+        },
+        {
+          "word": " chị",
+          "start": 7.96,
+          "end": 8.14
+        },
+        {
+          "word": " chưa",
+          "start": 8.14,
+          "end": 8.38
+        },
+        {
+          "word": " biết",
+          "start": 8.38,
+          "end": 8.58
+        },
+        {
+          "word": " hoặc",
+          "start": 8.58,
+          "end": 8.86
+        },
+        {
+          "word": " là",
+          "start": 8.86,
+          "end": 8.94
+        },
+        {
+          "word": " trước",
+          "start": 8.94,
+          "end": 9.06
+        },
+        {
+          "word": " kịp",
+          "start": 9.06,
+          "end": 9.28
+        },
+        {
+          "word": " đăng",
+          "start": 9.28,
+          "end": 9.42
+        },
+        {
+          "word": " ký",
+          "start": 9.42,
+          "end": 9.62
+        },
+        {
+          "word": " cái",
+          "start": 9.62,
+          "end": 9.78
+        },
+        {
+          "word": " chương",
+          "start": 9.78,
+          "end": 9.9
+        },
+        {
+          "word": " trình",
+          "start": 9.9,
+          "end": 10.02
+        },
+        {
+          "word": " Coaching",
+          "start": 10.02,
+          "end": 10.4
+        },
+        {
+          "word": " 1",
+          "start": 10.4,
+          "end": 10.64
+        },
+        {
+          "word": ".1",
+          "start": 10.64,
+          "end": 10.88
+        },
+        {
+          "word": " cùng",
+          "start": 10.88,
+          "end": 11.16
+        },
+        {
+          "word": " với",
+          "start": 11.16,
+          "end": 11.34
+        },
+        {
+          "word": " Thầy,",
+          "start": 11.34,
+          "end": 11.56
+        }
+      ]
+    },
+    {
+      "start": 11.98,
+      "end": 14.44,
+      "text": "thì ngay bây giờ, các anh chị có thể điền thông tin ở phía bên dưới.",
+      "words": [
+        {
+          "word": " thì",
+          "start": 11.98,
+          "end": 12.1
+        },
+        {
+          "word": " ngay",
+          "start": 12.1,
+          "end": 12.26
+        },
+        {
+          "word": " bây",
+          "start": 12.26,
+          "end": 12.4
+        },
+        {
+          "word": " giờ,",
+          "start": 12.4,
+          "end": 12.56
+        },
+        {
+          "word": " các",
+          "start": 12.68,
+          "end": 12.78
+        },
+        {
+          "word": " anh",
+          "start": 12.78,
+          "end": 12.8
+        },
+        {
+          "word": " chị",
+          "start": 12.8,
+          "end": 12.9
+        },
+        {
+          "word": " có",
+          "start": 12.9,
+          "end": 13.04
+        },
+        {
+          "word": " thể",
+          "start": 13.04,
+          "end": 13.1
+        },
+        {
+          "word": " điền",
+          "start": 13.1,
+          "end": 13.42
+        },
+        {
+          "word": " thông",
+          "start": 13.42,
+          "end": 13.6
+        },
+        {
+          "word": " tin",
+          "start": 13.6,
+          "end": 13.78
+        },
+        {
+          "word": " ở",
+          "start": 13.78,
+          "end": 13.94
+        },
+        {
+          "word": " phía",
+          "start": 13.94,
+          "end": 14.08
+        },
+        {
+          "word": " bên",
+          "start": 14.08,
+          "end": 14.2
+        },
+        {
+          "word": " dưới.",
+          "start": 14.2,
+          "end": 14.44
+        }
+      ]
+    },
+    {
+      "start": 14.88,
+      "end": 18.32,
+      "text": "Đội ngũ của Thầy sẽ xem xét và xác nhận lịch hẹn với những gia đình phù hợp.",
+      "words": [
+        {
+          "word": " Đội",
+          "start": 14.88,
+          "end": 14.98
+        },
+        {
+          "word": " ngũ",
+          "start": 14.98,
+          "end": 15.12
+        },
+        {
+          "word": " của",
+          "start": 15.12,
+          "end": 15.24
+        },
+        {
+          "word": " Thầy",
+          "start": 15.24,
+          "end": 15.38
+        },
+        {
+          "word": " sẽ",
+          "start": 15.38,
+          "end": 15.52
+        },
+        {
+          "word": " xem",
+          "start": 15.52,
+          "end": 15.72
+        },
+        {
+          "word": " xét",
+          "start": 15.72,
+          "end": 15.96
+        },
+        {
+          "word": " và",
+          "start": 15.96,
+          "end": 16.26
+        },
+        {
+          "word": " xác",
+          "start": 16.26,
+          "end": 16.54
+        },
+        {
+          "word": " nhận",
+          "start": 16.54,
+          "end": 16.74
+        },
+        {
+          "word": " lịch",
+          "start": 16.74,
+          "end": 16.9
+        },
+        {
+          "word": " hẹn",
+          "start": 16.9,
+          "end": 17.28
+        },
+        {
+          "word": " với",
+          "start": 17.28,
+          "end": 17.38
+        },
+        {
+          "word": " những",
+          "start": 17.38,
+          "end": 17.5
+        },
+        {
+          "word": " gia",
+          "start": 17.5,
+          "end": 17.64
+        },
+        {
+          "word": " đình",
+          "start": 17.64,
+          "end": 17.78
+        },
+        {
+          "word": " phù",
+          "start": 17.78,
+          "end": 18.02
+        },
+        {
+          "word": " hợp.",
+          "start": 18.02,
+          "end": 18.32
+        }
+      ]
+    },
+    {
+      "start": 19.0,
+      "end": 24.44,
+      "text": "Hẹn gặp lại các anh chị ở buổi Coaching 1.1 và 3 buổi tối của chương trình bí mật giúp con ham học.",
+      "words": [
+        {
+          "word": " Hẹn",
+          "start": 19.0,
+          "end": 19.24
+        },
+        {
+          "word": " gặp",
+          "start": 19.24,
+          "end": 19.38
+        },
+        {
+          "word": " lại",
+          "start": 19.38,
+          "end": 19.5
+        },
+        {
+          "word": " các",
+          "start": 19.5,
+          "end": 19.62
+        },
+        {
+          "word": " anh",
+          "start": 19.62,
+          "end": 19.72
+        },
+        {
+          "word": " chị",
+          "start": 19.72,
+          "end": 19.92
+        },
+        {
+          "word": " ở",
+          "start": 19.92,
+          "end": 20.2
+        },
+        {
+          "word": " buổi",
+          "start": 20.2,
+          "end": 20.38
+        },
+        {
+          "word": " Coaching",
+          "start": 20.38,
+          "end": 20.74
+        },
+        {
+          "word": " 1",
+          "start": 20.74,
+          "end": 20.92
+        },
+        {
+          "word": ".1",
+          "start": 20.92,
+          "end": 21.4
+        },
+        {
+          "word": " và",
+          "start": 21.4,
+          "end": 21.62
+        },
+        {
+          "word": " 3",
+          "start": 21.62,
+          "end": 22.16
+        },
+        {
+          "word": " buổi",
+          "start": 22.16,
+          "end": 22.36
+        },
+        {
+          "word": " tối",
+          "start": 22.36,
+          "end": 22.6
+        },
+        {
+          "word": " của",
+          "start": 22.6,
+          "end": 22.8
+        },
+        {
+          "word": " chương",
+          "start": 22.8,
+          "end": 22.94
+        },
+        {
+          "word": " trình",
+          "start": 22.94,
+          "end": 23.12
+        },
+        {
+          "word": " bí",
+          "start": 23.12,
+          "end": 23.4
+        },
+        {
+          "word": " mật",
+          "start": 23.4,
+          "end": 23.62
+        },
+        {
+          "word": " giúp",
+          "start": 23.62,
+          "end": 23.82
+        },
+        {
+          "word": " con",
+          "start": 23.82,
+          "end": 24.02
+        },
+        {
+          "word": " ham",
+          "start": 24.02,
+          "end": 24.24
+        },
+        {
+          "word": " học.",
+          "start": 24.24,
+          "end": 24.44
+        }
+      ]
+    }
+  ],
+  "duration": 26.051375,
+  "model": "small-draft",
+  "source": "Video 2\\IMG_2469.MOV"
+}

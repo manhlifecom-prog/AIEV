@@ -1,0 +1,771 @@
+{
+  "segments": [
+    {
+      "start": 1.1,
+      "end": 6.52,
+      "text": "Trong rất nhiều năm đồng hành với các phụ nguyên, thì thành nhận ra rằng cùng một biểu hiện là con chưa ham học,",
+      "words": [
+        {
+          "word": " Trong",
+          "start": 1.1,
+          "end": 1.62
+        },
+        {
+          "word": " rất",
+          "start": 1.62,
+          "end": 1.7
+        },
+        {
+          "word": " nhiều",
+          "start": 1.7,
+          "end": 1.9
+        },
+        {
+          "word": " năm",
+          "start": 1.9,
+          "end": 2.1
+        },
+        {
+          "word": " đồng",
+          "start": 2.1,
+          "end": 2.34
+        },
+        {
+          "word": " hành",
+          "start": 2.34,
+          "end": 2.54
+        },
+        {
+          "word": " với",
+          "start": 2.54,
+          "end": 2.66
+        },
+        {
+          "word": " các",
+          "start": 2.66,
+          "end": 2.76
+        },
+        {
+          "word": " phụ",
+          "start": 2.76,
+          "end": 2.94
+        },
+        {
+          "word": " nguyên,",
+          "start": 2.94,
+          "end": 3.42
+        },
+        {
+          "word": " thì",
+          "start": 3.48,
+          "end": 3.58
+        },
+        {
+          "word": " thành",
+          "start": 3.58,
+          "end": 3.74
+        },
+        {
+          "word": " nhận",
+          "start": 3.74,
+          "end": 3.88
+        },
+        {
+          "word": " ra",
+          "start": 3.88,
+          "end": 4.04
+        },
+        {
+          "word": " rằng",
+          "start": 4.04,
+          "end": 4.26
+        },
+        {
+          "word": " cùng",
+          "start": 4.26,
+          "end": 4.96
+        },
+        {
+          "word": " một",
+          "start": 4.96,
+          "end": 5.1
+        },
+        {
+          "word": " biểu",
+          "start": 5.1,
+          "end": 5.34
+        },
+        {
+          "word": " hiện",
+          "start": 5.34,
+          "end": 5.54
+        },
+        {
+          "word": " là",
+          "start": 5.54,
+          "end": 5.74
+        },
+        {
+          "word": " con",
+          "start": 5.74,
+          "end": 5.88
+        },
+        {
+          "word": " chưa",
+          "start": 5.88,
+          "end": 6.1
+        },
+        {
+          "word": " ham",
+          "start": 6.1,
+          "end": 6.3
+        },
+        {
+          "word": " học,",
+          "start": 6.3,
+          "end": 6.52
+        }
+      ]
+    },
+    {
+      "start": 6.76,
+      "end": 10.16,
+      "text": "nhưng có rất nhiều nguyên nhân ẩn sâu phía dưới hành vi đó.",
+      "words": [
+        {
+          "word": " nhưng",
+          "start": 6.76,
+          "end": 6.84
+        },
+        {
+          "word": " có",
+          "start": 6.84,
+          "end": 6.96
+        },
+        {
+          "word": " rất",
+          "start": 6.96,
+          "end": 7.08
+        },
+        {
+          "word": " nhiều",
+          "start": 7.08,
+          "end": 7.38
+        },
+        {
+          "word": " nguyên",
+          "start": 7.38,
+          "end": 7.88
+        },
+        {
+          "word": " nhân",
+          "start": 7.88,
+          "end": 8.06
+        },
+        {
+          "word": " ẩn",
+          "start": 8.06,
+          "end": 8.62
+        },
+        {
+          "word": " sâu",
+          "start": 8.62,
+          "end": 8.98
+        },
+        {
+          "word": " phía",
+          "start": 8.98,
+          "end": 9.26
+        },
+        {
+          "word": " dưới",
+          "start": 9.26,
+          "end": 9.58
+        },
+        {
+          "word": " hành",
+          "start": 9.58,
+          "end": 9.82
+        },
+        {
+          "word": " vi",
+          "start": 9.82,
+          "end": 9.98
+        },
+        {
+          "word": " đó.",
+          "start": 9.98,
+          "end": 10.16
+        }
+      ]
+    },
+    {
+      "start": 10.66,
+      "end": 16.06,
+      "text": "Có thể có những bạn chưa thực sự hiểu tầm quan trọng của việc học, từ đó không có mục tiêu, động lực để phấn đấu.",
+      "words": [
+        {
+          "word": " Có",
+          "start": 10.66,
+          "end": 10.84
+        },
+        {
+          "word": " thể",
+          "start": 10.84,
+          "end": 11.0
+        },
+        {
+          "word": " có",
+          "start": 11.0,
+          "end": 11.16
+        },
+        {
+          "word": " những",
+          "start": 11.16,
+          "end": 11.28
+        },
+        {
+          "word": " bạn",
+          "start": 11.28,
+          "end": 11.48
+        },
+        {
+          "word": " chưa",
+          "start": 11.48,
+          "end": 11.72
+        },
+        {
+          "word": " thực",
+          "start": 11.72,
+          "end": 11.92
+        },
+        {
+          "word": " sự",
+          "start": 11.92,
+          "end": 12.2
+        },
+        {
+          "word": " hiểu",
+          "start": 12.2,
+          "end": 12.5
+        },
+        {
+          "word": " tầm",
+          "start": 12.5,
+          "end": 12.82
+        },
+        {
+          "word": " quan",
+          "start": 12.82,
+          "end": 13.02
+        },
+        {
+          "word": " trọng",
+          "start": 13.02,
+          "end": 13.3
+        },
+        {
+          "word": " của",
+          "start": 13.3,
+          "end": 13.38
+        },
+        {
+          "word": " việc",
+          "start": 13.38,
+          "end": 13.5
+        },
+        {
+          "word": " học,",
+          "start": 13.5,
+          "end": 13.7
+        },
+        {
+          "word": " từ",
+          "start": 13.84,
+          "end": 13.98
+        },
+        {
+          "word": " đó",
+          "start": 13.98,
+          "end": 14.14
+        },
+        {
+          "word": " không",
+          "start": 14.14,
+          "end": 14.3
+        },
+        {
+          "word": " có",
+          "start": 14.3,
+          "end": 14.44
+        },
+        {
+          "word": " mục",
+          "start": 14.44,
+          "end": 14.64
+        },
+        {
+          "word": " tiêu,",
+          "start": 14.64,
+          "end": 14.92
+        },
+        {
+          "word": " động",
+          "start": 15.22,
+          "end": 15.3
+        },
+        {
+          "word": " lực",
+          "start": 15.3,
+          "end": 15.5
+        },
+        {
+          "word": " để",
+          "start": 15.5,
+          "end": 15.72
+        },
+        {
+          "word": " phấn",
+          "start": 15.72,
+          "end": 15.88
+        },
+        {
+          "word": " đấu.",
+          "start": 15.88,
+          "end": 16.06
+        }
+      ]
+    },
+    {
+      "start": 16.64,
+      "end": 21.26,
+      "text": "Có những bạn rất là chăm học, rất là chăm chỉ, nhưng mà lại thiếu đi những phương pháp học hiệu quả.",
+      "words": [
+        {
+          "word": " Có",
+          "start": 16.64,
+          "end": 16.76
+        },
+        {
+          "word": " những",
+          "start": 16.76,
+          "end": 16.86
+        },
+        {
+          "word": " bạn",
+          "start": 16.86,
+          "end": 17.06
+        },
+        {
+          "word": " rất",
+          "start": 17.06,
+          "end": 17.38
+        },
+        {
+          "word": " là",
+          "start": 17.38,
+          "end": 17.64
+        },
+        {
+          "word": " chăm",
+          "start": 17.64,
+          "end": 17.9
+        },
+        {
+          "word": " học,",
+          "start": 17.9,
+          "end": 18.16
+        },
+        {
+          "word": " rất",
+          "start": 18.38,
+          "end": 18.42
+        },
+        {
+          "word": " là",
+          "start": 18.42,
+          "end": 18.54
+        },
+        {
+          "word": " chăm",
+          "start": 18.54,
+          "end": 18.74
+        },
+        {
+          "word": " chỉ,",
+          "start": 18.74,
+          "end": 18.98
+        },
+        {
+          "word": " nhưng",
+          "start": 19.38,
+          "end": 19.46
+        },
+        {
+          "word": " mà",
+          "start": 19.46,
+          "end": 19.54
+        },
+        {
+          "word": " lại",
+          "start": 19.54,
+          "end": 19.6
+        },
+        {
+          "word": " thiếu",
+          "start": 19.6,
+          "end": 19.82
+        },
+        {
+          "word": " đi",
+          "start": 19.82,
+          "end": 19.94
+        },
+        {
+          "word": " những",
+          "start": 19.94,
+          "end": 20.04
+        },
+        {
+          "word": " phương",
+          "start": 20.04,
+          "end": 20.32
+        },
+        {
+          "word": " pháp",
+          "start": 20.32,
+          "end": 20.52
+        },
+        {
+          "word": " học",
+          "start": 20.52,
+          "end": 20.76
+        },
+        {
+          "word": " hiệu",
+          "start": 20.76,
+          "end": 21.06
+        },
+        {
+          "word": " quả.",
+          "start": 21.06,
+          "end": 21.26
+        }
+      ]
+    },
+    {
+      "start": 21.68,
+      "end": 25.7,
+      "text": "Có những bạn rất là thông minh, nhưng mà lại thiếu tập trung, thiếu kiên nhân.",
+      "words": [
+        {
+          "word": " Có",
+          "start": 21.68,
+          "end": 21.98
+        },
+        {
+          "word": " những",
+          "start": 21.98,
+          "end": 22.08
+        },
+        {
+          "word": " bạn",
+          "start": 22.08,
+          "end": 22.22
+        },
+        {
+          "word": " rất",
+          "start": 22.22,
+          "end": 22.36
+        },
+        {
+          "word": " là",
+          "start": 22.36,
+          "end": 22.46
+        },
+        {
+          "word": " thông",
+          "start": 22.46,
+          "end": 22.62
+        },
+        {
+          "word": " minh,",
+          "start": 22.62,
+          "end": 22.92
+        },
+        {
+          "word": " nhưng",
+          "start": 23.2,
+          "end": 23.28
+        },
+        {
+          "word": " mà",
+          "start": 23.28,
+          "end": 23.48
+        },
+        {
+          "word": " lại",
+          "start": 23.48,
+          "end": 23.68
+        },
+        {
+          "word": " thiếu",
+          "start": 23.68,
+          "end": 24.0
+        },
+        {
+          "word": " tập",
+          "start": 24.0,
+          "end": 24.24
+        },
+        {
+          "word": " trung,",
+          "start": 24.24,
+          "end": 24.52
+        },
+        {
+          "word": " thiếu",
+          "start": 24.98,
+          "end": 25.28
+        },
+        {
+          "word": " kiên",
+          "start": 25.28,
+          "end": 25.5
+        },
+        {
+          "word": " nhân.",
+          "start": 25.5,
+          "end": 25.7
+        }
+      ]
+    },
+    {
+      "start": 26.32,
+      "end": 32.0,
+      "text": "Thậm chí có những bạn gặp phải những vấn đề về cảm xúc, về áp lực, về mối quan hệ với bạn bè, về chính bố mẹ của mình,",
+      "words": [
+        {
+          "word": " Thậm",
+          "start": 26.32,
+          "end": 26.64
+        },
+        {
+          "word": " chí",
+          "start": 26.64,
+          "end": 26.78
+        },
+        {
+          "word": " có",
+          "start": 26.78,
+          "end": 26.9
+        },
+        {
+          "word": " những",
+          "start": 26.9,
+          "end": 27.02
+        },
+        {
+          "word": " bạn",
+          "start": 27.02,
+          "end": 27.18
+        },
+        {
+          "word": " gặp",
+          "start": 27.18,
+          "end": 27.4
+        },
+        {
+          "word": " phải",
+          "start": 27.4,
+          "end": 27.56
+        },
+        {
+          "word": " những",
+          "start": 27.56,
+          "end": 27.66
+        },
+        {
+          "word": " vấn",
+          "start": 27.66,
+          "end": 27.88
+        },
+        {
+          "word": " đề",
+          "start": 27.88,
+          "end": 28.14
+        },
+        {
+          "word": " về",
+          "start": 28.14,
+          "end": 28.34
+        },
+        {
+          "word": " cảm",
+          "start": 28.34,
+          "end": 28.6
+        },
+        {
+          "word": " xúc,",
+          "start": 28.6,
+          "end": 28.92
+        },
+        {
+          "word": " về",
+          "start": 29.12,
+          "end": 29.14
+        },
+        {
+          "word": " áp",
+          "start": 29.14,
+          "end": 29.44
+        },
+        {
+          "word": " lực,",
+          "start": 29.44,
+          "end": 29.58
+        },
+        {
+          "word": " về",
+          "start": 29.74,
+          "end": 29.78
+        },
+        {
+          "word": " mối",
+          "start": 29.78,
+          "end": 29.94
+        },
+        {
+          "word": " quan",
+          "start": 29.94,
+          "end": 30.1
+        },
+        {
+          "word": " hệ",
+          "start": 30.1,
+          "end": 30.34
+        },
+        {
+          "word": " với",
+          "start": 30.34,
+          "end": 30.48
+        },
+        {
+          "word": " bạn",
+          "start": 30.48,
+          "end": 30.7
+        },
+        {
+          "word": " bè,",
+          "start": 30.7,
+          "end": 30.98
+        },
+        {
+          "word": " về",
+          "start": 31.24,
+          "end": 31.28
+        },
+        {
+          "word": " chính",
+          "start": 31.28,
+          "end": 31.44
+        },
+        {
+          "word": " bố",
+          "start": 31.44,
+          "end": 31.64
+        },
+        {
+          "word": " mẹ",
+          "start": 31.64,
+          "end": 31.74
+        },
+        {
+          "word": " của",
+          "start": 31.74,
+          "end": 31.84
+        },
+        {
+          "word": " mình,",
+          "start": 31.84,
+          "end": 32.0
+        }
+      ]
+    },
+    {
+      "start": 32.2,
+      "end": 34.54,
+      "text": "mà đôi khi chính bố mẹ còn chưa nhìn ra cái việc đó.",
+      "words": [
+        {
+          "word": " mà",
+          "start": 32.2,
+          "end": 32.24
+        },
+        {
+          "word": " đôi",
+          "start": 32.24,
+          "end": 32.38
+        },
+        {
+          "word": " khi",
+          "start": 32.38,
+          "end": 32.54
+        },
+        {
+          "word": " chính",
+          "start": 32.54,
+          "end": 32.88
+        },
+        {
+          "word": " bố",
+          "start": 32.88,
+          "end": 33.04
+        },
+        {
+          "word": " mẹ",
+          "start": 33.04,
+          "end": 33.16
+        },
+        {
+          "word": " còn",
+          "start": 33.16,
+          "end": 33.28
+        },
+        {
+          "word": " chưa",
+          "start": 33.28,
+          "end": 33.48
+        },
+        {
+          "word": " nhìn",
+          "start": 33.48,
+          "end": 33.68
+        },
+        {
+          "word": " ra",
+          "start": 33.68,
+          "end": 33.84
+        },
+        {
+          "word": " cái",
+          "start": 33.84,
+          "end": 34.0
+        },
+        {
+          "word": " việc",
+          "start": 34.0,
+          "end": 34.34
+        },
+        {
+          "word": " đó.",
+          "start": 34.34,
+          "end": 34.54
+        }
+      ]
+    }
+  ],
+  "duration": 37.4059375,
+  "model": "small-draft",
+  "source": "Video 2\\IMG_2460.MOV"
+}

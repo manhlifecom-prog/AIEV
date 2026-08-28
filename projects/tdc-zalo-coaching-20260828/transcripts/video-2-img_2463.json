@@ -1,0 +1,812 @@
+{
+  "segments": [
+    {
+      "start": 1.46,
+      "end": 6.64,
+      "text": "Vì vậy, đôi khi bố mẹ đã thử rất nhiều cách khác nhau, nhắc nhở có, khuyên bảo có,",
+      "words": [
+        {
+          "word": " Vì",
+          "start": 1.46,
+          "end": 1.98
+        },
+        {
+          "word": " vậy,",
+          "start": 1.98,
+          "end": 2.18
+        },
+        {
+          "word": " đôi",
+          "start": 2.4,
+          "end": 2.6
+        },
+        {
+          "word": " khi",
+          "start": 2.6,
+          "end": 2.82
+        },
+        {
+          "word": " bố",
+          "start": 2.82,
+          "end": 3.02
+        },
+        {
+          "word": " mẹ",
+          "start": 3.02,
+          "end": 3.12
+        },
+        {
+          "word": " đã",
+          "start": 3.12,
+          "end": 3.26
+        },
+        {
+          "word": " thử",
+          "start": 3.26,
+          "end": 3.44
+        },
+        {
+          "word": " rất",
+          "start": 3.44,
+          "end": 3.62
+        },
+        {
+          "word": " nhiều",
+          "start": 3.62,
+          "end": 3.9
+        },
+        {
+          "word": " cách",
+          "start": 3.9,
+          "end": 4.08
+        },
+        {
+          "word": " khác",
+          "start": 4.08,
+          "end": 4.28
+        },
+        {
+          "word": " nhau,",
+          "start": 4.28,
+          "end": 4.52
+        },
+        {
+          "word": " nhắc",
+          "start": 4.84,
+          "end": 5.04
+        },
+        {
+          "word": " nhở",
+          "start": 5.04,
+          "end": 5.34
+        },
+        {
+          "word": " có,",
+          "start": 5.34,
+          "end": 5.58
+        },
+        {
+          "word": " khuyên",
+          "start": 5.92,
+          "end": 6.08
+        },
+        {
+          "word": " bảo",
+          "start": 6.08,
+          "end": 6.34
+        },
+        {
+          "word": " có,",
+          "start": 6.34,
+          "end": 6.64
+        }
+      ]
+    },
+    {
+      "start": 7.18,
+      "end": 9.68,
+      "text": "treo thường có, doạn hạt có, đánh mắng cũng có.",
+      "words": [
+        {
+          "word": " treo",
+          "start": 7.18,
+          "end": 7.34
+        },
+        {
+          "word": " thường",
+          "start": 7.34,
+          "end": 7.56
+        },
+        {
+          "word": " có,",
+          "start": 7.56,
+          "end": 7.8
+        },
+        {
+          "word": " doạn",
+          "start": 7.98,
+          "end": 8.2
+        },
+        {
+          "word": " hạt",
+          "start": 8.2,
+          "end": 8.36
+        },
+        {
+          "word": " có,",
+          "start": 8.36,
+          "end": 8.58
+        },
+        {
+          "word": " đánh",
+          "start": 8.9,
+          "end": 8.98
+        },
+        {
+          "word": " mắng",
+          "start": 8.98,
+          "end": 9.18
+        },
+        {
+          "word": " cũng",
+          "start": 9.18,
+          "end": 9.4
+        },
+        {
+          "word": " có.",
+          "start": 9.4,
+          "end": 9.68
+        }
+      ]
+    },
+    {
+      "start": 10.12,
+      "end": 12.44,
+      "text": "Nhưng mà thực sự vấn đề vẫn chưa được giải quyết.",
+      "words": [
+        {
+          "word": " Nhưng",
+          "start": 10.12,
+          "end": 10.44
+        },
+        {
+          "word": " mà",
+          "start": 10.44,
+          "end": 10.52
+        },
+        {
+          "word": " thực",
+          "start": 10.52,
+          "end": 10.64
+        },
+        {
+          "word": " sự",
+          "start": 10.64,
+          "end": 10.96
+        },
+        {
+          "word": " vấn",
+          "start": 10.96,
+          "end": 11.3
+        },
+        {
+          "word": " đề",
+          "start": 11.3,
+          "end": 11.44
+        },
+        {
+          "word": " vẫn",
+          "start": 11.44,
+          "end": 11.58
+        },
+        {
+          "word": " chưa",
+          "start": 11.58,
+          "end": 11.84
+        },
+        {
+          "word": " được",
+          "start": 11.84,
+          "end": 12.02
+        },
+        {
+          "word": " giải",
+          "start": 12.02,
+          "end": 12.2
+        },
+        {
+          "word": " quyết.",
+          "start": 12.2,
+          "end": 12.44
+        }
+      ]
+    },
+    {
+      "start": 13.76,
+      "end": 19.11,
+      "text": "Vấn đề nó không phải, không phải vì bố mẹ không cố gắng,",
+      "words": [
+        {
+          "word": " Vấn",
+          "start": 13.76,
+          "end": 14.02
+        },
+        {
+          "word": " đề",
+          "start": 14.02,
+          "end": 14.2
+        },
+        {
+          "word": " nó",
+          "start": 14.2,
+          "end": 14.34
+        },
+        {
+          "word": " không",
+          "start": 14.34,
+          "end": 14.54
+        },
+        {
+          "word": " phải,",
+          "start": 14.54,
+          "end": 14.84
+        },
+        {
+          "word": " không",
+          "start": 17.51,
+          "end": 17.75
+        },
+        {
+          "word": " phải",
+          "start": 17.75,
+          "end": 18.05
+        },
+        {
+          "word": " vì",
+          "start": 18.05,
+          "end": 18.19
+        },
+        {
+          "word": " bố",
+          "start": 18.19,
+          "end": 18.37
+        },
+        {
+          "word": " mẹ",
+          "start": 18.37,
+          "end": 18.51
+        },
+        {
+          "word": " không",
+          "start": 18.51,
+          "end": 18.71
+        },
+        {
+          "word": " cố",
+          "start": 18.71,
+          "end": 18.89
+        },
+        {
+          "word": " gắng,",
+          "start": 18.89,
+          "end": 19.11
+        }
+      ]
+    },
+    {
+      "start": 19.65,
+      "end": 23.29,
+      "text": "không phải vì bố mẹ không cố gắng mà có lẽ bởi vì chúng ta chưa thực sự nhìn thấy",
+      "words": [
+        {
+          "word": " không",
+          "start": 19.65,
+          "end": 19.89
+        },
+        {
+          "word": " phải",
+          "start": 19.89,
+          "end": 20.15
+        },
+        {
+          "word": " vì",
+          "start": 20.15,
+          "end": 20.29
+        },
+        {
+          "word": " bố",
+          "start": 20.29,
+          "end": 20.45
+        },
+        {
+          "word": " mẹ",
+          "start": 20.45,
+          "end": 20.55
+        },
+        {
+          "word": " không",
+          "start": 20.55,
+          "end": 20.71
+        },
+        {
+          "word": " cố",
+          "start": 20.71,
+          "end": 20.85
+        },
+        {
+          "word": " gắng",
+          "start": 20.85,
+          "end": 21.13
+        },
+        {
+          "word": " mà",
+          "start": 21.13,
+          "end": 21.39
+        },
+        {
+          "word": " có",
+          "start": 21.39,
+          "end": 21.55
+        },
+        {
+          "word": " lẽ",
+          "start": 21.55,
+          "end": 21.67
+        },
+        {
+          "word": " bởi",
+          "start": 21.67,
+          "end": 21.85
+        },
+        {
+          "word": " vì",
+          "start": 21.85,
+          "end": 21.95
+        },
+        {
+          "word": " chúng",
+          "start": 21.95,
+          "end": 22.09
+        },
+        {
+          "word": " ta",
+          "start": 22.09,
+          "end": 22.23
+        },
+        {
+          "word": " chưa",
+          "start": 22.23,
+          "end": 22.45
+        },
+        {
+          "word": " thực",
+          "start": 22.45,
+          "end": 22.59
+        },
+        {
+          "word": " sự",
+          "start": 22.59,
+          "end": 22.93
+        },
+        {
+          "word": " nhìn",
+          "start": 22.93,
+          "end": 23.11
+        },
+        {
+          "word": " thấy",
+          "start": 23.11,
+          "end": 23.29
+        }
+      ]
+    },
+    {
+      "start": 23.29,
+      "end": 27.09,
+      "text": "cái nguyên nhân sâu xa gốc dễ ẩn đằng sau những hành vi đó của con.",
+      "words": [
+        {
+          "word": " cái",
+          "start": 23.29,
+          "end": 23.41
+        },
+        {
+          "word": " nguyên",
+          "start": 23.41,
+          "end": 23.65
+        },
+        {
+          "word": " nhân",
+          "start": 23.65,
+          "end": 23.83
+        },
+        {
+          "word": " sâu",
+          "start": 23.83,
+          "end": 24.11
+        },
+        {
+          "word": " xa",
+          "start": 24.11,
+          "end": 24.41
+        },
+        {
+          "word": " gốc",
+          "start": 24.41,
+          "end": 24.61
+        },
+        {
+          "word": " dễ",
+          "start": 24.61,
+          "end": 24.91
+        },
+        {
+          "word": " ẩn",
+          "start": 24.91,
+          "end": 25.23
+        },
+        {
+          "word": " đằng",
+          "start": 25.23,
+          "end": 25.39
+        },
+        {
+          "word": " sau",
+          "start": 25.39,
+          "end": 25.71
+        },
+        {
+          "word": " những",
+          "start": 25.71,
+          "end": 26.07
+        },
+        {
+          "word": " hành",
+          "start": 26.07,
+          "end": 26.37
+        },
+        {
+          "word": " vi",
+          "start": 26.37,
+          "end": 26.59
+        },
+        {
+          "word": " đó",
+          "start": 26.59,
+          "end": 26.77
+        },
+        {
+          "word": " của",
+          "start": 26.77,
+          "end": 26.95
+        },
+        {
+          "word": " con.",
+          "start": 26.95,
+          "end": 27.09
+        }
+      ]
+    },
+    {
+      "start": 27.75,
+      "end": 32.01,
+      "text": "Chính vì thế, Thầy Thành muốn mời ca anh chị tham gia cái buổi Coaching một một cùng với Thành,",
+      "words": [
+        {
+          "word": " Chính",
+          "start": 27.75,
+          "end": 28.01
+        },
+        {
+          "word": " vì",
+          "start": 28.01,
+          "end": 28.13
+        },
+        {
+          "word": " thế,",
+          "start": 28.13,
+          "end": 28.29
+        },
+        {
+          "word": " Thầy",
+          "start": 28.59,
+          "end": 28.69
+        },
+        {
+          "word": " Thành",
+          "start": 28.69,
+          "end": 28.81
+        },
+        {
+          "word": " muốn",
+          "start": 28.81,
+          "end": 28.95
+        },
+        {
+          "word": " mời",
+          "start": 28.95,
+          "end": 29.21
+        },
+        {
+          "word": " ca",
+          "start": 29.21,
+          "end": 29.39
+        },
+        {
+          "word": " anh",
+          "start": 29.39,
+          "end": 29.47
+        },
+        {
+          "word": " chị",
+          "start": 29.47,
+          "end": 29.63
+        },
+        {
+          "word": " tham",
+          "start": 29.63,
+          "end": 29.91
+        },
+        {
+          "word": " gia",
+          "start": 29.91,
+          "end": 30.09
+        },
+        {
+          "word": " cái",
+          "start": 30.09,
+          "end": 30.21
+        },
+        {
+          "word": " buổi",
+          "start": 30.21,
+          "end": 30.35
+        },
+        {
+          "word": " Coaching",
+          "start": 30.35,
+          "end": 30.81
+        },
+        {
+          "word": " một",
+          "start": 30.81,
+          "end": 31.07
+        },
+        {
+          "word": " một",
+          "start": 31.07,
+          "end": 31.39
+        },
+        {
+          "word": " cùng",
+          "start": 31.39,
+          "end": 31.65
+        },
+        {
+          "word": " với",
+          "start": 31.65,
+          "end": 31.83
+        },
+        {
+          "word": " Thành,",
+          "start": 31.83,
+          "end": 32.01
+        }
+      ]
+    },
+    {
+      "start": 32.47,
+      "end": 35.41,
+      "text": "nơi mà Thành sẽ nghe cái vấn đề mà ca anh chị chăn trở nhất về con,",
+      "words": [
+        {
+          "word": " nơi",
+          "start": 32.47,
+          "end": 32.79
+        },
+        {
+          "word": " mà",
+          "start": 32.79,
+          "end": 32.95
+        },
+        {
+          "word": " Thành",
+          "start": 32.95,
+          "end": 33.13
+        },
+        {
+          "word": " sẽ",
+          "start": 33.13,
+          "end": 33.23
+        },
+        {
+          "word": " nghe",
+          "start": 33.23,
+          "end": 33.53
+        },
+        {
+          "word": " cái",
+          "start": 33.53,
+          "end": 33.63
+        },
+        {
+          "word": " vấn",
+          "start": 33.63,
+          "end": 33.77
+        },
+        {
+          "word": " đề",
+          "start": 33.77,
+          "end": 33.95
+        },
+        {
+          "word": " mà",
+          "start": 33.95,
+          "end": 34.09
+        },
+        {
+          "word": " ca",
+          "start": 34.09,
+          "end": 34.19
+        },
+        {
+          "word": " anh",
+          "start": 34.19,
+          "end": 34.25
+        },
+        {
+          "word": " chị",
+          "start": 34.25,
+          "end": 34.35
+        },
+        {
+          "word": " chăn",
+          "start": 34.35,
+          "end": 34.61
+        },
+        {
+          "word": " trở",
+          "start": 34.61,
+          "end": 34.87
+        },
+        {
+          "word": " nhất",
+          "start": 34.87,
+          "end": 35.01
+        },
+        {
+          "word": " về",
+          "start": 35.01,
+          "end": 35.21
+        },
+        {
+          "word": " con,",
+          "start": 35.21,
+          "end": 35.41
+        }
+      ]
+    },
+    {
+      "start": 35.55,
+      "end": 38.49,
+      "text": "nhưng vấn đề mà anh chị cảm thấy khó sử, thậm chí đôi khi là...",
+      "words": [
+        {
+          "word": " nhưng",
+          "start": 35.55,
+          "end": 35.79
+        },
+        {
+          "word": " vấn",
+          "start": 35.79,
+          "end": 35.95
+        },
+        {
+          "word": " đề",
+          "start": 35.95,
+          "end": 36.09
+        },
+        {
+          "word": " mà",
+          "start": 36.09,
+          "end": 36.21
+        },
+        {
+          "word": " anh",
+          "start": 36.21,
+          "end": 36.27
+        },
+        {
+          "word": " chị",
+          "start": 36.27,
+          "end": 36.43
+        },
+        {
+          "word": " cảm",
+          "start": 36.43,
+          "end": 36.59
+        },
+        {
+          "word": " thấy",
+          "start": 36.59,
+          "end": 36.71
+        },
+        {
+          "word": " khó",
+          "start": 36.71,
+          "end": 36.95
+        },
+        {
+          "word": " sử,",
+          "start": 36.95,
+          "end": 37.17
+        },
+        {
+          "word": " thậm",
+          "start": 37.49,
+          "end": 37.67
+        },
+        {
+          "word": " chí",
+          "start": 37.67,
+          "end": 37.79
+        },
+        {
+          "word": " đôi",
+          "start": 37.79,
+          "end": 37.91
+        },
+        {
+          "word": " khi",
+          "start": 37.91,
+          "end": 38.09
+        },
+        {
+          "word": " là...",
+          "start": 38.09,
+          "end": 38.49
+        }
+      ]
+    },
+    {
+      "start": 43.41,
+      "end": 45.77,
+      "text": "Ok, ok, đến đâu rồi nhỉ?",
+      "words": [
+        {
+          "word": " Ok,",
+          "start": 43.41,
+          "end": 43.73
+        },
+        {
+          "word": " ok,",
+          "start": 44.47,
+          "end": 44.47
+        },
+        {
+          "word": " đến",
+          "start": 44.67,
+          "end": 45.27
+        },
+        {
+          "word": " đâu",
+          "start": 45.27,
+          "end": 45.41
+        },
+        {
+          "word": " rồi",
+          "start": 45.41,
+          "end": 45.53
+        },
+        {
+          "word": " nhỉ?",
+          "start": 45.53,
+          "end": 45.77
+        }
+      ]
+    }
+  ],
+  "duration": 46.9725,
+  "model": "small-draft",
+  "source": "Video 2\\IMG_2463.MOV"
+}

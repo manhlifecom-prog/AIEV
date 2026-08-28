@@ -1,0 +1,221 @@
+{
+  "segments": [
+    {
+      "start": 1.65,
+      "end": 7.79,
+      "text": "Và nếu anh chị đang có vấn đề chăn trở với con rất lâu rồi và chưa tìm được giải pháp để tháo gỡ chật đẹp,",
+      "words": [
+        {
+          "word": " Và",
+          "start": 1.65,
+          "end": 2.13
+        },
+        {
+          "word": " nếu",
+          "start": 2.13,
+          "end": 2.31
+        },
+        {
+          "word": " anh",
+          "start": 2.31,
+          "end": 2.43
+        },
+        {
+          "word": " chị",
+          "start": 2.43,
+          "end": 2.61
+        },
+        {
+          "word": " đang",
+          "start": 2.61,
+          "end": 2.81
+        },
+        {
+          "word": " có",
+          "start": 2.81,
+          "end": 2.99
+        },
+        {
+          "word": " vấn",
+          "start": 2.99,
+          "end": 3.35
+        },
+        {
+          "word": " đề",
+          "start": 3.35,
+          "end": 3.59
+        },
+        {
+          "word": " chăn",
+          "start": 3.59,
+          "end": 3.87
+        },
+        {
+          "word": " trở",
+          "start": 3.87,
+          "end": 4.17
+        },
+        {
+          "word": " với",
+          "start": 4.17,
+          "end": 4.25
+        },
+        {
+          "word": " con",
+          "start": 4.25,
+          "end": 4.43
+        },
+        {
+          "word": " rất",
+          "start": 4.43,
+          "end": 4.67
+        },
+        {
+          "word": " lâu",
+          "start": 4.67,
+          "end": 5.01
+        },
+        {
+          "word": " rồi",
+          "start": 5.01,
+          "end": 5.19
+        },
+        {
+          "word": " và",
+          "start": 5.19,
+          "end": 5.33
+        },
+        {
+          "word": " chưa",
+          "start": 5.33,
+          "end": 5.53
+        },
+        {
+          "word": " tìm",
+          "start": 5.53,
+          "end": 5.87
+        },
+        {
+          "word": " được",
+          "start": 5.87,
+          "end": 5.99
+        },
+        {
+          "word": " giải",
+          "start": 5.99,
+          "end": 6.29
+        },
+        {
+          "word": " pháp",
+          "start": 6.29,
+          "end": 6.55
+        },
+        {
+          "word": " để",
+          "start": 6.55,
+          "end": 6.65
+        },
+        {
+          "word": " tháo",
+          "start": 6.65,
+          "end": 6.89
+        },
+        {
+          "word": " gỡ",
+          "start": 6.89,
+          "end": 7.05
+        },
+        {
+          "word": " chật",
+          "start": 7.05,
+          "end": 7.29
+        },
+        {
+          "word": " đẹp,",
+          "start": 7.29,
+          "end": 7.79
+        }
+      ]
+    },
+    {
+      "start": 7.85,
+      "end": 10.65,
+      "text": "thì anh chị hãy đăng ký một buổi Coaching một một cùng với Thầy.",
+      "words": [
+        {
+          "word": " thì",
+          "start": 7.85,
+          "end": 7.85
+        },
+        {
+          "word": " anh",
+          "start": 7.85,
+          "end": 7.97
+        },
+        {
+          "word": " chị",
+          "start": 7.97,
+          "end": 8.09
+        },
+        {
+          "word": " hãy",
+          "start": 8.09,
+          "end": 8.25
+        },
+        {
+          "word": " đăng",
+          "start": 8.25,
+          "end": 8.43
+        },
+        {
+          "word": " ký",
+          "start": 8.43,
+          "end": 8.67
+        },
+        {
+          "word": " một",
+          "start": 8.67,
+          "end": 8.81
+        },
+        {
+          "word": " buổi",
+          "start": 8.81,
+          "end": 9.09
+        },
+        {
+          "word": " Coaching",
+          "start": 9.09,
+          "end": 9.49
+        },
+        {
+          "word": " một",
+          "start": 9.49,
+          "end": 9.73
+        },
+        {
+          "word": " một",
+          "start": 9.73,
+          "end": 9.99
+        },
+        {
+          "word": " cùng",
+          "start": 9.99,
+          "end": 10.29
+        },
+        {
+          "word": " với",
+          "start": 10.29,
+          "end": 10.43
+        },
+        {
+          "word": " Thầy.",
+          "start": 10.43,
+          "end": 10.65
+        }
+      ]
+    }
+  ],
+  "duration": 14.9754375,
+  "model": "small-draft",
+  "source": "Video 2\\IMG_2465.MOV"
+}
