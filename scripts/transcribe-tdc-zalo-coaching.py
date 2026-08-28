@@ -10,13 +10,14 @@ from faster_whisper import WhisperModel
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "imports" / "drive-1yiLbsX_7UYzqRWMbot6EQMs-Mc4dVOOL"
 OUTPUT_DIR = ROOT / "projects" / "tdc-zalo-coaching-20260828" / "transcripts"
-MODEL_DIR = (
-    ROOT
-    / ".runtime"
-    / "models"
-    / "models--Systran--faster-whisper-large-v3"
-    / "snapshots"
-    / "edaa852ec7e145841d8ffdb056a99866b5f0a478"
+MODEL_DIR = next(
+    (
+        ROOT
+        / ".runtime"
+        / "models"
+        / "models--Systran--faster-whisper-small"
+        / "snapshots"
+    ).iterdir()
 )
 
 
@@ -54,8 +55,8 @@ def main() -> None:
         segments, info = model.transcribe(
             str(source),
             language="vi",
-            beam_size=5,
-            best_of=5,
+            beam_size=3,
+            best_of=3,
             word_timestamps=True,
             vad_filter=True,
             vad_parameters={"min_silence_duration_ms": 220},
@@ -86,7 +87,7 @@ def main() -> None:
                 {
                     "segments": rows,
                     "duration": float(info.duration),
-                    "model": "large-v3",
+                    "model": "small-draft",
                     "source": str(source.relative_to(SOURCE_DIR)),
                 },
                 ensure_ascii=False,
