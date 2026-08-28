@@ -3331,3 +3331,31 @@ const V36_VIDEO5_AD:AdSpec={...V22_ADS[3],id:"ad05-v36",speechAudio:"staging/bri
 ]};
 export const BRISKY_SHORT_V36_VIDEO5_DURATION=getTimedSegments(V36_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
 export const BriskyShortV36Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V36_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;
+
+const shiftAfterVideo5Reason = <T extends {segmentIndex:number}>(spec:T):T => spec.segmentIndex >= 4 ? {...spec,segmentIndex:spec.segmentIndex+1} : spec;
+V22_CAPTIONS_BY_AD["ad05-v37"]=[
+  ...(V22_CAPTIONS_BY_AD["ad05-v36"]??[]).map(shiftAfterVideo5Reason),
+  v20Cue(4,.12,2.4,"Chính vì những vấn đề đó","LÝ DO TỔ CHỨC 3 BUỔI","những vấn đề đó","orange"),
+  v20Cue(4,2.65,2.15,"Thầy cùng đội ngũ đúc rút giải pháp","TỪ KINH NGHIỆM THỰC TẾ","đúc rút giải pháp","cyan"),
+].sort((a,b)=>a.segmentIndex-b.segmentIndex||a.offsetSeconds-b.offsetSeconds);
+V22_BROLLS_BY_AD["ad05-v37"]=[
+  ...(V22_BROLLS_BY_AD["ad05-v36"]??[]).map(shiftAfterVideo5Reason),
+  {segmentIndex:4,offsetSeconds:.2,durationSeconds:4.35,src:"staging/brisky-real/04-brisky-teachers.jpg",portrait:false,icon:"route",title:"TỪ NỖI ĐAU THỰC TẾ • ĐÚC RÚT GIẢI PHÁP"} as V10BrollSpec,
+].sort((a,b)=>a.segmentIndex-b.segmentIndex||a.offsetSeconds-b.offsetSeconds);
+V22_INFOGRAPHICS_BY_AD["ad05-v37"]=(V22_INFOGRAPHICS_BY_AD["ad05-v36"]??[]).map(shiftAfterVideo5Reason);
+V22_ICON_CALLOUTS_BY_AD["ad05-v37"]=[
+  ...(V22_ICON_CALLOUTS_BY_AD["ad05-v36"]??[]).map(shiftAfterVideo5Reason),
+  {segmentIndex:4,offsetSeconds:2.45,durationSeconds:1.35,side:"left",icon:"route",kicker:"LÝ DO TỔ CHỨC",title:"ĐÚC RÚT GIẢI PHÁP"} as V10IconCalloutSpec,
+].sort((a,b)=>a.segmentIndex-b.segmentIndex||a.offsetSeconds-b.offsetSeconds);
+const V37_VIDEO5_REASON_SEGMENT:Segment={...makeV13Segment([[146.43,149.11],[149.19,149.97],[150.15,152.55]],"Chính bởi vì những điều như vậy, thầy cùng đội ngũ đã đúc rút lại.","staging/brisky-real/04-brisky-teachers.jpg","LÝ DO TỔ CHỨC 3 BUỔI ZOOM",1.025,1.068),pauseAfterSeconds:.28};
+const V37_VIDEO5_AD:AdSpec={...V36_VIDEO5_AD,id:"ad05-v37",speechAudio:"staging/brisky-v37-audio/ad05-dialogue.wav",segments:[...V36_VIDEO5_AD.segments.slice(0,4),V37_VIDEO5_REASON_SEGMENT,...V36_VIDEO5_AD.segments.slice(4)]};
+export const BRISKY_SHORT_V37_VIDEO5_DURATION=getTimedSegments(V37_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
+export const BriskyShortV37Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V37_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;
+
+V22_CAPTIONS_BY_AD["ad05-v38"]=V22_CAPTIONS_BY_AD["ad05-v37"];
+V22_BROLLS_BY_AD["ad05-v38"]=V22_BROLLS_BY_AD["ad05-v37"];
+V22_INFOGRAPHICS_BY_AD["ad05-v38"]=V22_INFOGRAPHICS_BY_AD["ad05-v37"];
+V22_ICON_CALLOUTS_BY_AD["ad05-v38"]=V22_ICON_CALLOUTS_BY_AD["ad05-v37"];
+const V38_VIDEO5_AD:AdSpec={...V37_VIDEO5_AD,id:"ad05-v38",speechAudio:"staging/brisky-v38-audio/ad05-dialogue.wav",segments:V37_VIDEO5_AD.segments.map((segment,index)=>index===6?{...segment,sourcePieces:[[187.50,188.80],[189.08,189.68],[190.66,193.56],[195.92,196.69]]}:segment)};
+export const BRISKY_SHORT_V38_VIDEO5_DURATION=getTimedSegments(V38_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
+export const BriskyShortV38Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V38_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;
