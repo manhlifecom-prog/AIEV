@@ -40,6 +40,7 @@ type Segment = {
   zoomFrom?: number;
   zoomTo?: number;
   captionPhrases?: string[];
+  pauseAfterSeconds?: number;
 };
 
 type AdSpec = {
@@ -54,6 +55,8 @@ type AdSpec = {
 type TimedSegment = Segment & {
   from: number;
   durationInFrames: number;
+  contentDurationInFrames: number;
+  pauseAfterInFrames: number;
   pieces: Array<{start: number; end: number; from: number; durationInFrames: number}>;
 };
 
@@ -1427,8 +1430,12 @@ const getTimedSegments = (ad: AdSpec, speed = AD_SPEED): TimedSegment[] => {
       pieceFrom += durationInFrames;
       return piece;
     });
-    const durationInFrames = pieces.reduce((sum, piece) => sum + piece.durationInFrames, 0);
-    const timed = {...segment, from, durationInFrames, pieces};
+    const contentDurationInFrames = pieces.reduce((sum, piece) => sum + piece.durationInFrames, 0);
+    const pauseAfterInFrames = segment.pauseAfterSeconds && segment.pauseAfterSeconds > 0
+      ? Math.max(1, Math.round(segment.pauseAfterSeconds * BRISKY_V4_FPS))
+      : 0;
+    const durationInFrames = contentDurationInFrames + pauseAfterInFrames;
+    const timed = {...segment, from, durationInFrames, contentDurationInFrames, pauseAfterInFrames, pieces};
     from += durationInFrames;
     return timed;
   });
@@ -1577,6 +1584,15 @@ const VoiceSegment: React.FC<{segment: TimedSegment; source: string; index: numb
             </Sequence>
           );
         })}
+        {segment.pauseAfterInFrames > 0 ? (
+          <Sequence from={segment.contentDurationInFrames} durationInFrames={segment.pauseAfterInFrames}>
+            <Img
+              src={staticFile(segment.cover)}
+              style={{width: "100%", height: "100%", objectFit: "cover", filter: "contrast(1.04) saturate(1.06)"}}
+            />
+            <AbsoluteFill style={{background: "linear-gradient(180deg,rgba(2,12,28,.05),rgba(2,12,28,.38))"}} />
+          </Sequence>
+        ) : null}
       </div>
       <AbsoluteFill
         style={{
@@ -3266,3 +3282,52 @@ const V34_VIDEO5_AD:AdSpec={...V22_ADS[3],id:"ad05-v34",speechAudio:"staging/bri
 ]};
 export const BRISKY_SHORT_V34_VIDEO5_DURATION=getTimedSegments(V34_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
 export const BriskyShortV34Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V34_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;
+
+V22_CAPTIONS_BY_AD["ad05-v35"]=[
+  v20Cue(0,.12,1.45,"Cứ nhắc tiếng Anh là con sợ","DẤU HIỆU BA MẸ NHẬN THẤY","con sợ","orange"),v20Cue(0,1.85,1.5,"Đừng vội nghĩ con lười","ĐỪNG VỘI GẮN NHÃN","con lười","orange"),
+  v20Cue(1,.12,1.6,"Nhiều con đã mất gốc","NGUYÊN NHÂN THẬT","mất gốc","orange"),v20Cue(1,3.1,1.55,"Mông lung về định hướng","CON CHƯA BIẾT BẮT ĐẦU","mông lung","orange"),v20Cue(2,.12,1.7,"Học trước rồi lại quên sau","BIỂU HIỆN CỤ THỂ","quên sau","orange"),
+  v20Cue(3,.12,1.55,"Lên lớp 6, kiến thức khó hơn","CÀNG LÊN LỚP CAO","khó hơn","orange"),v20Cue(3,4.8,1.55,"Càng đuối, con càng chán nản","VÒNG LẶP TIÊU CỰC","càng chán nản","orange"),v20Cue(4,.12,1.8,"Con không biết bắt đầu từ đâu","NỖI LO CỦA BA MẸ","bắt đầu từ đâu","orange"),
+  v20Cue(5,.12,3.15,"BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC","TÊN CHƯƠNG TRÌNH","LẤY GỐC TIẾNG ANH SIÊU TỐC","cyan"),v20Cue(5,4.1,2.1,"3 BUỔI ZOOM HOÀN TOÀN MIỄN PHÍ","QUYỀN LỢI THAM GIA","HOÀN TOÀN MIỄN PHÍ","cyan"),v20Cue(5,7.0,2.45,"DÀNH CHO CHA MẸ CÓ CON LỚP 3 – LỚP 9","ĐÚNG ĐỐI TƯỢNG","LỚP 3 – LỚP 9","cyan"),
+  v20Cue(6,.12,1.75,"Từng bước chia sẻ cách lấy lại gốc","NỘI DUNG 3 BUỔI","lấy lại gốc","cyan"),v20Cue(7,.12,1.65,"Đăng ký trải nghiệm kiểm tra trình độ","QUÀ TẶNG CHO CON","kiểm tra trình độ","cyan"),v20Cue(7,5.1,1.6,"Biết năng lực hiện tại của con","BIẾT ĐÚNG ĐIỂM XUẤT PHÁT","năng lực hiện tại","cyan"),
+];
+V22_BROLLS_BY_AD["ad05-v35"]=[
+  {segmentIndex:0,offsetSeconds:.25,durationSeconds:1.45,src:"staging/brisky-generated-v10/01-student-vocabulary-struggle.png",portrait:true,icon:"alert",title:"CỨ NHẮC TIẾNG ANH LÀ CON SỢ"},{segmentIndex:0,offsetSeconds:1.85,durationSeconds:1.45,src:"staging/brisky-real/05-class-lesson.jpg",portrait:false,icon:"alert",title:"ĐỪNG VỘI NGHĨ CON LƯỜI"},
+  {segmentIndex:1,offsetSeconds:.45,durationSeconds:1.9,src:"staging/brisky-generated-v3/04-level-assessment.png",portrait:true,icon:"search",title:"MẤT GỐC • MÔNG LUNG"},{segmentIndex:2,offsetSeconds:.35,durationSeconds:2.15,src:"staging/brisky-generated-v3/01-vocabulary-forgotten.png",portrait:true,icon:"book",title:"HỌC TRƯỚC • QUÊN SAU"},
+  {segmentIndex:3,offsetSeconds:.2,durationSeconds:2.0,src:"staging/brisky-generated-v3/02-long-reading.png",portrait:true,icon:"alert",title:"LỚP 6 • KIẾN THỨC KHÓ HƠN"},{segmentIndex:3,offsetSeconds:4.6,durationSeconds:2.0,src:"staging/brisky-generated-v10/01-student-vocabulary-struggle.png",portrait:true,icon:"alert",title:"CÀNG ĐUỐI • CÀNG CHÁN NẢN"},
+  {segmentIndex:4,offsetSeconds:.25,durationSeconds:2.65,src:"staging/brisky-generated-v10/02-parent-student-roadmap.png",portrait:true,icon:"search",title:"CON CẦN MỘT ĐIỂM BẮT ĐẦU ĐÚNG"},{segmentIndex:5,offsetSeconds:.65,durationSeconds:2.25,src:"staging/brisky-real/04-brisky-teachers.jpg",portrait:false,icon:"video",title:"BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC"},{segmentIndex:5,offsetSeconds:4.15,durationSeconds:2.1,src:"staging/brisky-older-students/zoom-class.png",portrait:false,icon:"video",title:"3 BUỔI ZOOM HOÀN TOÀN MIỄN PHÍ"},
+  {segmentIndex:6,offsetSeconds:.45,durationSeconds:2.2,src:"staging/brisky-generated-v10/02-parent-student-roadmap.png",portrait:true,icon:"route",title:"TỪNG BƯỚC LẤY LẠI GỐC"},{segmentIndex:7,offsetSeconds:.45,durationSeconds:2.0,src:"staging/brisky-older-students/older-student-certificate.png",portrait:false,icon:"gift",title:"KIỂM TRA TRÌNH ĐỘ"},{segmentIndex:7,offsetSeconds:5.0,durationSeconds:2.0,src:"staging/brisky-generated-v3/04-level-assessment.png",portrait:true,icon:"target",title:"BIẾT ĐÚNG NĂNG LỰC CỦA CON"},
+];
+V22_INFOGRAPHICS_BY_AD["ad05-v35"]=[{segmentIndex:3,offsetSeconds:2.25,durationSeconds:2.15,eyebrow:"VÒNG LẶP TIÊU CỰC",title:"Càng học càng đuối",items:[{icon:"book",text:"Kiến thức khó hơn"},{icon:"alert",text:"Con dần chán nản"},{icon:"target",text:"Mất phương hướng"}]},{segmentIndex:7,offsetSeconds:2.55,durationSeconds:2.15,eyebrow:"KIỂM TRA TRÌNH ĐỘ",title:"Biết đúng điểm xuất phát",items:[{icon:"search",text:"Đánh giá năng lực"},{icon:"target",text:"Xác định phần hổng"},{icon:"route",text:"Nhận hướng đi phù hợp"}]}];
+V22_ICON_CALLOUTS_BY_AD["ad05-v35"]=[{segmentIndex:0,offsetSeconds:1.65,durationSeconds:1.15,side:"left",icon:"alert",kicker:"ĐỪNG GẮN NHÃN",title:"CON LƯỜI"},{segmentIndex:1,offsetSeconds:2.7,durationSeconds:1.2,side:"right",icon:"search",kicker:"NGUYÊN NHÂN",title:"MẤT GỐC"},{segmentIndex:2,offsetSeconds:2.15,durationSeconds:1.15,side:"left",icon:"book",kicker:"BIỂU HIỆN",title:"HỌC TRƯỚC • QUÊN SAU"},{segmentIndex:4,offsetSeconds:2.45,durationSeconds:1.2,side:"right",icon:"search",kicker:"ĐIỂM BẮT ĐẦU",title:"ĐÚNG VỚI CON"},{segmentIndex:5,offsetSeconds:3.05,durationSeconds:1.2,side:"left",icon:"video",kicker:"TÊN CHƯƠNG TRÌNH",title:"LẤY GỐC TIẾNG ANH SIÊU TỐC"},{segmentIndex:5,offsetSeconds:6.45,durationSeconds:1.2,side:"right",icon:"video",kicker:"HOÀN TOÀN MIỄN PHÍ",title:"LỚP 3 – LỚP 9"},{segmentIndex:6,offsetSeconds:2.65,durationSeconds:1.2,side:"left",icon:"route",kicker:"NỘI DUNG",title:"TỪNG BƯỚC LẤY LẠI GỐC"},{segmentIndex:7,offsetSeconds:7.15,durationSeconds:1.2,side:"right",icon:"gift",kicker:"QUÀ TẶNG",title:"KIỂM TRA TRÌNH ĐỘ"}];
+const V35_VIDEO5_AD:AdSpec={...V22_ADS[3],id:"ad05-v35",speechAudio:"staging/brisky-v35-audio/ad05-dialogue.wav",segments:[
+  {...makeV13Segment([[32.94,34.70],[38.98,40.84]],"Cứ nhắc đến tiếng Anh là con rất sợ. Ba mẹ đừng vội nghĩ con lười.","staging/brisky-generated-v10/01-student-vocabulary-struggle.png","ĐỪNG VỘI GẮN NHÃN CON LƯỜI",1.02,1.068),pauseAfterSeconds:.14},{...makeV13Segment([[50.49,56.81]],"Vấn đề là nhiều con đã mất gốc và đang mông lung về định hướng.","staging/brisky-generated-v3/04-level-assessment.png","MẤT GỐC • MÔNG LUNG",1.068,1.024),pauseAfterSeconds:.22},{...makeV13Segment([[79.13,82.51]],"Có bạn học từ vựng trước rồi lại quên sau.","staging/brisky-generated-v3/01-vocabulary-forgotten.png","HỌC TRƯỚC • QUÊN SAU",1.024,1.07),pauseAfterSeconds:.38},
+  {...makeV13Segment([[106.04,110.86],[111.32,114.54]],"Khi con lên lớp 6, kiến thức dài hơn, khó hơn thì con cảm thấy đuối. Từ khi đuối, con rất chán nản trong học tập.","staging/brisky-generated-v3/02-long-reading.png","CÀNG ĐUỐI • CÀNG CHÁN NẢN",1.07,1.025),pauseAfterSeconds:.24},{...makeV13Segment([[176.98,181.04]],"Con vẫn sợ tiếng Anh và không biết cần bắt đầu từ đâu.","staging/brisky-generated-v10/02-parent-student-roadmap.png","CON CẦN MỘT ĐIỂM BẮT ĐẦU ĐÚNG",1.025,1.068),pauseAfterSeconds:.5},{...makeV13Segment([[153.19,163.37]],"Chương trình Bí mật lấy gốc tiếng Anh gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3 đến lớp 9.","staging/brisky-real/04-brisky-teachers.jpg","BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC",1.068,1.024),pauseAfterSeconds:.22},
+  {...makeV13Segment([[187.50,188.80],[189.08,189.68],[190.66,193.56],[195.92,196.50]],"Trong 3 buổi tối, thầy sẽ từng bước chia sẻ cách giúp con lấy lại gốc.","staging/brisky-generated-v10/02-parent-student-roadmap.png","TỪNG BƯỚC LẤY LẠI GỐC",1.024,1.07),pauseAfterSeconds:.24},makeV13Segment([[374.09,377.79],[378.13,383.19]],"Ngoài 3 buổi Zoom, ba mẹ có thể đăng ký cho con trải nghiệm bài kiểm tra trình độ để biết năng lực của con đang ở đâu.","staging/brisky-older-students/older-student-certificate.png","KIỂM TRA TRÌNH ĐỘ • BIẾT ĐIỂM XUẤT PHÁT",1.07,1.025),
+]};
+export const BRISKY_SHORT_V35_VIDEO5_DURATION=getTimedSegments(V35_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
+export const BriskyShortV35Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V35_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;
+
+V22_CAPTIONS_BY_AD["ad05-v36"]=[
+  v20Cue(0,.12,1.8,"Cứ nhắc tiếng Anh là con sợ","NỖI ĐAU KÉO DÀI","con sợ","orange"),v20Cue(0,2.05,1.9,"Học trước quên sau, điểm số thấp","CÀNG HỌC CÀNG BẾ TẮC","điểm số thấp","orange"),v20Cue(0,4.35,2.15,"Tìm nhiều thầy cô vẫn chưa cải thiện","BA MẸ ĐÃ RẤT NỖ LỰC","chưa cải thiện","orange"),v20Cue(0,7.55,1.75,"Tại sao con vẫn sợ tiếng Anh?","CÂU HỎI CỦA BA MẸ","vẫn sợ tiếng Anh","orange"),
+  v20Cue(1,.12,1.55,"Đừng vội nghĩ con lười","ĐỪNG VỘI GẮN NHÃN","con lười","orange"),v20Cue(1,2.05,1.7,"Nhiều con đã mất gốc","NGUYÊN NHÂN THẬT","mất gốc","orange"),v20Cue(1,5.0,1.65,"Mông lung về định hướng","CON CHƯA BIẾT BẮT ĐẦU","mông lung","orange"),
+  v20Cue(2,.12,1.55,"Lên lớp 6, kiến thức khó hơn","CÀNG LÊN LỚP CAO","khó hơn","orange"),v20Cue(2,4.8,1.55,"Càng đuối, con càng chán nản","VÒNG LẶP TIÊU CỰC","càng chán nản","orange"),v20Cue(3,.12,1.8,"Con không biết bắt đầu từ đâu","NỖI LO CỦA BA MẸ","bắt đầu từ đâu","orange"),
+  v20Cue(4,.12,3.15,"BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC","TÊN CHƯƠNG TRÌNH","LẤY GỐC TIẾNG ANH SIÊU TỐC","cyan"),v20Cue(4,4.1,2.1,"3 BUỔI ZOOM HOÀN TOÀN MIỄN PHÍ","QUYỀN LỢI THAM GIA","HOÀN TOÀN MIỄN PHÍ","cyan"),v20Cue(4,7.0,2.45,"DÀNH CHO CHA MẸ CÓ CON LỚP 3 – LỚP 9","ĐÚNG ĐỐI TƯỢNG","LỚP 3 – LỚP 9","cyan"),
+  v20Cue(5,.12,1.75,"Từng bước chia sẻ cách lấy lại gốc","NỘI DUNG 3 BUỔI","lấy lại gốc","cyan"),v20Cue(6,.12,1.65,"Đăng ký trải nghiệm kiểm tra trình độ","QUÀ TẶNG CHO CON","kiểm tra trình độ","cyan"),v20Cue(6,5.1,1.6,"Biết năng lực hiện tại của con","BIẾT ĐÚNG ĐIỂM XUẤT PHÁT","năng lực hiện tại","cyan"),
+];
+V22_BROLLS_BY_AD["ad05-v36"]=[
+  {segmentIndex:0,offsetSeconds:.15,durationSeconds:2.0,src:"staging/brisky-generated-v10/01-student-vocabulary-struggle.png",portrait:true,icon:"alert",title:"CỨ NHẮC TIẾNG ANH LÀ CON SỢ"},{segmentIndex:0,offsetSeconds:2.15,durationSeconds:2.0,src:"staging/brisky-generated-v3/01-vocabulary-forgotten.png",portrait:true,icon:"book",title:"HỌC TRƯỚC • QUÊN SAU • ĐIỂM THẤP"},{segmentIndex:0,offsetSeconds:4.35,durationSeconds:2.2,src:"staging/brisky-real/05-class-lesson.jpg",portrait:false,icon:"alert",title:"TÌM NHIỀU NƠI • VẪN CHƯA CẢI THIỆN"},
+  {segmentIndex:1,offsetSeconds:.25,durationSeconds:1.55,src:"staging/brisky-real/05-class-lesson.jpg",portrait:false,icon:"alert",title:"ĐỪNG VỘI NGHĨ CON LƯỜI"},{segmentIndex:1,offsetSeconds:2.0,durationSeconds:2.15,src:"staging/brisky-generated-v3/04-level-assessment.png",portrait:true,icon:"search",title:"MẤT GỐC • MÔNG LUNG"},
+  {segmentIndex:2,offsetSeconds:.2,durationSeconds:2.0,src:"staging/brisky-generated-v3/02-long-reading.png",portrait:true,icon:"alert",title:"LỚP 6 • KIẾN THỨC KHÓ HƠN"},{segmentIndex:2,offsetSeconds:4.6,durationSeconds:2.0,src:"staging/brisky-generated-v10/01-student-vocabulary-struggle.png",portrait:true,icon:"alert",title:"CÀNG ĐUỐI • CÀNG CHÁN NẢN"},
+  {segmentIndex:3,offsetSeconds:.25,durationSeconds:2.65,src:"staging/brisky-generated-v10/02-parent-student-roadmap.png",portrait:true,icon:"search",title:"CON CẦN MỘT ĐIỂM BẮT ĐẦU ĐÚNG"},{segmentIndex:4,offsetSeconds:.65,durationSeconds:2.25,src:"staging/brisky-real/04-brisky-teachers.jpg",portrait:false,icon:"video",title:"BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC"},{segmentIndex:4,offsetSeconds:4.15,durationSeconds:2.1,src:"staging/brisky-older-students/zoom-class.png",portrait:false,icon:"video",title:"3 BUỔI ZOOM HOÀN TOÀN MIỄN PHÍ"},
+  {segmentIndex:5,offsetSeconds:.45,durationSeconds:2.2,src:"staging/brisky-generated-v10/02-parent-student-roadmap.png",portrait:true,icon:"route",title:"TỪNG BƯỚC LẤY LẠI GỐC"},{segmentIndex:6,offsetSeconds:.45,durationSeconds:2.0,src:"staging/brisky-older-students/older-student-certificate.png",portrait:false,icon:"gift",title:"KIỂM TRA TRÌNH ĐỘ"},{segmentIndex:6,offsetSeconds:5.0,durationSeconds:2.0,src:"staging/brisky-generated-v3/04-level-assessment.png",portrait:true,icon:"target",title:"BIẾT ĐÚNG NĂNG LỰC CỦA CON"},
+];
+V22_INFOGRAPHICS_BY_AD["ad05-v36"]=[{segmentIndex:2,offsetSeconds:2.25,durationSeconds:2.15,eyebrow:"VÒNG LẶP TIÊU CỰC",title:"Càng học càng đuối",items:[{icon:"book",text:"Kiến thức khó hơn"},{icon:"alert",text:"Con dần chán nản"},{icon:"target",text:"Mất phương hướng"}]},{segmentIndex:6,offsetSeconds:2.55,durationSeconds:2.15,eyebrow:"KIỂM TRA TRÌNH ĐỘ",title:"Biết đúng điểm xuất phát",items:[{icon:"search",text:"Đánh giá năng lực"},{icon:"target",text:"Xác định phần hổng"},{icon:"route",text:"Nhận hướng đi phù hợp"}]}];
+V22_ICON_CALLOUTS_BY_AD["ad05-v36"]=[{segmentIndex:0,offsetSeconds:1.75,durationSeconds:1.15,side:"left",icon:"alert",kicker:"NỖI ĐAU",title:"CON SỢ TIẾNG ANH"},{segmentIndex:0,offsetSeconds:6.65,durationSeconds:1.2,side:"right",icon:"alert",kicker:"KẾT QUẢ",title:"CHƯA CẢI THIỆN"},{segmentIndex:1,offsetSeconds:2.7,durationSeconds:1.2,side:"right",icon:"search",kicker:"NGUYÊN NHÂN",title:"MẤT GỐC"},{segmentIndex:3,offsetSeconds:2.45,durationSeconds:1.2,side:"right",icon:"search",kicker:"ĐIỂM BẮT ĐẦU",title:"ĐÚNG VỚI CON"},{segmentIndex:4,offsetSeconds:3.05,durationSeconds:1.2,side:"left",icon:"video",kicker:"TÊN CHƯƠNG TRÌNH",title:"LẤY GỐC TIẾNG ANH SIÊU TỐC"},{segmentIndex:4,offsetSeconds:6.45,durationSeconds:1.2,side:"right",icon:"video",kicker:"HOÀN TOÀN MIỄN PHÍ",title:"LỚP 3 – LỚP 9"},{segmentIndex:5,offsetSeconds:2.65,durationSeconds:1.2,side:"left",icon:"route",kicker:"NỘI DUNG",title:"TỪNG BƯỚC LẤY LẠI GỐC"},{segmentIndex:6,offsetSeconds:7.15,durationSeconds:1.2,side:"right",icon:"gift",kicker:"QUÀ TẶNG",title:"KIỂM TRA TRÌNH ĐỘ"}];
+const V36_VIDEO5_AD:AdSpec={...V22_ADS[3],id:"ad05-v36",speechAudio:"staging/brisky-v36-audio/ad05-dialogue.wav",segments:[
+  {...makeV13Segment([[32.94,34.70],[17.20,19.69],[20.11,24.00],[26.47,27.78],[34.82,37.04]],"Cứ nhắc đến tiếng Anh là con rất sợ. Học trước quên sau, điểm số trên trường thấp. Dù ba mẹ đã tìm nhiều lớp học thêm cho con, nhưng kết quả vẫn không cải thiện. Tại sao lại như thế?","staging/brisky-generated-v10/01-student-vocabulary-struggle.png","HỌC NHIỀU • VẪN SỢ • ĐIỂM THẤP",1.02,1.07),pauseAfterSeconds:.32},
+  {...makeV13Segment([[38.95,40.84],[50.49,56.81]],"Ba mẹ đừng vội nghĩ con lười. Vấn đề là nhiều con đã mất gốc và đang mông lung về định hướng.","staging/brisky-generated-v3/04-level-assessment.png","ĐỪNG GẮN NHÃN • CON ĐÃ MẤT GỐC",1.07,1.024),pauseAfterSeconds:.26},
+  {...makeV13Segment([[106.04,110.86],[111.32,114.54]],"Khi con lên lớp 6, kiến thức dài hơn, khó hơn thì con cảm thấy đuối. Từ khi đuối, con rất chán nản trong học tập.","staging/brisky-generated-v3/02-long-reading.png","CÀNG ĐUỐI • CÀNG CHÁN NẢN",1.024,1.07),pauseAfterSeconds:.24},{...makeV13Segment([[176.98,181.04]],"Con vẫn sợ tiếng Anh và không biết cần bắt đầu từ đâu.","staging/brisky-generated-v10/02-parent-student-roadmap.png","CON CẦN MỘT ĐIỂM BẮT ĐẦU ĐÚNG",1.07,1.025),pauseAfterSeconds:.5},{...makeV13Segment([[153.19,163.37]],"Chương trình Bí mật lấy gốc tiếng Anh gồm 3 buổi Zoom dành cho cha mẹ có con lớp 3 đến lớp 9.","staging/brisky-real/04-brisky-teachers.jpg","BÍ MẬT LẤY GỐC TIẾNG ANH SIÊU TỐC",1.025,1.068),pauseAfterSeconds:.22},
+  {...makeV13Segment([[187.50,188.80],[189.08,189.68],[190.66,193.56],[195.92,196.50]],"Trong 3 buổi tối, thầy sẽ từng bước chia sẻ cách giúp con lấy lại gốc.","staging/brisky-generated-v10/02-parent-student-roadmap.png","TỪNG BƯỚC LẤY LẠI GỐC",1.068,1.024),pauseAfterSeconds:.24},makeV13Segment([[374.09,377.79],[378.13,383.19]],"Ngoài 3 buổi Zoom, ba mẹ có thể đăng ký cho con trải nghiệm bài kiểm tra trình độ để biết năng lực của con đang ở đâu.","staging/brisky-older-students/older-student-certificate.png","KIỂM TRA TRÌNH ĐỘ • BIẾT ĐIỂM XUẤT PHÁT",1.024,1.07),
+]};
+export const BRISKY_SHORT_V36_VIDEO5_DURATION=getTimedSegments(V36_VIDEO5_AD,V30_SPEED).reduce((s,x)=>s+x.durationInFrames,0)+secToFrames((V16_CTA_END-V16_CTA_START)/V30_SPEED)+secToFrames(END_CARD_SECONDS);
+export const BriskyShortV36Video5=()=> <BriskyShortV4 index={4} tdcCaptionMode clearCtaMode visualV10Mode v17Ad={V36_VIDEO5_AD} tdcReferenceMode semanticAlignedMode enhancedVisualMode v22Mode intentMotionMode playbackSpeedOverride={V30_SPEED} musicSrc={V27_VIDEO5_MUSIC} musicBaseVolume={0.06} musicCtaVolume={0.15} musicEndVolume={0.34} captionTop={1120} clearCtaStart={V16_CTA_START} clearCtaEnd={V16_CTA_END}/>;

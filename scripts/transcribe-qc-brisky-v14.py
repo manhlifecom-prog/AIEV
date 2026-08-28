@@ -52,8 +52,11 @@ def expected_join_times(video: dict) -> list[float]:
     for segment_index, segment in enumerate(video["segments"]):
         for piece_index, piece in enumerate(segment["pieces"]):
             cursor += (float(piece[1]) - float(piece[0])) / speed
-            if piece_index < len(segment["pieces"]) - 1 or segment_index < len(video["segments"]) - 1:
+            if piece_index < len(segment["pieces"]) - 1:
                 joins.append(cursor)
+        cursor += float(segment.get("pauseAfterSeconds", 0.0))
+        if segment_index < len(video["segments"]) - 1:
+            joins.append(cursor)
     return joins
 
 
@@ -122,6 +125,7 @@ def main() -> None:
         words = []
         text_parts = []
         speech_limit = sum((float(end) - float(start)) / speed for segment in video["segments"] for start, end in segment["pieces"])
+        speech_limit += sum(float(segment.get("pauseAfterSeconds", 0.0)) for segment in video["segments"])
         for segment in segments:
             if float(segment.start) >= speech_limit + cta_seconds + 0.25:
                 continue

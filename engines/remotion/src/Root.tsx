@@ -43,6 +43,8 @@ import {BriskyShortV31Video4,BRISKY_SHORT_V31_VIDEO4_DURATION} from "./BriskySho
 import {BriskyShortV32Video4,BRISKY_SHORT_V32_VIDEO4_DURATION} from "./BriskyShortAdsV4";
 import {BriskyShortV33Video4,BRISKY_SHORT_V33_VIDEO4_DURATION} from "./BriskyShortAdsV4";
 import {BriskyShortV34Video5,BRISKY_SHORT_V34_VIDEO5_DURATION} from "./BriskyShortAdsV4";
+import {BriskyShortV35Video5,BRISKY_SHORT_V35_VIDEO5_DURATION} from "./BriskyShortAdsV4";
+import {BriskyShortV36Video5,BRISKY_SHORT_V36_VIDEO5_DURATION} from "./BriskyShortAdsV4";
 
 const demoBriskyFullVideo: BriskyFullVideoProps = {
   source: "staging/brisky-full/01-bi-mat-lay-goc.mp4",
@@ -206,6 +208,8 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="BriskyShortV32Video4" component={BriskyShortV32Video4} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V32_VIDEO4_DURATION} />
       <Composition id="BriskyShortV33Video4" component={BriskyShortV33Video4} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V33_VIDEO4_DURATION} />
       <Composition id="BriskyShortV34Video5" component={BriskyShortV34Video5} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V34_VIDEO5_DURATION} />
+      <Composition id="BriskyShortV35Video5" component={BriskyShortV35Video5} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V35_VIDEO5_DURATION} />
+      <Composition id="BriskyShortV36Video5" component={BriskyShortV36Video5} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V36_VIDEO5_DURATION} />
       <Composition id="BriskyShortV17Video2" component={BriskyShortV17Video2} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V17_DURATIONS[0]} />
       <Composition id="BriskyShortV17Video3" component={BriskyShortV17Video3} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V17_DURATIONS[1]} />
       <Composition id="BriskyShortV17Video4" component={BriskyShortV17Video4} width={1080} height={1920} fps={BRISKY_V5_FPS} durationInFrames={BRISKY_SHORT_V17_DURATIONS[2]} />
