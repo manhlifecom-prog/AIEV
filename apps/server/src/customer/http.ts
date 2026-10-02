@@ -99,7 +99,8 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
       store.message(threadId, "assistant", "Bạn hãy dán link một file video trên Google Drive và mô tả cách muốn chỉnh. Ví dụ: 'Cắt thành clip dọc 60 giây, thêm phụ đề và bỏ khoảng lặng'. Video cần có quyền tải xuống bằng đường liên kết.");
       return res.json({ threadId });
     }
-    driveFile(url);
+    try { driveFile(url); }
+    catch (error) { throw new CustomerError(400, error instanceof Error ? error.message : "Link Google Drive không hợp lệ"); }
     if (!await ready()) throw new CustomerError(503, "Bộ dựng video chưa sẵn sàng. Vui lòng thử lại sau.");
     const prior = existing.find(x => x.status === "done" && x.drive_url === url);
     const prompt = prior ? (prior.prompt + "\nYêu cầu chỉnh sửa tiếp theo: " + message).slice(-16000) : message;

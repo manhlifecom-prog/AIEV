@@ -1228,7 +1228,7 @@ Chạy bằng `npm run customer:dev`, giao diện `/studio`, API loopback cổng
 | GET | `/admin/overview` | Chỉ role admin; `{stats,users,jobs,orders}` tổng quan và tối đa 100 mục mới nhất mỗi danh sách, không trả password hash hoặc secret |
 | GET | `/threads` | Cuộc trò chuyện của khách đang đăng nhập |
 | GET | `/threads/:id` | `{messages,jobs}` của chủ sở hữu |
-| POST | `/chat` | `{message,threadId?}`; trả `{threadId,jobId?}`. Link Drive bắt đầu kiểm tra nguồn; `đồng ý dựng` xác nhận báo giá gần nhất; `hủy yêu cầu` bỏ báo giá chưa chạy |
+| POST | `/chat` | `{message,threadId?}`; trả `{threadId,jobId?}`. Link Drive bắt đầu kiểm tra nguồn; link thư mục hoặc link không hợp lệ trả HTTP 400 kèm hướng dẫn lấy link file. `đồng ý dựng` xác nhận báo giá gần nhất; `hủy yêu cầu` bỏ báo giá chưa chạy |
 | GET | `/videos` | Tác vụ riêng của khách |
 | POST | `/videos/:id/confirm` | Xác nhận theo ID, giữ token đúng một lần, trả 202 |
 | GET | `/videos/:id/file` | MP4 chỉ khi tác vụ done; `?download=1` tải file |
