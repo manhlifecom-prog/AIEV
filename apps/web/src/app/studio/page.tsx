@@ -7,6 +7,7 @@ import { AuthForm } from "@/components/customer/AuthForm";
 import { WalletPanel } from "@/components/customer/WalletPanel";
 import { AdminPanel } from "@/components/customer/AdminPanel";
 import { PasswordForm } from "@/components/customer/PasswordForm";
+import { InstallApp } from "@/components/customer/InstallApp";
 import "./studio.css";
 
 const examples = ["Cắt video thành một clip dọc 60 giây", "Thêm phụ đề tiếng Việt, bỏ khoảng lặng", "Dựng video giới thiệu sản phẩm"];
@@ -21,6 +22,12 @@ export default function StudioPage() {
   const currentJobs = videos.filter(job => job.thread_id === threadId);
   const job = currentJobs[0];
   const working = job && active(job.status);
+
+  useEffect(() => {
+    const parameters = new URLSearchParams(window.location.search);
+    const shared = ["share_title", "share_text", "share_url"].map(key => parameters.get(key)).filter(Boolean).join("\n").slice(0, 16000);
+    if (shared) { setText(shared); window.history.replaceState(null, "", "/studio"); }
+  }, []);
 
   useEffect(() => {
     let live = true;
@@ -90,7 +97,7 @@ export default function StudioPage() {
       <div className="studio-account"><button className="studio-secondary" aria-label={user?.name || "Đăng nhập"} onClick={() => setModal(user ? "account" : "auth")}><UserRound size={20} /><span>{user?.name || "Đăng nhập"}</span></button>{user ? <button className="studio-icon" aria-label="Đăng xuất" onClick={() => { void logout().catch(() => setError("Không đăng xuất được")); }}><LogOut size={18} /></button> : null}</div>
     </aside>
     <main className="studio-main">
-      <header className="studio-header"><div><h1>Trợ lý dựng video</h1><p>Từ ý tưởng đến video, trong một cuộc trò chuyện</p></div><button className="studio-text-button" aria-label="Hướng dẫn" onClick={() => setModal("help")}><CircleHelp size={20} /><span>Hướng dẫn</span></button><button className="studio-mobile-wallet studio-icon" aria-label="Video của tôi" onClick={() => setModal(user ? "videos" : "auth")}><Video size={20} /></button><button className="studio-mobile-wallet studio-icon" aria-label="Mở ví token" onClick={openWallet}><WalletIcon size={22} /></button></header>
+      <header className="studio-header"><div><h1>Trợ lý dựng video</h1><p>Từ ý tưởng đến video, trong một cuộc trò chuyện</p></div><InstallApp /><button className="studio-text-button" aria-label="Hướng dẫn" onClick={() => setModal("help")}><CircleHelp size={20} /><span>Hướng dẫn</span></button><button className="studio-mobile-wallet studio-icon" aria-label="Video của tôi" onClick={() => setModal(user ? "videos" : "auth")}><Video size={20} /></button><button className="studio-mobile-wallet studio-icon" aria-label="Mở ví token" onClick={openWallet}><WalletIcon size={22} /></button></header>
       <section className="studio-conversation" aria-label="Cuộc trò chuyện">
         {messages.length ? <div className="studio-messages" role="log" aria-live="polite">{messages.map((message, index) => <div key={`${message.created_at}-${index}`} className={`studio-message ${message.role === "user" ? "from-user" : "from-ai"}`}><span className="studio-message-label">{message.role === "user" ? "Bạn" : "AIEV"}</span><p>{message.content}</p></div>)}
           {job?.status === "awaiting_confirmation" ? <div className="studio-quote"><strong>{number(job.tokens)} token cho lượt dựng này</strong><p>Video nguồn: {Math.ceil(job.duration)} giây. Số dư: {number(user?.balance || 0)} token.</p><button className="studio-primary" disabled={busy || !config?.aiReady} onClick={confirm}>{busy ? "Đang bắt đầu…" : "Xác nhận dựng video"}</button>{!config?.aiReady ? <small>Dịch vụ AI đang được cấu hình; bạn chưa bị trừ token.</small> : null}</div> : null}

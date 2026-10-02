@@ -1,0 +1,14 @@
+{
+  "name": "aiev-studio-desktop", "version": "0.1.0", "private": true,
+  "description": "Ứng dụng AIEV Studio cho máy tính", "author": "AIEV Studio", "license": "MIT", "main": "main.cjs",
+  "scripts": { "start": "electron .", "test": "node --test policy.test.cjs", "build:win": "node ../../scripts/desktop-build.mjs --win nsis --x64", "build:mac": "node ../../scripts/desktop-build.mjs --mac dmg", "build:linux": "node ../../scripts/desktop-build.mjs --linux AppImage" },
+  "devDependencies": { "electron": "44.5.1", "electron-builder": "26.15.3" },
+  "build": {
+    "appId": "marketing.manh.aiev", "productName": "AIEV Studio", "directories": { "output": "../../.runtime/app-builds/desktop" },
+    "files": ["main.cjs", "policy.cjs", "icon.png", "package.json"],
+    "win": { "icon": "icon.ico", "artifactName": "AIEV-Studio-Setup-${version}.${ext}", "signAndEditExecutable": false },
+    "nsis": { "oneClick": false, "perMachine": false, "allowToChangeInstallationDirectory": true, "createDesktopShortcut": true, "createStartMenuShortcut": true },
+    "mac": { "category": "public.app-category.video", "icon": "icon.png" },
+    "linux": { "category": "AudioVideo", "icon": "icon.png" }
+  }
+}
