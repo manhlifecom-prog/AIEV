@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const SERVER_PORT = process.env.SERVER_PORT || "6869";
+const SERVER_PORT = process.env.CUSTOMER_MODE === "1" ? process.env.CUSTOMER_PORT || "6871" : process.env.SERVER_PORT || "6869";
 
 const nextConfig: NextConfig = {
   // MỘT biến SERVER_PORT điều khiển cả hai đường tới backend:
@@ -30,7 +30,9 @@ const nextConfig: NextConfig = {
     proxyClientMaxBodySize: 2 * 1024 * 1024 * 1024,
   },
   async rewrites() {
+    if (process.env.CUSTOMER_MODE === "1") return [{ source: "/api/customer/:path*", destination: `http://127.0.0.1:${SERVER_PORT}/api/customer/:path*` }];
     return [
+      { source: "/api/customer/:path*", destination: `http://127.0.0.1:${process.env.CUSTOMER_PORT || "6871"}/api/customer/:path*` },
       {
         source: "/api/:path*",
         destination: `http://localhost:${SERVER_PORT}/api/:path*`,
