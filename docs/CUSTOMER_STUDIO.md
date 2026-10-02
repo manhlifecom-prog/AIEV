@@ -4,6 +4,8 @@ Chế độ khách hàng nằm tại `/studio`, chạy bằng API riêng và dat
 
 ## Chạy trên máy này
 
+Triển khai tên miền `video.manh.marketing`: xem [bộ triển khai Docker và HTTPS](CUSTOMER_DEPLOYMENT.md).
+
 ```powershell
 npm ci
 npm run customer:dev
