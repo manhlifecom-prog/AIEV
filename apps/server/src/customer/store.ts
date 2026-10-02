@@ -167,11 +167,14 @@ export class CustomerStore {
     if (!order) throw new CustomerError(404, "Không tìm thấy giao dịch");
     return { ...order, status: order.status === "pending" && Number(order.expires) < Date.now() ? "expired" : order.status };
   }
-  payment(payload: Record<string, unknown>) {
-    const providerId = String(payload.id || "");
-    if (!/^[0-9]+$/.test(providerId)) throw new CustomerError(400, "Mã giao dịch không hợp lệ");
+  payment(payload: Record<string, unknown>): { success: boolean; credited?: boolean; duplicate?: boolean; test?: boolean } {
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) throw new CustomerError(400, "Dữ liệu chuyển khoản không hợp lệ");
+    const providerId = String(payload.id ?? "");
+    if (!/^(0|[1-9][0-9]*)$/.test(providerId)) throw new CustomerError(400, "Mã giao dịch không hợp lệ");
     const amount = Number(payload.transferAmount);
     if (!Number.isSafeInteger(amount) || amount <= 0 || String(payload.content || "").length > 2000) throw new CustomerError(400, "Dữ liệu chuyển khoản không hợp lệ");
+    // SePay's dashboard sends a mock transaction with id 0. It must never pay an order.
+    if (providerId === "0") return { success: true, credited: false, test: true };
     return this.transaction(() => {
       if (this.db.prepare("SELECT provider_id FROM transactions WHERE provider_id=?").get(providerId)) return { success: true, duplicate: true };
       const code = (String(payload.code || "") + " " + String(payload.content || "")).match(/\bAIEV[A-F0-9]{12}\b/i)?.[0].toUpperCase();

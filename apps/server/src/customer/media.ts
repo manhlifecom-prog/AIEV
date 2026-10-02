@@ -49,9 +49,10 @@ export async function downloadDrive(url: string, destination: string) {
     if (response.statusCode !== 200 || /text\/html|application\/(json|xml)/i.test(mime)) {
       response.destroy(); throw new Error("Không tải được video. Hãy bật quyền 'Bất kỳ ai có đường liên kết' và cho phép tải xuống trên Google Drive.");
     }
-    if (Number(response.headers["content-length"]) > customerConfig.maxBytes) { response.destroy(); throw new Error("Video vượt dung lượng xử lý cho phép"); }
+    const tooLarge = () => new Error(`Video vượt giới hạn ${Math.floor(customerConfig.maxBytes / 1024 / 1024)} MB cho mỗi file`);
+    if (Number(response.headers["content-length"]) > customerConfig.maxBytes) { response.destroy(); throw tooLarge(); }
     let bytes = 0;
-    const limiter = new Transform({ transform(chunk: Buffer, _encoding, callback) { bytes += chunk.length; callback(bytes > customerConfig.maxBytes ? new Error("Video vượt dung lượng xử lý cho phép") : null, chunk); } });
+    const limiter = new Transform({ transform(chunk: Buffer, _encoding, callback) { bytes += chunk.length; callback(bytes > customerConfig.maxBytes ? tooLarge() : null, chunk); } });
     try { await pipeline(response, limiter, fs.createWriteStream(destination, { flags: "wx" })); }
     catch (error) { if (fs.existsSync(destination)) fs.unlinkSync(destination); throw error; }
     if (bytes < 100) throw new Error("File Google Drive không có video hợp lệ");

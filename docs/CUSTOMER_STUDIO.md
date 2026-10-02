@@ -31,6 +31,7 @@ SePay của chủ phần mềm cần một webhook riêng:
 - Đặt cùng secret đó trong biến `CUSTOMER_SEPAY_WEBHOOK_KEY` của máy chủ. Không đưa secret vào Git hoặc chat.
 - Mỗi đơn dùng nội dung chuyển khoản riêng bắt đầu bằng `AIEV`. Nếu SePay đang lọc theo tiền tố khác, thêm tiền tố này hoặc cấu hình webhook riêng.
 - Chỉ cộng token khi mã đơn, số tiền, tài khoản, chiều tiền vào và thời hạn đơn đều khớp. Mỗi ID giao dịch chỉ xử lý một lần. Giao dịch lệch hoặc quá hạn được lưu với kết quả `review_required` để đối soát.
+- Lượt **Gửi thử** từ dashboard có ID 0 được xác thực rồi trả thành công, không cộng token, thanh toán đơn hoặc ghi sổ giao dịch.
 
 Tham chiếu: [SePay webhooks](https://docs.sepay.vn/tich-hop-webhooks.html), [quyền tải Google Drive](https://developers.google.com/workspace/drive/api/guides/manage-downloads).
 
@@ -44,6 +45,7 @@ Các giá hiện tại là cấu hình khởi điểm để chủ phần mềm d
 | Gói nạp | 100, 500, 1.000 token |
 | `CUSTOMER_MAX_VIDEO_SECONDS` | 1.800 giây |
 | `CUSTOMER_MAX_VIDEO_BYTES` | 1 GiB |
+| `CUSTOMER_MIN_FREE_BYTES` | 512 MiB dự phòng ổ đĩa |
 | `CUSTOMER_ORIGIN` | `http://localhost:6870` |
 | `CUSTOMER_DATA_DIR` | `.runtime/customer/` |
 
@@ -58,14 +60,17 @@ Token trong ví là đơn vị dịch vụ của AIEV. Chúng không phải số
 - Dựng draft, kiểm tra thời lượng/kích thước, xuất final MP4; không tự coi draft là thành phẩm.
 - Ví và sổ giao dịch cập nhật trong transaction SQLite. Xác nhận lặp không trừ hai lần; lỗi và tác vụ đang chạy khi restart hoàn token một lần. Tác vụ đã xếp hàng tiếp tục sau restart.
 - Mỗi khách có tối đa một tác vụ đang nhận hoặc xử lý, ba báo giá chờ xác nhận, 30 yêu cầu/24 giờ. Máy chủ nhận tối đa ba nguồn đồng thời và dựng nối tiếp.
+- Kiểm tra dung lượng trống trước khi nhận nguồn và trước khi giữ token. Dự phòng nguồn, file dựng và các tác vụ đang chạy; khi không đủ chỗ, trả lỗi tạm thời. Nếu dung lượng giảm sau khi xếp hàng và dựng thất bại, token được hoàn một lần.
 
 ## Giới hạn hiện tại trước khi mở bán
 
-Đây là phiên bản đầu trên một máy chủ. Chưa xác minh cuộc gọi OpenAI thật, chuyển khoản SePay thật hoặc tải một video Drive do chủ phần mềm cung cấp. Chưa triển khai lên máy chủ có tên miền/HTTPS.
+Website đã triển khai HTTPS trên VPS Vultr tại `https://video.manh.marketing/studio`. Khóa OpenAI và webhook SePay được cài riêng trên máy chủ. Kiểm tra trên VPS đã chạy nhận diện lời thoại OpenAI, lập kế hoạch AI, dựng FFmpeg có phụ đề và tải MP4; ví dùng database thử riêng, không cộng tiền giả vào tài khoản thật. SePay đã gửi thử thành công HTTP 200. Chưa đối soát một chuyển khoản ngân hàng thật.
+
+Giới hạn cấu hình trên VPS hiện tại: một file Drive cho mỗi yêu cầu, 100 MiB/file, 5 phút nguồn, dựng nối tiếp. Mặc định trong bảng phía trên dành cho cài đặt mới, không phải giới hạn của máy chủ này. VPS 1 CPU/1 GiB RAM còn ít dung lượng; kiểm tra dung lượng có thể tạm ngừng nhận tác vụ khi không đủ chỗ. Chưa có chính sách tự xóa video của khách.
 
 Nhận được video thuộc mọi lĩnh vực, nhưng không đồng nghĩa hỗ trợ mọi phép chỉnh sửa. Chưa có kết nối OAuth cho Drive riêng tư, link thư mục, dịch phụ đề, sinh cảnh mới, tạo nhạc, lồng tiếng hay hiểu toàn bộ hình ảnh của video. Mô hình hiện lựa chọn cảnh dựa trên lời thoại và thời gian nguồn. Với video không có tiếng, mô hình chỉ có thông tin thời lượng/kích thước.
 
-Trước khi bán cần hoàn tất khóa AI, cấu hình webhook thật, duyệt giá token, dựng một video khách hàng thật và đối soát một giao dịch nạp thật. Cần máy chủ có CPU/RAM/đĩa đủ cho FFmpeg, HTTPS, backup database/media, giới hạn dung lượng toàn máy và chính sách giữ/xóa file. Chưa có xác minh email, khôi phục mật khẩu, giao diện quản trị đối soát hoặc xóa tài khoản; hiện không vận hành nhiều replica dùng chung database.
+Trước khi mở bán rộng, đối soát một giao dịch nạp thật và thử file Drive của khách; tăng dung lượng máy chủ, thiết lập sao lưu ngoài máy và chính sách giữ/xóa video. Chưa có xác minh email, khôi phục mật khẩu, giao diện quản trị đối soát hoặc xóa tài khoản; hiện không vận hành nhiều replica dùng chung database.
 
 Không triển khai worker này lên serverless có giới hạn thời gian xử lý ngắn. Không chạy nhiều tiến trình worker với cùng data directory. Khi mở rộng, cần chuyển ví/queue sang database dùng chung, khóa worker/lease và object storage riêng tư.
 

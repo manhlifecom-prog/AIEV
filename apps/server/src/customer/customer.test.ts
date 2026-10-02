@@ -5,6 +5,7 @@ import { customerConfig } from "./config.js";
 import { driveFile } from "./media.js";
 import { validateEdit, subtitleDocument } from "./render.js";
 import { customerApp } from "./http.js";
+import { CustomerService } from "./service.js";
 import type { AddressInfo } from "node:net";
 
 function setup() {
@@ -65,6 +66,20 @@ test("bank transactions must match account, code, exact amount and incoming dire
   store.db.close();
 });
 
+test("SePay dashboard probes acknowledge without paying even when they match a pending order", () => {
+  const { store, user } = setup();
+  const order = store.createOrder(user.id, 100);
+  const payload = { id: 0, accountNumber: customerConfig.account, transferType: "in", transferAmount: order.amount, content: order.code };
+  for (const id of [0, "0"]) assert.deepEqual(store.payment({ ...payload, id }), { success: true, credited: false, test: true });
+  assert.equal(store.user(user.id)?.balance, 0);
+  assert.equal(store.order(user.id, String(order.id)).status, "pending");
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM transactions").get()?.n, 0);
+  assert.equal(store.db.prepare("SELECT count(*) AS n FROM ledger").get()?.n, 0);
+  for (const id of [undefined, -1, "00", "invalid"]) assert.throws(() => store.payment({ ...payload, id }), CustomerError);
+  assert.throws(() => store.payment({ ...payload, transferAmount: 0 }), CustomerError);
+  store.db.close();
+});
+
 test("authenticated SePay webhook credits a matching order once and rejects missing or incorrect keys", async () => {
   const { store, user } = setup();
   const previousKey = customerConfig.sepayKey;
@@ -75,10 +90,14 @@ test("authenticated SePay webhook credits a matching order once and rejects miss
   const endpoint = `http://127.0.0.1:${(server.address() as AddressInfo).port}/api/customer/payments/sepay`;
   const order = store.createOrder(user.id, 100);
   const payload = { id: 901, accountNumber: customerConfig.account, transferType: "in", transferAmount: order.amount, code: order.code, content: `NAP TOKEN ${order.code}` };
-  const send = (authorization: string) => fetch(endpoint, { method: "POST", headers: { "content-type": "application/json", authorization }, body: JSON.stringify(payload) });
+  const send = (authorization: string, data = payload) => fetch(endpoint, { method: "POST", headers: { "content-type": "application/json", authorization }, body: JSON.stringify(data) });
   try {
     assert.equal((await send("")).status, 401);
     assert.equal((await send("Apikey incorrect-key")).status, 401);
+    assert.equal((await send("", { ...payload, id: 0 })).status, 401);
+    const probe = await send("Apikey test-only-webhook-key", { ...payload, id: 0 });
+    assert.equal(probe.status, 200);
+    assert.deepEqual(await probe.json(), { success: true, credited: false, test: true });
     assert.equal(store.user(user.id)?.balance, 0);
     const accepted = await send("Apikey test-only-webhook-key");
     assert.equal(accepted.status, 200);
@@ -106,6 +125,30 @@ test("unfunded jobs cannot queue; retries reserve once and failures refund once"
   store.fail(job.id, "Render failed"); store.fail(job.id, "Again");
   assert.equal(store.user(user.id)?.balance, 100);
   assert.equal(store.db.prepare("SELECT count(*) AS n FROM ledger WHERE kind='refund'").get()?.n, 1);
+  store.db.close();
+});
+
+test("disk admission reserves room for concurrent work and rejects before token reservation", () => {
+  const { store, user } = setup();
+  const minimum = customerConfig.minFreeBytes, maximum = customerConfig.maxBytes;
+  const service = new CustomerService(store, () => minimum + maximum * 3);
+  service.ensureCapacity("import");
+  const thread = store.createThread(user.id, "Video");
+  const job = store.createJob(user.id, thread, "video", "https://drive.google.com/file/d/1234567890abcdef/view");
+  assert.throws(() => service.ensureCapacity("import"), (error: unknown) => error instanceof CustomerError && error.status === 503);
+  service.ensureCapacity("import", job.id);
+  store.quote(job.id, 10, 30);
+  store.db.prepare("UPDATE users SET balance=100 WHERE id=?").run(user.id);
+  const full = new CustomerService(store, () => minimum);
+  assert.throws(() => full.ensureCapacity("render", job.id), CustomerError);
+  assert.equal(store.user(user.id)?.balance, 100);
+  assert.equal(store.job(user.id, job.id).status, "awaiting_confirmation");
+  store.reserve(user.id, job.id);
+  store.update(job.id, "running", "Đang dựng");
+  service.ensureCapacity("render", job.id);
+  assert.throws(() => full.ensureCapacity("render", job.id), CustomerError);
+  store.fail(job.id, "Không đủ dung lượng");
+  assert.equal(store.user(user.id)?.balance, 100);
   store.db.close();
 });
 test("successful jobs remain charged and interrupted jobs refund on restart", () => {

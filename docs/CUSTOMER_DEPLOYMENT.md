@@ -2,9 +2,9 @@
 
 ## Trạng thái
 
-Đã chuẩn bị cấu hình máy chủ cho đúng tên miền. Chưa triển khai trực tuyến vì chưa có địa chỉ/quyền truy cập máy chủ. DNS `manh.marketing` được quản lý bởi Vercel. Không đổi các tên miền hoặc dự án CRM đang chạy.
+Website đang chạy tại `https://video.manh.marketing/studio` trên VPS Vultr `45.32.123.86`, qua nginx và systemd (`aiev-video-web`, `aiev-video-api`). API chỉ lắng nghe loopback; dữ liệu ở `/var/lib/aiev-video`, cấu hình bí mật ở `/etc/aiev-video.env` quyền 600. Giới hạn nguồn 100 MiB, 5 phút. Không đổi các tên miền hoặc dự án CRM đang chạy.
 
-Backend hiện dùng SQLite, file video và worker FFmpeg chạy liên tục. Bộ Docker chạy toàn bộ web/API/renderer trên cùng máy chủ, chỉ công khai HTTP/HTTPS qua Caddy. Không đưa API khách hàng hay backend cá nhân lên Vercel Functions. Frontend riêng trên Vercel có thể bổ sung sau khi có backend HTTPS ổn định.
+Backend hiện dùng SQLite, file video và worker FFmpeg chạy liên tục. Các hướng dẫn Docker/Caddy bên dưới là phương án cài đặt mới; máy chủ hiện tại dùng nginx/systemd. Không chạy thêm stack Docker vào cùng data directory của bản đang hoạt động.
 
 ## Máy chủ và DNS
 
@@ -44,4 +44,4 @@ Mật khẩu sinh ngẫu nhiên chỉ in ra terminal. Admin đã tạo trên má
 - Worker chỉ chạy một replica. Theo dõi ổ đĩa, đặt chính sách lưu/xóa video và backup ngoài máy chủ.
 - Nếu server đã có reverse proxy, đưa hostname này vào proxy hiện có thay vì khởi động dịch vụ Caddy chiếm cùng cổng.
 
-Healthcheck chỉ xác nhận web, API và FFmpeg; không gọi AI hoặc tạo giao dịch. Trên máy hiện tại chưa có Docker, nên chưa xác nhận image Linux hoặc chứng chỉ live. Tham chiếu: [Docker Compose](https://docs.docker.com/compose/), [Caddy HTTPS](https://caddyserver.com/docs/automatic-https), [giới hạn Vercel Functions](https://vercel.com/docs/functions/limitations).
+Healthcheck chỉ xác nhận web, API và FFmpeg; không gọi AI hoặc tạo giao dịch. Bản systemd đã kiểm tra thực tế AI, dựng MP4 và gửi thử SePay trên VPS; chưa đối soát chuyển khoản ngân hàng thật. Docker image chưa được kiểm tra trên Linux. Tham chiếu: [Docker Compose](https://docs.docker.com/compose/), [Caddy HTTPS](https://caddyserver.com/docs/automatic-https), [giới hạn Vercel Functions](https://vercel.com/docs/functions/limitations).

@@ -3,11 +3,21 @@ import path from "node:path";
 import { customerConfig, quoteTokens } from "./config.js";
 import { downloadDrive, probe } from "./media.js";
 import { renderControlled } from "./render.js";
-import { CustomerStore, type Job } from "./store.js";
+import { CustomerError, CustomerStore, type Job } from "./store.js";
 
 export class CustomerService {
   private busy = false;
-  constructor(public store: CustomerStore) {}
+  constructor(public store: CustomerStore, private freeBytes = () => {
+    fs.mkdirSync(customerConfig.dataDir, { recursive: true });
+    const disk = fs.statfsSync(customerConfig.dataDir);
+    return disk.bavail * disk.bsize;
+  }) {}
+  ensureCapacity(phase: "import" | "render", jobId?: string) {
+    const active = this.store.db.prepare("SELECT count(*) AS n FROM jobs WHERE status IN ('inspecting','queued','running') AND id<>?").get(jobId || "");
+    const reserved = Number(active?.n) * customerConfig.maxBytes * 3;
+    const needed = customerConfig.minFreeBytes + reserved + customerConfig.maxBytes * (phase === "import" ? 3 : 2);
+    if (this.freeBytes() < needed) throw new CustomerError(503, "Máy chủ đang thiếu dung lượng xử lý. Hãy thử lại sau.");
+  }
   directory(job: Job) {
     const directory = path.join(customerConfig.dataDir, "videos", job.user_id, job.id);
     fs.mkdirSync(directory, { recursive: true });
@@ -15,6 +25,7 @@ export class CustomerService {
   }
   async inspect(job: Job) {
     try {
+      this.ensureCapacity("import", job.id);
       const dir = this.directory(job);
       const prior = this.store.jobs(job.user_id).find(x => x.id !== job.id && x.drive_url === job.drive_url && x.status === "done");
       const existing = prior ? path.join(this.directory(prior), "source.mp4") : null;
@@ -36,6 +47,7 @@ export class CustomerService {
         const claimed = this.store.db.prepare("UPDATE jobs SET status='running',stage='Đang bắt đầu xử lý' WHERE id=? AND status='queued'").run(job.id);
         if (!claimed.changes) continue;
         try {
+          this.ensureCapacity("render", job.id);
           const output = await renderControlled(job, this.directory(job), stage => this.store.update(job.id, "running", stage));
           this.store.finish(job.id, output);
           this.store.message(job.thread_id, "assistant", "Video đã hoàn tất. Bạn có thể xem và tải MP4 ở khung Video của bạn. Hãy nhắn tiếp nếu muốn chỉnh sửa thêm; mỗi lượt dựng mới sẽ có báo giá riêng.");

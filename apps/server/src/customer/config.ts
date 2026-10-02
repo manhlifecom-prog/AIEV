@@ -22,6 +22,7 @@ export const customerConfig = {
   perMinute: integer("CUSTOMER_TOKENS_PER_MINUTE", 20),
   maxSeconds: integer("CUSTOMER_MAX_VIDEO_SECONDS", 1800),
   maxBytes: integer("CUSTOMER_MAX_VIDEO_BYTES", 1024 * 1024 * 1024),
+  minFreeBytes: integer("CUSTOMER_MIN_FREE_BYTES", 512 * 1024 * 1024),
   sepayKey: process.env.CUSTOMER_SEPAY_WEBHOOK_KEY || "",
 };
 export function quoteTokens(seconds: number) {

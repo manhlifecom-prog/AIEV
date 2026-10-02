@@ -83,6 +83,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     const awaiting = existing.find(x => x.status === "awaiting_confirmation");
     if (awaiting && /^(đồng ý|dong y|ok|xác nhận|xac nhan|dựng luôn|dung luon)( dựng| dung| làm| lam| video)?[.!]?$/i.test(message)) {
       if (!process.env.OPENAI_API_KEY?.trim() || !await ready()) throw new CustomerError(503, "Dịch vụ AI chưa được kích hoạt. Token chưa bị trừ.");
+      service.ensureCapacity("render", awaiting.id);
       const confirmed = store.reserve(owner, awaiting.id);
       store.message(threadId, "user", message);
       store.message(threadId, "assistant", "Đã xác nhận. Tôi đang dựng video theo yêu cầu của bạn.");
@@ -102,6 +103,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     try { driveFile(url); }
     catch (error) { throw new CustomerError(400, error instanceof Error ? error.message : "Link Google Drive không hợp lệ"); }
     if (!await ready()) throw new CustomerError(503, "Bộ dựng video chưa sẵn sàng. Vui lòng thử lại sau.");
+    service.ensureCapacity("import");
     const prior = existing.find(x => x.status === "done" && x.drive_url === url);
     const prompt = prior ? (prior.prompt + "\nYêu cầu chỉnh sửa tiếp theo: " + message).slice(-16000) : message;
     const job = store.createJob(owner, threadId, prompt, url);
@@ -112,6 +114,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   });
   app.post("/api/customer/videos/:id/confirm", auth, async (req, res) => {
     if (!process.env.OPENAI_API_KEY?.trim() || !await ready()) throw new CustomerError(503, "Dịch vụ AI chưa được kích hoạt. Token chưa bị trừ.");
+    service.ensureCapacity("render", String(req.params.id));
     const job = store.reserve(user(res).id, String(req.params.id));
     void service.processQueue(); res.status(202).json(job);
   });
