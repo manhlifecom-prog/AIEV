@@ -64,6 +64,35 @@ test("bank transactions must match account, code, exact amount and incoming dire
   assert.equal(store.db.prepare("SELECT count(*) AS n FROM ledger WHERE kind='purchase'").get()?.n, 1);
   store.db.close();
 });
+
+test("authenticated SePay webhook credits a matching order once and rejects missing or incorrect keys", async () => {
+  const { store, user } = setup();
+  const previousKey = customerConfig.sepayKey;
+  customerConfig.sepayKey = "test-only-webhook-key";
+  const { app } = customerApp(store);
+  const server = app.listen(0, "127.0.0.1");
+  await new Promise<void>(resolve => server.once("listening", resolve));
+  const endpoint = `http://127.0.0.1:${(server.address() as AddressInfo).port}/api/customer/payments/sepay`;
+  const order = store.createOrder(user.id, 100);
+  const payload = { id: 901, accountNumber: customerConfig.account, transferType: "in", transferAmount: order.amount, code: order.code, content: `NAP TOKEN ${order.code}` };
+  const send = (authorization: string) => fetch(endpoint, { method: "POST", headers: { "content-type": "application/json", authorization }, body: JSON.stringify(payload) });
+  try {
+    assert.equal((await send("")).status, 401);
+    assert.equal((await send("Apikey incorrect-key")).status, 401);
+    assert.equal(store.user(user.id)?.balance, 0);
+    const accepted = await send("Apikey test-only-webhook-key");
+    assert.equal(accepted.status, 200);
+    assert.deepEqual(await accepted.json(), { success: true, credited: true });
+    assert.deepEqual(await (await send("Apikey test-only-webhook-key")).json(), { success: true, duplicate: true });
+    assert.equal(store.order(user.id, String(order.id)).status, "paid");
+    assert.equal(store.user(user.id)?.balance, 100);
+    assert.equal(store.db.prepare("SELECT count(*) AS n FROM ledger WHERE kind='purchase'").get()?.n, 1);
+  } finally {
+    customerConfig.sepayKey = previousKey;
+    await new Promise<void>(resolve => server.close(() => resolve()));
+    store.db.close();
+  }
+});
 test("unfunded jobs cannot queue; retries reserve once and failures refund once", () => {
   const { store, user } = setup();
   const thread = store.createThread(user.id, "Video");
