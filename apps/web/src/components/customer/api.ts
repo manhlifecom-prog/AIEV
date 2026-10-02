@@ -5,7 +5,7 @@ export type AdminOverview = {
   jobs: { id: string; email: string; status: string; stage: string; tokens: number; created_at: number }[];
   orders: { id: string; email: string; code: string; tokens: number; amount: number; status: string; created_at: number }[];
 };
-export type StudioConfig = { bank: string; account: string; accountName: string; tokenPrice: number; packs: number[]; maxMinutes: number; aiReady: boolean; mediaReady: boolean; paymentReady: boolean };
+export type StudioConfig = { bank: string; account: string; accountName: string; tokenPrice: number; packs: number[]; maxMinutes: number; maxMegabytes: number; aiReady: boolean; mediaReady: boolean; paymentReady: boolean };
 export type VideoJob = { id: string; thread_id: string; status: string; stage: string; tokens: number; duration: number; error: string | null; created_at: number; output: string | null };
 export type Thread = { id: string; title: string; created_at: number };
 export type Message = { role: string; content: string; created_at: number };
@@ -14,7 +14,7 @@ export type Wallet = { balance: number; transactions: { delta: number; kind: str
 export class StudioApiError extends Error { constructor(public status: number, message: string) { super(message); } }
 export async function customerApi<T>(endpoint: string, body?: unknown): Promise<T> {
   const response = await fetch("/api/customer" + endpoint, { credentials: "same-origin", cache: "no-store", method: body === undefined ? "GET" : "POST", headers: body === undefined ? {} : { "Content-Type": "application/json" }, body: body === undefined ? undefined : JSON.stringify(body) });
-  const result = await response.json();
+  const result = await response.json().catch(() => { throw new StudioApiError(response.status || 503, "Dịch vụ tạm thời gián đoạn. Hãy thử lại sau."); });
   if (!response.ok) throw new StudioApiError(response.status, result.error || "Không kết nối được máy chủ");
   return result;
 }
