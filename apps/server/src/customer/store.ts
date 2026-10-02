@@ -4,7 +4,7 @@ import { randomBytes, randomUUID, scryptSync, timingSafeEqual, createHash } from
 import { DatabaseSync } from "node:sqlite";
 import { customerConfig } from "./config.js";
 
-export type User = { id: string; email: string; name: string; password: string; balance: number };
+export type User = { id: string; email: string; name: string; password: string; balance: number; role: "customer" | "admin" };
 export type Job = { id: string; user_id: string; thread_id: string; prompt: string; drive_url: string; status: string; stage: string; tokens: number; duration: number; error: string | null; created_at: number; output: string | null };
 export class CustomerError extends Error { constructor(public status: number, message: string) { super(message); } }
 export class CustomerStore {
@@ -24,6 +24,8 @@ export class CustomerStore {
       CREATE INDEX IF NOT EXISTS jobs_owner ON jobs(user_id,created_at);
       CREATE INDEX IF NOT EXISTS threads_owner ON threads(user_id,created_at);
       CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires);`);
+    const columns = this.db.prepare("PRAGMA table_info(users)").all();
+    if (!columns.some(column => column.name === "role")) this.db.exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'customer' CHECK(role IN ('customer','admin'))");
   }
   transaction<T>(fn: () => T): T {
     this.db.exec("BEGIN IMMEDIATE");
@@ -60,7 +62,34 @@ export class CustomerStore {
     return row ? this.user(String(row.user_id)) : undefined;
   }
   logout(token: string) { this.db.prepare("DELETE FROM sessions WHERE hash=?").run(createHash("sha256").update(token).digest("hex")); }
-  publicUser(user: User) { return { id: user.id, name: user.name, email: user.email, balance: user.balance }; }
+  publicUser(user: User) { return { id: user.id, name: user.name, email: user.email, balance: user.balance, role: user.role }; }
+  changePassword(userId: string, currentPassword: string, newPassword: string) {
+    const user = this.user(userId);
+    if (!user) throw new CustomerError(401, "Hãy đăng nhập để tiếp tục");
+    this.login(user.email, currentPassword);
+    if (newPassword.length < 10 || newPassword.length > 128) throw new CustomerError(400, "Mật khẩu cần từ 10 đến 128 ký tự");
+    if (currentPassword === newPassword) throw new CustomerError(400, "Mật khẩu mới cần khác mật khẩu hiện tại");
+    const salt = randomBytes(16).toString("hex");
+    const encoded = salt + ":" + scryptSync(newPassword, salt, 64).toString("hex");
+    this.transaction(() => {
+      this.db.prepare("UPDATE users SET password=? WHERE id=?").run(encoded, userId);
+      this.db.prepare("DELETE FROM sessions WHERE user_id=?").run(userId);
+    });
+  }
+  adminOverview(userId: string) {
+    if (this.user(userId)?.role !== "admin") throw new CustomerError(403, "Chỉ tài khoản quản trị được sử dụng chức năng này");
+    const stats = this.db.prepare(`SELECT
+      (SELECT count(*) FROM users WHERE role='customer') AS customers,
+      (SELECT count(*) FROM jobs) AS videos,
+      (SELECT count(*) FROM jobs WHERE status IN ('inspecting','queued','running')) AS activeVideos,
+      (SELECT coalesce(sum(amount),0) FROM orders WHERE status='paid') AS paidVnd`).get();
+    return {
+      stats,
+      users: this.db.prepare("SELECT id,name,email,balance,role FROM users ORDER BY rowid DESC LIMIT 100").all(),
+      jobs: this.db.prepare("SELECT j.id,u.email,j.status,j.stage,j.tokens,j.created_at FROM jobs j JOIN users u ON u.id=j.user_id ORDER BY j.created_at DESC LIMIT 100").all(),
+      orders: this.db.prepare("SELECT o.id,u.email,o.code,o.tokens,o.amount,o.status,o.created_at FROM orders o JOIN users u ON u.id=o.user_id ORDER BY o.created_at DESC LIMIT 100").all(),
+    };
+  }
   thread(userId: string, threadId: string) {
     const thread = this.db.prepare("SELECT * FROM threads WHERE id=? AND user_id=?").get(threadId, userId);
     if (!thread) throw new CustomerError(404, "Không tìm thấy cuộc trò chuyện");

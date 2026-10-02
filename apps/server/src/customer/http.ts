@@ -63,6 +63,11 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   });
   app.post("/api/customer/auth/logout", (req, res) => { store.logout(cookie(req)); res.clearCookie("aiev_customer", { path: "/" }); res.json({ success: true }); });
   app.get("/api/customer/me", auth, (_req, res) => res.json(store.publicUser(user(res))));
+  app.post("/api/customer/auth/password", auth, limit, (req, res) => {
+    store.changePassword(user(res).id, field(req.body, "currentPassword", 128), field(req.body, "newPassword", 128));
+    sessionCookie(res, store.createSession(user(res).id)); res.json({ success: true });
+  });
+  app.get("/api/customer/admin/overview", auth, (_req, res) => res.json(store.adminOverview(user(res).id)));
   app.get("/api/customer/threads", auth, (_req, res) => res.json(store.threads(user(res).id)));
   app.get("/api/customer/threads/:id", auth, (req, res) => res.json({ messages: store.messages(user(res).id, String(req.params.id)), jobs: store.jobs(user(res).id).filter(x => x.thread_id === req.params.id) }));
   app.get("/api/customer/videos", auth, (_req, res) => res.json(store.jobs(user(res).id)));

@@ -13,6 +13,30 @@ function setup() {
   const second = store.register("two@example.com", "Khách hàng hai", "valid-password-two");
   return { store, user, second };
 }
+test("admin overview rejects customer accounts and never exposes password hashes", () => {
+  const { store, user, second } = setup();
+  assert.equal(user.role, "customer");
+  assert.throws(() => store.adminOverview(user.id), (error: unknown) => error instanceof CustomerError && error.status === 403);
+  store.db.prepare("UPDATE users SET role='admin' WHERE id=?").run(user.id);
+  const overview = store.adminOverview(user.id);
+  assert.equal(overview.stats?.customers, 1);
+  assert.equal(overview.users.find(account => account.id === second.id)?.email, second.email);
+  assert.ok(overview.users.every(account => !("password" in account)));
+  store.db.close();
+});
+test("changing a password validates the old password and revokes every existing session", () => {
+  const { store, user } = setup();
+  store.db.prepare("UPDATE users SET role='admin' WHERE id=?").run(user.id);
+  const session = store.createSession(user.id);
+  assert.throws(() => store.changePassword(user.id, "wrong-password", "new-valid-password"), CustomerError);
+  assert.equal(store.session(session)?.id, user.id);
+  assert.throws(() => store.changePassword(user.id, "valid-password-one", "short"), CustomerError);
+  store.changePassword(user.id, "valid-password-one", "new-valid-password");
+  assert.equal(store.session(session), undefined);
+  assert.throws(() => store.login(user.email, "valid-password-one"), CustomerError);
+  assert.equal(store.login(user.email, "new-valid-password").role, "admin");
+  store.db.close();
+});
 test("sessions use opaque tokens, hashed storage and isolated data", () => {
   const { store, user, second } = setup();
   const session = store.createSession(user.id);
@@ -98,6 +122,7 @@ test("public customer API requires per-user auth and rejects fake payments and c
   const base = `http://127.0.0.1:${(server.address() as AddressInfo).port}/api/customer`;
   try {
     assert.equal((await fetch(base + "/videos")).status, 401);
+    assert.equal((await fetch(base + "/admin/overview")).status, 401);
     assert.equal((await fetch(base + "/payments/sepay", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" })).status, 401);
     assert.equal((await fetch(base + "/auth/login", { method: "POST", headers: { origin: "https://evil.example", "content-type": "application/json" }, body: "{}" })).status, 403);
     const thread = store.createThread(user.id, "Private");
@@ -105,9 +130,18 @@ test("public customer API requires per-user auth and rejects fake payments and c
     assert.equal((await fetch(base + `/threads/${thread}`, { headers })).status, 404);
     assert.equal((await fetch(base + "/../health", { headers })).status, 404);
     const ownHeaders = { cookie: "aiev_customer=" + store.createSession(user.id) };
+    assert.equal((await fetch(base + "/admin/overview", { headers: ownHeaders })).status, 403);
+    const registered = await fetch(base + "/auth/register", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "third@example.com", name: "Third", password: "valid-password-third", role: "admin" }) });
+    assert.equal((await registered.json()).role, "customer");
+    store.db.prepare("UPDATE users SET role='admin' WHERE id=?").run(user.id);
+    const overview = await fetch(base + "/admin/overview", { headers: ownHeaders });
+    assert.equal(overview.status, 200); assert.ok(!(await overview.text()).includes("password"));
     const account = await (await fetch(base + "/me", { headers: ownHeaders })).json();
     assert.equal(account.email, user.email); assert.equal(account.password, undefined);
     const login = await fetch(base + "/auth/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: user.email, password: "valid-password-one" }) });
     assert.equal(login.status, 200); assert.match(login.headers.get("set-cookie") || "", /HttpOnly/i);
+    const passwordUpdate = await fetch(base + "/auth/password", { method: "POST", headers: { ...ownHeaders, "content-type": "application/json" }, body: JSON.stringify({ currentPassword: "valid-password-one", newPassword: "another-valid-password" }) });
+    assert.equal(passwordUpdate.status, 200); assert.match(passwordUpdate.headers.get("set-cookie") || "", /HttpOnly/i);
+    assert.equal((await fetch(base + "/me", { headers: ownHeaders })).status, 401);
   } finally { await new Promise<void>(resolve => server.close(() => resolve())); store.db.close(); }
 });

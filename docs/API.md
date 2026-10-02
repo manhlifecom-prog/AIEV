@@ -1221,9 +1221,11 @@ Chạy bằng `npm run customer:dev`, giao diện `/studio`, API loopback cổng
 | --- | --- | --- |
 | GET | `/config` | Ngân hàng, số tài khoản nhận tiền, giá token, gói, giới hạn, boolean `aiReady`, `mediaReady`, `paymentReady`; không có secret |
 | POST | `/auth/register` | `{email,name,password}`; 201 và cookie session HttpOnly |
-| POST | `/auth/login` | `{email,password}`; trả `{id,name,email,balance}` và cookie |
+| POST | `/auth/login` | `{email,password}`; trả `{id,name,email,balance,role}` và cookie |
+| POST | `/auth/password` | Session và `{currentPassword,newPassword}`; kiểm tra mật khẩu cũ, hủy mọi session cũ và cấp cookie mới |
 | POST | `/auth/logout` | Xóa session và cookie |
 | GET | `/me` | Tài khoản đang đăng nhập, không có password hash |
+| GET | `/admin/overview` | Chỉ role admin; `{stats,users,jobs,orders}` tổng quan và tối đa 100 mục mới nhất mỗi danh sách, không trả password hash hoặc secret |
 | GET | `/threads` | Cuộc trò chuyện của khách đang đăng nhập |
 | GET | `/threads/:id` | `{messages,jobs}` của chủ sở hữu |
 | POST | `/chat` | `{message,threadId?}`; trả `{threadId,jobId?}`. Link Drive bắt đầu kiểm tra nguồn; `đồng ý dựng` xác nhận báo giá gần nhất; `hủy yêu cầu` bỏ báo giá chưa chạy |

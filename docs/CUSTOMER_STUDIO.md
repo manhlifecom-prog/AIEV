@@ -67,6 +67,12 @@ Trước khi bán cần hoàn tất khóa AI, cấu hình webhook thật, duyệ
 
 Không triển khai worker này lên serverless có giới hạn thời gian xử lý ngắn. Không chạy nhiều tiến trình worker với cùng data directory. Khi mở rộng, cần chuyển ví/queue sang database dùng chung, khóa worker/lease và object storage riêng tư.
 
+## Tài khoản quản trị
+
+Tạo trên máy chủ bằng `node node_modules/tsx/dist/cli.mjs apps/server/src/customer/create-admin.ts <email>`. Lệnh chỉ tạo email chưa tồn tại, sinh mật khẩu ngẫu nhiên và in một lần ra terminal. Không có endpoint công khai cấp quyền admin; tài khoản tự đăng ký luôn là khách hàng. Không đưa mật khẩu vào Git hoặc file cấu hình dùng chung.
+
+Đăng nhập ở `/studio`, chọn **Quản trị** để xem tài khoản, số dư, video và đơn nạp. Bảng quản trị hiện chỉ xem dữ liệu, chưa có điều chỉnh số dư hoặc xử lý đối soát thủ công. Chọn **Đổi mật khẩu** để đặt mật khẩu riêng; hệ thống kiểm tra mật khẩu cũ và đăng xuất mọi session khác. Tài khoản hiện hữu giữ role khách hàng khi database được nâng cấp.
+
 ## Kiểm tra
 
 ```powershell
