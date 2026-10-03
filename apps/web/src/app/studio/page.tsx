@@ -72,9 +72,10 @@ export default function StudioPage() {
     if (!user) { setModal("auth"); return; }
     setBusy(true); setError("");
     try {
-      const result = await customerApi<{ threadId: string }>("/chat", { message: [text.trim(), drive.trim()].filter(Boolean).join("\n"), ...(threadId ? { threadId } : {}) });
+      const result = await customerApi<{ threadId: string; localError?: string }>("/chat", { message: [text.trim(), drive.trim()].filter(Boolean).join("\n"), ...(threadId ? { threadId } : {}) });
       if (threadId === result.threadId) await refresh();
       setThreadId(result.threadId); setText(""); setDrive(""); setShowDrive(false);
+      if(result.localError) setError(result.localError);
     } catch (reason) { setError(reason instanceof Error ? reason.message : "Không gửi được yêu cầu"); }
     finally { setBusy(false); }
   }
@@ -103,14 +104,14 @@ export default function StudioPage() {
         {messages.length ? <div className="studio-messages" role="log" aria-live="polite">{messages.map((message, index) => <div key={`${message.created_at}-${index}`} className={`studio-message ${message.role === "user" ? "from-user" : "from-ai"}`}><span className="studio-message-label">{message.role === "user" ? "Bạn" : "AIEV"}</span><p>{message.content}</p></div>)}
           {["awaiting_confirmation", "local_running"].includes(job?.status || "") ? <div className="studio-quote"><strong>{number(job.tokens)} token cho lượt dựng này</strong><p>Video nguồn: {Math.ceil(job.duration)} giây. Số dư: {number(user?.balance || 0)} token.</p><button className="studio-primary" disabled={busy || !config?.aiReady} onClick={confirm}>{busy ? "Đang bắt đầu…" : job.status === "local_running" ? "Tiếp tục dựng trên máy" : "Xác nhận dựng video"}</button>{!config?.aiReady ? <small>Dịch vụ AI đang được cấu hình; bạn chưa bị trừ token.</small> : null}</div> : null}
           {working ? <p className="studio-job-stage"><LoaderCircle className="studio-spin" size={18} />{job.stage}</p> : null}
-          {job?.status === "done" ? <div className="studio-mobile-result studio-result"><VideoResult job={job} /></div> : null}<div ref={messagesEnd} /></div> : <div className="studio-welcome"><h2>Bạn muốn làm video gì?</h2><p>{config?.processingMode === "local" ? "Dùng app Windows để chat và dựng trên máy bạn. Website dùng tài khoản và ví token; Android/iPhone chưa có bộ dựng tại máy." : "Dán link Google Drive và mô tả video bạn muốn. Tôi sẽ lo phần dựng."}</p><div className="studio-examples">{examples.map((example, index) => <button key={example} onClick={() => { setText(example); input.current?.focus(); }}>{index === 0 ? <Scissors size={22} /> : index === 1 ? <Captions size={22} /> : <Video size={22} />}<span>{example}</span></button>)}</div></div>}
+          {job?.status === "done" ? <div className="studio-mobile-result studio-result"><VideoResult job={job} /></div> : null}<div ref={messagesEnd} /></div> : <div className="studio-welcome"><h2>Bạn muốn làm video gì?</h2><p>{config?.processingMode === "local" ? "Chat với AI để trao đổi ý tưởng và chỉnh video. App Windows 0.3.0 dựng trên máy bạn; website có thể trò chuyện, Android/iPhone chưa dựng tại máy." : "Dán link Google Drive và mô tả video bạn muốn. Tôi sẽ lo phần dựng."}</p><div className="studio-examples">{examples.map((example, index) => <button key={example} onClick={() => { setText(example); input.current?.focus(); }}>{index === 0 ? <Scissors size={22} /> : index === 1 ? <Captions size={22} /> : <Video size={22} />}<span>{example}</span></button>)}</div></div>}
       </section>
       <div className="studio-compose-area">
         {error ? <p className="studio-error" role="alert">{error}</p> : null}
         <form className="studio-compose" onSubmit={send}><textarea ref={input} aria-label="Yêu cầu làm video" placeholder="Nhắn cho AI hoặc dán link Google Drive…" value={text} onChange={event => setText(event.target.value)} maxLength={7000} rows={2} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); event.currentTarget.form?.requestSubmit(); } }} />
           {showDrive ? <label className="studio-drive-input">Link file Google Drive<input type="url" placeholder="https://drive.google.com/file/d/…" value={drive} onChange={event => setDrive(event.target.value)} maxLength={1000} /></label> : null}
           <div className="studio-compose-actions"><button type="button" className="studio-icon" aria-label="Thêm link Google Drive" aria-expanded={showDrive} onClick={() => setShowDrive(!showDrive)}><Paperclip size={21} /></button><button className="studio-send" aria-label="Gửi yêu cầu" disabled={busy || Boolean(working) || (!text.trim() && !drive.trim())}>{busy ? <LoaderCircle className="studio-spin" size={22} /> : <Send size={22} />}</button></div>
-        </form><p className="studio-compose-note"><Info size={15} />Bạn xem chi phí token trước khi AI bắt đầu.</p>
+        </form><p className="studio-compose-note"><Info size={15} />Chat: 1 token/tin nhắn. Dựng: báo giá trước khi xác nhận.</p>
       </div>
     </main>
     <aside className="studio-output"><h2>Video của bạn</h2>{job?.status === "done" ? <div className="studio-result"><VideoResult job={job} /><p>{job.tokens} token · Video đã hoàn tất</p></div> : <div className="studio-preview-empty"><Film size={48} strokeWidth={1.5} /><p>{working ? job.stage : job?.status === "failed" ? "Video chưa hoàn tất" : "Video sẽ xuất hiện tại đây"}</p>{job?.status === "failed" ? <small>{job.error}</small> : null}</div>}

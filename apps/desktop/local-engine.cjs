@@ -47,21 +47,31 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
       if(working) throw new Error('Máy đang xử lý video trước');
       if(endpoint==='/chat') {
         working=true;
+        let started=false;
         try {
           const message=body?.message;
           if(typeof message!=='string' || message.length>8000) throw new Error('Yêu cầu không hợp lệ');
-          if(/^(đồng ý|dong y|ok|xác nhận|xac nhan)( dựng| dung| video)?[.!]?$/i.test(message.trim())) throw new Error('Bấm Xác nhận dựng video để dựng tại máy');
-          const url=message.match(/https:\/\/drive\.google\.com\/[^\s<>"']+/)?.[0]?.replace(/[),.;]+$/,'');
+          const decision=await api('/assistant',{...body,requestId:randomUUID(),device:'windows'});
+          if(decision.action==='confirm') {
+            record(decision.jobId);
+            await api('/local/'+decision.jobId+'/confirm',{});
+            started=true;
+            void render(decision.jobId).catch(error=>dialog.showMessageBox(window,{type:'error',message:'Chưa hoàn tất dựng tại máy',detail:error.message})).finally(()=>{working=false;});
+            return {result:decision};
+          }
+          if(decision.action!=='prepare') return {result:decision};
+          const url=decision.url;
           const directory=randomUUID(),dir=path.join(root,directory); fs.mkdirSync(dir);
           try {
             const media=await engine;
-            if(url) {window.setTitle('AIEV · Đang tải video về máy bạn'); await media.downloadDrive(url,path.join(dir,'source.mp4'));}
+            if(decision.sourceJobId && records[decision.sourceJobId] && fs.existsSync(path.join(record(decision.sourceJobId),'source.mp4'))) fs.copyFileSync(path.join(record(decision.sourceJobId),'source.mp4'),path.join(dir,'source.mp4'));
+            else if(url) {window.setTitle('AIEV · Đang tải video về máy bạn'); await media.downloadDrive(url,path.join(dir,'source.mp4'));}
             else {const selected=await dialog.showOpenDialog(window,{title:'Chọn video nguồn trên máy bạn',properties:['openFile'],filters:[{name:'Video',extensions:['mp4','mov','mkv','webm','avi']}]}); if(selected.canceled) throw new Error('Đã hủy chọn video'); fs.copyFileSync(selected.filePaths[0],path.join(dir,'source.mp4'));}
             const metadata={...await media.probe('source.mp4',dir),bytes:fs.statSync(path.join(dir,'source.mp4')).size};
-            const result=await api('/local/quote',{...body,url:url || 'local-file',metadata});
+            const result=await api('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,url:url || 'local-file',metadata});
             records[result.jobId]={directory}; persist(); return {result};
-          } catch(error) {fs.rmSync(dir,{recursive:true,force:true}); throw error;}
-        } finally {working=false; window.setTitle('AIEV Studio');}
+          } catch(error) {fs.rmSync(dir,{recursive:true,force:true}); return {result:{...decision,localError:error.message}};}
+        } finally {if(!started) {working=false; window.setTitle('AIEV Studio');}}
       }
       const match=typeof endpoint==='string' && endpoint.match(/^\/videos\/([a-zA-Z0-9-]+)\/confirm$/);
       if(!match) throw new Error('Chức năng không được phép');

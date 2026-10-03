@@ -7,6 +7,7 @@ import { mediaBinary, driveFile, runMedia } from "./media.js";
 import { CustomerService } from "./service.js";
 import { CustomerError, CustomerStore, type User } from "./store.js";
 import { localRoutes } from "./local.js";
+import { assistantRoutes } from "./assistant.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
 function sameSecret(a: string, b: string) { const aa = Buffer.from(a), bb = Buffer.from(b); return aa.length === bb.length && aa.length > 0 && timingSafeEqual(aa, bb); }
@@ -42,6 +43,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   }
   function user(res: Response) { return res.locals.user as User; }
   localRoutes(app, store, auth);
+  assistantRoutes(app, store, auth);
   let mediaReady: boolean | null = null;
   let readinessCheckedAt = 0;
   async function ready() {
@@ -57,6 +59,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     baseTokens: customerConfig.baseCost, tokensPerMinute: customerConfig.perMinute, tokensPerGiB: process.env.CUSTOMER_SERVER_RENDER === '0' ? 0 : customerConfig.perGiB,
     aiReady: Boolean(process.env.OPENAI_API_KEY?.trim()), mediaReady: await ready(), paymentReady: Boolean(customerConfig.sepayKey),
     processingMode: process.env.CUSTOMER_SERVER_RENDER === '0' ? 'local' : 'server',
+    chatTokens: 1,
   }));
   app.post("/api/customer/auth/register", limit, (req, res) => {
     const created = store.register(field(req.body, "email", 254), field(req.body, "name", 100), field(req.body, "password", 128));

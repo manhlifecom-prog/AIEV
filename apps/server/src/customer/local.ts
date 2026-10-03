@@ -20,11 +20,20 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     if (typeof message!=='string' || !message.trim() || message.length>8000) throw new CustomerError(400,'Yêu cầu không hợp lệ');
     const owner=res.locals.user.id;
     const threadId=req.body.threadId || store.createThread(owner,message);
+    store.thread(owner,threadId);
+    if (req.body.turnId) {
+      const turn=store.db.prepare('SELECT result FROM assistant_turns WHERE id=? AND user_id=?').get(req.body.turnId,owner);
+      const decision=turn && JSON.parse(String(turn.result));
+      if (!decision || decision.threadId!==threadId || decision.action!=='prepare' || decision.prompt!==message) throw new CustomerError(400,'Yêu cầu dựng không khớp cuộc trò chuyện');
+    }
+    const existing=store.jobs(owner).filter(j=>j.thread_id===threadId);
+    if(existing.some(j=>j.status==='local_running')) throw new CustomerError(409,'Hãy chờ lượt dựng hiện tại hoàn tất');
+    for(const pending of existing.filter(j=>j.status==='awaiting_confirmation')) store.update(pending.id,'cancelled','Được thay bằng yêu cầu mới');
     const tokens=quoteTokens(m.duration,0);
     const job=store.createJob(owner,threadId,message,String(req.body.url || 'local-file'));
     store.db.prepare('INSERT INTO local_jobs(id,metadata) VALUES(?,?)').run(job.id,JSON.stringify(m));
     store.quote(job.id,m.duration,tokens);
-    store.message(threadId,'user',message);
+    if (!req.body.turnId) store.message(threadId,'user',message);
     store.message(threadId,'assistant',`Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Chi phí ${tokens} token. Xác nhận để AI lên kế hoạch và app dựng tại máy. Không tải video nguồn lên VPS. Khi đã nhận kế hoạch AI, phí AI không hoàn nếu máy bạn dựng lỗi; bạn có thể thử dựng lại cùng kế hoạch miễn phí.`);
     res.json({threadId,jobId:job.id});
   });
