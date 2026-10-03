@@ -10,13 +10,13 @@ Website: https://video.manh.marketing/studio
 4. AI kiểm tra nguồn và báo giá. Nếu chưa đủ token, mở **Ví token**, chọn gói và chuyển đúng số tiền, đúng nội dung QR.
 5. Sau khi token được cộng, nhắn **đồng ý dựng** hoặc bấm **Xác nhận dựng video**. Xem và tải MP4 khi hoàn tất.
 
-Giới hạn của VPS này: 100 MiB/file, 5 phút nguồn, một file cho mỗi yêu cầu. Chưa hỗ trợ thư mục Drive, file riêng tư chưa chia sẻ, sinh cảnh video mới hoặc dịch/lồng tiếng. Có cắt/ghép đoạn, đổi tỷ lệ, tiêu đề và phụ đề theo lời thoại. Mỗi lượt chỉnh lại có báo giá riêng.
+Không đặt giới hạn cố định về dung lượng file hoặc thời lượng nguồn; mỗi yêu cầu dùng một file. Máy chủ vẫn kiểm tra dung lượng thực tế trước khi tải và trong khi dựng. Chưa hỗ trợ thư mục Drive, file riêng tư chưa chia sẻ, sinh cảnh video mới hoặc dịch/lồng tiếng. Có cắt/ghép đoạn, đổi tỷ lệ, tiêu đề và phụ đề theo lời thoại. Mỗi lượt chỉnh lại có báo giá riêng.
 
 ## Thanh toán và quản trị
 
 - MB `0383199234`, người nhận `NGUYEN VAN MANH`.
 - 1 token = 1.000 đồng; gói 100 / 500 / 1.000 token.
-- Chi phí dựng = 10 + 20 × số phút nguồn làm tròn lên. Nguồn dưới một phút: 30 token. Token dịch vụ khác với token API OpenAI.
+- Chi phí dựng = 10 + 20 × số phút nguồn làm tròn lên + làm tròn lên (10 × dung lượng nguồn tính bằng GiB). Hệ thống báo tổng trước khi khách xác nhận. Token dịch vụ khác với token API OpenAI.
 - Nội dung chuyển khoản do hệ thống tạo, bắt đầu bằng `AIEV`; không tự nhập lại mã của đơn cũ. Mỗi đơn có hiệu lực 30 phút.
 - API kiểm tra mã đơn, số tiền, tài khoản, chiều tiền vào và thời hạn. Gửi lại cùng giao dịch không cộng hai lần. Dựng lỗi hoàn token một lần.
 - Admin đăng nhập bằng tài khoản quản trị đã cấp, mở **Quản trị** để xem khách hàng, số dư, tác vụ và đơn nạp. Không có quyền admin khi tự đăng ký tài khoản mới.
@@ -29,7 +29,7 @@ Giới hạn của VPS này: 100 MiB/file, 5 phút nguồn, một file cho mỗi
 - OpenAI nhận diện lời thoại/lập kế hoạch, FFmpeg xuất MP4 1080 × 1080 có âm thanh/phụ đề và tải có xác thực: chạy thành công trên VPS.
 - Kiểm tra ví trong database thử tách biệt: cộng một lần khi webhook gửi lại, giữ đúng token khi xác nhận. Không nạp tiền giả vào ví thật.
 - Webhook **AIEV Studio - Nạp token** bật trên SePay; nút **Gửi thử** trả HTTP 200. Lượt thử ID 0 không cộng token.
-- 13 kiểm tra API/quyền tài khoản/ví/dung lượng và build web/server thành công.
+- 16 kiểm tra API/quyền tài khoản/ví/dung lượng và build web/server thành công, gồm nguồn 601 giây/101 MiB; âm thanh dài được chia từng đoạn 10 phút để nhận diện lời thoại.
 
 Chưa đối soát chuyển khoản ngân hàng thật. Chủ dịch vụ cần thử một đơn nạp của mình, chuyển theo QR và kiểm tra ví tăng đúng một lần trước khi mở bán rộng. Tác vụ này dùng tiền thật nên chủ tài khoản thực hiện.
 

@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { runMedia, probe } from "./media.js";
 import { renderPlan } from "./render.js";
+import { customerConfig } from "./config.js";
 
 test("real FFmpeg pipeline produces a checked MP4 with resized video, audio, cuts and Vietnamese captions", async () => {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "aiev-customer-render-"));
@@ -16,10 +17,27 @@ test("real FFmpeg pipeline produces a checked MP4 with resized video, audio, cut
     assert.equal(result.width, 1080); assert.equal(result.height, 1080); assert.equal(result.hasAudio, true);
     assert.ok(Math.abs(result.duration - 1.5) < 0.2);
     assert.deepEqual(stages, ["Đang dựng bản xem trước", "Đang kiểm tra bản dựng", "Đang xuất video MP4"]);
-    assert.ok(fs.statSync(path.join(directory, "draft.mp4")).size > 1000);
+    assert.equal(fs.existsSync(path.join(directory, "draft.mp4")), false);
   } finally {
     assert.equal(path.dirname(directory), path.resolve(os.tmpdir()));
     assert.ok(path.basename(directory).startsWith("aiev-customer-render-"));
+    fs.rmSync(directory, { recursive: true, force: true });
+  }
+});
+
+test("uncapped probing accepts sources longer than five minutes and larger than 100 MiB", async () => {
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "aiev-customer-render-large-"));
+  const prior = customerConfig.maxSeconds;
+  try {
+    customerConfig.maxSeconds = 0;
+    await runMedia("ffmpeg", ["-y", "-v", "error", "-f", "lavfi", "-i", "color=c=black:s=160x90:r=1:d=601", "-c:v", "libx264", "-preset", "ultrafast", "source.mp4"], directory);
+    const descriptor = fs.openSync(path.join(directory, "source.mp4"), "r+");
+    fs.ftruncateSync(descriptor, 101 * 1024 * 1024); fs.closeSync(descriptor);
+    assert.ok((await probe("source.mp4", directory)).duration > 600);
+  } finally {
+    customerConfig.maxSeconds = prior;
+    assert.equal(path.dirname(directory), path.resolve(os.tmpdir()));
+    assert.ok(path.basename(directory).startsWith("aiev-customer-render-large-"));
     fs.rmSync(directory, { recursive: true, force: true });
   }
 });

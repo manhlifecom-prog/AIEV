@@ -51,6 +51,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   app.get("/api/customer/config", async (_req, res) => res.json({
     bank: customerConfig.bank, account: customerConfig.account, accountName: customerConfig.accountName,
     tokenPrice: customerConfig.tokenPrice, packs: [100, 500, 1000], maxMinutes: customerConfig.maxSeconds / 60, maxMegabytes: Math.floor(customerConfig.maxBytes / 1024 / 1024),
+    baseTokens: customerConfig.baseCost, tokensPerMinute: customerConfig.perMinute, tokensPerGiB: customerConfig.perGiB,
     aiReady: Boolean(process.env.OPENAI_API_KEY?.trim()), mediaReady: await ready(), paymentReady: Boolean(customerConfig.sepayKey),
   }));
   app.post("/api/customer/auth/register", limit, (req, res) => {

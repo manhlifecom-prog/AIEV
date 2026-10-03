@@ -43,19 +43,20 @@ Các giá hiện tại là cấu hình khởi điểm để chủ phần mềm d
 | `CUSTOMER_BASE_TOKENS` | 10 token / lượt |
 | `CUSTOMER_TOKENS_PER_MINUTE` | 20 token / phút nguồn, làm tròn lên |
 | Gói nạp | 100, 500, 1.000 token |
-| `CUSTOMER_MAX_VIDEO_SECONDS` | 1.800 giây |
-| `CUSTOMER_MAX_VIDEO_BYTES` | 1 GiB |
+| `CUSTOMER_TOKENS_PER_GIB` | 10 token / GiB nguồn; chi phí làm tròn lên token nguyên |
+| `CUSTOMER_MAX_VIDEO_SECONDS` | 0: không đặt giới hạn cố định |
+| `CUSTOMER_MAX_VIDEO_BYTES` | 0: không đặt giới hạn cố định |
 | `CUSTOMER_MIN_FREE_BYTES` | 512 MiB dự phòng ổ đĩa |
 | `CUSTOMER_ORIGIN` | `http://localhost:6870` |
 | `CUSTOMER_DATA_DIR` | `.runtime/customer/` |
 
-Token trong ví là đơn vị dịch vụ của AIEV. Chúng không phải số token đầu vào/đầu ra của OpenAI. Chi phí đang là giá cố định theo phút video nguồn, bao gồm nhận diện lời thoại, lập kế hoạch và dựng. Cần đo chi phí thật và chốt giá trước khi nhận khách trả tiền.
+Token trong ví là đơn vị dịch vụ của AIEV. Chúng không phải số token đầu vào/đầu ra của OpenAI. Chi phí gồm phí mỗi lượt, phút video nguồn làm tròn lên và dung lượng nguồn; bao gồm nhận diện lời thoại, lập kế hoạch và dựng. Cần đo chi phí thật và chốt giá trước khi nhận khách trả tiền.
 
 ## Những gì đã thực hiện
 
 - Tài khoản bằng email/mật khẩu; hash scrypt, session ngẫu nhiên chỉ lưu hash, cookie HttpOnly và SameSite. Cookie Secure khi `CUSTOMER_ORIGIN` dùng HTTPS.
 - Mọi cuộc trò chuyện, tác vụ, ví, đơn nạp và file đầu ra đều kiểm tra chủ sở hữu phía server.
-- Nhận file Google Drive có quyền tải bằng link; tải có giới hạn dung lượng, thời gian, DNS và kiểm tra từng chặng chuyển hướng.
+- Nhận file Google Drive có quyền tải bằng link; kiểm tra dung lượng thực tế, thời gian tải, DNS và từng chặng chuyển hướng. Giới hạn dung lượng/thời lượng cấu hình bằng 0 nghĩa là không đặt mức cố định.
 - AI nhận transcript có mốc từ, chọn các khoảng thời gian để cắt/ghép, đổi tỷ lệ bằng giữ toàn bộ khung hình, thêm phụ đề từ lời thoại và tiêu đề. AI chỉ trả kế hoạch JSON được kiểm tra; không có quyền shell hay truy cập file tùy ý.
 - Dựng draft, kiểm tra thời lượng/kích thước, xuất final MP4; không tự coi draft là thành phẩm.
 - Ví và sổ giao dịch cập nhật trong transaction SQLite. Xác nhận lặp không trừ hai lần; lỗi và tác vụ đang chạy khi restart hoàn token một lần. Tác vụ đã xếp hàng tiếp tục sau restart.
@@ -66,7 +67,7 @@ Token trong ví là đơn vị dịch vụ của AIEV. Chúng không phải số
 
 Website đã triển khai HTTPS trên VPS Vultr tại `https://video.manh.marketing/studio`. Khóa OpenAI và webhook SePay được cài riêng trên máy chủ. Kiểm tra trên VPS đã chạy nhận diện lời thoại OpenAI, lập kế hoạch AI, dựng FFmpeg có phụ đề và tải MP4; ví dùng database thử riêng, không cộng tiền giả vào tài khoản thật. SePay đã gửi thử thành công HTTP 200. Chưa đối soát một chuyển khoản ngân hàng thật.
 
-Giới hạn cấu hình trên VPS hiện tại: một file Drive cho mỗi yêu cầu, 100 MiB/file, 5 phút nguồn, dựng nối tiếp. Mặc định trong bảng phía trên dành cho cài đặt mới, không phải giới hạn của máy chủ này. VPS 1 CPU/1 GiB RAM còn ít dung lượng; kiểm tra dung lượng có thể tạm ngừng nhận tác vụ khi không đủ chỗ. Chưa có chính sách tự xóa video của khách.
+VPS hiện tại không đặt mức dung lượng/thời lượng cố định, dùng một file Drive cho mỗi yêu cầu và dựng nối tiếp. Âm thanh dài được nhận diện theo các đoạn 10 phút; mốc lời thoại được cộng thời gian đoạn. Với transcript rất dài, mô hình nhận phần đầu/cuối và mẫu mốc từ trải đều; lựa chọn cảnh giữa video có thể kém chính xác hơn. VPS 1 CPU/1 GiB RAM còn ít dung lượng; kiểm tra dung lượng có thể tạm ngừng nhận tác vụ khi không đủ chỗ. Chưa có chính sách tự xóa video của khách.
 
 Nhận được video thuộc mọi lĩnh vực, nhưng không đồng nghĩa hỗ trợ mọi phép chỉnh sửa. Chưa có kết nối OAuth cho Drive riêng tư, link thư mục, dịch phụ đề, sinh cảnh mới, tạo nhạc, lồng tiếng hay hiểu toàn bộ hình ảnh của video. Mô hình hiện lựa chọn cảnh dựa trên lời thoại và thời gian nguồn. Với video không có tiếng, mô hình chỉ có thông tin thời lượng/kích thước.
 

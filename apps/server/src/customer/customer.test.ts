@@ -1,9 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { CustomerStore, CustomerError } from "./store.js";
-import { customerConfig } from "./config.js";
+import { customerConfig, quoteTokens } from "./config.js";
 import { driveFile } from "./media.js";
-import { validateEdit, subtitleDocument } from "./render.js";
+import { validateEdit, subtitleDocument, speechChunks } from "./render.js";
 import { customerApp } from "./http.js";
 import { CustomerService } from "./service.js";
 import type { AddressInfo } from "node:net";
@@ -130,8 +130,8 @@ test("unfunded jobs cannot queue; retries reserve once and failures refund once"
 
 test("disk admission reserves room for concurrent work and rejects before token reservation", () => {
   const { store, user } = setup();
-  const minimum = customerConfig.minFreeBytes, maximum = customerConfig.maxBytes;
-  const service = new CustomerService(store, () => minimum + maximum * 3);
+  const minimum = customerConfig.minFreeBytes;
+  const service = new CustomerService(store, () => minimum + 64 * 1024 * 1024);
   service.ensureCapacity("import");
   const thread = store.createThread(user.id, "Video");
   const job = store.createJob(user.id, thread, "video", "https://drive.google.com/file/d/1234567890abcdef/view");
@@ -150,6 +150,17 @@ test("disk admission reserves room for concurrent work and rejects before token 
   store.fail(job.id, "Không đủ dung lượng");
   assert.equal(store.user(user.id)?.balance, 100);
   store.db.close();
+});
+
+test("uncapped sources charge duration and bytes; long speech is split without truncating its tail", () => {
+  const prior = customerConfig.maxSeconds;
+  customerConfig.maxSeconds = 0;
+  try {
+    assert.equal(quoteTokens(3600, 2 * 1024 ** 3), customerConfig.baseCost + 60 * customerConfig.perMinute + 2 * customerConfig.perGiB);
+    assert.ok(quoteTokens(3601, 0) > quoteTokens(3600, 0));
+    assert.throws(() => quoteTokens(3600, -1));
+    assert.deepEqual([...speechChunks(1201)], [{ start: 0, seconds: 600 }, { start: 600, seconds: 600 }, { start: 1200, seconds: 1 }]);
+  } finally { customerConfig.maxSeconds = prior; }
 });
 test("successful jobs remain charged and interrupted jobs refund on restart", () => {
   const { store, user } = setup();

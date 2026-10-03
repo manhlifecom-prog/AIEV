@@ -14,8 +14,9 @@ export class CustomerService {
   }) {}
   ensureCapacity(phase: "import" | "render", jobId?: string) {
     const active = this.store.db.prepare("SELECT count(*) AS n FROM jobs WHERE status IN ('inspecting','queued','running') AND id<>?").get(jobId || "");
-    const reserved = Number(active?.n) * customerConfig.maxBytes * 3;
-    const needed = customerConfig.minFreeBytes + reserved + customerConfig.maxBytes * (phase === "import" ? 3 : 2);
+    // Reserve scratch space for workers, not the former fixed source-size cap.
+    const scratch = 64 * 1024 * 1024;
+    const needed = customerConfig.minFreeBytes + (Number(active?.n) + 1) * scratch;
     if (this.freeBytes() < needed) throw new CustomerError(503, "Máy chủ đang thiếu dung lượng xử lý. Hãy thử lại sau.");
   }
   directory(job: Job) {
@@ -32,9 +33,10 @@ export class CustomerService {
       if (existing && fs.existsSync(existing)) fs.copyFileSync(existing, path.join(dir, "source.mp4"));
       else await downloadDrive(job.drive_url, path.join(dir, "source.mp4"));
       const metadata = await probe("source.mp4", dir);
-      const tokens = quoteTokens(metadata.duration);
+      const bytes = fs.statSync(path.join(dir, "source.mp4")).size;
+      const tokens = quoteTokens(metadata.duration, bytes);
       this.store.quote(job.id, metadata.duration, tokens);
-      this.store.message(job.thread_id, "assistant", `Tôi đã nhận video nguồn dài ${Math.ceil(metadata.duration)} giây. Chi phí cho yêu cầu này là ${tokens} token. Nhắn 'đồng ý dựng' để tôi bắt đầu, hoặc 'hủy yêu cầu' để bỏ qua. Token được hoàn nếu xử lý thất bại.`);
+      this.store.message(job.thread_id, "assistant", `Tôi đã nhận video nguồn dài ${Math.ceil(metadata.duration)} giây, ${(bytes / 1024 / 1024).toFixed(1)} MB. Chi phí theo thời lượng và dung lượng nguồn cho yêu cầu này là ${tokens} token. Nhắn 'đồng ý dựng' để tôi bắt đầu, hoặc 'hủy yêu cầu' để bỏ qua. Token được hoàn nếu xử lý thất bại.`);
     } catch (error) { this.store.fail(job.id, error instanceof Error ? error.message : "Không kiểm tra được video nguồn"); }
   }
   async processQueue() {

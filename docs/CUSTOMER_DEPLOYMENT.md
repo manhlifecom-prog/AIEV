@@ -2,7 +2,7 @@
 
 ## Trạng thái
 
-Website đang chạy tại `https://video.manh.marketing/studio` trên VPS Vultr `45.32.123.86`, qua nginx và systemd (`aiev-video-web`, `aiev-video-api`). API chỉ lắng nghe loopback; dữ liệu ở `/var/lib/aiev-video`, cấu hình bí mật ở `/etc/aiev-video.env` quyền 600. Giới hạn nguồn 100 MiB, 5 phút. Không đổi các tên miền hoặc dự án CRM đang chạy.
+Website đang chạy tại `https://video.manh.marketing/studio` trên VPS Vultr `45.32.123.86`, qua nginx và systemd (`aiev-video-web`, `aiev-video-api`). API chỉ lắng nghe loopback; dữ liệu ở `/var/lib/aiev-video`, cấu hình bí mật ở `/etc/aiev-video.env` quyền 600. `CUSTOMER_MAX_VIDEO_BYTES=0` và `CUSTOMER_MAX_VIDEO_SECONDS=0` bỏ giới hạn sản phẩm cố định; vẫn kiểm tra chỗ trống thực tế khi tải/dựng. `CUSTOMER_TOKENS_PER_GIB=10` tính thêm chi phí theo dung lượng. Không đổi các tên miền hoặc dự án CRM đang chạy.
 
 Backend hiện dùng SQLite, file video và worker FFmpeg chạy liên tục. Các hướng dẫn Docker/Caddy bên dưới là phương án cài đặt mới; máy chủ hiện tại dùng nginx/systemd. Không chạy thêm stack Docker vào cùng data directory của bản đang hoạt động.
 

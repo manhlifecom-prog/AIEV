@@ -20,12 +20,17 @@ export const customerConfig = {
   tokenPrice: integer("CUSTOMER_TOKEN_PRICE_VND", 1000),
   baseCost: integer("CUSTOMER_BASE_TOKENS", 10),
   perMinute: integer("CUSTOMER_TOKENS_PER_MINUTE", 20),
-  maxSeconds: integer("CUSTOMER_MAX_VIDEO_SECONDS", 1800),
-  maxBytes: integer("CUSTOMER_MAX_VIDEO_BYTES", 1024 * 1024 * 1024),
+  perGiB: integer("CUSTOMER_TOKENS_PER_GIB", 10, 0),
+  // Zero means no product cap. Physical disk admission still applies.
+  maxSeconds: integer("CUSTOMER_MAX_VIDEO_SECONDS", 0, 0),
+  maxBytes: integer("CUSTOMER_MAX_VIDEO_BYTES", 0, 0),
   minFreeBytes: integer("CUSTOMER_MIN_FREE_BYTES", 512 * 1024 * 1024),
   sepayKey: process.env.CUSTOMER_SEPAY_WEBHOOK_KEY || "",
 };
-export function quoteTokens(seconds: number) {
-  if (!Number.isFinite(seconds) || seconds <= 0 || seconds > customerConfig.maxSeconds) throw new Error("Thời lượng video vượt giới hạn xử lý");
-  return customerConfig.baseCost + Math.ceil(seconds / 60) * customerConfig.perMinute;
+export function quoteTokens(seconds: number, bytes = 0) {
+  if (!Number.isFinite(seconds) || seconds <= 0 || (customerConfig.maxSeconds > 0 && seconds > customerConfig.maxSeconds)) throw new Error("Thời lượng video vượt giới hạn xử lý");
+  if (!Number.isSafeInteger(bytes) || bytes < 0) throw new Error("Dung lượng video không hợp lệ");
+  const tokens = customerConfig.baseCost + Math.ceil(seconds / 60) * customerConfig.perMinute + Math.ceil(bytes / (1024 ** 3) * customerConfig.perGiB);
+  if (!Number.isSafeInteger(tokens)) throw new Error("Không tính được chi phí video");
+  return tokens;
 }

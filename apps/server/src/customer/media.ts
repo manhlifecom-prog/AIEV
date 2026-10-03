@@ -24,7 +24,7 @@ export async function downloadDrive(url: string, destination: string) {
   let current = new URL("https://drive.usercontent.google.com/download");
   current.searchParams.set("id", id); current.searchParams.set("export", "download"); current.searchParams.set("confirm", "t");
   if (key) current.searchParams.set("resourcekey", key);
-  const deadline = Date.now() + 10 * 60_000;
+  const deadline = Date.now() + 24 * 60 * 60_000;
   for (let redirects = 0; redirects <= 5; redirects++) {
     if (current.protocol !== "https:" || !allowedHost(current.hostname) || current.port || current.username || current.password) throw new Error("Google Drive chuyển tới địa chỉ không được phép");
     const addresses = await dns.lookup(current.hostname, { all: true });
@@ -50,9 +50,19 @@ export async function downloadDrive(url: string, destination: string) {
       response.destroy(); throw new Error("Không tải được video. Hãy bật quyền 'Bất kỳ ai có đường liên kết' và cho phép tải xuống trên Google Drive.");
     }
     const tooLarge = () => new Error(`Video vượt giới hạn ${Math.floor(customerConfig.maxBytes / 1024 / 1024)} MB cho mỗi file`);
-    if (Number(response.headers["content-length"]) > customerConfig.maxBytes) { response.destroy(); throw tooLarge(); }
-    let bytes = 0;
-    const limiter = new Transform({ transform(chunk: Buffer, _encoding, callback) { bytes += chunk.length; callback(bytes > customerConfig.maxBytes ? tooLarge() : null, chunk); } });
+    if (customerConfig.maxBytes > 0 && Number(response.headers["content-length"]) > customerConfig.maxBytes) { response.destroy(); throw tooLarge(); }
+    let bytes = 0, checkedAt = 0;
+    const capacity = (remaining = 0) => {
+      const disk = fs.statfsSync(path.dirname(destination));
+      if (disk.bavail * disk.bsize < customerConfig.minFreeBytes + 64 * 1024 * 1024 + remaining) throw new Error("Máy chủ chưa đủ chỗ lưu video này. Token chưa bị trừ; cần bổ sung dung lượng máy chủ.");
+    };
+    try { capacity(Number(response.headers["content-length"]) || 0); } catch (error) { response.destroy(); throw error; }
+    const limiter = new Transform({ transform(chunk: Buffer, _encoding, callback) {
+      bytes += chunk.length;
+      if (customerConfig.maxBytes > 0 && bytes > customerConfig.maxBytes) return callback(tooLarge());
+      try { if (bytes - checkedAt >= 1024 * 1024) { capacity(); checkedAt = bytes; } callback(null, chunk); }
+      catch (error) { callback(error as Error); }
+    } });
     try { await pipeline(response, limiter, fs.createWriteStream(destination, { flags: "wx" })); }
     catch (error) { if (fs.existsSync(destination)) fs.unlinkSync(destination); throw error; }
     if (bytes < 100) throw new Error("File Google Drive không có video hợp lệ");
@@ -71,16 +81,26 @@ export async function runMedia(name: "ffmpeg" | "ffprobe", args: string[], cwd: 
     const child = spawn(mediaBinary(name), args, { cwd, windowsHide: true, shell: false });
     let stdout = "", stderr = "";
     const timer = setTimeout(() => { child.kill("SIGKILL"); reject(new Error("Dựng video quá thời gian cho phép")); }, timeout);
+    const diskTimer = name === "ffmpeg" ? setInterval(() => {
+      try {
+        const disk = fs.statfsSync(cwd);
+        if (disk.bavail * disk.bsize < customerConfig.minFreeBytes) {
+          child.kill("SIGKILL"); reject(new Error("Máy chủ hết chỗ dựng video. Cần bổ sung dung lượng trước khi thử lại."));
+        }
+      } catch { child.kill("SIGKILL"); reject(new Error("Không kiểm tra được dung lượng dựng video")); }
+    }, 1000) : undefined;
+    const clear = () => { clearTimeout(timer); if (diskTimer) clearInterval(diskTimer); };
     child.stdout.on("data", chunk => { if (stdout.length < 4_000_000) stdout += String(chunk); });
     child.stderr.on("data", chunk => { stderr = (stderr + String(chunk)).slice(-8000); });
-    child.on("error", () => { clearTimeout(timer); reject(new Error("Máy chủ chưa sẵn sàng xử lý video")); });
-    child.on("close", code => { clearTimeout(timer); if (code === 0) resolve(stdout); else reject(new Error(`Bộ dựng video không hoàn tất (mã ${code}).`, { cause: stderr })); });
+    child.on("error", () => { clear(); reject(new Error("Máy chủ chưa sẵn sàng xử lý video")); });
+    child.on("close", code => { clear(); if (code === 0) resolve(stdout); else reject(new Error(`Bộ dựng video không hoàn tất (mã ${code}).`, { cause: stderr })); });
   });
 }
 export async function probe(filename: string, cwd: string) {
   const result = JSON.parse(await runMedia("ffprobe", ["-v", "error", "-protocol_whitelist", "file,pipe", "-show_format", "-show_streams", "-of", "json", filename], cwd, 30_000));
   const video = result.streams?.find((stream: { codec_type: string }) => stream.codec_type === "video");
   const duration = Number(result.format?.duration);
-  if (!video || !Number.isFinite(duration) || duration <= 0 || duration > customerConfig.maxSeconds) throw new Error(`Hãy dùng video có thời lượng tối đa ${Math.floor(customerConfig.maxSeconds / 60)} phút`);
+  if (!video || !Number.isFinite(duration) || duration <= 0) throw new Error("File không có video hoặc thời lượng hợp lệ");
+  if (customerConfig.maxSeconds > 0 && duration > customerConfig.maxSeconds) throw new Error(`Hãy dùng video có thời lượng tối đa ${Math.floor(customerConfig.maxSeconds / 60)} phút`);
   return { duration, width: Number(video.width), height: Number(video.height), hasAudio: Boolean(result.streams?.some((stream: { codec_type: string }) => stream.codec_type === "audio")) };
 }
