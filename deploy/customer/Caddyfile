@@ -1,0 +1,4 @@
+video.manh.marketing {
+    encode zstd gzip
+    reverse_proxy studio:6870
+}
