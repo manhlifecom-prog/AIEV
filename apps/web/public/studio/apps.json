@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "sha256": {
+    "windows": "3a87181ecab02db5991e03cbdcdba06b3fbc7232e49705ddb168a5d9f7846abd",
+    "android": "ca4a90a45664c1c342fdf67b9ab9ba0e3ce4639a1ec54e5a1ecff0c8d5a1b34d"
+  },
+  "windows": "/studio/downloads/AIEV-Studio-Setup-0.2.0.exe",
+  "android": "/studio/downloads/AIEV-Studio-0.1.0.apk",
+  "processingMode": "local"
+}

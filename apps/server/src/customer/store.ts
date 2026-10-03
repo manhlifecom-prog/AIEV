@@ -127,7 +127,7 @@ export class CustomerStore {
   reserve(userId: string, id: string) {
     return this.transaction(() => {
       const job = this.job(userId, id);
-      if (["queued", "running", "done"].includes(job.status)) return job;
+      if (["queued", "running", "local_running", "done"].includes(job.status)) return job;
       if (job.status !== "awaiting_confirmation") throw new CustomerError(409, "Video chưa sẵn sàng");
       const changed = this.db.prepare("UPDATE users SET balance=balance-? WHERE id=? AND balance>=?").run(job.tokens, userId, job.tokens);
       if (changed.changes !== 1) throw new CustomerError(402, "Bạn cần nạp thêm token để dựng video");

@@ -1,5 +1,8 @@
 # Deploy AIEV lên video.manh.marketing
 
+> Cập nhật 03/10/2026: production chuyển sang dựng tại máy khách bằng app Windows 0.2.0. VPS không tải/dựng video nguồn. Xem [chế độ dựng tại máy](CUSTOMER_LOCAL_RENDER.md) về cách dùng, giá token, hoàn phí và giới hạn thiết bị. Các phần mô tả bộ dựng VPS bên dưới là cấu hình trước lần chuyển này.
+
+
 ## Trạng thái
 
 Website đang chạy tại `https://video.manh.marketing/studio` trên VPS Vultr `45.32.123.86`, qua nginx và systemd (`aiev-video-web`, `aiev-video-api`). API chỉ lắng nghe loopback; dữ liệu ở `/var/lib/aiev-video`, cấu hình bí mật ở `/etc/aiev-video.env` quyền 600. `CUSTOMER_MAX_VIDEO_BYTES=0` và `CUSTOMER_MAX_VIDEO_SECONDS=0` bỏ giới hạn sản phẩm cố định; vẫn kiểm tra chỗ trống thực tế khi tải/dựng. `CUSTOMER_TOKENS_PER_GIB=10` tính thêm chi phí theo dung lượng. Không đổi các tên miền hoặc dự án CRM đang chạy.

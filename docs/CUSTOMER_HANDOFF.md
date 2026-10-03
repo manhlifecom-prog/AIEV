@@ -1,5 +1,8 @@
 # AIEV Studio — bàn giao bản chạy trên VPS
 
+> Cập nhật 03/10/2026: production chuyển sang dựng tại máy khách bằng app Windows 0.2.0. VPS không tải/dựng video nguồn. Xem [chế độ dựng tại máy](CUSTOMER_LOCAL_RENDER.md) về cách dùng, giá token, hoàn phí và giới hạn thiết bị. Các phần mô tả bộ dựng VPS bên dưới là cấu hình trước lần chuyển này.
+
+
 Website: https://video.manh.marketing/studio
 
 ## Cách khách hàng dùng

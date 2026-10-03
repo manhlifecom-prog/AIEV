@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell, dialog, session } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog, session, ipcMain } = require('electron');
 const path = require('node:path');
 const { ORIGIN, inside, external, videoDownload } = require('./policy.cjs');
 let window;
@@ -6,8 +6,9 @@ if (!app.requestSingleInstanceLock()) app.quit();
 app.on('second-instance', () => { if (window) { if (window.isMinimized()) window.restore(); window.focus(); } });
 async function openStudio() {
   window = new BrowserWindow({ width: 1280, height: 850, minWidth: 380, minHeight: 600, title: 'AIEV Studio', backgroundColor: '#11131a', icon: path.join(__dirname, 'icon.png'), show: false,
-    webPreferences: { nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, partition: 'persist:aiev-studio' } });
-  window.webContents.setUserAgent(window.webContents.getUserAgent() + ' AIEVDesktop/0.1.0');
+    webPreferences: { preload: path.join(__dirname,'preload.cjs'), nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, partition: 'persist:aiev-studio' } });
+  require('./local-engine.cjs').attachLocal({app,ipcMain,dialog,shell,window});
+  window.webContents.setUserAgent(window.webContents.getUserAgent() + ' AIEVDesktop/0.2.0');
   const permissions = window.webContents.session;
   permissions.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
   permissions.setPermissionCheckHandler(() => false);

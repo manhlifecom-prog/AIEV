@@ -6,6 +6,7 @@ import { customerConfig } from "./config.js";
 import { mediaBinary, driveFile, runMedia } from "./media.js";
 import { CustomerService } from "./service.js";
 import { CustomerError, CustomerStore, type User } from "./store.js";
+import { localRoutes } from "./local.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
 function sameSecret(a: string, b: string) { const aa = Buffer.from(a), bb = Buffer.from(b); return aa.length === bb.length && aa.length > 0 && timingSafeEqual(aa, bb); }
@@ -40,9 +41,11 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     res.locals.user = user; next();
   }
   function user(res: Response) { return res.locals.user as User; }
+  localRoutes(app, store, auth);
   let mediaReady: boolean | null = null;
   let readinessCheckedAt = 0;
   async function ready() {
+    if (process.env.CUSTOMER_SERVER_RENDER === '0') return true;
     if (mediaReady !== null && Date.now() - readinessCheckedAt < (mediaReady ? 30_000 : 5000)) return mediaReady;
     try { await runMedia("ffmpeg", ["-version"], customerConfig.dataDir, 10_000); await runMedia("ffprobe", ["-version"], customerConfig.dataDir, 10_000); mediaReady = true; }
     catch { mediaReady = false; }
@@ -51,8 +54,9 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   app.get("/api/customer/config", async (_req, res) => res.json({
     bank: customerConfig.bank, account: customerConfig.account, accountName: customerConfig.accountName,
     tokenPrice: customerConfig.tokenPrice, packs: [100, 500, 1000], maxMinutes: customerConfig.maxSeconds / 60, maxMegabytes: Math.floor(customerConfig.maxBytes / 1024 / 1024),
-    baseTokens: customerConfig.baseCost, tokensPerMinute: customerConfig.perMinute, tokensPerGiB: customerConfig.perGiB,
+    baseTokens: customerConfig.baseCost, tokensPerMinute: customerConfig.perMinute, tokensPerGiB: process.env.CUSTOMER_SERVER_RENDER === '0' ? 0 : customerConfig.perGiB,
     aiReady: Boolean(process.env.OPENAI_API_KEY?.trim()), mediaReady: await ready(), paymentReady: Boolean(customerConfig.sepayKey),
+    processingMode: process.env.CUSTOMER_SERVER_RENDER === '0' ? 'local' : 'server',
   }));
   app.post("/api/customer/auth/register", limit, (req, res) => {
     const created = store.register(field(req.body, "email", 254), field(req.body, "name", 100), field(req.body, "password", 128));
@@ -74,6 +78,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   app.get("/api/customer/videos", auth, (_req, res) => res.json(store.jobs(user(res).id)));
   app.get("/api/customer/wallet", auth, (_req, res) => res.json({ balance: store.user(user(res).id)!.balance, transactions: store.db.prepare("SELECT delta,kind,created_at FROM ledger WHERE user_id=? ORDER BY created_at DESC LIMIT 100").all(user(res).id) }));
   app.post("/api/customer/chat", auth, async (req, res) => {
+    if (process.env.CUSTOMER_SERVER_RENDER === '0') throw new CustomerError(409, 'Video được dựng trên máy bạn. Hãy tải app Windows 0.2.0 để gửi yêu cầu; website dùng đăng nhập và nạp token.');
     const owner = user(res).id;
     const message = field(req.body, "message");
     if (!message) throw new CustomerError(400, "Hãy nhập yêu cầu làm video");
@@ -114,6 +119,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     res.status(202).json({ threadId, jobId: job.id });
   });
   app.post("/api/customer/videos/:id/confirm", auth, async (req, res) => {
+    if (process.env.CUSTOMER_SERVER_RENDER === '0' || store.db.prepare('SELECT id FROM local_jobs WHERE id=?').get(String(req.params.id))) throw new CustomerError(409,'Hãy xác nhận trong app dựng tại máy');
     if (!process.env.OPENAI_API_KEY?.trim() || !await ready()) throw new CustomerError(503, "Dịch vụ AI chưa được kích hoạt. Token chưa bị trừ.");
     service.ensureCapacity("render", String(req.params.id));
     const job = store.reserve(user(res).id, String(req.params.id));

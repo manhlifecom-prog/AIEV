@@ -1,5 +1,8 @@
 # AIEV Studio cho khách hàng
 
+> Cập nhật 03/10/2026: production chuyển sang dựng tại máy khách bằng app Windows 0.2.0. VPS không tải/dựng video nguồn. Xem [chế độ dựng tại máy](CUSTOMER_LOCAL_RENDER.md) về cách dùng, giá token, hoàn phí và giới hạn thiết bị. Các phần mô tả bộ dựng VPS bên dưới là cấu hình trước lần chuyển này.
+
+
 Chế độ khách hàng nằm tại `/studio`, chạy bằng API riêng và database riêng. Khách hàng đăng nhập, gửi yêu cầu cùng link Google Drive, xem báo giá token, nhắn `đồng ý dựng` rồi xem hoặc tải MP4. Có thể nhắn `hủy yêu cầu` trước khi bắt đầu. Lượt chỉnh tiếp theo tạo tác vụ mới, có báo giá riêng.
 
 ## Chạy trên máy này

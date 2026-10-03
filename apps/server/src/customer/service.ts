@@ -40,6 +40,7 @@ export class CustomerService {
     } catch (error) { this.store.fail(job.id, error instanceof Error ? error.message : "Không kiểm tra được video nguồn"); }
   }
   async processQueue() {
+    if (process.env.CUSTOMER_SERVER_RENDER === '0') return;
     if (this.busy) return;
     this.busy = true;
     try {
