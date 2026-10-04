@@ -1,6 +1,7 @@
 @preconcurrency import AVFoundation
 import UIKit
 import CoreText
+import CoreImage
 
 struct NativeFailure: LocalizedError {
     var message: String
@@ -125,52 +126,44 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
         instruction.timeRange = CMTimeRange(start: .zero, duration: time(offset)); instruction.layerInstructions = [layerInstruction]; instruction.backgroundColor = UIColor.black.cgColor
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = size; videoComposition.frameDuration = CMTime(value: 1, timescale: 30); videoComposition.instructions = [instruction]
-        let parent = CALayer()
-        parent.frame = CGRect(origin: .zero, size: size)
+        var cues = [CaptionCue]()
         if !plan.edit.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            parent.addSublayer(caption(plan.edit.title, start: 0, end: min(4, offset), size: size, title: true))
+            cues.append(CaptionCue(text: plan.edit.title, start: 0, end: min(4, offset), title: true))
         }
         offset = 0
         if plan.edit.subtitles {
             for segment in plan.edit.segments {
-                let words = plan.words.filter { $0.end > segment.start && $0.start < segment.end }
+                let words = plan.words.filter { $0.start.isFinite && $0.end.isFinite && $0.end > segment.start && $0.start < segment.end }.sorted { $0.start < $1.start }
                 for i in stride(from: 0, to: words.count, by: 6) {
                     let chunk = Array(words[i..<min(i + 6, words.count)])
                     let start = offset + max(0, chunk[0].start - segment.start)
                     let end = offset + min(segment.end - segment.start, chunk[chunk.count - 1].end - segment.start)
-                    if end > start { parent.addSublayer(caption(chunk.map(\.word).joined(separator: " "), start: start, end: end, size: size, title: false)) }
+                    if end > start { cues.append(CaptionCue(text: chunk.map(\.word).joined(separator: " "), start: start, end: end, title: false)) }
                 }
                 offset += segment.end - segment.start
             }
         }
-        // A separate overlay track avoids the post-processing export crash in
-        // the iOS simulator and keeps text composited above the video track.
-        let overlayID = composition.unusedTrackID()
-        let overlay = AVMutableVideoCompositionLayerInstruction()
-        overlay.trackID = overlayID
-        instruction.layerInstructions = [overlay, layerInstruction]
-        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(additionalLayer: parent, asTrackID: overlayID)
         activity("Đang xuất MP4 trên iPhone/iPad")
-        try await export(composition, videoComposition: videoComposition, output: output)
+        if cues.isEmpty {
+            try await export(composition, videoComposition: videoComposition, output: output)
+        } else {
+            // First normalize cuts and rotation, then composite text into each
+            // actual frame. Core Animation export can silently omit text.
+            let base = output.deletingLastPathComponent().appendingPathComponent("caption-base-\(UUID().uuidString).mp4")
+            defer { try? FileManager.default.removeItem(at: base) }
+            try await export(composition, videoComposition: videoComposition, output: base)
+            let baseAsset = AVURLAsset(url: base), captions = CaptionFrames(cues: cues, size: size)
+            let burnIn = AVVideoComposition(asset: baseAsset, applyingCIFiltersWithHandler: { request in
+                do {
+                    let frame = try captions.apply(to: request.sourceImage, at: request.compositionTime.seconds)
+                    request.finish(with: frame, context: nil)
+                } catch { request.finish(with: error) }
+            })
+            activity("Đang ghi tiêu đề và phụ đề vào từng khung hình")
+            try await export(baseAsset, videoComposition: burnIn, output: output)
+        }
         let final = try await probe(output), expected = plan.edit.segments.reduce(0) { $0 + $1.end - $1.start }
         guard abs(final.duration - expected) <= 1, final.width == Int(size.width), final.height == Int(size.height), final.bytes > 1000 else { throw NativeFailure(message: "Video xuất chưa đạt kiểm tra") }
-    }
-    private func caption(_ text: String, start: Double, end: Double, size: CGSize, title: Bool) -> CALayer {
-        let layer = CATextLayer()
-        let fontSize: CGFloat = title ? 56 : 48
-        layer.string = String(text.prefix(250))
-        layer.font = CTFontCreateWithName(UIFont.boldSystemFont(ofSize: fontSize).fontName as CFString, fontSize, nil)
-        layer.fontSize = fontSize
-        layer.alignmentMode = .center; layer.isWrapped = true; layer.foregroundColor = UIColor.white.cgColor
-        layer.backgroundColor = UIColor.black.withAlphaComponent(0.55).cgColor; layer.cornerRadius = 12; layer.contentsScale = 2
-        layer.frame = CGRect(x: 60, y: title ? size.height - 230 : size.height * 0.1, width: size.width - 120, height: 150)
-        layer.opacity = 0
-        let animation = CAKeyframeAnimation(keyPath: "opacity")
-        animation.values = [0, 1, 1, 0]; animation.keyTimes = [0, 0.001, 0.999, 1]
-        animation.beginTime = AVCoreAnimationBeginTimeAtZero + start; animation.duration = end - start
-        animation.calculationMode = .discrete; animation.isRemovedOnCompletion = false; animation.fillMode = .both
-        layer.add(animation, forKey: "caption")
-        return layer
     }
     private func export(_ asset: AVAsset, videoComposition: AVVideoComposition, output: URL) async throws {
         if FileManager.default.fileExists(atPath: output.path) { try FileManager.default.removeItem(at: output) }
@@ -221,3 +214,81 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
 }
 // This flag is confined to the single serial requestMediaDataWhenReady queue.
 private final class AudioPumpState: @unchecked Sendable { var finished = false }
+
+private struct CaptionCue: Sendable {
+    var text: String
+    var start: Double
+    var end: Double
+    var title: Bool
+}
+
+// AVFoundation may request frames concurrently. Cues and images are immutable;
+// NSCache provides synchronized storage with a bounded bitmap memory budget.
+private final class CaptionFrames: @unchecked Sendable {
+    private let cues: [CaptionCue]
+    private let titleIndex: Int?
+    private let subtitles: [Int]
+    private let size: CGSize
+    private let cache = NSCache<NSNumber, CIImage>()
+    init(cues: [CaptionCue], size: CGSize) {
+        self.cues = cues; self.size = size
+        titleIndex = cues.firstIndex(where: { $0.title })
+        subtitles = cues.indices.filter { !cues[$0].title }.sorted { cues[$0].start < cues[$1].start }
+        cache.countLimit = 8; cache.totalCostLimit = 8 * 1024 * 1024
+    }
+    func apply(to source: CIImage, at seconds: Double) throws -> CIImage {
+        var active = [Int]()
+        if let titleIndex, seconds >= cues[titleIndex].start, seconds < cues[titleIndex].end { active.append(titleIndex) }
+        var low = 0, high = subtitles.count
+        while low < high {
+            let mid = (low + high) / 2
+            if cues[subtitles[mid]].start <= seconds { low = mid + 1 } else { high = mid }
+        }
+        if low > 0 {
+            let index = subtitles[low - 1]
+            if seconds < cues[index].end { active.append(index) }
+        }
+        var frame = source
+        for index in active {
+            let bitmap = try image(index)
+            let y = cues[index].title ? size.height - 230 : size.height * 0.1
+            frame = bitmap.transformed(by: CGAffineTransform(translationX: 60, y: y)).composited(over: frame)
+        }
+        return frame.cropped(to: source.extent)
+    }
+    private func image(_ index: Int) throws -> CIImage {
+        let key = NSNumber(value: index)
+        if let image = cache.object(forKey: key) { return image }
+        let width = Int(size.width - 120), height = 150
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { throw NativeFailure(message: "Không tạo được khung phụ đề") }
+        context.setFillColor(CGColor(gray: 0, alpha: 0.65))
+        context.addPath(CGPath(roundedRect: CGRect(x: 0, y: 0, width: width, height: height), cornerWidth: 12, cornerHeight: 12, transform: nil)); context.fillPath()
+        var alignment = CTTextAlignment.center
+        let paragraph = withUnsafePointer(to: &alignment) { pointer in
+            var setting = CTParagraphStyleSetting(spec: .alignment, valueSize: MemoryLayout<CTTextAlignment>.size, value: pointer)
+            return CTParagraphStyleCreate(&setting, 1)
+        }
+        let text = String(cues[index].text.prefix(250)), boxWidth = CGFloat(width - 32)
+        var fontSize: CGFloat = cues[index].title ? 56 : 48
+        var setter: CTFramesetter, measured: CGSize
+        repeat {
+            guard let font = CTFontCreateUIFontForLanguage(.emphasizedSystem, fontSize, nil) else { throw NativeFailure(message: "Không đọc được phông phụ đề") }
+            let attributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key(kCTFontAttributeName as String): font,
+                NSAttributedString.Key(kCTForegroundColorAttributeName as String): CGColor(gray: 1, alpha: 1),
+                NSAttributedString.Key(kCTParagraphStyleAttributeName as String): paragraph
+            ]
+            setter = CTFramesetterCreateWithAttributedString(NSAttributedString(string: text, attributes: attributes) as CFAttributedString)
+            measured = CTFramesetterSuggestFrameSizeWithConstraints(setter, CFRange(location: 0, length: 0), nil, CGSize(width: boxWidth, height: .greatestFiniteMagnitude), nil)
+            if measured.height <= 126 || fontSize <= 24 { break }
+            fontSize -= 2
+        } while true
+        let textHeight = min(126, ceil(measured.height) + 2)
+        let path = CGPath(rect: CGRect(x: 16, y: (CGFloat(height) - textHeight) / 2, width: boxWidth, height: textHeight), transform: nil)
+        CTFrameDraw(CTFramesetterCreateFrame(setter, CFRange(location: 0, length: 0), path, nil), context)
+        guard let bitmap = context.makeImage() else { throw NativeFailure(message: "Không xuất được chữ phụ đề") }
+        let image = CIImage(cgImage: bitmap)
+        cache.setObject(image, forKey: key, cost: width * height * 4)
+        return image
+    }
+}
