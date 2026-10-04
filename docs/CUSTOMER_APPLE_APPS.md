@@ -28,7 +28,20 @@ For iOS distribution, sign into the authorized Apple Developer account in Xcode 
 
 Local verification: 28 customer API/media tests and 7 native bridge/security tests pass; TypeScript server and web checks pass. A separate Windows controller integration with real OpenAI and FFmpeg verified a two-clip Drive fixture with mixed dimensions/audio, a 4-second square output and 3-second source-reusing revision; admin stayed at zero. This integration simulated Electron IPC rather than operating an installed native window.
 
-Apple CI and release artifact results are recorded below after the current build completes. A device archive or simulator success is not a claim that a physical iPhone/iPad or customer Mac installation has been tested.
+Both Mac architectures passed packaged-engine rendering and strict ad-hoc signature verification in [build 37194006697](https://github.com/manhlifecom-prog/AIEV/actions/runs/37194006697). The real export was a 1-second 1080×1080 MP4 with audio and captions. The [Mac preview release](https://github.com/manhlifecom-prog/AIEV/releases/tag/apple-preview-0.6.0) contains the two verified DMGs and SHA256SUMS.txt:
+
+| Package | SHA-256 |
+| --- | --- |
+| Apple Silicon | `9ec9c7e462326d1873f7982d5d1804d83e12c003424884ac5571b4bd46141ac7` |
+| Intel | `4b4181f1aaaa24cf84949813c4e67ae65a2fa7c4297964ea32d4a6fd273f4680` |
+
+The iPhone simulator suite completed three tests with zero failures and the unsigned iOS 17 device archive compiled in [build 37194408089](https://github.com/manhlifecom-prog/AIEV/actions/runs/37194408089/job/111413159122). That overall run was cancelled by a subsequent test change after those steps completed. Tests rendered two source clips with mixed rotation/audio, selected two ranges into a square MP4 with captions/title, extracted an offset AAC speech chunk, and checked an entirely silent folder. The additional-overlay-track Core Animation tool fixes the post-processing export crash; CATextLayer uses CTFont rather than UIFont.
+
+The stronger frame-pixel checks are running in [build 37195430508](https://github.com/manhlifecom-prog/AIEV/actions/runs/37195430508): both caption bands must contain white text and selected clips must retain red/blue centre pixels. Simulator codec cold startup is bounded at 60 seconds; interrupted fixture writers are cancelled rather than left running. Hosted tests set the scheme variable `AIEV_MEDIA_TESTS=1`; only the Debug test host uses an empty scene instead of loading the production website through WebKit. Release archives always include the full Studio view.
+
+A device archive or simulator success is not a claim that a physical iPhone/iPad or customer Mac installation has been tested. Apple Developer credentials were not provided, so no signed IPA, TestFlight or App Store release exists. The Apple web/API update and download metadata are prepared locally but not deployed: the Vultr browser session reports invalid credentials. Mac previews can be downloaded, but production Apple rendering still needs the backend capability update.
+
+The customer production build passes. The existing repository-wide CI still references the missing, ignored private Remotion transcript `video-projects/adasd/assets/transcript.cut.json`; private video data was not added to Git to resolve that unrelated check.
 
 References: [Apple distribution](https://developer.apple.com/documentation/Xcode/distributing-your-app-for-beta-testing-and-releases), [Apple build upload](https://developer.apple.com/help/app-store-connect/manage-builds/upload-builds/), [electron-builder macOS](https://www.electron.build/docs/mac/), [FFmpeg static builds](https://github.com/eugeneware/ffmpeg-static).
 
