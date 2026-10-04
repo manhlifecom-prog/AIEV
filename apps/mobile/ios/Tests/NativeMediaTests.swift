@@ -27,6 +27,7 @@ final class NativeMediaTests: XCTestCase {
         XCTAssertEqual(rendered.width, 1080); XCTAssertEqual(rendered.height, 1080)
         XCTAssertEqual(rendered.duration, 2, accuracy: 0.1); XCTAssertTrue(rendered.hasAudio)
         let generator = AVAssetImageGenerator(asset: AVURLAsset(url: final)); generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceBefore = .zero; generator.requestedTimeToleranceAfter = .zero
         let image = try generator.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil)
         let attachment = XCTAttachment(image: UIImage(cgImage: image)); attachment.lifetime = .keepAlways; add(attachment)
         let firstPixels = try pixels(image)
