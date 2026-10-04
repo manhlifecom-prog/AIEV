@@ -28,13 +28,14 @@ export default function StudioPage() {
   const [device,setDevice]=useState<'windows'|'macos'|'ios'|'linux'|'web'|'disconnected'>('web');
   const [retry,setRetry]=useState<{message:string;requestId:string;threadId?:string}|null>(null);
   const sending=useRef(false), abortChat=useRef<AbortController|null>(null), failedTurn=useRef(false), pinned=useRef(true), conversation=useRef<HTMLElement|null>(null);
+  const activeRequest=useRef<string|null>(null);
   useEffect(()=>{if(!busy)return;const start=Date.now();setElapsed(0);const timer=setInterval(()=>setElapsed(Math.floor((Date.now()-start)/1000)),1000);return()=>clearInterval(timer);},[busy]);
   const unlimited = Boolean(user?.unlimitedTokens);
   const currentJobs = videos.filter(job => job.thread_id === threadId);
   const job = currentJobs[0];
   const working = job && active(job.status);
 
-  useEffect(() => window.aievDesktop?.onActivity?.(event=>{if(event.type==='status' && event.data.cancellable===false)setNativeStage(event.data.label || '');}), []);
+  useEffect(() => window.aievDesktop?.onActivity?.(event=>{if(event.type==='status' && event.data.cancellable===false && event.requestId!==activeRequest.current)setNativeStage(event.data.label || '');}), []);
   useEffect(() => { setDevice(window.aievDesktop ? window.aievDesktop.platform || 'windows' : /AIEV(?:Desktop|iOS)\//.test(navigator.userAgent) ? 'disconnected' : 'web'); return () => { abortChat.current?.abort(); }; }, []);
   useEffect(() => {
     const parameters = new URLSearchParams(window.location.search);
@@ -85,6 +86,7 @@ export default function StudioPage() {
     if(!user) {setModal('auth');return;}
     sending.current=true; refreshSequence.current++; pinned.current=true;
     const request=reuse || {message,requestId:crypto.randomUUID(),...(threadId?{threadId}:{})};
+    activeRequest.current=request.requestId;
     const controller=new AbortController(); abortChat.current=controller;
     setBusy(true);setError('');setRetry(null);setLiveReply('');setActivity('Đang gửi yêu cầu…');setCanStop(!window.aievDesktop || Boolean(window.aievDesktop.cancelChat));
     if(!reuse)setMessages(previous=>[...previous,{role:'user',content:message,created_at:Date.now()}]);
@@ -92,7 +94,7 @@ export default function StudioPage() {
     let received=false;
     try {
       const result=await customerChat(request,event=>{
-        if(event.type==='accepted' && event.data.threadId){request.threadId=event.data.threadId;setThreadId(event.data.threadId);}
+        if(event.type==='accepted' && event.data.threadId){request.threadId=event.data.threadId;setThreadId(event.data.threadId);setCanStop(!window.aievDesktop || Boolean(window.aievDesktop.cancelChat));}
         if(event.type==='status'){setActivity(event.data.label || 'Đang xử lý');if(event.data.cancellable===false)setCanStop(false);}
         if(event.type==='reply'){setLiveReply(event.data.text || '');setActivity('AI đang trả lời');}
       },controller.signal);
@@ -101,7 +103,7 @@ export default function StudioPage() {
     } catch(reason) {
       if(received){setError('Yêu cầu đã gửi thành công; đang đồng bộ lịch sử.');setLiveReply('');return;}
       setError(controller.signal.aborted ? 'Đã dừng trả lời. Bạn có thể thử lại tin nhắn.' : reason instanceof Error?reason.message:'Không gửi được tin nhắn');failedTurn.current=true;setRetry(request);
-    } finally {sending.current=false;abortChat.current=null;setBusy(false);setCanStop(false);setActivity('');}
+    } finally {activeRequest.current=null;sending.current=false;abortChat.current=null;setBusy(false);setCanStop(false);setActivity('');}
   }
   async function send(event: FormEvent) {event.preventDefault();await submit();}
   async function confirm() {
