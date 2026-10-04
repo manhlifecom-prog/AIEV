@@ -1,12 +1,12 @@
 {
-  "version": "0.5.0",
+  "version": "1.0.0",
   "sha256": {
-    "windows": "6d29ccd2076e0322c334e76fb83d35433bddd9599ba3e944b82259acf04a47ff",
+    "windows": "cfa37f2762dbaf689f9bc27790a817d2fa78863fe2c1f6a710785de11ed008e4",
     "android": "ca4a90a45664c1c342fdf67b9ab9ba0e3ce4639a1ec54e5a1ecff0c8d5a1b34d",
     "macos-arm64": "9ec9c7e462326d1873f7982d5d1804d83e12c003424884ac5571b4bd46141ac7",
     "macos-x64": "4b4181f1aaaa24cf84949813c4e67ae65a2fa7c4297964ea32d4a6fd273f4680"
   },
-  "windows": "/studio/downloads/AIEV-Studio-Setup-0.5.0.exe",
+  "windows": "/studio/downloads/AIEV-Studio-Setup-1.0.0.exe",
   "android": "/studio/downloads/AIEV-Studio-0.1.0.apk",
   "processingMode": "local",
   "apple": {
@@ -17,7 +17,7 @@
       "preview": true
     },
     "ios": {
-      "status": "testing"
+      "status": "awaiting-signing"
     }
   }
 }

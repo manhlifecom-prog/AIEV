@@ -12,7 +12,7 @@ const require=createRequire(path.join(root,'apps/desktop/package.json'));
 const asar=await import(pathToFileURL(require.resolve('@electron/asar')).href);
 const scratch=fs.mkdtempSync(path.join(root,'.runtime/mac-check-'));
 fs.writeFileSync(path.join(scratch,'renderer.mjs'),asar.extractFile(path.join(resources,'app.asar'),'renderer.mjs'));
-for(const file of ['local-engine.cjs','runtime.cjs','preload.cjs','chat-stream.cjs']) asar.extractFile(path.join(resources,'app.asar'),file);
+for(const file of ['local-engine.cjs','media-library.cjs','runtime.cjs','preload.cjs','chat-stream.cjs']) asar.extractFile(path.join(resources,'app.asar'),file);
 for(const binary of [process.env.FFMPEG_PATH,process.env.FFPROBE_PATH]) {
   const r=spawnSync('otool',['-L',binary],{encoding:'utf8'});if(r.status!==0) throw new Error('Could not inspect '+binary);
   const links=r.stdout.split('\n').slice(1).map(x=>x.trim().split(' ')[0]).filter(Boolean);
@@ -25,5 +25,14 @@ const metadata=await probe('final.mp4',scratch);
 if(metadata.width!==1080 || metadata.height!==1080 || Math.abs(metadata.duration-1)>0.1 || !metadata.hasAudio)throw new Error('Packaged Mac rendering failed');
 const signature=spawnSync('codesign',['--verify','--deep','--strict',packaged],{encoding:'utf8'});
 if(signature.status!==0)throw new Error('Invalid application signature: '+signature.stderr);
-fs.writeFileSync(path.join(output,'mac-verification.json'),JSON.stringify({architecture:process.arch,metadata,signature:'ad-hoc preview, not notarized',verifiedAt:new Date().toISOString()},null,2));
+const production=process.argv.includes('--production');
+if(production) {
+  const details=spawnSync('codesign',['--display','--verbose=4',packaged],{encoding:'utf8'});
+  if(details.status!==0 || !/Authority=Developer ID Application:/.test(details.stderr) || !/flags=.*runtime/.test(details.stderr))throw new Error('Official Mac app requires Developer ID and hardened runtime.');
+  for(const [command,args] of [['spctl',['--assess','--type','execute','--verbose',packaged]],['xcrun',['stapler','validate',packaged]]]) {
+    const verified=spawnSync(command,args,{encoding:'utf8'});if(verified.status!==0)throw new Error('Official Mac notarization verification failed: '+verified.stderr);
+  }
+}
+const version=JSON.parse(asar.extractFile(path.join(resources,'app.asar'),'package.json').toString()).version;
+fs.writeFileSync(path.join(output,'mac-verification.json'),JSON.stringify({version,architecture:process.arch,metadata,signature:production?'Developer ID signed and notarized':'ad-hoc preview, not notarized',verifiedAt:new Date().toISOString()},null,2));
 console.log('Packaged Mac engine rendered an MP4 with captions successfully.');

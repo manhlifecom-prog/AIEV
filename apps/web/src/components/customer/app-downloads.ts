@@ -8,7 +8,7 @@ const macLink = (value: unknown, arch: string) => {
 };
 export function appDownloads(value: unknown): AppDownloads | null {
   const data=value as AppDownloads;
-  if(data?.windows!=="/studio/downloads/AIEV-Studio-Setup-0.5.0.exe" || data?.android!=="/studio/downloads/AIEV-Studio-0.1.0.apk")return null;
+  if(!["/studio/downloads/AIEV-Studio-Setup-0.5.0.exe","/studio/downloads/AIEV-Studio-Setup-1.0.0.exe"].includes(data?.windows) || data?.android!=="/studio/downloads/AIEV-Studio-0.1.0.apk")return null;
   const result: AppDownloads={windows:data.windows,android:data.android};
   if(data.apple?.version==='0.6.0') {
     const apple=data.apple;

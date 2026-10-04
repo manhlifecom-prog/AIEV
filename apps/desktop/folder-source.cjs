@@ -1,13 +1,13 @@
 const fs=require('node:fs');
 const path=require('node:path');
 // Generated file names keep Drive names out of commands and local paths.
-async function folderSource(files,dir,media,progress=()=>{}) {
+async function folderSource(files,dir,media,progress=()=>{},load=(file,destination)=>media.downloadDrive(file.url,destination)) {
   if(!Array.isArray(files)||!files.length)throw new Error('Thư mục không có video');
   const sources=[];let bytes=0,offset=0,hasAudio=false,width=0,height=0;
   for(const [index,file] of files.entries()) {
     progress(`Đang tải clip ${index+1}/${files.length}: ${file.name}`);
     const input=`input-${index}.mp4`, output=`clip-${index}.mp4`;
-    await media.downloadDrive(file.url,path.join(dir,input));
+    await load(file,path.join(dir,input));
     bytes+=fs.statSync(path.join(dir,input)).size;
     const info=await media.probe(input,dir);hasAudio ||= info.hasAudio;
     if(!width) {const ratio=info.width/info.height;[width,height]=ratio<0.8?[1080,1920]:ratio>1.2?[1920,1080]:[1080,1080];}

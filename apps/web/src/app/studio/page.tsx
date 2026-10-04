@@ -10,6 +10,7 @@ import { InstallApp } from "@/components/customer/InstallApp";
 import { VideoResult } from "@/components/customer/VideoResult";
 import { customerChat } from '@/components/customer/chat';
 import { ChatContent } from '@/components/customer/ChatContent';
+import { MediaLibraryPanel } from '@/components/customer/MediaLibraryPanel';
 import "./studio.css";
 
 const examples = ["Cắt video thành một clip dọc 60 giây", "Thêm phụ đề tiếng Việt, bỏ khoảng lặng", "Dựng video giới thiệu sản phẩm"];
@@ -78,7 +79,7 @@ export default function StudioPage() {
   function openWallet() { setModal(user ? "wallet" : "auth"); }
   function newChat() { if(sending.current) return; failedTurn.current=false;setRetry(null); setLiveReply(""); setThreadId(null); setMessages([]); setText(""); setDrive(""); setError(""); input.current?.focus(); }
   async function submit(reuse?: {message:string;requestId:string;threadId?:string}) {
-    if(sending.current || busy || working) return;
+    if(sending.current || busy) return;
     const message=reuse?.message || [text.trim(),drive.trim()].filter(Boolean).join('\n');
     if(!message) return;
     if(!user) {setModal('auth');return;}
@@ -132,10 +133,11 @@ export default function StudioPage() {
           {job?.status === "done" ? <div className="studio-mobile-result studio-result"><VideoResult job={job} /></div> : null}<div ref={messagesEnd} /></div> : <div className="studio-welcome"><h2>Bạn muốn làm video gì?</h2><p>{config?.processingMode === "local" ? "Chat với AI để trao đổi ý tưởng và chỉnh video. App có bộ dựng xử lý tại thiết bị của bạn; website và app web dùng để trò chuyện. Xem mục Cài app để biết bản cài đang có cho từng thiết bị." : "Dán link Google Drive và mô tả video bạn muốn. Tôi sẽ lo phần dựng."}</p><div className="studio-examples">{examples.map((example, index) => <button key={example} onClick={() => { setText(example); input.current?.focus(); }}>{index === 0 ? <Scissors size={22} /> : index === 1 ? <Captions size={22} /> : <Video size={22} />}<span>{example}</span></button>)}</div></div>}
       </section>
       <div className="studio-compose-area">
+        {user?<MediaLibraryPanel owner={user.id} chatBusy={busy}/>:null}
         {error ? <div className="studio-error" role="alert">{error}{retry ? <button type="button" className="studio-retry" disabled={busy} onClick={()=>{void submit(retry);}}><RotateCcw size={15}/>Thử lại tin nhắn</button> : null}</div> : null}
         <form className="studio-compose" onSubmit={send}><textarea ref={input} aria-label="Yêu cầu làm video" placeholder="Nhắn cho AI hoặc dán link Google Drive…" value={text} onChange={event => setText(event.target.value)} maxLength={7000} rows={2} onKeyDown={event => { if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); event.currentTarget.form?.requestSubmit(); } }} />
           {showDrive ? <label className="studio-drive-input">Link file hoặc thư mục Google Drive<input type="url" placeholder="https://drive.google.com/…" value={drive} onChange={event => setDrive(event.target.value)} maxLength={1000} /></label> : null}
-          <div className="studio-compose-actions"><button type="button" className="studio-icon" aria-label="Thêm link Google Drive" aria-expanded={showDrive} onClick={() => setShowDrive(!showDrive)}><Paperclip size={21} /></button>{busy && canStop ? <button type="button" className="studio-send" aria-label="Dừng trả lời" onClick={()=>{setCanStop(false);setActivity('Đang dừng trả lời…');abortChat.current?.abort();}}><Square size={18} fill="currentColor"/></button> : <button className="studio-send" aria-label="Gửi yêu cầu" disabled={busy || Boolean(working) || (!text.trim() && !drive.trim())}>{busy ? <LoaderCircle className="studio-spin" size={22} /> : <Send size={22} />}</button>}</div>
+          <div className="studio-compose-actions"><button type="button" className="studio-icon" aria-label="Thêm link Google Drive" aria-expanded={showDrive} onClick={() => setShowDrive(!showDrive)}><Paperclip size={21} /></button>{busy && canStop ? <button type="button" className="studio-send" aria-label="Dừng trả lời" onClick={()=>{setCanStop(false);setActivity('Đang dừng trả lời…');abortChat.current?.abort();}}><Square size={18} fill="currentColor"/></button> : <button className="studio-send" aria-label="Gửi yêu cầu" disabled={busy || (!text.trim() && !drive.trim())}>{busy ? <LoaderCircle className="studio-spin" size={22} /> : <Send size={22} />}</button>}</div>
         </form><p className="studio-compose-note"><Info size={15} />{unlimited ? "Miễn token cho quản trị · Chat và dựng video không trừ số dư." : "Chat: 1 token/tin nhắn. Dựng: báo giá trước khi xác nhận."}</p>
       </div>
     </main>

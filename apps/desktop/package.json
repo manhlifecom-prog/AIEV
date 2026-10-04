@@ -1,6 +1,6 @@
 {
   "name": "aiev-studio-desktop",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "private": true,
   "description": "Ứng dụng AIEV Studio cho máy tính",
   "author": "AIEV Studio",
@@ -11,6 +11,7 @@
     "test": "node --test policy.test.cjs",
     "build:win": "node ../../scripts/desktop-build.mjs --win nsis --x64",
     "build:mac": "node ../../scripts/desktop-build.mjs --mac dmg zip",
+    "release:mac": "node ../../scripts/desktop-build.mjs --production --mac dmg zip",
     "build:linux": "node ../../scripts/desktop-build.mjs --linux AppImage"
   },
   "devDependencies": {
