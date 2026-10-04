@@ -2,9 +2,13 @@
 
 ## Trạng thái
 
-Web/API hoàn thành và build thành công. **Chưa triển khai production**: phiên Vultr hết hạn; đăng nhập lại bằng Google Life trả `Invalid username/password`. Đã mở tab đăng nhập để người dùng khôi phục phiên. Không cấp tài khoản mới, không đổi mật khẩu Vultr, không thay dữ liệu hay số dư production.
+**Đã triển khai production ngày 04/10/2026**, mã nguồn `e21ec27f40311e0f52f1ab656aaee82e26971085`, tại `https://video.manh.marketing/studio/admin`. Người dùng khôi phục đăng nhập Vultr trên Chrome; thông tin SSH hiện có được dùng kín và xóa khỏi file tạm sau kết nối. Không đổi mật khẩu, vai trò hoặc số dư production.
 
-Gói Next production và script kích hoạt/khôi phục đã chuẩn bị trong thư mục `.runtime/deploy` bị Git bỏ qua. Cần đăng nhập Vultr, sao lưu SQLite và bản chạy trên máy chủ, triển khai, rồi kiểm tra website thật bằng dữ liệu riêng. Bản Windows 0.3.0 hiện có không cần build lại.
+Đã sao lưu SQLite nhất quán, environment và API cũ tại `/root/.aiev-activation/backup-admin-20261004`; giữ Next cũ tại `/opt/aiev-video/releases/apps-0.1.0/apps/web/.next.before-admin-20261004`. Script kích hoạt có khôi phục mã khi health check thất bại. SQLite và bản sao đều đạt integrity check; so sánh tài khoản/vai trò/số dư với bản sao xác nhận không thay đổi. Migration khóa tài khoản/nhật ký đã có trên database thật. Hai dịch vụ đang chạy, `NRestarts=0`; năm file API đúng SHA256 và Next BUILD_ID `jw5oOdXwxQb4IzBcXuB2t` khớp bản kiểm thử.
+
+Kiểm tra HTTPS: trang quản trị trả 200; năm API quản trị trả 401 khi thiếu phiên; cấu hình AI/media/SePay sẵn sàng, dựng tại thiết bị, giới hạn nguồn bằng 0. Installer Windows 0.3.0 giữ nguyên, HEAD 200 và 167430863 byte. Kiểm thử mã production với OpenAI thật và ví riêng trong bộ nhớ đạt: admin số dư 0 chat, replay, lập báo giá, xác nhận qua chat, bắt đầu dựng tại máy, lỗi, thử lại và hủy đều không đổi số dư. Không chèn tài khoản hoặc giao dịch kiểm thử vào database khách hàng thật.
+
+Phiên admin hiện có trên Chrome đã kiểm tra Studio ghi miễn token, vào trang quản trị thật, biểu đồ 7/30 ngày và hồ sơ Token không giới hạn. Ảnh `admin-dashboard-live.png` và `admin-account-live.png` trong thư mục bằng chứng bên dưới là dữ liệu production; các ảnh QA còn lại dùng fixture riêng. Bản Windows 0.3.0 hiện có không cần cài lại.
 
 ## Kiểm thử chức năng
 
