@@ -42,7 +42,7 @@ export function InstallApp() {
         {downloads.apple?.macos?.arm64 || downloads.apple?.macos?.x64 ? <>
           {downloads.apple.macos.arm64 ? <a className="studio-secondary" href={downloads.apple.macos.arm64} target="_blank" rel="noopener noreferrer"><Download size={18}/>Mac chip M · Tải DMG</a> : null}
           {downloads.apple.macos.x64 ? <a className="studio-secondary" href={downloads.apple.macos.x64} target="_blank" rel="noopener noreferrer"><Download size={18}/>Mac Intel · Tải DMG</a> : null}
-          <small>Mở DMG, kéo AIEV Studio vào Applications rồi mở app. Bản thử chưa được Apple xác thực; macOS có thể yêu cầu mở trong Cài đặt hệ thống → Quyền riêng tư &amp; bảo mật.</small>
+          <small>macOS 13 trở lên · Mở DMG, kéo AIEV Studio vào Applications rồi mở app. Bản thử chưa được Apple xác thực; macOS có thể yêu cầu mở trong Cài đặt hệ thống → Quyền riêng tư &amp; bảo mật.</small>
         </> : <p>App Mac đang được kiểm thử; chưa có bản cài để tải.</p>}
         <h3>iPhone / iPad</h3>
         {downloads.apple?.ios?.testFlight ? <a className="studio-secondary" href={downloads.apple.ios.testFlight} target="_blank" rel="noopener noreferrer">Cài bản thử qua TestFlight</a> : <p>App iPhone/iPad chưa phát hành. Bạn có thể chat bằng Safari trong lúc chờ bản cài có bộ dựng.</p>}
