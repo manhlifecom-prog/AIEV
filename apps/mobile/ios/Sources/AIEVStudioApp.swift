@@ -4,7 +4,21 @@ import AVKit
 import UniformTypeIdentifiers
 
 @main struct AIEVStudioApp: App {
-    var body: some Scene { WindowGroup { StudioView().preferredColorScheme(.dark) } }
+    var body: some Scene {
+        WindowGroup {
+            #if DEBUG
+            // Hosted media tests exercise the real native engine without
+            // starting WebKit or making requests to the production website.
+            if ProcessInfo.processInfo.environment["AIEV_MEDIA_TESTS"] == "1" {
+                Color.black
+            } else {
+                StudioView().preferredColorScheme(.dark)
+            }
+            #else
+            StudioView().preferredColorScheme(.dark)
+            #endif
+        }
+    }
 }
 struct SharedVideo: Identifiable { let id = UUID(); let url: URL }
 struct StudioView: View {

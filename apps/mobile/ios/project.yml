@@ -49,3 +49,5 @@ schemes:
         AIEVStudio: all
     test:
       targets: [AIEVStudioTests]
+      environmentVariables:
+        AIEV_MEDIA_TESTS: '1'
