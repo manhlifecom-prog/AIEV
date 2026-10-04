@@ -41,11 +41,11 @@ async function boundedText(response: Response) {
   finally { await reader.cancel(); }
   return Buffer.concat(chunks).toString('utf8');
 }
-export async function listDriveFolder(url: string, request: typeof fetch = fetch): Promise<DriveEntry[]> {
+export async function listDriveFolder(url: string, request: typeof fetch = fetch, signal?: AbortSignal): Promise<DriveEntry[]> {
   const seenFolders=new Set<string>(), seenFiles=new Set<string>(), result:DriveEntry[]=[];
   const deadline=Date.now()+240000;
   async function visit(link: string, prefix='') {
-    if(Date.now()>deadline)throw new Error('Chưa đọc xong thư mục; hãy thử lại. Không dựng khi danh sách chưa đầy đủ.');
+    signal?.throwIfAborted(); if(Date.now()>deadline)throw new Error('Chưa đọc xong thư mục; hãy thử lại. Không dựng khi danh sách chưa đầy đủ.');
     const folder=driveFolder(link); if(seenFolders.has(folder.id))return; seenFolders.add(folder.id);
     let children:DriveEntry[]=[];
     const apiKey=process.env.GOOGLE_DRIVE_API_KEY;
@@ -56,7 +56,7 @@ export async function listDriveFolder(url: string, request: typeof fetch = fetch
         if(pages.has(token))throw new Error('Google Drive trả trang trùng'); pages.add(token);
         const api=new URL('https://www.googleapis.com/drive/v3/files');
         api.search=new URLSearchParams({key:apiKey,q:`'${folder.id}' in parents and trashed = false`,pageSize:'1000',fields:'nextPageToken,incompleteSearch,files(id,name,mimeType,size,resourceKey)',orderBy:'name',...(token?{pageToken:token}:{})}).toString();
-        const response=await request(api,{redirect:'error',signal:AbortSignal.timeout(30000),headers:folder.key?{'X-Goog-Drive-Resource-Keys':folder.id+'/'+folder.key}:{}});
+        const response=await request(api,{redirect:'error',signal:signal?AbortSignal.any([signal,AbortSignal.timeout(30000)]):AbortSignal.timeout(30000),headers:folder.key?{'X-Goog-Drive-Resource-Keys':folder.id+'/'+folder.key}:{}});
         if(!response.ok)throw new Error('Google Drive API chưa đọc được thư mục; kiểm tra cấu hình và quyền chia sẻ');
         const data=JSON.parse(await boundedText(response));
         if(!Array.isArray(data.files)||data.incompleteSearch)throw new Error('Google Drive chưa trả danh sách đầy đủ');
@@ -65,7 +65,7 @@ export async function listDriveFolder(url: string, request: typeof fetch = fetch
       } while(token);
     } else {
       const publicUrl=new URL('https://drive.google.com/drive/folders/'+folder.id); if(folder.key)publicUrl.searchParams.set('resourcekey',folder.key);
-      const response=await request(publicUrl,{redirect:'error',signal:AbortSignal.timeout(30000),headers:{'user-agent':'AIEV-Studio/0.4.0'}});
+      const response=await request(publicUrl,{redirect:'error',signal:signal?AbortSignal.any([signal,AbortSignal.timeout(30000)]):AbortSignal.timeout(30000),headers:{'user-agent':'AIEV-Studio/0.4.0'}});
       children=parsePublicFolder(await boundedText(response));
     }
     children.sort((a,b)=>a.name.localeCompare(b.name,'vi',{numeric:true})||a.id.localeCompare(b.id));

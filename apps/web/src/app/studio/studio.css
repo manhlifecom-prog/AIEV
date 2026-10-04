@@ -17,3 +17,8 @@
 .studio-install-guide h3{font-size:16px}.studio-install-guide p{font-size:14px;color:var(--studio-muted)}.studio-header .studio-install{margin-left:auto}.studio-header .studio-install+.studio-text-button{margin-left:0}@media(display-mode:standalone){.studio-sidebar{padding-top:max(12px,env(safe-area-inset-top))}.studio-compose-area{padding-bottom:max(14px,env(safe-area-inset-bottom))}}
 
 .studio-app-downloads{display:flex;flex-direction:column;gap:10px}.studio-app-downloads a{color:var(--studio-text)}.studio-app-downloads small{font-size:12px}
+.studio-header{height:auto;min-height:96px}.studio-device{display:flex;align-items:center;gap:5px;font-size:11px!important;margin-top:3px;color:var(--studio-success)!important}.studio-device.is-error{color:var(--studio-error)!important}
+.studio-chat-content p+p{margin-top:14px}.studio-chat-content code{padding:2px 5px;border-radius:4px;background:var(--studio-surface);font-size:.92em}.studio-chat-content strong{font-weight:650}
+.studio-chat-activity{display:flex;align-items:center;gap:9px;margin-top:12px;color:var(--studio-muted);font-size:13px}.studio-activity-dot{width:7px;height:7px;border-radius:50%;background:var(--studio-accent);flex-shrink:0;animation:studio-pulse 1.5s ease-in-out infinite}.studio-live{min-height:45px;width:100%}.studio-live>small{display:block;margin-top:8px;font-size:12px}
+.studio-retry{display:inline-flex;align-items:center;gap:6px;background:transparent;border:1px solid var(--studio-line);border-radius:6px;padding:5px 10px;font-size:13px!important;margin-left:12px;color:var(--studio-text)!important}
+@keyframes studio-pulse{50%{opacity:.3}}@media(prefers-reduced-motion:reduce){.studio-activity-dot{animation:none}}

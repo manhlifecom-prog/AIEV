@@ -3,16 +3,19 @@ const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 const {randomUUID}=require('node:crypto');
 const {ORIGIN,inside}=require('./policy.cjs');
+const {readChatStream}=require('./chat-stream.cjs');
 const {folderSource}=require('./folder-source.cjs');
 function attachLocal({app,ipcMain,dialog,shell,window}) {
-  ipcMain.removeHandler('aiev:local'); ipcMain.removeHandler('aiev:open');
+  ipcMain.removeHandler('aiev:local'); ipcMain.removeHandler('aiev:open'); ipcMain.removeHandler('aiev:cancel-chat');
   const root=path.join(app.getPath('userData'),'local-videos'); fs.mkdirSync(root,{recursive:true});
   process.env.FFMPEG_PATH=path.join(process.resourcesPath,'media','ffmpeg.exe');
   process.env.FFPROBE_PATH=path.join(process.resourcesPath,'media','ffprobe.exe');
   const engine=import(pathToFileURL(path.join(__dirname,'renderer.mjs')).href);
   const manifest=path.join(root,'index.json');
   const records=fs.existsSync(manifest)?JSON.parse(fs.readFileSync(manifest,'utf8')):{};
-  let working=false;
+  let working=false, chatController=null, currentRequest=null;
+  const notify=(requestId,event)=>{if(!window.webContents.isDestroyed?.())window.webContents.send?.('aiev:activity',{requestId,...event});};
+  const stage=(label)=>{window.setTitle('AIEV · '+label);if(currentRequest)notify(currentRequest,{type:'status',data:{label,cancellable:false}});};
   const persist=()=>fs.writeFileSync(manifest,JSON.stringify(records));
   function trusted(event) {if(event.sender!==window.webContents || event.senderFrame!==window.webContents.mainFrame || !inside(event.senderFrame.url)) throw new Error('Không được phép');}
   async function api(endpoint,body,binary) {
@@ -29,15 +32,16 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
       else {
         const metadata=fs.existsSync(path.join(dir,'source-metadata.json'))?JSON.parse(fs.readFileSync(path.join(dir,'source-metadata.json'),'utf8')):await media.probe('source.mp4',dir);
         if(metadata.hasAudio) for(const [idx,chunk] of [...media.speechChunks(metadata.duration)].entries()) {
-          window.setTitle(`AIEV · Nhận diện lời thoại đoạn ${idx+1}`);
+          stage(`Nhận diện lời thoại đoạn ${idx+1}`);
           await media.runMedia('ffmpeg',['-y','-v','error','-protocol_whitelist','file,pipe','-ss',String(chunk.start),'-i','source.mp4','-t',String(chunk.seconds),'-vn','-ac','1','-ar','16000','-b:a','48k','speech.mp3'],dir);
           await api('/local/'+id+'/audio/'+idx,null,fs.readFileSync(path.join(dir,'speech.mp3')));
           fs.unlinkSync(path.join(dir,'speech.mp3'));
         }
+        stage('AI đang lập kế hoạch dựng video');
         plan=await api('/local/'+id+'/plan',{}); fs.writeFileSync(path.join(dir,'plan.json'),JSON.stringify(plan));
       }
       media.validateEdit(plan.edit,(await media.probe('source.mp4',dir)).duration);
-      await media.renderPlan(plan.edit,plan.words,plan.hasAudio,dir,stage=>window.setTitle('AIEV · '+stage));
+      await media.renderPlan(plan.edit,plan.words,plan.hasAudio,dir,stage);
       await api('/local/'+id+'/complete',{});
     } catch(error) {await api('/local/'+id+'/fail',{}).catch(()=>{}); throw error;}
     finally {window.setTitle('AIEV Studio');}
@@ -52,7 +56,12 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
         try {
           const message=body?.message;
           if(typeof message!=='string' || message.length>8000) throw new Error('Yêu cầu không hợp lệ');
-          const decision=await api('/assistant',{...body,requestId:randomUUID(),device:'windows',deviceVersion:'0.4.0'});
+          const requestId=typeof body.requestId==='string'?body.requestId:randomUUID(); currentRequest=requestId;
+          chatController=new AbortController();
+          const response=await window.webContents.session.fetch(ORIGIN+'/api/customer/assistant',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json','Origin':ORIGIN},signal:chatController.signal,body:JSON.stringify({...body,requestId,device:'windows',deviceVersion:'0.5.0',stream:true})});
+          const decision=await readChatStream(response,event=>notify(requestId,event.type==='result'?{type:'reply',data:{text:event.data.reply || ''}}:event));
+          chatController=null;
+          if(decision.action==='prepare') stage('Chuẩn bị video nguồn trên máy bạn');
           if(decision.action==='confirm') {
             record(decision.jobId);
             await api('/local/'+decision.jobId+'/confirm',{});
@@ -71,26 +80,27 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
               if(fs.existsSync(path.join(previous,'source-metadata.json')))metadata=JSON.parse(fs.readFileSync(path.join(previous,'source-metadata.json'),'utf8'));
             }
             else if(url && /\/drive\/(?:u\/\d+\/)?folders\//.test(new URL(url).pathname)) {
-              window.setTitle('AIEV · Đang đọc thư mục Drive');
+              stage('Đang đọc thư mục Drive');
               const listing=await api('/drive/folder',{url});
-              metadata=await folderSource(listing.files,dir,media,stage=>window.setTitle('AIEV · '+stage));
+              metadata=await folderSource(listing.files,dir,media,stage);
             }
-            else if(url) {window.setTitle('AIEV · Đang tải video về máy bạn'); await media.downloadDrive(url,path.join(dir,'source.mp4'));}
-            else {const selected=await dialog.showOpenDialog(window,{title:'Chọn video nguồn trên máy bạn',properties:['openFile'],filters:[{name:'Video',extensions:['mp4','mov','mkv','webm','avi']}]}); if(selected.canceled) throw new Error('Đã hủy chọn video'); fs.copyFileSync(selected.filePaths[0],path.join(dir,'source.mp4'));}
+            else if(url) {stage('Đang tải video về máy bạn'); await media.downloadDrive(url,path.join(dir,'source.mp4'));}
+            else {stage('Chọn video trong cửa sổ trên máy bạn'); const selected=await dialog.showOpenDialog(window,{title:'Chọn video nguồn trên máy bạn',properties:['openFile'],filters:[{name:'Video',extensions:['mp4','mov','mkv','webm','avi']}]}); if(selected.canceled) throw new Error('Đã hủy chọn video'); fs.copyFileSync(selected.filePaths[0],path.join(dir,'source.mp4'));}
             metadata ||= {...await media.probe('source.mp4',dir),bytes:fs.statSync(path.join(dir,'source.mp4')).size};
             fs.writeFileSync(path.join(dir,'source-metadata.json'),JSON.stringify(metadata));
             const result=await api('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,url:url || 'local-file',metadata});
             records[result.jobId]={directory}; persist(); return {result};
           } catch(error) {fs.rmSync(dir,{recursive:true,force:true}); return {result:{...decision,localError:error.message}};}
-        } finally {if(!started) {working=false; window.setTitle('AIEV Studio');}}
+        } finally {chatController=null; if(!started) {working=false; currentRequest=null; window.setTitle('AIEV Studio');}}
       }
       const match=typeof endpoint==='string' && endpoint.match(/^\/videos\/([a-zA-Z0-9-]+)\/confirm$/);
       if(!match) throw new Error('Chức năng không được phép');
-      working=true;
+      working=true; currentRequest=match[1];
       void render(match[1]).catch(error=>dialog.showMessageBox(window,{type:'error',message:'Chưa hoàn tất dựng tại máy',detail:error.message})).finally(()=>{working=false;});
       return {result:{success:true}};
     } catch(error) {return {error:error.message,status:error.status || 400};}
   });
+  ipcMain.handle('aiev:cancel-chat',async(event,requestId)=>{trusted(event);if(requestId===currentRequest && chatController){chatController.abort();return true;}return false;});
   ipcMain.handle('aiev:open',async(event,id,save)=>{
     trusted(event);
     const response=await window.webContents.session.fetch(ORIGIN+'/api/customer/videos',{credentials:'include',headers:{'Origin':ORIGIN}});
