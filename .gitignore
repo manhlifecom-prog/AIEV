@@ -108,3 +108,4 @@ apps/mobile/ios/Info.plist
 apps/mobile/ios/ExportOptions.plist
 *.xcarchive/
 *.xcresult/
+apps/web/public/studio/renderer/

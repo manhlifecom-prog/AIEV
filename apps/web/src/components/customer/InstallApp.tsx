@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Download } from "lucide-react";
 import { StudioModal } from "./StudioModal";
+import { browserSupported } from './browser-engine';
 import { appDownloads, type AppDownloads } from './app-downloads';
 type InstallEvent = Event & { prompt(): Promise<void>; userChoice: Promise<{ outcome: string }> };
 export function InstallApp() {
@@ -27,13 +28,13 @@ export function InstallApp() {
     await prompt.prompt(); const result = await prompt.userChoice; setPrompt(null); if (result.outcome === "accepted") setOpen(false);
   }
   const needsUpdate=Boolean(desktopVersion && (!['0.6.0','1.0.0'].includes(desktopVersion) || !window.aievDesktop));
-  const needsRenderer=installed && ['windows','macos','ios'].includes(platform) && !window.aievDesktop;
+  const needsRenderer=installed && ['windows','macos','ios'].includes(platform) && !window.aievDesktop && !browserSupported();
   if (installed && !needsUpdate && !needsRenderer) return null;
   const nativeLabel=platform==='macos'?'Mac':platform==='ios'?'iPhone/iPad':'Windows';
   return <>
     <button className="studio-text-button studio-install" aria-label={needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài ứng dụng"} onClick={() => setOpen(true)}><Download size={20}/><span>{needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài app"}</span></button>
     {open ? <StudioModal title="Cài AIEV Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
-      <p>{needsRenderer ? "Bạn đang dùng app web, có thể chat với AI. Để dựng trên thiết bị, cần bản cài có bộ dựng bên dưới." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
+      <p>{needsRenderer ? "Web có thể dựng và xuất MP4 ngay trên thiết bị. App Windows phù hợp nguồn lớn; bản Android APK hiện chỉ chat." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
       {needsUpdate ? <p>Đóng app trước khi cập nhật. Với app Windows/Mac cũ, chọn menu AIEV Studio → Mở bằng trình duyệt để tải bản mới. Tài khoản và video đã lưu được giữ lại.</p> : null}
       {downloads ? <div className="studio-app-downloads">
         <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows · Tải EXE</a>
@@ -45,13 +46,13 @@ export function InstallApp() {
           <small>macOS 13 trở lên · Các DMG bên trên là bản 0.6.0 chưa có xác thực Apple. Bản chính thức 1.0.0 đang chờ chứng chỉ phát hành và xác thực Apple.</small>
         </> : <p>App Mac đang được kiểm thử; chưa có bản cài để tải.</p>}
         <h3>iPhone / iPad</h3>
-        {downloads.apple?.ios?.testFlight ? <a className="studio-secondary" href={downloads.apple.ios.testFlight} target="_blank" rel="noopener noreferrer">Cài bản thử qua TestFlight</a> : <p>App iPhone/iPad chưa phát hành. Bạn có thể chat bằng Safari trong lúc chờ bản cài có bộ dựng.</p>}
+        {downloads.apple?.ios?.testFlight ? <a className="studio-secondary" href={downloads.apple.ios.testFlight} target="_blank" rel="noopener noreferrer">Cài bản thử qua TestFlight</a> : <p>App iPhone/iPad chưa phát hành. Bạn có thể dùng web trên Safari trong lúc chờ bản cài. Dựng web cần đủ bộ nhớ và giữ tab mở.</p>}
         <h3>Android</h3><a className="studio-secondary" href={downloads.android} download><Download size={18}/>Android · Tải APK</a><small>Android 10 trở lên · Hiện hỗ trợ chat, chưa dựng tại máy.</small>
       </div> : <p role="status">Chưa tải được danh sách bản cài. Đóng hướng dẫn rồi thử lại.</p>}
       {!needsRenderer ? <>
-        <h3>Lối tắt chat trên màn hình</h3>
-        {prompt ? <button className="studio-secondary" onClick={() => { void install(); }}>Cài lối tắt chat</button> : null}
-        <p>{platform==='ios' ? "Safari → Chia sẻ → Thêm vào Màn hình chính. Lối tắt này dùng để chat; không có bộ dựng native." : "Chrome/Edge → menu → Cài ứng dụng. Đây là lối tắt web để chat với AI."}</p>
+        <h3>Cài web trên màn hình</h3>
+        {prompt ? <button className="studio-secondary" onClick={() => { void install(); }}>Cài ứng dụng web</button> : null}
+        <p>{platform==='ios' ? "Safari → Chia sẻ → Thêm vào Màn hình chính. Web dựng trong trình duyệt; giữ màn hình mở khi xuất MP4." : "Chrome/Edge → menu → Cài ứng dụng. Web dùng máy của bạn để dựng video và xuất MP4."}</p>
       </> : null}
       <p>App có bộ dựng cần Internet để kết nối AI và quản lý token. Với iPhone/iPad, giữ app trên màn hình khi xuất video; thiết bị cần đủ chỗ lưu nguồn và MP4.</p>
     </div></StudioModal> : null}

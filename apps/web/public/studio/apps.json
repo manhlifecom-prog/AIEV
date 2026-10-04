@@ -19,5 +19,13 @@
     "ios": {
       "status": "awaiting-signing"
     }
+  },
+  "browser": {
+    "renderer": true,
+    "version": "1.0.0",
+    "output": "mp4",
+    "resolution": "720p",
+    "processing": "device",
+    "driveDownload": "choose-downloaded-files"
   }
 }

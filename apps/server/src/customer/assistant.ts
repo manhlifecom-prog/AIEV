@@ -21,7 +21,7 @@ export async function converse(input: unknown, progress: ConversationProgress = 
       properties: { reply: { type: 'string' }, action: { type: 'string', enum: ['reply', 'prepare'] }, prompt: { type: 'string' }, sourceIds:{type:'array',items:{type:'string'}} },
     } } },
   } as const;
-  const options={...request,instructions:request.instructions+localInstructions};
+  const options={...request,instructions:request.instructions+localInstructions+'\ndevice=browser là web đã kết nối bộ dựng WebAssembly tại thiết bị. Với browser, chủ động prepare và confirm như app native, không nói website chỉ chat, không yêu cầu cài app. Khách chọn video/thư mục qua bộ chọn trình duyệt, AI dùng sourceIds trong localLibrary. Xuất MP4 720p, cắt/ghép/đổi tỷ lệ/phụ đề/tiêu đề. Nguồn và video xuất ở trình duyệt khách, không dựng trên VPS. Link Drive có thể bị CORS; nếu chưa có nguồn localLibrary, hướng dẫn tải Drive về máy rồi bấm Chọn video/Chọn thư mục. Cần giữ tab mở khi dựng, nguồn lớn có thể cần app Windows.'};
   let output = '';
   if (progress.reply) {
     const stream = await client.responses.create({ ...options, stream: true }, { signal: progress.signal });
@@ -43,10 +43,10 @@ export function assistantRoutes(app: Express, store: CustomerStore, auth: Reques
     const owner = res.locals.user.id, message = req.body?.message;
     const version=String(req.body?.deviceVersion || '');
     const modernNative=/^(?:0\.(?:[6-9]|[1-9]\d+)\.\d+|[1-9]\d*\.\d+\.\d+)$/.test(version);
-    const device = req.body?.device==='windows' ? 'windows' : ['macos','ios'].includes(req.body?.device) && modernNative ? req.body.device : 'web';
+    const device = req.body?.device==='browser' && req.body?.browserRenderer===1 ? 'browser' : req.body?.device==='windows' ? 'windows' : ['macos','ios'].includes(req.body?.device) && modernNative ? req.body.device : 'web';
     const localDevice=device!=='web';
     let localLibrary:null|{total:number;files:{id:string;name:string;bytes:number}[]}=null;
-    if(req.body.localLibrary && ['windows','macos'].includes(device)) {
+    if(req.body.localLibrary && ['windows','macos','browser'].includes(device)) {
       const raw=req.body.localLibrary;
       if(!Number.isSafeInteger(raw.total) || raw.total<0 || !Array.isArray(raw.files) || raw.files.length>200 || raw.total<raw.files.length || raw.files.some((file:any)=>!file || typeof file.id!=='string' || !/^[a-f0-9]{32}$/.test(file.id) || typeof file.name!=='string' || file.name.length>500 || !file.name.trim() || /[\x00-\x1f]/.test(file.name) || !Number.isSafeInteger(file.bytes) || file.bytes<100) || new Set(raw.files.map((f:any)=>f.id)).size!==raw.files.length)throw new CustomerError(400,'Danh mục video tại máy không hợp lệ');
       localLibrary={total:raw.total,files:raw.files.map((file:any)=>({id:file.id,name:file.name,bytes:file.bytes}))};
