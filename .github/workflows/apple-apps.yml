@@ -65,6 +65,15 @@ jobs:
           xcodebuild test -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination "platform=iOS Simulator,id=$DEVICE" -derivedDataPath .runtime/ios-build -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 180 IPHONEOS_DEPLOYMENT_TARGET=18.4 CODE_SIGNING_ALLOWED=NO
       - name: Compile device archive without distribution signature
         run: xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
+      - name: Export test diagnostics
+        if: always()
+        run: |
+          mkdir -p .runtime/ios-diagnostics
+          for RESULT in .runtime/ios-build/Logs/Test/*.xcresult; do
+            [ -d "$RESULT" ] || continue
+            xcrun xcresulttool export diagnostics --path "$RESULT" --output-path .runtime/ios-diagnostics || true
+            xcrun xcresulttool export attachments --path "$RESULT" --output-path .runtime/ios-diagnostics/attachments || true
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -72,5 +81,6 @@ jobs:
           path: |
             .runtime/AIEV-iOS.xcarchive
             .runtime/ios-build/Logs/Test/*.xcresult
+            .runtime/ios-diagnostics
           if-no-files-found: error
           retention-days: 30

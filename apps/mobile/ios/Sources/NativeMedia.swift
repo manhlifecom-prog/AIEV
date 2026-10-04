@@ -125,9 +125,8 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
         instruction.timeRange = CMTimeRange(start: .zero, duration: time(offset)); instruction.layerInstructions = [layerInstruction]; instruction.backgroundColor = UIColor.black.cgColor
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = size; videoComposition.frameDuration = CMTime(value: 1, timescale: 30); videoComposition.instructions = [instruction]
-        let parent = CALayer(), videoLayer = CALayer()
-        parent.frame = CGRect(origin: .zero, size: size); videoLayer.frame = parent.bounds
-        parent.addSublayer(videoLayer)
+        let parent = CALayer()
+        parent.frame = CGRect(origin: .zero, size: size)
         if !plan.edit.title.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             parent.addSublayer(caption(plan.edit.title, start: 0, end: min(4, offset), size: size, title: true))
         }
@@ -144,7 +143,13 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
                 offset += segment.end - segment.start
             }
         }
-        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parent)
+        // A separate overlay track avoids the post-processing export crash in
+        // the iOS simulator and keeps text composited above the video track.
+        let overlayID = composition.unusedTrackID()
+        let overlay = AVMutableVideoCompositionLayerInstruction()
+        overlay.trackID = overlayID
+        instruction.layerInstructions = [overlay, layerInstruction]
+        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(additionalLayer: parent, asTrackID: overlayID)
         activity("Đang xuất MP4 trên iPhone/iPad")
         try await export(composition, videoComposition: videoComposition, output: output)
         let final = try await probe(output), expected = plan.edit.segments.reduce(0) { $0 + $1.end - $1.start }
