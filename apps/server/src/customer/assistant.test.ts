@@ -30,5 +30,9 @@ test('conversation remembers source, bills once, enforces ownership and refunds 
     assert.equal((await post({message:'x',threadId:greeting.threadId},other.id)).status,404);
     fail=true; assert.equal((await post({message:'Sửa tiếp',threadId:greeting.threadId})).status,503); assert.equal(store.user(user.id)?.balance,8); assert.equal(store.messages(user.id,greeting.threadId).length,4);
     assert.equal((await post({message:'Hi'},other.id)).status,402); assert.equal(calls,3);
+    const retryId='22222222-2222-2222-2222-222222222222';
+    assert.equal((await post({message:'Retry',threadId:greeting.threadId,requestId:retryId})).status,503); assert.equal(store.user(user.id)?.balance,8);
+    fail=false; assert.equal((await post({message:'Retry',threadId:greeting.threadId,requestId:retryId})).status,200);assert.equal(store.user(user.id)?.balance,7);
+    assert.equal((await post({message:'Retry',threadId:greeting.threadId,requestId:retryId})).status,200);assert.equal(store.user(user.id)?.balance,7);assert.equal(calls,5);
   } finally {if(saved===undefined) delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=saved; await new Promise<void>(r=>server.close(()=>r()));store.db.close();}
 });

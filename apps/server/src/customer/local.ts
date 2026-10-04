@@ -34,7 +34,7 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     store.db.prepare('INSERT INTO local_jobs(id,metadata) VALUES(?,?)').run(job.id,JSON.stringify(m));
     store.quote(job.id,m.duration,tokens);
     if (!req.body.turnId) store.message(threadId,'user',message);
-    store.message(threadId,'assistant',`Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Chi phí ${tokens} token. Xác nhận để AI lên kế hoạch và app dựng tại máy. Không tải video nguồn lên VPS. Khi đã nhận kế hoạch AI, phí AI không hoàn nếu máy bạn dựng lỗi; bạn có thể thử dựng lại cùng kế hoạch miễn phí.`);
+    store.message(threadId,'assistant',store.user(owner)?.role==='admin' ? `Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Miễn token cho quản trị. Chi phí ước tính ${tokens} token chỉ để theo dõi, không trừ số dư. Xác nhận để AI lên kế hoạch và dựng tại máy.` : `Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Chi phí ${tokens} token. Xác nhận để AI lên kế hoạch và app dựng tại máy. Không tải video nguồn lên VPS. Khi đã nhận kế hoạch AI, phí AI không hoàn nếu máy bạn dựng lỗi; bạn có thể thử dựng lại cùng kế hoạch miễn phí.`);
     res.json({threadId,jobId:job.id});
   });
   app.post('/api/customer/local/:id/confirm',auth,(req,res)=>{

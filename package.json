@@ -12,7 +12,7 @@
   "scripts": {
     "customer:dev": "node scripts/customer.mjs",
     "customer:start": "node scripts/customer.mjs --production",
-    "customer:test": "tsx --test apps/server/src/customer/customer.test.ts",
+    "customer:test": "tsx --test apps/server/src/customer/*.test.ts",
     "customer:build": "node scripts/customer-build.mjs",
     "dev": "concurrently -n server,web -c yellow,cyan \"npm run dev -w apps/server\" \"npm run dev -w apps/web\"",
     "build": "npm run build -w apps/server && npm run build -w apps/web",

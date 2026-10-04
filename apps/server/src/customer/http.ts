@@ -8,6 +8,7 @@ import { CustomerService } from "./service.js";
 import { CustomerError, CustomerStore, type User } from "./store.js";
 import { localRoutes } from "./local.js";
 import { assistantRoutes } from "./assistant.js";
+import { adminRoutes } from "./admin.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
 function sameSecret(a: string, b: string) { const aa = Buffer.from(a), bb = Buffer.from(b); return aa.length === bb.length && aa.length > 0 && timingSafeEqual(aa, bb); }
@@ -44,6 +45,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   function user(res: Response) { return res.locals.user as User; }
   localRoutes(app, store, auth);
   assistantRoutes(app, store, auth);
+  adminRoutes(app,store,auth);
   let mediaReady: boolean | null = null;
   let readinessCheckedAt = 0;
   async function ready() {
@@ -75,11 +77,10 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     store.changePassword(user(res).id, field(req.body, "currentPassword", 128), field(req.body, "newPassword", 128));
     sessionCookie(res, store.createSession(user(res).id)); res.json({ success: true });
   });
-  app.get("/api/customer/admin/overview", auth, (_req, res) => res.json(store.adminOverview(user(res).id)));
   app.get("/api/customer/threads", auth, (_req, res) => res.json(store.threads(user(res).id)));
   app.get("/api/customer/threads/:id", auth, (req, res) => res.json({ messages: store.messages(user(res).id, String(req.params.id)), jobs: store.jobs(user(res).id).filter(x => x.thread_id === req.params.id) }));
   app.get("/api/customer/videos", auth, (_req, res) => res.json(store.jobs(user(res).id)));
-  app.get("/api/customer/wallet", auth, (_req, res) => res.json({ balance: store.user(user(res).id)!.balance, transactions: store.db.prepare("SELECT delta,kind,created_at FROM ledger WHERE user_id=? ORDER BY created_at DESC LIMIT 100").all(user(res).id) }));
+  app.get("/api/customer/wallet", auth, (_req, res) => res.json({ balance: store.user(user(res).id)!.balance, transactions: store.db.prepare("SELECT l.delta,l.kind,l.created_at,CASE WHEN l.kind='chat' THEN 1 WHEN l.kind='reserve' THEN COALESCE(j.tokens,0) ELSE 0 END AS estimatedTokens FROM ledger l LEFT JOIN jobs j ON j.id=l.reference AND j.user_id=l.user_id WHERE l.user_id=? ORDER BY l.rowid DESC LIMIT 100").all(user(res).id) }));
   app.post("/api/customer/chat", auth, async (req, res) => {
     if (process.env.CUSTOMER_SERVER_RENDER === '0') throw new CustomerError(409, 'Video được dựng trên máy bạn. Hãy tải app Windows 0.2.0 để gửi yêu cầu; website dùng đăng nhập và nạp token.');
     const owner = user(res).id;

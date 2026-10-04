@@ -4,7 +4,7 @@ import { randomBytes, randomUUID, scryptSync, timingSafeEqual, createHash } from
 import { DatabaseSync } from "node:sqlite";
 import { customerConfig } from "./config.js";
 
-export type User = { id: string; email: string; name: string; password: string; balance: number; role: "customer" | "admin" };
+export type User = { id: string; email: string; name: string; password: string; balance: number; role: "customer" | "admin"; blocked: number };
 export type Job = { id: string; user_id: string; thread_id: string; prompt: string; drive_url: string; status: string; stage: string; tokens: number; duration: number; error: string | null; created_at: number; output: string | null };
 export class CustomerError extends Error { constructor(public status: number, message: string) { super(message); } }
 export class CustomerStore {
@@ -26,6 +26,9 @@ export class CustomerStore {
       CREATE INDEX IF NOT EXISTS sessions_expiry ON sessions(expires);`);
     const columns = this.db.prepare("PRAGMA table_info(users)").all();
     if (!columns.some(column => column.name === "role")) this.db.exec("ALTER TABLE users ADD COLUMN role TEXT NOT NULL DEFAULT 'customer' CHECK(role IN ('customer','admin'))");
+    if (!columns.some(column => column.name === "blocked")) this.db.exec("ALTER TABLE users ADD COLUMN blocked INTEGER NOT NULL DEFAULT 0 CHECK(blocked IN (0,1))");
+    this.db.exec(`CREATE TABLE IF NOT EXISTS admin_audit(id TEXT PRIMARY KEY, actor_id TEXT NOT NULL REFERENCES users(id), target_id TEXT NOT NULL REFERENCES users(id), action TEXT NOT NULL, reason TEXT NOT NULL, payload TEXT NOT NULL, created_at INTEGER NOT NULL);
+      CREATE INDEX IF NOT EXISTS admin_audit_time ON admin_audit(created_at);`);
   }
   transaction<T>(fn: () => T): T {
     this.db.exec("BEGIN IMMEDIATE");
@@ -49,6 +52,7 @@ export class CustomerStore {
     const [salt, hash] = (user?.password || "invalid:" + "00".repeat(64)).split(":");
     const actual = scryptSync(password, salt, 64);
     if (!user || !timingSafeEqual(actual, Buffer.from(hash, "hex"))) throw new CustomerError(401, "Email hoặc mật khẩu không đúng");
+    if (user.blocked) throw new CustomerError(403, "Tài khoản đã bị khóa. Hãy liên hệ quản trị.");
     return user;
   }
   createSession(userId: string) {
@@ -59,10 +63,26 @@ export class CustomerStore {
   }
   session(token: string) {
     const row = this.db.prepare("SELECT user_id FROM sessions WHERE hash=? AND expires>?").get(createHash("sha256").update(token).digest("hex"), Date.now());
-    return row ? this.user(String(row.user_id)) : undefined;
+    const account = row ? this.user(String(row.user_id)) : undefined;
+    return account?.blocked ? undefined : account;
   }
   logout(token: string) { this.db.prepare("DELETE FROM sessions WHERE hash=?").run(createHash("sha256").update(token).digest("hex")); }
-  publicUser(user: User) { return { id: user.id, name: user.name, email: user.email, balance: user.balance, role: user.role }; }
+  publicUser(user: User) { return { id: user.id, name: user.name, email: user.email, balance: user.balance, role: user.role, blocked: Boolean(user.blocked), unlimitedTokens: user.role === 'admin' }; }
+  reserveChat(userId: string, reference: string) {
+    return this.transaction(() => {
+      const amount = this.user(userId)?.role === 'admin' ? 0 : 1;
+      if (amount && !this.db.prepare('UPDATE users SET balance=balance-? WHERE id=? AND balance>=?').run(amount,userId,amount).changes) throw new CustomerError(402,'Mỗi tin nhắn AI dùng 1 token. Hãy nạp token để trò chuyện.');
+      this.db.prepare('INSERT INTO ledger VALUES(?,?,?,?,?,?)').run(randomUUID(),userId,-amount,'chat',reference,Date.now());
+      return amount;
+    });
+  }
+  refundChat(userId: string, reference: string) {
+    this.transaction(() => {
+      const reserved=this.db.prepare("SELECT delta FROM ledger WHERE user_id=? AND kind='chat' AND reference=?").get(userId,reference);
+      const amount=-(Number(reserved?.delta) || 0);
+      if (amount>0 && this.db.prepare('INSERT OR IGNORE INTO ledger VALUES(?,?,?,?,?,?)').run(randomUUID(),userId,amount,'chat_refund',reference,Date.now()).changes) this.db.prepare('UPDATE users SET balance=balance+? WHERE id=?').run(amount,userId);
+    });
+  }
   changePassword(userId: string, currentPassword: string, newPassword: string) {
     const user = this.user(userId);
     if (!user) throw new CustomerError(401, "Hãy đăng nhập để tiếp tục");
@@ -81,7 +101,7 @@ export class CustomerStore {
     const stats = this.db.prepare(`SELECT
       (SELECT count(*) FROM users WHERE role='customer') AS customers,
       (SELECT count(*) FROM jobs) AS videos,
-      (SELECT count(*) FROM jobs WHERE status IN ('inspecting','queued','running')) AS activeVideos,
+      (SELECT count(*) FROM jobs WHERE status IN ('inspecting','queued','running','local_running')) AS activeVideos,
       (SELECT coalesce(sum(amount),0) FROM orders WHERE status='paid') AS paidVnd`).get();
     return {
       stats,
@@ -114,10 +134,10 @@ export class CustomerStore {
     const pending = this.db.prepare("SELECT count(*) AS n FROM jobs WHERE user_id=? AND status='awaiting_confirmation'").get(userId);
     if (Number(pending?.n) >= 3) throw new CustomerError(429, "Bạn đã có 3 video chờ xác nhận. Hãy hoàn tất các yêu cầu trước.");
     const daily = this.db.prepare("SELECT count(*) AS n FROM jobs WHERE user_id=? AND created_at>?").get(userId, Date.now() - 86400_000);
-    if (Number(daily?.n) >= 30) throw new CustomerError(429, "Bạn đã đạt giới hạn 30 yêu cầu trong 24 giờ.");
+    if (Number(daily?.n) >= 30 && this.user(userId)?.role !== 'admin') throw new CustomerError(429, "Bạn đã đạt giới hạn 30 yêu cầu trong 24 giờ.");
     const imports = this.db.prepare("SELECT count(*) AS n FROM jobs WHERE status='inspecting'").get();
     if (Number(imports?.n) >= 3) throw new CustomerError(429, "Máy chủ đang nhận nhiều video. Hãy thử lại sau ít phút.");
-    if (this.db.prepare("SELECT id FROM jobs WHERE user_id=? AND status IN ('inspecting','queued','running')").get(userId)) throw new CustomerError(409, "Video trước đang xử lý. Hãy chờ hoàn tất.");
+    if (this.db.prepare("SELECT id FROM jobs WHERE user_id=? AND status IN ('inspecting','queued','running','local_running')").get(userId)) throw new CustomerError(409, "Video trước đang xử lý. Hãy chờ hoàn tất.");
     const id = randomUUID();
     this.db.prepare("INSERT INTO jobs(id,user_id,thread_id,prompt,drive_url,status,stage,created_at) VALUES(?,?,?,?,?,'inspecting','Đang kiểm tra video nguồn',?)").run(id, userId, threadId, prompt, driveUrl, Date.now());
     return this.job(userId, id);
@@ -129,9 +149,9 @@ export class CustomerStore {
       const job = this.job(userId, id);
       if (["queued", "running", "local_running", "done"].includes(job.status)) return job;
       if (job.status !== "awaiting_confirmation") throw new CustomerError(409, "Video chưa sẵn sàng");
-      const changed = this.db.prepare("UPDATE users SET balance=balance-? WHERE id=? AND balance>=?").run(job.tokens, userId, job.tokens);
-      if (changed.changes !== 1) throw new CustomerError(402, "Bạn cần nạp thêm token để dựng video");
-      this.db.prepare("INSERT INTO ledger VALUES(?,?,?,?,?,?)").run(randomUUID(), userId, -job.tokens, "reserve", id, Date.now());
+      const amount = this.user(userId)?.role === 'admin' ? 0 : job.tokens;
+      if (amount && this.db.prepare("UPDATE users SET balance=balance-? WHERE id=? AND balance>=?").run(amount,userId,amount).changes !== 1) throw new CustomerError(402, "Bạn cần nạp thêm token để dựng video");
+      this.db.prepare("INSERT INTO ledger VALUES(?,?,?,?,?,?)").run(randomUUID(),userId,-amount,"reserve",id,Date.now());
       this.update(id, "queued", "Đang chờ dựng video");
       return this.job(userId, id);
     });
@@ -141,13 +161,14 @@ export class CustomerStore {
     this.transaction(() => {
       const job = this.db.prepare("SELECT * FROM jobs WHERE id=?").get(id) as Job | undefined;
       if (!job || job.status === "done" || job.status === "failed") return;
-      const reserved = this.db.prepare("SELECT id FROM ledger WHERE user_id=? AND kind='reserve' AND reference=?").get(job.user_id, id);
-      if (reserved) {
-        const result = this.db.prepare("INSERT OR IGNORE INTO ledger VALUES(?,?,?,?,?,?)").run(randomUUID(), job.user_id, job.tokens, "refund", id, Date.now());
-        if (result.changes) this.db.prepare("UPDATE users SET balance=balance+? WHERE id=?").run(job.tokens, job.user_id);
+      const reserved = this.db.prepare("SELECT delta FROM ledger WHERE user_id=? AND kind='reserve' AND reference=?").get(job.user_id,id);
+      const amount = -(Number(reserved?.delta) || 0);
+      if (amount > 0) {
+        const result = this.db.prepare("INSERT OR IGNORE INTO ledger VALUES(?,?,?,?,?,?)").run(randomUUID(),job.user_id,amount,"refund",id,Date.now());
+        if (result.changes) this.db.prepare("UPDATE users SET balance=balance+? WHERE id=?").run(amount,job.user_id);
       }
       this.db.prepare("UPDATE jobs SET status='failed',stage='Xử lý không thành công',error=? WHERE id=?").run(message.slice(0, 300), id);
-      this.message(job.thread_id, "assistant", message + (reserved ? " Token đã được hoàn vào ví." : " Bạn chưa bị trừ token."));
+      this.message(job.thread_id, "assistant", message + (amount > 0 ? " Token đã được hoàn vào ví." : " Bạn chưa bị trừ token."));
     });
   }
   recover() {
