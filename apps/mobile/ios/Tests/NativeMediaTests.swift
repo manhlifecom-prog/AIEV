@@ -88,6 +88,7 @@ final class NativeMediaTests: XCTestCase {
     }
     private func fixture(_ output: URL, color: UIColor, rotated: Bool) async throws {
         let writer = try AVAssetWriter(outputURL: output, fileType: .mp4)
+        defer { if writer.status == .writing { writer.cancelWriting() } }
         let input = AVAssetWriterInput(mediaType: .video, outputSettings: [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 320, AVVideoHeightKey: 180])
         if rotated { input.transform = CGAffineTransform(rotationAngle: .pi / 2) }
         let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB, kCVPixelBufferWidthKey as String: 320, kCVPixelBufferHeightKey as String: 180])
@@ -95,7 +96,9 @@ final class NativeMediaTests: XCTestCase {
         guard writer.startWriting() else { throw writer.error ?? NativeFailure(message: "Fixture writer did not start") }
         writer.startSession(atSourceTime: .zero)
         for index in 0..<60 {
-            let deadline = Date().addingTimeInterval(15)
+            // The simulator's first hardware codec startup can take over 15s
+            // while WebKit launches; bound the wait without abandoning a writer.
+            let deadline = Date().addingTimeInterval(60)
             while !input.isReadyForMoreMediaData {
                 guard writer.status == .writing, Date() < deadline else { throw writer.error ?? NativeFailure(message: "Fixture encoder stopped accepting frames") }
                 try await Task.sleep(nanoseconds: 1_000_000)
