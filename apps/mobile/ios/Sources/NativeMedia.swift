@@ -89,6 +89,7 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
             clips.append(ClipInfo(name: String(file.1.prefix(500)), start: offset, duration: metadata.duration, hasAudio: metadata.hasAudio))
             offset += metadata.duration; bytes += metadata.bytes
         }
+        if !clips.contains(where: { $0.hasAudio }) { composition.removeTrack(audio) }
         let videoComposition = AVMutableVideoComposition()
         videoComposition.renderSize = size; videoComposition.frameDuration = CMTime(value: 1, timescale: 30); videoComposition.instructions = instructions
         activity("Đang ghép nguồn trên iPhone/iPad")

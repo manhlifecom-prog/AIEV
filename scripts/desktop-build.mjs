@@ -25,7 +25,12 @@ manifest.build.extraResources = ['ffmpeg','ffprobe'].map(name=>{
   if(!fs.existsSync(from)) throw new Error('Missing '+from+'. Prepare media binaries for the target platform before packaging.');
   return {from,to:'media/'+name+extension};
 });
-if(targetPlatform==='darwin') manifest.build.extraResources.push({from:path.join(mediaDirectory,'notices'),to:'media/notices'});
+if(targetPlatform==='darwin') {
+  manifest.build.extraResources.push({from:path.join(mediaDirectory,'notices'),to:'media/notices'});
+  // codesign runs from the builder process cwd, outside this isolated package.
+  manifest.build.mac.entitlements = path.join(stage, 'entitlements.mac.plist');
+  manifest.build.mac.entitlementsInherit = path.join(stage, 'entitlements.mac.plist');
+}
 manifest.build.directories.output = path.join(root, '.runtime', 'app-builds', 'desktop');
 fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2));
 // The standalone app has no runtime npm dependencies: all renderer code is bundled.

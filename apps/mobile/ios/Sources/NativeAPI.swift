@@ -40,7 +40,7 @@ final class RestrictedRedirects: NSObject, URLSessionTaskDelegate {
         let url = StudioOrigin.url.appendingPathComponent("api/customer" + endpoint)
         var request = URLRequest(url: url); request.cachePolicy = .reloadIgnoringLocalCacheData
         let cookies = await web.configuration.websiteDataStore.httpCookieStore.allCookies()
-        let selected = cookies.filter { ["video.manh.marketing", ".video.manh.marketing"].contains($0.domain) && url.path.hasPrefix($0.path) && ($0.expiresDate == nil || $0.expiresDate! > Date()) }
+        let selected = cookies.filter { $0.name == "aiev_customer" && ["video.manh.marketing", ".video.manh.marketing"].contains($0.domain) && url.path.hasPrefix($0.path) && ($0.expiresDate == nil || $0.expiresDate! > Date()) }
         request.allHTTPHeaderFields = HTTPCookie.requestHeaderFields(with: selected)
         request.setValue(StudioOrigin.url.absoluteString, forHTTPHeaderField: "Origin")
         if let binary {

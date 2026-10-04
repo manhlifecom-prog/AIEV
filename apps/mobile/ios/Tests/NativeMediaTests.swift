@@ -9,10 +9,13 @@ final class NativeMediaTests: XCTestCase {
         try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: dir) }
         let red = dir.appendingPathComponent("red.mp4"), blue = dir.appendingPathComponent("blue.mp4"), withAudio = dir.appendingPathComponent("audio.mp4")
+        print("AIEV media check: generating two source clips")
         try await fixture(red, color: .red, rotated: false)
         try await fixture(blue, color: .blue, rotated: true)
+        print("AIEV media check: source clips written; attaching audio")
         try await addingAudio(red, output: withAudio, directory: dir)
         let media = NativeMedia(), source = dir.appendingPathComponent("source.mp4")
+        media.activity = { print("AIEV media check: \($0)") }
         let metadata = try await media.merge([(withAudio, "Lời thoại"), (blue, "Clip dọc không âm thanh")], output: source)
         XCTAssertEqual(metadata.sources?.count, 2); XCTAssertEqual(metadata.duration, 4, accuracy: 0.1)
         XCTAssertEqual(metadata.sources?[1].start ?? 0, 2, accuracy: 0.1)
@@ -27,6 +30,7 @@ final class NativeMediaTests: XCTestCase {
         let image = try generator.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil)
         let attachment = XCTAttachment(image: UIImage(cgImage: image)); attachment.lifetime = .keepAlways; add(attachment)
         let audio = dir.appendingPathComponent("speech.m4a")
+        print("AIEV media check: extracting offset speech chunk")
         try await media.speech(source, start: 0.5, seconds: 1, output: audio)
         let audioAsset = AVURLAsset(url: audio)
         let speechDuration = try await audioAsset.load(.duration).seconds
@@ -34,6 +38,18 @@ final class NativeMediaTests: XCTestCase {
         XCTAssertEqual(speechDuration, 1, accuracy: 0.15)
         XCTAssertFalse(speechTracks.isEmpty)
         XCTAssertLessThan(try Data(contentsOf: audio).count, 5 * 1024 * 1024)
+    }
+    @MainActor func testSilentFolderKeepsVideoWithoutInventingAudio() async throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        defer { try? FileManager.default.removeItem(at: dir) }
+        let first = dir.appendingPathComponent("first.mp4"), second = dir.appendingPathComponent("second.mp4"), output = dir.appendingPathComponent("source.mp4")
+        try await fixture(first, color: .red, rotated: false)
+        try await fixture(second, color: .blue, rotated: true)
+        let media = NativeMedia(), metadata = try await media.merge([(first, "A"), (second, "B")], output: output)
+        let actual = try await media.probe(output)
+        XCTAssertFalse(metadata.hasAudio); XCTAssertFalse(actual.hasAudio)
+        XCTAssertEqual(actual.duration, 4, accuracy: 0.1)
     }
     func testBoundedPlanAndOrigins() throws {
         let invalid = NativeEdit(title: "", ratio: "9:16", subtitles: false, segments: [EditSegment(start: 0, end: 10)])
@@ -48,9 +64,15 @@ final class NativeMediaTests: XCTestCase {
         let input = AVAssetWriterInput(mediaType: .video, outputSettings: [AVVideoCodecKey: AVVideoCodecType.h264, AVVideoWidthKey: 320, AVVideoHeightKey: 180])
         if rotated { input.transform = CGAffineTransform(rotationAngle: .pi / 2) }
         let adapter = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: input, sourcePixelBufferAttributes: [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB, kCVPixelBufferWidthKey as String: 320, kCVPixelBufferHeightKey as String: 180])
-        writer.add(input); writer.startWriting(); writer.startSession(atSourceTime: .zero)
+        writer.add(input)
+        guard writer.startWriting() else { throw writer.error ?? NativeFailure(message: "Fixture writer did not start") }
+        writer.startSession(atSourceTime: .zero)
         for index in 0..<60 {
-            while !input.isReadyForMoreMediaData { try await Task.sleep(nanoseconds: 1_000_000) }
+            let deadline = Date().addingTimeInterval(15)
+            while !input.isReadyForMoreMediaData {
+                guard writer.status == .writing, Date() < deadline else { throw writer.error ?? NativeFailure(message: "Fixture encoder stopped accepting frames") }
+                try await Task.sleep(nanoseconds: 1_000_000)
+            }
             var buffer: CVPixelBuffer?; CVPixelBufferCreate(kCFAllocatorDefault, 320, 180, kCVPixelFormatType_32ARGB, nil, &buffer)
             guard let buffer else { throw NativeFailure(message: "Fixture buffer missing") }
             CVPixelBufferLockBaseAddress(buffer, [])
