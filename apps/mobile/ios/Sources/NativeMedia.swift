@@ -1,4 +1,4 @@
-import AVFoundation
+@preconcurrency import AVFoundation
 import UIKit
 
 struct NativeFailure: LocalizedError {
@@ -77,7 +77,7 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
             try video.insertTimeRange(range, of: source, at: time(offset))
             if let sourceAudio = try await asset.loadTracks(withMediaType: .audio).first {
                 let audioRange = try await sourceAudio.load(.timeRange)
-                let available = CMTimeRangeGetIntersection(range, audioRange)
+                let available = CMTimeRangeGetIntersection(range, otherRange: audioRange)
                 if available.duration.seconds > 0 { try audio.insertTimeRange(available, of: sourceAudio, at: time(offset + available.start.seconds)) }
             }
             let layer = AVMutableVideoCompositionLayerInstruction(assetTrack: video)
@@ -111,7 +111,7 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
             let range = CMTimeRange(start: time(segment.start), duration: time(segment.end - segment.start))
             try video.insertTimeRange(range, of: videoSource, at: time(offset))
             if let audioSource, let audio {
-                let available = CMTimeRangeGetIntersection(range, try await audioSource.load(.timeRange))
+                let available = CMTimeRangeGetIntersection(range, otherRange: try await audioSource.load(.timeRange))
                 if available.duration.seconds > 0 { try audio.insertTimeRange(available, of: audioSource, at: time(offset + available.start.seconds - segment.start)) }
             }
             offset += range.duration.seconds
@@ -209,4 +209,5 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
         guard bytes >= 100, bytes <= 5 * 1024 * 1024 else { throw NativeFailure(message: "Đoạn âm thanh không hợp lệ") }
     }
 }
-private final class AudioPumpState { var finished = false }
+// This flag is confined to the single serial requestMediaDataWhenReady queue.
+private final class AudioPumpState: @unchecked Sendable { var finished = false }

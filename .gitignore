@@ -101,3 +101,10 @@ start/update-target.txt
 /.tmp/
 **/__pycache__/
 engines/remotion/.runtime/
+
+# Generated Apple project, archives and local signing export configuration.
+apps/mobile/ios/*.xcodeproj/
+apps/mobile/ios/Info.plist
+apps/mobile/ios/ExportOptions.plist
+*.xcarchive/
+*.xcresult/
