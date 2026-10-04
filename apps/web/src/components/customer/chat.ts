@@ -10,7 +10,7 @@ export async function customerChat(body: { message: string; requestId: string; t
     try { return await customerApi<ChatResult>('/chat', body); }
     finally { unsubscribe?.(); signal.removeEventListener('abort', cancel); }
   }
-  if (/AIEVDesktop\//.test(navigator.userAgent)) throw new StudioApiError(409, 'App chưa kết nối được bộ dựng tại máy. Đóng app và mở lại; nếu vẫn lỗi, cài lại bản Windows mới từ menu AIEV Studio → Mở bằng trình duyệt.');
+  if (/AIEV(?:Desktop|iOS)\//.test(navigator.userAgent)) throw new StudioApiError(409, 'App chưa kết nối được bộ dựng tại thiết bị. Đóng app và mở lại; nếu vẫn lỗi, cập nhật AIEV Studio.');
   const response = await fetch('/api/customer/assistant', { method: 'POST', credentials: 'same-origin', cache: 'no-store', signal, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...body, device: 'web', stream: true }) });
   if (!response.ok) { const value = await response.json().catch(() => ({})); throw new StudioApiError(response.status, value.error || 'Không kết nối được AI'); }
   if (!response.body) throw new Error('Không nhận được phản hồi AI');
