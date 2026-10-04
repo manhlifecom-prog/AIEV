@@ -12,5 +12,5 @@ for(const name of ['ffmpeg','core']) {
 fs.copyFileSync('apps/web/browser-assets/NotoSans.ttf',path.join(target,'caption.ttf'));
 fs.copyFileSync('apps/web/browser-assets/OFL.txt',path.join(target,'OFL.txt'));
 fs.copyFileSync('apps/web/browser-assets/FFmpeg-LICENSE',path.join(target,'FFmpeg-LICENSE'));
-fs.writeFileSync(path.join(target,'SOURCES.txt'),'FFmpeg.wasm wrapper: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.15\nFFmpeg.wasm core 0.12.10 build source: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/main/packages/core\nFFmpeg: https://github.com/FFmpeg/FFmpeg/tree/n5.1.4\nNoto Sans: https://github.com/google/fonts/tree/main/ofl/notosans\n');
+fs.writeFileSync(path.join(target,'SOURCES.txt'),'FFmpeg.wasm wrapper source: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/main/packages/ffmpeg\nDistributed wrapper version: @ffmpeg/ffmpeg 0.12.15 (npm)\nFFmpeg.wasm core 0.12.10 build source: https://github.com/ffmpegwasm/ffmpeg.wasm/tree/v0.12.10\nFFmpeg: https://github.com/FFmpeg/FFmpeg/tree/n5.1.4\nNoto Sans: https://github.com/google/fonts/tree/main/ofl/notosans\n');
 console.log('Browser worker, single-thread core and Unicode font prepared');
