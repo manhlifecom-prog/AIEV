@@ -8,7 +8,13 @@ test('native stream decoder handles split UTF-8 frames and rejects missing compl
 });
 test('sandbox preload exposes limited native bridge and strips Electron event from callbacks',async()=>{
   let bridge,listener,removed;const calls=[];
-  vm.runInNewContext(fs.readFileSync(__dirname+'/preload.cjs','utf8'),{require:name=>{assert.equal(name,'electron');return{contextBridge:{exposeInMainWorld:(name,value)=>{assert.equal(name,'aievDesktop');bridge=value;}},ipcRenderer:{invoke:async(...args)=>calls.push(args),on:(channel,fn)=>{assert.equal(channel,'aiev:activity');listener=fn;},removeListener:(channel,fn)=>removed=fn}};}});
-  assert.equal(bridge.version,'0.5.0');let received;const unsubscribe=bridge.onActivity(value=>received=value);const value={requestId:'test',type:'status',data:{label:'Đang tải'}};listener({secret:'Electron'},value);assert.equal(received,value);unsubscribe();assert.equal(removed,listener);
+  vm.runInNewContext(fs.readFileSync(__dirname+'/preload.cjs','utf8'),{process:{platform:'darwin'},require:name=>{assert.equal(name,'electron');return{contextBridge:{exposeInMainWorld:(name,value)=>{assert.equal(name,'aievDesktop');bridge=value;}},ipcRenderer:{invoke:async(...args)=>calls.push(args),on:(channel,fn)=>{assert.equal(channel,'aiev:activity');listener=fn;},removeListener:(channel,fn)=>removed=fn}};}});
+  assert.equal(bridge.version,'0.6.0');assert.equal(bridge.platform,'macos');let received;const unsubscribe=bridge.onActivity(value=>received=value);const value={requestId:'test',type:'status',data:{label:'Đang tải'}};listener({secret:'Electron'},value);assert.equal(received,value);unsubscribe();assert.equal(removed,listener);
   await bridge.cancelChat('test');assert.deepEqual(calls[0],['aiev:cancel-chat','test']);assert.equal(bridge.exec,undefined);
+});
+test('desktop uses target-specific media binaries and device identity',()=>{
+  const {nativePlatform,mediaResources}=require('./runtime.cjs');
+  assert.equal(nativePlatform('darwin'),'macos');assert.equal(nativePlatform('win32'),'windows');
+  assert.match(mediaResources('resources','win32').ffmpeg,/ffmpeg\.exe$/);
+  assert.match(mediaResources('resources','darwin').ffprobe,/ffprobe$/);
 });

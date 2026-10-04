@@ -5,11 +5,13 @@ const {randomUUID}=require('node:crypto');
 const {ORIGIN,inside}=require('./policy.cjs');
 const {readChatStream}=require('./chat-stream.cjs');
 const {folderSource}=require('./folder-source.cjs');
+const {nativePlatform,mediaResources}=require('./runtime.cjs');
 function attachLocal({app,ipcMain,dialog,shell,window}) {
   ipcMain.removeHandler('aiev:local'); ipcMain.removeHandler('aiev:open'); ipcMain.removeHandler('aiev:cancel-chat');
   const root=path.join(app.getPath('userData'),'local-videos'); fs.mkdirSync(root,{recursive:true});
-  process.env.FFMPEG_PATH=path.join(process.resourcesPath,'media','ffmpeg.exe');
-  process.env.FFPROBE_PATH=path.join(process.resourcesPath,'media','ffprobe.exe');
+  const binaries=mediaResources(process.resourcesPath);
+  process.env.FFMPEG_PATH=binaries.ffmpeg;
+  process.env.FFPROBE_PATH=binaries.ffprobe;
   const engine=import(pathToFileURL(path.join(__dirname,'renderer.mjs')).href);
   const manifest=path.join(root,'index.json');
   const records=fs.existsSync(manifest)?JSON.parse(fs.readFileSync(manifest,'utf8')):{};
@@ -58,7 +60,7 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
           if(typeof message!=='string' || message.length>8000) throw new Error('Yêu cầu không hợp lệ');
           const requestId=typeof body.requestId==='string'?body.requestId:randomUUID(); currentRequest=requestId;
           chatController=new AbortController();
-          const response=await window.webContents.session.fetch(ORIGIN+'/api/customer/assistant',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json','Origin':ORIGIN},signal:chatController.signal,body:JSON.stringify({...body,requestId,device:'windows',deviceVersion:'0.5.0',stream:true})});
+          const response=await window.webContents.session.fetch(ORIGIN+'/api/customer/assistant',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json','Origin':ORIGIN},signal:chatController.signal,body:JSON.stringify({...body,requestId,device:nativePlatform(),deviceVersion:app.getVersion?.() || '0.6.0',stream:true})});
           const decision=await readChatStream(response,event=>notify(requestId,event.type==='result'?{type:'reply',data:{text:event.data.reply || ''}}:event));
           chatController=null;
           if(decision.action==='prepare') stage('Chuẩn bị video nguồn trên máy bạn');

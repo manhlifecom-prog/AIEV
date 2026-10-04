@@ -66,7 +66,8 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     busy.add(id);
     try {
       const client=new OpenAI({apiKey:process.env.OPENAI_API_KEY,timeout:180000,maxRetries:1});
-      const result=await client.audio.transcriptions.create({file:await toFile(req.body,'speech.mp3'),model:'whisper-1',response_format:'verbose_json',timestamp_granularities:['word']});
+      const filename=req.get('X-AIEV-Audio-Format')==='m4a'?'speech.m4a':'speech.mp3';
+      const result=await client.audio.transcriptions.create({file:await toFile(req.body,filename),model:'whisper-1',response_format:'verbose_json',timestamp_granularities:['word']});
       const seconds=Math.min(600,metadata.duration-idx*600);
       if (result.duration>seconds+5) throw new CustomerError(400,'Âm thanh vượt thời lượng đã báo giá');
       const payload={text:result.text,words:(result.words || []).map(w=>({...w,start:w.start+idx*600,end:w.end+idx*600}))};

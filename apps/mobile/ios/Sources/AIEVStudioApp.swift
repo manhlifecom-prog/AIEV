@@ -1,72 +1,122 @@
 import SwiftUI
 import WebKit
+import AVKit
+import UniformTypeIdentifiers
 
 @main struct AIEVStudioApp: App {
     var body: some Scene { WindowGroup { StudioView().preferredColorScheme(.dark) } }
 }
-
 struct SharedVideo: Identifiable { let id = UUID(); let url: URL }
 struct StudioView: View {
     @State private var retry = UUID()
     @State private var offline = false
     @State private var video: SharedVideo?
+    @State private var failure: String?
     var body: some View {
-        StudioWebView(offline: $offline, video: $video).id(retry)
-            .background(Color(red: 17/255, green: 19/255, blue: 26/255))
+        StudioWebView(offline: $offline, video: $video, failure: $failure).id(retry)
+            .background(Color(.systemBackground))
             .alert("Chưa kết nối được AIEV", isPresented: $offline) {
                 Button("Thử lại") { retry = UUID() }
                 Button("Đóng", role: .cancel) {}
-            } message: { Text("App cần Internet để xử lý video. Kiểm tra kết nối rồi thử lại.") }
-            .sheet(item: $video) { item in VideoShareSheet(url: item.url) }
+            } message: { Text("Kiểm tra kết nối Internet rồi thử lại.") }
+            .alert("Dựng tại thiết bị bị gián đoạn", isPresented: Binding(get: { failure != nil }, set: { if !$0 { failure = nil } })) {
+                Button("Đóng", role: .cancel) { failure = nil }
+            } message: { Text(failure ?? "") }
+            .sheet(item: $video) { item in StudioVideoSheet(url: item.url) }
     }
 }
-struct VideoShareSheet: UIViewControllerRepresentable {
+struct StudioVideoSheet: View {
     let url: URL
-    func makeUIViewController(context: Context) -> UIActivityViewController { UIActivityViewController(activityItems: [url], applicationActivities: nil) }
-    func updateUIViewController(_ controller: UIActivityViewController, context: Context) {}
+    @Environment(\.dismiss) private var dismiss
+    @State private var player: AVPlayer?
+    var body: some View {
+        NavigationStack {
+            VideoPlayer(player: player)
+                .onAppear { player = AVPlayer(url: url); player?.play() }
+                .onDisappear { player?.pause() }
+                .navigationTitle("Video của bạn")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) { Button("Đóng") { dismiss() } }
+                    ToolbarItem(placement: .primaryAction) { ShareLink(item: url) { Label("Lưu hoặc chia sẻ", systemImage: "square.and.arrow.up") } }
+                }
+        }
+    }
 }
 struct StudioWebView: UIViewRepresentable {
     @Binding var offline: Bool
     @Binding var video: SharedVideo?
+    @Binding var failure: String?
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
-        config.websiteDataStore = .default()
-        config.allowsInlineMediaPlayback = true
-        config.applicationNameForUserAgent = "AIEViOS/0.1.0"
+        config.websiteDataStore = .default(); config.allowsInlineMediaPlayback = true
+        config.applicationNameForUserAgent = "AIEViOS/0.6.0"
+        config.userContentController.addScriptMessageHandler(context.coordinator, contentWorld: .page, name: "aiev")
+        if let url = Bundle.main.url(forResource: "native-bridge", withExtension: "js"), let script = try? String(contentsOf: url) {
+            config.userContentController.addUserScript(WKUserScript(source: script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
+        }
         let web = WKWebView(frame: .zero, configuration: config)
-        web.navigationDelegate = context.coordinator
-        web.isOpaque = false
-        web.backgroundColor = UIColor(red: 17/255, green: 19/255, blue: 26/255, alpha: 1)
+        web.navigationDelegate = context.coordinator; web.isOpaque = false
+        web.backgroundColor = .systemBackground; web.scrollView.keyboardDismissMode = .interactive
+        context.coordinator.engine.api.web = web
         web.load(URLRequest(url: URL(string: "https://video.manh.marketing/studio?app=ios")!))
         return web
     }
     func updateUIView(_ web: WKWebView, context: Context) { context.coordinator.parent = self }
-    class Coordinator: NSObject, WKNavigationDelegate, WKDownloadDelegate {
+    static func dismantleUIView(_ web: WKWebView, coordinator: Coordinator) { web.configuration.userContentController.removeScriptMessageHandler(forName: "aiev", contentWorld: .page) }
+    @MainActor class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandlerWithReply, UIDocumentPickerDelegate {
         var parent: StudioWebView
-        var destination: URL?
-        init(_ parent: StudioWebView) { self.parent = parent }
-        func trusted(_ url: URL?) -> Bool { guard let url else { return false }; return url.scheme == "https" && url.host == "video.manh.marketing" && url.user == nil && url.password == nil && url.port == nil }
-        func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            guard trusted(action.request.url) else {
-                if let url = action.request.url, url.scheme == "https", ["drive.google.com", "docs.google.com"].contains(url.host ?? "") { UIApplication.shared.open(url) }
-                decisionHandler(.cancel); return
+        let engine = NativeEngine()
+        private var selected: CheckedContinuation<[URL], Error>?
+        init(_ parent: StudioWebView) {
+            self.parent = parent; super.init()
+            engine.share = { [weak self] url in self?.parent.video = SharedVideo(url: url) }
+            engine.failure = { [weak self] message in self?.parent.failure = message }
+            engine.selectVideos = { [weak self] in guard let self else { throw NativeFailure(message: "App đã đóng") }; return try await self.pickVideos() }
+            engine.activity = { [weak self] id, event in
+                guard let web = self?.engine.api.web, StudioOrigin.trusted(web.url) else { return }
+                var value = event; value["requestId"] = id
+                web.callAsyncJavaScript("window.__aievActivity(event)", arguments: ["event": value], in: nil, contentWorld: .page, completionHandler: nil)
             }
-            decisionHandler(action.shouldPerformDownload ? .download : .allow)
         }
-        func webView(_ webView: WKWebView, decidePolicyFor response: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-            guard trusted(response.response.url) else { decisionHandler(.cancel); return }
-            decisionHandler(response.canShowMIMEType ? .allow : response.response.mimeType == "video/mp4" ? .download : .cancel)
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {
+            guard message.frameInfo.isMainFrame, message.frameInfo.securityOrigin.protocol == "https", message.frameInfo.securityOrigin.host == "video.manh.marketing", [0, 443].contains(message.frameInfo.securityOrigin.port), StudioOrigin.trusted(message.webView?.url), let body = message.body as? JSONObject else { replyHandler(nil, "Không được phép"); return }
+            Task { @MainActor in
+                let method = body["method"] as? String
+                do {
+                    switch method {
+                    case "request":
+                        guard let endpoint = body["endpoint"] as? String, let payload = body["body"] as? JSONObject else { throw NativeFailure(message: "Yêu cầu không hợp lệ") }
+                        let result = try await engine.request(endpoint, body: payload); replyHandler(["result": result], nil)
+                    case "cancel": replyHandler(engine.cancel(body["id"] as? String ?? ""), nil)
+                    case "open":
+                        guard let id = body["id"] as? String else { throw NativeFailure(message: "Video không hợp lệ") }
+                        try await engine.open(id); replyHandler(["success": true], nil)
+                    default: throw NativeFailure(message: "Chức năng không được phép")
+                    }
+                } catch {
+                    if method == "request" { replyHandler(["error": error.localizedDescription, "status": (error as? NativeFailure)?.status ?? 400], nil) }
+                    else { replyHandler(nil, error.localizedDescription) }
+                }
+            }
         }
-        func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) { download.delegate = self }
-        func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome download: WKDownload) { download.delegate = self }
+        private func pickVideos() async throws -> [URL] {
+            guard selected == nil, let controller = engine.api.web?.window?.rootViewController else { throw NativeFailure(message: "Chưa mở được bộ chọn video") }
+            return try await withCheckedThrowingContinuation { continuation in
+                selected = continuation
+                let picker = UIDocumentPickerViewController(forOpeningContentTypes: [.movie, .video], asCopy: true)
+                picker.allowsMultipleSelection = true; picker.delegate = self
+                controller.present(picker, animated: true)
+            }
+        }
+        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) { let pending = selected; selected = nil; pending?.resume(returning: urls) }
+        func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) { let pending = selected; selected = nil; pending?.resume(throwing: NativeFailure(message: "Đã hủy chọn video")) }
+        func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+            if StudioOrigin.trusted(action.request.url) { decisionHandler(.allow); return }
+            if let url = action.request.url, url.scheme == "https", ["drive.google.com", "docs.google.com"].contains(url.host ?? "") { UIApplication.shared.open(url) }
+            decisionHandler(.cancel)
+        }
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) { if (error as NSError).code != NSURLErrorCancelled { parent.offline = true } }
-        func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
-            guard trusted(response.url), response.mimeType == "video/mp4", response.url?.path.range(of: "^/api/customer/videos/[a-zA-Z0-9-]+/file$", options: .regularExpression) != nil else { completionHandler(nil); return }
-            destination = FileManager.default.temporaryDirectory.appendingPathComponent("AIEV-\(UUID().uuidString).mp4")
-            completionHandler(destination)
-        }
-        func download(_ download: WKDownload, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, decisionHandler: @escaping (WKDownload.RedirectPolicy) -> Void) { decisionHandler(trusted(request.url) ? .allow : .cancel) }
-        func downloadDidFinish(_ download: WKDownload) { if let destination { parent.video = SharedVideo(url: destination) } }
     }
 }

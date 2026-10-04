@@ -49,5 +49,13 @@ test('folder source is remembered from web chat and older desktop gets upgrade g
   const old=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device:'windows'});assert.equal(old.action,'reply');assert.match(old.reply,/0.5.0/);
   const compatible=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device:'windows',deviceVersion:'0.4.0'});assert.equal(compatible.action,'prepare');
   const current=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device:'windows',deviceVersion:'0.5.0'});assert.equal(current.action,'prepare');assert.equal(current.url,first.url);assert.equal(store.user(user.id)?.balance,0);
+  for(const device of ['macos','ios']) {
+   const native=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device,deviceVersion:'0.6.0'});assert.equal(native.action,'prepare');assert.equal(received.device,device);
+   const oldNative=await post({threadId:first.threadId,message:'Xin chào',device,deviceVersion:'0.1.0'});assert.equal(received.device,'web');
+   const pending=store.createJob(user.id,first.threadId,'Ghép clip','local-file');store.quote(pending.id,4,10);
+   const before=store.messages(user.id,first.threadId).length;
+   const confirmed=await post({threadId:first.threadId,message:'Làm đi',device,deviceVersion:'0.6.0'});assert.equal(confirmed.action,'confirm');assert.equal(confirmed.jobId,pending.id);assert.equal(store.messages(user.id,first.threadId).length,before+2);assert.equal(store.user(user.id)?.balance,0);
+   store.update(pending.id,'cancelled','Kiểm thử đã hoàn tất');
+  }
  }finally {if(saved===undefined)delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=saved;await new Promise<void>(r=>server.close(()=>r()));store.db.close();}
 });
