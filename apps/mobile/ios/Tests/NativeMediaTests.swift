@@ -29,6 +29,13 @@ final class NativeMediaTests: XCTestCase {
         let generator = AVAssetImageGenerator(asset: AVURLAsset(url: final)); generator.appliesPreferredTrackTransform = true
         let image = try generator.copyCGImage(at: CMTime(seconds: 0.5, preferredTimescale: 600), actualTime: nil)
         let attachment = XCTAttachment(image: UIImage(cgImage: image)); attachment.lifetime = .keepAlways; add(attachment)
+        let firstPixels = try pixels(image)
+        XCTAssertGreaterThan(firstPixels.center[0], firstPixels.center[2] + 80, "First selected clip stays red")
+        XCTAssertGreaterThan(firstPixels.upperWhite, 100, "Title or subtitle is visible above the video")
+        XCTAssertGreaterThan(firstPixels.lowerWhite, 100, "Both title and subtitle must be burned into the MP4")
+        let secondImage = try generator.copyCGImage(at: CMTime(seconds: 1.5, preferredTimescale: 600), actualTime: nil)
+        let secondPixels = try pixels(secondImage)
+        XCTAssertGreaterThan(secondPixels.center[2], secondPixels.center[0] + 80, "Rotated second clip stays blue")
         let audio = dir.appendingPathComponent("speech.m4a")
         print("AIEV media check: extracting offset speech chunk")
         try await media.speech(source, start: 0.5, seconds: 1, output: audio)
@@ -38,6 +45,26 @@ final class NativeMediaTests: XCTestCase {
         XCTAssertEqual(speechDuration, 1, accuracy: 0.15)
         XCTAssertFalse(speechTracks.isEmpty)
         XCTAssertLessThan(try Data(contentsOf: audio).count, 5 * 1024 * 1024)
+    }
+    private func pixels(_ image: CGImage) throws -> (center: [Int], upperWhite: Int, lowerWhite: Int) {
+        let width = image.width, height = image.height
+        var bytes = [UInt8](repeating: 0, count: width * height * 4)
+        let rendered = bytes.withUnsafeMutableBytes { buffer -> Bool in
+            guard let context = CGContext(data: buffer.baseAddress, width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Big.rawValue) else { return false }
+            context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
+            return true
+        }
+        guard rendered else { throw NativeFailure(message: "Cannot inspect rendered caption pixels") }
+        func white(_ range: Range<Int>) -> Int {
+            var count = 0
+            for y in range { for x in 60..<(width - 60) {
+                let i = (y * width + x) * 4
+                if bytes[i] > 210 && bytes[i + 1] > 210 && bytes[i + 2] > 210 { count += 1 }
+            } }
+            return count
+        }
+        let center = (height / 2 * width + width / 2) * 4
+        return (bytes[center..<(center + 3)].map(Int.init), white(80..<300), white((height - 300)..<(height - 80)))
     }
     @MainActor func testSilentFolderKeepsVideoWithoutInventingAudio() async throws {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
