@@ -66,6 +66,7 @@ jobs:
       - name: Compile device archive without distribution signature
         run: xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: AIEV-iPhone-iPad-build
           path: |

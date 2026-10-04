@@ -1,5 +1,6 @@
 @preconcurrency import AVFoundation
 import UIKit
+import CoreText
 
 struct NativeFailure: LocalizedError {
     var message: String
@@ -151,7 +152,10 @@ struct NativePlan: Codable { var edit: NativeEdit; var words: [NativeWord]; var 
     }
     private func caption(_ text: String, start: Double, end: Double, size: CGSize, title: Bool) -> CALayer {
         let layer = CATextLayer()
-        layer.string = String(text.prefix(250)); layer.font = UIFont.boldSystemFont(ofSize: title ? 56 : 48); layer.fontSize = title ? 56 : 48
+        let fontSize: CGFloat = title ? 56 : 48
+        layer.string = String(text.prefix(250))
+        layer.font = CTFontCreateWithName(UIFont.boldSystemFont(ofSize: fontSize).fontName as CFString, fontSize, nil)
+        layer.fontSize = fontSize
         layer.alignmentMode = .center; layer.isWrapped = true; layer.foregroundColor = UIColor.white.cgColor
         layer.backgroundColor = UIColor.black.withAlphaComponent(0.55).cgColor; layer.cornerRadius = 12; layer.contentsScale = 2
         layer.frame = CGRect(x: 60, y: title ? size.height - 230 : size.height * 0.1, width: size.width - 120, height: 150)
