@@ -1,0 +1,70 @@
+name: Apple apps
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['apps/desktop/**', 'apps/mobile/ios/**', 'scripts/*mac*.mjs', 'scripts/desktop-build.mjs', '.github/workflows/apple-apps.yml']
+permissions:
+  contents: read
+concurrency:
+  group: apple-apps-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  mac:
+    name: Mac ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm ci --prefix apps/desktop
+      - run: node scripts/prepare-mac-media.mjs
+      - run: node --test apps/desktop/*.test.cjs
+      - name: Build preview DMG and ZIP
+        run: node scripts/desktop-build.mjs --mac dmg zip --${{ matrix.arch }} --publish never --config.mac.identity=-
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: Verify packaged engine and application
+        run: node scripts/verify-mac-app.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIEV-Mac-${{ matrix.arch }}-preview
+          path: |
+            .runtime/app-builds/desktop/*.dmg
+            .runtime/app-builds/desktop/*.zip
+            .runtime/app-builds/desktop/mac-verification.json
+          if-no-files-found: error
+          retention-days: 30
+  ios:
+    name: iPhone and iPad
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate --spec apps/mobile/ios/project.yml
+      - name: Compile and test on iPhone simulator
+        run: |
+          DEVICE=$(xcrun simctl list devices available --json | python3 -c 'import json,sys; print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
+          xcodebuild test -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination "platform=iOS Simulator,id=$DEVICE" -derivedDataPath .runtime/ios-build CODE_SIGNING_ALLOWED=NO
+      - name: Compile device archive without distribution signature
+        run: xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIEV-iPhone-iPad-build
+          path: |
+            .runtime/AIEV-iOS.xcarchive
+            .runtime/ios-build/Logs/Test/*.xcresult
+          if-no-files-found: error
+          retention-days: 30
