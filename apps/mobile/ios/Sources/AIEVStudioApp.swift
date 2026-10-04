@@ -77,7 +77,7 @@ struct StudioWebView: UIViewRepresentable {
             engine.activity = { [weak self] id, event in
                 guard let web = self?.engine.api.web, StudioOrigin.trusted(web.url) else { return }
                 var value = event; value["requestId"] = id
-                web.callAsyncJavaScript("window.__aievActivity(event)", arguments: ["event": value], in: nil, contentWorld: .page, completionHandler: nil)
+                web.callAsyncJavaScript("window.__aievActivity(event)", arguments: ["event": value], in: nil, in: .page, completionHandler: nil)
             }
         }
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping (Any?, String?) -> Void) {
