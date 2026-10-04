@@ -71,7 +71,22 @@ jobs:
           # Xcode 16.4 / iOS 18.5 WebKit simulator bug 293831; device archive stays iOS 17.
           xcodebuild test -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination "platform=iOS Simulator,id=$DEVICE" -derivedDataPath .runtime/ios-build -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 180 IPHONEOS_DEPLOYMENT_TARGET=18.4 CODE_SIGNING_ALLOWED=NO
       - name: Compile device archive without distribution signature
-        run: xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
+        run: |
+          xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
+          python3 - <<'PY'
+          import json, plistlib
+          from pathlib import Path
+          app = Path('.runtime/AIEV-iOS.xcarchive/Products/Applications/AIEVStudio.app')
+          with (app / 'Info.plist').open('rb') as source:
+              info = plistlib.load(source)
+          assert info['CFBundleIdentifier'] == 'marketing.manh.aiev'
+          assert info['CFBundleShortVersionString'] == '0.6.0'
+          assert info['CFBundleVersion'] == '6'
+          assert info['MinimumOSVersion'] == '17.0'
+          assert set(info['UIDeviceFamily']) == {1, 2}
+          assert (app / 'native-bridge.js').is_file()
+          print(json.dumps({'version': info['CFBundleShortVersionString'], 'build': info['CFBundleVersion'], 'minimumIOS': info['MinimumOSVersion'], 'iPhoneAndIPad': True, 'unsigned': True}))
+          PY
       - name: Export test diagnostics
         if: always()
         run: |
