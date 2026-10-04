@@ -9,7 +9,7 @@ export type Wallet = { balance: number; transactions: { delta: number; kind: str
 export class StudioApiError extends Error { constructor(public status: number, message: string) { super(message); } }
 export async function customerApi<T>(endpoint: string, body?: unknown): Promise<T> {
   if (typeof window !== 'undefined' && window.aievDesktop && body!==undefined && (endpoint==='/chat' || /^\/videos\/[^/]+\/confirm$/.test(endpoint))) {
-    if(endpoint==='/chat' && window.aievDesktop.version==='0.2.0') throw new StudioApiError(409,'Hãy cập nhật app Windows 0.3.0 để trò chuyện với AI và sửa tiếp video.');
+    if(endpoint==='/chat' && !['0.3.0','0.4.0'].includes(window.aievDesktop.version)) throw new StudioApiError(409,'Hãy cập nhật app Windows 0.4.0 để trò chuyện với AI và sửa tiếp video.');
     const result=await window.aievDesktop.request(endpoint,body);
     if(result.error) throw new StudioApiError(result.status || 400,result.error);
     return result.result as T;

@@ -36,3 +36,17 @@ test('conversation remembers source, bills once, enforces ownership and refunds 
     assert.equal((await post({message:'Retry',threadId:greeting.threadId,requestId:retryId})).status,200);assert.equal(store.user(user.id)?.balance,7);assert.equal(calls,5);
   } finally {if(saved===undefined) delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=saved; await new Promise<void>(r=>server.close(()=>r()));store.db.close();}
 });
+
+test('folder source is remembered from web chat and older desktop gets upgrade guidance',async()=>{
+ const store=new CustomerStore(':memory:');const user=store.register('folder@example.invalid','Folder','safe-password');store.db.prepare("UPDATE users SET role='admin' WHERE id=?").run(user.id);
+ const app=express();app.use(express.json());let received:any;
+ assistantRoutes(app,store,(_req,res,next)=>{res.locals.user=store.user(user.id);next();},async input=>{received=input;return{action:'prepare',reply:'Có thể dựng từ thư mục.',prompt:'Ghép vlog vuông 4 giây'};},async()=>[{id:'abcdefghijk',name:'clip.mov',mimeType:'video/quicktime',url:'https://drive.google.com/file/d/abcdefghijk/view',bytes:1000}]);
+ app.use((error:Error,_req:express.Request,res:express.Response,_next:express.NextFunction)=>res.status(error instanceof CustomerError?error.status:500).json({error:error.message}));
+ const server=app.listen(0,'127.0.0.1');await new Promise<void>(r=>server.once('listening',r));const saved=process.env.OPENAI_API_KEY;process.env.OPENAI_API_KEY='test-only';
+ const post=async(body:object)=>{const r=await fetch('http://127.0.0.1:'+(server.address() as {port:number}).port+'/api/customer/assistant',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});assert.equal(r.status,200);return r.json();};
+ try {
+  const first=await post({message:'Ghép vlog https://drive.google.com/drive/folders/abcdefghijk',device:'web'});assert.equal(received.currentSource.videoCount,1);assert.equal(first.action,'prepare');
+  const old=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device:'windows'});assert.equal(old.action,'reply');assert.match(old.reply,/0.4.0/);
+  const current=await post({threadId:first.threadId,message:'Làm theo yêu cầu trên',device:'windows',deviceVersion:'0.4.0'});assert.equal(current.action,'prepare');assert.equal(current.url,first.url);assert.equal(store.user(user.id)?.balance,0);
+ }finally {if(saved===undefined)delete process.env.OPENAI_API_KEY;else process.env.OPENAI_API_KEY=saved;await new Promise<void>(r=>server.close(()=>r()));store.db.close();}
+});

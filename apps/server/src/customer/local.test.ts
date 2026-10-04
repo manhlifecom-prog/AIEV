@@ -11,6 +11,8 @@ test('device jobs reserve once, persist across restart, reject other users and c
  const post=(endpoint:string,body:unknown={},token=session)=>fetch(origin+'/api/customer'+endpoint,{method:'POST',headers:{cookie:'aiev_customer='+token,'content-type':'application/json'},body:JSON.stringify(body)});
  try {
   assert.equal((await post('/local/quote',{metadata:{duration:-1},message:'edit'})).status,400);
+  assert.equal((await post('/local/quote',{message:'folder',metadata:{duration:4,bytes:1000,width:1920,height:1080,hasAudio:false,sources:[{name:'a.mov',start:0,duration:2,hasAudio:false},{name:'b.mov',start:2,duration:2,hasAudio:false}]}})).status,200);
+  assert.equal((await post('/local/quote',{message:'folder',metadata:{duration:4,bytes:1000,width:1920,height:1080,hasAudio:false,sources:[{name:'a.mov',start:0,duration:20,hasAudio:false}]}})).status,400);
   const quoted=await post('/local/quote',{message:'Cắt video',metadata:{duration:120,bytes:3405232803,width:1920,height:1080,hasAudio:false}});
   assert.equal(quoted.status,200); const {jobId}=await quoted.json(); assert.equal(store.job(user.id,jobId).tokens,50);
   assert.equal((await post('/local/'+jobId+'/confirm',{},otherSession)).status,404);

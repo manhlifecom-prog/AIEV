@@ -8,7 +8,7 @@ async function openStudio() {
   window = new BrowserWindow({ width: 1280, height: 850, minWidth: 380, minHeight: 600, title: 'AIEV Studio', backgroundColor: '#11131a', icon: path.join(__dirname, 'icon.png'), show: false,
     webPreferences: { preload: path.join(__dirname,'preload.cjs'), nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, partition: 'persist:aiev-studio' } });
   require('./local-engine.cjs').attachLocal({app,ipcMain,dialog,shell,window});
-  window.webContents.setUserAgent(window.webContents.getUserAgent() + ' AIEVDesktop/0.3.0');
+  window.webContents.setUserAgent(window.webContents.getUserAgent() + ' AIEVDesktop/0.4.0');
   const permissions = window.webContents.session;
   permissions.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
   permissions.setPermissionCheckHandler(() => false);

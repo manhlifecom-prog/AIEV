@@ -3,6 +3,7 @@ const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 const {randomUUID}=require('node:crypto');
 const {ORIGIN,inside}=require('./policy.cjs');
+const {folderSource}=require('./folder-source.cjs');
 function attachLocal({app,ipcMain,dialog,shell,window}) {
   ipcMain.removeHandler('aiev:local'); ipcMain.removeHandler('aiev:open');
   const root=path.join(app.getPath('userData'),'local-videos'); fs.mkdirSync(root,{recursive:true});
@@ -26,7 +27,7 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
       let plan;
       if(fs.existsSync(path.join(dir,'plan.json'))) plan=JSON.parse(fs.readFileSync(path.join(dir,'plan.json'),'utf8'));
       else {
-        const metadata=await media.probe('source.mp4',dir);
+        const metadata=fs.existsSync(path.join(dir,'source-metadata.json'))?JSON.parse(fs.readFileSync(path.join(dir,'source-metadata.json'),'utf8')):await media.probe('source.mp4',dir);
         if(metadata.hasAudio) for(const [idx,chunk] of [...media.speechChunks(metadata.duration)].entries()) {
           window.setTitle(`AIEV · Nhận diện lời thoại đoạn ${idx+1}`);
           await media.runMedia('ffmpeg',['-y','-v','error','-protocol_whitelist','file,pipe','-ss',String(chunk.start),'-i','source.mp4','-t',String(chunk.seconds),'-vn','-ac','1','-ar','16000','-b:a','48k','speech.mp3'],dir);
@@ -51,7 +52,7 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
         try {
           const message=body?.message;
           if(typeof message!=='string' || message.length>8000) throw new Error('Yêu cầu không hợp lệ');
-          const decision=await api('/assistant',{...body,requestId:randomUUID(),device:'windows'});
+          const decision=await api('/assistant',{...body,requestId:randomUUID(),device:'windows',deviceVersion:'0.4.0'});
           if(decision.action==='confirm') {
             record(decision.jobId);
             await api('/local/'+decision.jobId+'/confirm',{});
@@ -64,10 +65,20 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
           const directory=randomUUID(),dir=path.join(root,directory); fs.mkdirSync(dir);
           try {
             const media=await engine;
-            if(decision.sourceJobId && records[decision.sourceJobId] && fs.existsSync(path.join(record(decision.sourceJobId),'source.mp4'))) fs.copyFileSync(path.join(record(decision.sourceJobId),'source.mp4'),path.join(dir,'source.mp4'));
+            let metadata;
+            if(decision.sourceJobId && records[decision.sourceJobId] && fs.existsSync(path.join(record(decision.sourceJobId),'source.mp4'))) {
+              const previous=record(decision.sourceJobId);fs.copyFileSync(path.join(previous,'source.mp4'),path.join(dir,'source.mp4'));
+              if(fs.existsSync(path.join(previous,'source-metadata.json')))metadata=JSON.parse(fs.readFileSync(path.join(previous,'source-metadata.json'),'utf8'));
+            }
+            else if(url && /\/drive\/(?:u\/\d+\/)?folders\//.test(new URL(url).pathname)) {
+              window.setTitle('AIEV · Đang đọc thư mục Drive');
+              const listing=await api('/drive/folder',{url});
+              metadata=await folderSource(listing.files,dir,media,stage=>window.setTitle('AIEV · '+stage));
+            }
             else if(url) {window.setTitle('AIEV · Đang tải video về máy bạn'); await media.downloadDrive(url,path.join(dir,'source.mp4'));}
             else {const selected=await dialog.showOpenDialog(window,{title:'Chọn video nguồn trên máy bạn',properties:['openFile'],filters:[{name:'Video',extensions:['mp4','mov','mkv','webm','avi']}]}); if(selected.canceled) throw new Error('Đã hủy chọn video'); fs.copyFileSync(selected.filePaths[0],path.join(dir,'source.mp4'));}
-            const metadata={...await media.probe('source.mp4',dir),bytes:fs.statSync(path.join(dir,'source.mp4')).size};
+            metadata ||= {...await media.probe('source.mp4',dir),bytes:fs.statSync(path.join(dir,'source.mp4')).size};
+            fs.writeFileSync(path.join(dir,'source-metadata.json'),JSON.stringify(metadata));
             const result=await api('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,url:url || 'local-file',metadata});
             records[result.jobId]={directory}; persist(); return {result};
           } catch(error) {fs.rmSync(dir,{recursive:true,force:true}); return {result:{...decision,localError:error.message}};}

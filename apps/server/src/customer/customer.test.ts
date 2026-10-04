@@ -215,7 +215,7 @@ test("public customer API requires per-user auth and rejects fake payments and c
     const ownHeaders = { cookie: "aiev_customer=" + store.createSession(user.id) };
     const folderRequest = await fetch(base + "/chat", { method: "POST", headers: { ...ownHeaders, "content-type": "application/json" }, body: JSON.stringify({ threadId: thread, message: "Cắt cho tôi https://drive.google.com/drive/u/0/folders/1234567890abcdef" }) });
     assert.equal(folderRequest.status, 400);
-    assert.match((await folderRequest.json()).error, /Link thư mục Drive chưa được hỗ trợ/);
+    assert.match((await folderRequest.json()).error, /thư mục phải qua bước lấy danh sách video/);
     assert.equal(store.jobs(user.id).length, 0);
     assert.equal((await fetch(base + "/admin/overview", { headers: ownHeaders })).status, 403);
     const registered = await fetch(base + "/auth/register", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email: "third@example.com", name: "Third", password: "valid-password-third", role: "admin" }) });

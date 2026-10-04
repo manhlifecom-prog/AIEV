@@ -1,0 +1,15 @@
+# Drive folders — Windows 0.4.0
+
+Studio accepts a shared Google Drive folder link in chat, including `/drive/u/0/folders/…` and resource keys. The assistant reads the public video list, remembers the source when continuing the conversation on Windows, and prepares the requested edit. Old Windows 0.3.0 continues to handle individual files; folder requests show a 0.4.0 update message.
+
+Windows 0.4.0 downloads all listed video clips locally, normalizes dimensions/frame rate/audio streams, concatenates a source timeline, and quotes the total source duration before confirmation. The first clip determines the source orientation. Missing audio receives a silent track while concatenating; the original audio flags are retained. Named clip boundaries are sent to the AI director with the transcript. Source video and finished output stay on the customer device. Revisions reuse the merged local source without downloading again.
+
+Public subfolders are traversed in natural filename order; duplicate file IDs and nonvideo entries are skipped. Inaccessible sources fail explicitly. No partial folder is silently rendered. The public Drive HTML adapter handles complete initial listings; pages of 50 or more items require the optional server-side `GOOGLE_DRIVE_API_KEY` using Google's official `files.list` pagination. The key stays on the API server. It can only list public folders; private folders require a future customer OAuth integration. See [Google files.list](https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list) and [resource keys](https://developers.google.com/workspace/drive/api/guides/resource-keys).
+
+Admin usage remains zero tokens; customer chat and duration pricing remain unchanged. Only metadata and speech chunks reach the API. `/api/customer/drive/folder` requires an authenticated active account.
+
+Validation on 2026-10-04: 26 server/media tests and 2 Windows policy tests pass; TypeScript/Next build passes. Tests cover URL validation, inert parsing, recursive filtering/deduplication, API pagination/resource keys, rejection of incomplete listings, source memory/old app guidance and merged duration validation. An isolated native-controller test with real OpenAI and FFmpeg concatenates two clips with different dimensions/audio presence, produces a 4-second square MP4 with audio, then a 3-second revision without reopening the picker or downloading again. The admin wallet stays 0. The user's public folder returns 11 videos (426755886 bytes); a real Drive sample download/probe succeeds (102.52 seconds, 720×1280 with audio). The full customer folder has not been rendered during QA.
+
+The built NSIS package contains the folder controller and bundled renderer/FFmpeg. Windows 0.4.0 installer SHA256: `f4bc13d814f0aeeab3270d9c4b13ecb3ecc27662836b8359f762e9205d545351`, size 167431875 bytes. Installing the update keeps the existing app identity/session/local video directory; physical installer interaction was not exercised during QA.
+
+Deployment status and browser evidence will be recorded after production verification.

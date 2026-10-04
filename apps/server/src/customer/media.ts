@@ -13,7 +13,7 @@ export function driveFile(url: string) {
   try { parsed = new URL(url); } catch { throw new Error("Link Google Drive không hợp lệ"); }
   if (parsed.protocol !== "https:" || parsed.hostname !== "drive.google.com" || parsed.username || parsed.password || parsed.port) throw new Error("Hãy dùng link file từ https://drive.google.com");
   const id = parsed.pathname.match(/^\/file\/d\/([a-zA-Z0-9_-]+)/)?.[1] || (parsed.pathname === "/open" || parsed.pathname === "/uc" ? parsed.searchParams.get("id") : null);
-  if (!id || !/^[a-zA-Z0-9_-]{10,200}$/.test(id)) throw new Error("Hãy dán link một file video. Link thư mục Drive chưa được hỗ trợ.");
+  if (!id || !/^[a-zA-Z0-9_-]{10,200}$/.test(id)) throw new Error("Hãy dùng link một file video cho tải file; thư mục phải qua bước lấy danh sách video.");
   const key = parsed.searchParams.get("resourcekey");
   if (key && !/^[a-zA-Z0-9_-]{1,200}$/.test(key)) throw new Error("Link Google Drive không hợp lệ");
   return { id, key };

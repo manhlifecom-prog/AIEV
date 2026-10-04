@@ -9,14 +9,14 @@ const source = path.join(root, 'apps', 'desktop');
 // An isolated package prevents workspace dependencies from entering the customer app.
 const stage = path.join(os.tmpdir(), 'aiev-desktop-' + randomUUID());
 fs.mkdirSync(stage);
-for (const name of ['main.cjs', 'policy.cjs', 'preload.cjs', 'local-engine.cjs', 'icon.png', 'icon.ico']) fs.copyFileSync(path.join(source, name), path.join(stage, name));
+for (const name of ['main.cjs', 'policy.cjs', 'preload.cjs', 'local-engine.cjs', 'folder-source.cjs', 'icon.png', 'icon.ico']) fs.copyFileSync(path.join(source, name), path.join(stage, name));
 const { build } = await import('esbuild');
 await build({entryPoints:[path.join(source,'renderer-entry.ts')],outfile:path.join(stage,'renderer.mjs'),bundle:true,platform:'node',format:'esm',packages:'bundle',banner:{js:"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);"}});
 const manifest = JSON.parse(fs.readFileSync(path.join(source, 'package.json'), 'utf8'));
 manifest.build.electronVersion = manifest.devDependencies.electron;
 delete manifest.devDependencies;
 manifest.build.npmRebuild = false;
-manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs','renderer.mjs','icon.png','package.json'];
+manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs','folder-source.cjs','renderer.mjs','icon.png','package.json'];
 manifest.build.extraResources = ['ffmpeg','ffprobe'].map(name=>({from:path.join(root,'.runtime','bin',name+'.exe'),to:'media/'+name+'.exe'}));
 manifest.build.directories.output = path.join(root, '.runtime', 'app-builds', 'desktop');
 fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null, 2));

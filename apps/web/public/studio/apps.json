@@ -1,10 +1,10 @@
 {
-  "version": "0.3.0",
+  "version": "0.4.0",
   "sha256": {
-    "windows": "dcaf0697dc9dcbe7863781c4ded88e01bca042e24198de728af7e295547535eb",
+    "windows": "f4bc13d814f0aeeab3270d9c4b13ecb3ecc27662836b8359f762e9205d545351",
     "android": "ca4a90a45664c1c342fdf67b9ab9ba0e3ce4639a1ec54e5a1ecff0c8d5a1b34d"
   },
-  "windows": "/studio/downloads/AIEV-Studio-Setup-0.3.0.exe",
+  "windows": "/studio/downloads/AIEV-Studio-Setup-0.4.0.exe",
   "android": "/studio/downloads/AIEV-Studio-0.1.0.apk",
   "processingMode": "local"
 }

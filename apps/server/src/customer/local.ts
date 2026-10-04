@@ -16,6 +16,15 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
   app.post('/api/customer/local/quote',auth,(req,res)=>{
     const m=req.body?.metadata;
     if (!m || !Number.isFinite(m.duration) || m.duration<=0 || !Number.isSafeInteger(m.bytes) || m.bytes<100 || !Number.isSafeInteger(m.width) || m.width<=0 || !Number.isSafeInteger(m.height) || m.height<=0 || typeof m.hasAudio!=='boolean') throw new CustomerError(400,'Thông tin video không hợp lệ');
+    if(m.sources!==undefined) {
+      if(!Array.isArray(m.sources)||!m.sources.length)throw new CustomerError(400,'Danh sách clip không hợp lệ');
+      let end=0;
+      for(const clip of m.sources) {
+        if(!clip||typeof clip.name!=='string'||clip.name.length>500||!Number.isFinite(clip.start)||!Number.isFinite(clip.duration)||clip.duration<=0||Math.abs(clip.start-end)>0.05||typeof clip.hasAudio!=='boolean')throw new CustomerError(400,'Mốc thời gian các clip không hợp lệ');
+        end=clip.start+clip.duration;
+      }
+      if(Math.abs(end-m.duration)>Math.max(0.5,m.sources.length*0.05))throw new CustomerError(400,'Tổng thời lượng clip không khớp báo giá');
+    }
     const message=req.body?.message;
     if (typeof message!=='string' || !message.trim() || message.length>8000) throw new CustomerError(400,'Yêu cầu không hợp lệ');
     const owner=res.locals.user.id;
@@ -34,7 +43,7 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     store.db.prepare('INSERT INTO local_jobs(id,metadata) VALUES(?,?)').run(job.id,JSON.stringify(m));
     store.quote(job.id,m.duration,tokens);
     if (!req.body.turnId) store.message(threadId,'user',message);
-    store.message(threadId,'assistant',store.user(owner)?.role==='admin' ? `Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Miễn token cho quản trị. Chi phí ước tính ${tokens} token chỉ để theo dõi, không trừ số dư. Xác nhận để AI lên kế hoạch và dựng tại máy.` : `Nguồn được lưu trên máy bạn, dài ${Math.ceil(m.duration)} giây. Chi phí ${tokens} token. Xác nhận để AI lên kế hoạch và app dựng tại máy. Không tải video nguồn lên VPS. Khi đã nhận kế hoạch AI, phí AI không hoàn nếu máy bạn dựng lỗi; bạn có thể thử dựng lại cùng kế hoạch miễn phí.`);
+    store.message(threadId,'assistant',store.user(owner)?.role==='admin' ? `${m.sources ? `${m.sources.length} clip trong thư mục đã tải và ghép trên máy bạn` : "Nguồn được lưu trên máy bạn"}, dài ${Math.ceil(m.duration)} giây. Miễn token cho quản trị. Chi phí ước tính ${tokens} token chỉ để theo dõi, không trừ số dư. Xác nhận để AI lên kế hoạch và dựng tại máy.` : `${m.sources ? `${m.sources.length} clip trong thư mục đã tải và ghép trên máy bạn` : "Nguồn được lưu trên máy bạn"}, dài ${Math.ceil(m.duration)} giây. Chi phí ${tokens} token. Xác nhận để AI lên kế hoạch và app dựng tại máy. Không tải video nguồn lên VPS. Khi đã nhận kế hoạch AI, phí AI không hoàn nếu máy bạn dựng lỗi; bạn có thể thử dựng lại cùng kế hoạch miễn phí.`);
     res.json({threadId,jobId:job.id});
   });
   app.post('/api/customer/local/:id/confirm',auth,(req,res)=>{

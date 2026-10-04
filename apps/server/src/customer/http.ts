@@ -9,6 +9,7 @@ import { CustomerError, CustomerStore, type User } from "./store.js";
 import { localRoutes } from "./local.js";
 import { assistantRoutes } from "./assistant.js";
 import { adminRoutes } from "./admin.js";
+import { folderRoutes } from "./drive-folder.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
 function sameSecret(a: string, b: string) { const aa = Buffer.from(a), bb = Buffer.from(b); return aa.length === bb.length && aa.length > 0 && timingSafeEqual(aa, bb); }
@@ -27,7 +28,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.path !== "/api/customer/payments/sepay" && req.headers.origin && req.headers.origin !== customerConfig.origin) return res.status(403).json({ error: "Nguồn yêu cầu không được phép" });
     next();
   });
-  app.use(express.json({ limit: "32kb" }));
+  app.use(express.json({ limit: "1mb" }));
   const attempts = new Map<string, { count: number; expires: number }>();
   function limit(req: Request, _res: Response, next: NextFunction) {
     const now = Date.now();
@@ -46,6 +47,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   localRoutes(app, store, auth);
   assistantRoutes(app, store, auth);
   adminRoutes(app,store,auth);
+  folderRoutes(app,auth);
   let mediaReady: boolean | null = null;
   let readinessCheckedAt = 0;
   async function ready() {
