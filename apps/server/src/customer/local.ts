@@ -3,6 +3,7 @@ import OpenAI, { toFile } from "openai";
 import { CustomerStore, CustomerError } from "./store.js";
 import { quoteTokens } from "./config.js";
 import { createEditPlan, type Word } from "./render.js";
+import { validateVisualFrames } from "./visual.js";
 export function localRoutes(app: Express, store: CustomerStore, auth: RequestHandler) {
   store.db.exec(`CREATE TABLE IF NOT EXISTS local_jobs(id TEXT PRIMARY KEY REFERENCES jobs(id), metadata TEXT NOT NULL, plan TEXT);
     CREATE TABLE IF NOT EXISTS local_chunks(job_id TEXT NOT NULL REFERENCES local_jobs(id), idx INTEGER NOT NULL, result TEXT NOT NULL, PRIMARY KEY(job_id,idx));`);
@@ -21,6 +22,7 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
       let end=0;
       for(const clip of m.sources) {
         if(!clip||typeof clip.name!=='string'||clip.name.length>500||!Number.isFinite(clip.start)||!Number.isFinite(clip.duration)||clip.duration<=0||Math.abs(clip.start-end)>0.05||typeof clip.hasAudio!=='boolean')throw new CustomerError(400,'Mốc thời gian các clip không hợp lệ');
+        if(clip.content && (!['x','y','width','height'].every(k=>Number.isSafeInteger(clip.content[k]) && clip.content[k]>=0) || clip.content.width<2 || clip.content.height<2 || clip.content.x+clip.content.width>m.width || clip.content.y+clip.content.height>m.height))throw new CustomerError(400,'Khung hình nguồn không hợp lệ');
         end=clip.start+clip.duration;
       }
       if(Math.abs(end-m.duration)>Math.max(0.5,m.sources.length*0.05))throw new CustomerError(400,'Tổng thời lượng clip không khớp báo giá');
@@ -82,12 +84,15 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     if (job.status!=='local_running' || busy.has(id)) throw new CustomerError(409,'Yêu cầu chưa sẵn sàng');
     const chunks=store.db.prepare('SELECT result FROM local_chunks WHERE job_id=? ORDER BY idx').all(id).map(r=>JSON.parse(String(r.result)));
     if (metadata.hasAudio && chunks.length!==Math.ceil(metadata.duration/600)) throw new CustomerError(409,'Chưa nhận đủ âm thanh');
+    const frames=validateVisualFrames(req.body?.frames,metadata.duration);
+    if(metadata.visualAnalysis===true && !frames.length)throw new CustomerError(400,'Hãy cập nhật app để phân tích cảnh quay');
     busy.add(id);
     try {
       const words:Word[]=chunks.flatMap(c=>c.words);
-      const edit=await createEditPlan(job.prompt,metadata,chunks.map(c=>c.text).join('\n') || 'Video không có âm thanh.',words);
-      const payload={edit,words,hasAudio:metadata.hasAudio};
+      const edit=await createEditPlan(job.prompt,metadata,chunks.map(c=>c.text).join('\n') || 'Video không có âm thanh.',words,frames);
+      const payload={edit,words,hasAudio:metadata.hasAudio,quality: {resolution:"1080p",visualFrames:frames.length}};
       store.db.prepare('UPDATE local_jobs SET plan=? WHERE id=?').run(JSON.stringify(payload),id);
+      if(edit.story)store.message(job.thread_id,'assistant',edit.story+(metadata.visualAnalysis===true?' Bản xem trước sẽ hiện trên màn hình trước khi xuất Full HD.':''));
       res.json(payload);
     } finally {busy.delete(id);}
   });
@@ -96,7 +101,7 @@ export function localRoutes(app: Express, store: CustomerStore, auth: RequestHan
     if (!plan || !['local_running','done'].includes(job.status)) throw new CustomerError(409,'Chưa có kế hoạch AI');
     if (job.status!=='done') {
       store.db.prepare("UPDATE jobs SET status='done',output='local.mp4',stage='Video đã lưu trên máy bạn' WHERE id=?").run(id);
-      store.message(job.thread_id,'assistant','Video đã dựng trên máy bạn. Bấm Mở video để xem hoặc Lưu bản sao.');
+      store.message(job.thread_id,'assistant','Video đã dựng trên máy bạn. Xem ngay trong khung Video của bạn hoặc lưu MP4. Nếu app cũ chưa có trình phát, bấm Mở video.');
     }
     res.json({success:true});
   });

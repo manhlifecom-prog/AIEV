@@ -27,7 +27,7 @@ export function InstallApp() {
     if (!prompt) return;
     await prompt.prompt(); const result = await prompt.userChoice; setPrompt(null); if (result.outcome === "accepted") setOpen(false);
   }
-  const needsUpdate=Boolean(desktopVersion && (!['0.6.0','1.0.0'].includes(desktopVersion) || !window.aievDesktop));
+  const needsUpdate=Boolean(desktopVersion && (desktopVersion !== (platform==='macos'?'0.6.0':'1.1.0') || !window.aievDesktop));
   const needsRenderer=installed && ['windows','macos','ios'].includes(platform) && !window.aievDesktop && !browserSupported();
   if (installed && !needsUpdate && !needsRenderer) return null;
   const nativeLabel=platform==='macos'?'Mac':platform==='ios'?'iPhone/iPad':'Windows';
@@ -38,7 +38,7 @@ export function InstallApp() {
       {needsUpdate ? <p>Đóng app trước khi cập nhật. Với app Windows/Mac cũ, chọn menu AIEV Studio → Mở bằng trình duyệt để tải bản mới. Tài khoản và video đã lưu được giữ lại.</p> : null}
       {downloads ? <div className="studio-app-downloads">
         <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows · Tải EXE</a>
-        <small>Windows 10/11 64-bit · Bản 1.0.0 có thư viện video từ thư mục được cấp quyền. Cài xong mở AIEV Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
+        <small>Windows 10/11 64-bit · Bản 1.1.0 phân tích cảnh quay, xem trước ngay trong Studio và xuất Full HD. Cài xong mở AIEV Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
         <h3>MacBook / iMac</h3>
         {downloads.apple?.macos?.arm64 || downloads.apple?.macos?.x64 ? <>
           {downloads.apple.macos.arm64 ? <a className="studio-secondary" href={downloads.apple.macos.arm64} target="_blank" rel="noopener noreferrer"><Download size={18}/>Mac chip M · Tải DMG</a> : null}

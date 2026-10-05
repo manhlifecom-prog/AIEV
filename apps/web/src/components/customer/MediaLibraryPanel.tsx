@@ -33,6 +33,6 @@ export function MediaLibraryPanel({ owner, chatBusy }: { owner:string; chatBusy:
     {library?.truncated?<p>Danh mục đang lấy tối đa {window.aievDesktop?'2.000':'200'} video. Chọn thư mục con cụ thể để AI tìm chính xác hơn.</p>:null}
     {library?.unavailable.length?<p role="status">Không đọc được nguồn: {library.unavailable.join(', ')}. Kiểm tra ổ đĩa hoặc chọn lại thư mục.</p>:null}
     {error?<p role="alert" className="studio-error">{error}</p>:null}
-    <p>AI dùng tên và thông tin cơ bản để chọn video. Chỉ đọc nguồn bạn chọn; video gốc ở trên máy bạn. Trên web, giữ tab mở khi dựng và tải MP4 về sau khi hoàn tất.</p>
+    <p>AI phân tích lời thoại và ảnh mẫu từ nguồn bạn chọn để chọn cảnh và dựng câu chuyện. Video gốc và bản xuất ở trên máy bạn. Trên web, giữ tab mở khi dựng và tải MP4 về sau khi hoàn tất.</p>
   </div>;
 }

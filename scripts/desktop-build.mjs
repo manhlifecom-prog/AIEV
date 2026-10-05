@@ -16,14 +16,14 @@ if(production && targetPlatform==='darwin') {
 // An isolated package prevents workspace dependencies from entering the customer app.
 const stage = path.join(os.tmpdir(), 'aiev-desktop-' + randomUUID());
 fs.mkdirSync(stage);
-for (const name of ['main.cjs', 'policy.cjs', 'preload.cjs', 'local-engine.cjs', 'media-library.cjs', 'folder-source.cjs', 'chat-stream.cjs', 'runtime.cjs', 'entitlements.mac.plist', 'icon.png', 'icon.ico']) fs.copyFileSync(path.join(source, name), path.join(stage, name));
+for (const name of ['main.cjs', 'policy.cjs', 'preload.cjs', 'local-engine.cjs', 'media-preview.cjs', 'media-library.cjs', 'folder-source.cjs', 'chat-stream.cjs', 'runtime.cjs', 'entitlements.mac.plist', 'icon.png', 'icon.ico']) fs.copyFileSync(path.join(source, name), path.join(stage, name));
 const { build } = await import('esbuild');
 await build({entryPoints:[path.join(source,'renderer-entry.ts')],outfile:path.join(stage,'renderer.mjs'),bundle:true,platform:'node',format:'esm',packages:'bundle',banner:{js:"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);"}});
 const manifest = JSON.parse(fs.readFileSync(path.join(source, 'package.json'), 'utf8'));
 manifest.build.electronVersion = manifest.devDependencies.electron;
 delete manifest.devDependencies;
 manifest.build.npmRebuild = false;
-manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs','media-library.cjs','folder-source.cjs', 'chat-stream.cjs','runtime.cjs','renderer.mjs','icon.png','package.json'];
+manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs', 'media-preview.cjs','media-library.cjs','folder-source.cjs', 'chat-stream.cjs','runtime.cjs','renderer.mjs','icon.png','package.json'];
 const extension = targetPlatform === 'win32' ? '.exe' : '';
 const mediaDirectory = process.env.AIEV_MEDIA_DIR || path.join(root,'.runtime','bin');
 manifest.build.extraResources = ['ffmpeg','ffprobe'].map(name=>{

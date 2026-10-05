@@ -32,3 +32,5 @@
 .studio-library p{margin:8px 0 0;line-height:1.5}
 .studio-library-files{list-style:none;padding:0;margin:8px 0;max-height:180px;overflow:auto}
 .studio-library-files li{display:flex;align-items:center;gap:8px;padding:6px 0}.studio-library-files li>span{flex:1;overflow-wrap:anywhere}.studio-library-files small{white-space:nowrap}
+
+.studio-player-heading{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;font-size:13px}.studio-player-heading span{font-size:11px;color:var(--studio-accent)}.studio-result video{display:block;aspect-ratio:auto;min-height:180px;background:#050609;object-fit:contain}.studio-result-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}.studio-result .studio-primary{margin-top:12px}.studio-edit-story{padding:12px;background:var(--studio-surface);border-radius:8px;line-height:1.6}.studio-result [role=status]{display:flex;gap:8px;align-items:center}

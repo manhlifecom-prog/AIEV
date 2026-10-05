@@ -4,7 +4,7 @@ import os from "node:os";
 import fs from "node:fs";
 import path from "node:path";
 import { runMedia, probe } from "./media.js";
-import { renderPlan } from "./render.js";
+import { renderPlan, extractVisualFrames } from "./render.js";
 import { customerConfig } from "./config.js";
 
 test("real FFmpeg pipeline produces a checked MP4 with resized video, audio, cuts and Vietnamese captions", async () => {
@@ -16,7 +16,9 @@ test("real FFmpeg pipeline produces a checked MP4 with resized video, audio, cut
     const result = await probe("final.mp4", directory);
     assert.equal(result.width, 1080); assert.equal(result.height, 1080); assert.equal(result.hasAudio, true);
     assert.ok(Math.abs(result.duration - 1.5) < 0.2);
-    assert.deepEqual(stages, ["Đang dựng bản xem trước", "Đang kiểm tra bản dựng", "Đang xuất video MP4"]);
+    assert.deepEqual(stages, ["Đang dựng bản xem trước", "Đang xuất Full HD · Bạn có thể xem bản dựng trước"]);
+    const preview=await probe('preview.mp4',directory);assert.equal(preview.width,720);assert.equal(preview.height,720);
+    const frames=await extractVisualFrames(directory,{duration:2},()=>{});assert.ok(frames.length>=3);assert.ok(frames.every(f=>f.image.startsWith('data:image/jpeg;base64,')));
     assert.equal(fs.existsSync(path.join(directory, "draft.mp4")), false);
   } finally {
     assert.equal(path.dirname(directory), path.resolve(os.tmpdir()));

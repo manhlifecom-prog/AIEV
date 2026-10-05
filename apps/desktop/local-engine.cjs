@@ -8,6 +8,7 @@ const {folderSource}=require('./folder-source.cjs');
 const {nativePlatform,mediaResources}=require('./runtime.cjs');
 const {MediaLibrary}=require('./media-library.cjs');
 function attachLocal({app,ipcMain,dialog,shell,window}) {
+  ipcMain.removeHandler('aiev:preview');
   ipcMain.removeHandler('aiev:local'); ipcMain.removeHandler('aiev:open'); ipcMain.removeHandler('aiev:cancel-chat');
   const root=path.join(app.getPath('userData'),'local-videos'); fs.mkdirSync(root,{recursive:true});
   const library=new MediaLibrary(app.getPath('userData'));
@@ -33,6 +34,19 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
     if(!response.ok || typeof user.id!=='string') {const error=new Error('Hãy đăng nhập để chọn video trên máy');error.status=response.status || 401;throw error;}
     return user;
   }
+  const previews=require('./media-preview.cjs').createPreviewHandler({account,resolve:async(id)=>{
+    const response=await window.webContents.session.fetch(ORIGIN+'/api/customer/videos',{credentials:'include',headers:{'Origin':ORIGIN}});
+    const jobs=await response.json();
+    if(!response.ok || !Array.isArray(jobs) || !jobs.some(job=>job.id===id && ['done','local_running'].includes(job.status)))throw Error('Video không thuộc tài khoản đang đăng nhập');
+    const dir=record(id),final=path.join(dir,'final.mp4'),preview=path.join(dir,'preview.mp4');
+    const file=fs.existsSync(final)?final:preview;
+    if(!fs.existsSync(file))throw Error('Bản xem trước đang được dựng');
+    const plan=JSON.parse(fs.readFileSync(path.join(dir,'plan.json'),'utf8'));
+    return {file,preview:file===preview,story:typeof plan.edit?.story==='string'?plan.edit.story:''};
+  }});
+  const protocol=window.webContents.session.protocol;
+  if(protocol.isProtocolHandled)void protocol.isProtocolHandled('aiev-media').then(handled=>{if(handled)protocol.unhandle('aiev-media');protocol.handle('aiev-media',previews.handle);});
+  ipcMain.handle('aiev:preview',async(event,id)=>{trusted(event);return previews.issue(id);});
   const launch=id=>{
     working=true;renderRequest=id;
     void render(id).catch(error=>dialog.showMessageBox(window,{type:'error',message:'Chưa hoàn tất dựng tại máy',detail:error.message})).finally(()=>{working=false;renderRequest=null;notify(id,{type:'status',data:{label:'',cancellable:false}});});
@@ -52,10 +66,11 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
           fs.unlinkSync(path.join(dir,'speech.mp3'));
         }
         stage('AI đang lập kế hoạch dựng video');
-        plan=await api('/local/'+id+'/plan',{}); fs.writeFileSync(path.join(dir,'plan.json'),JSON.stringify(plan));
+        const frames=await media.extractVisualFrames(dir,metadata,stage);
+        plan=await api('/local/'+id+'/plan',{frames}); fs.writeFileSync(path.join(dir,'plan.json'),JSON.stringify(plan));
       }
       media.validateEdit(plan.edit,(await media.probe('source.mp4',dir)).duration);
-      await media.renderPlan(plan.edit,plan.words,plan.hasAudio,dir,stage);
+      await media.renderPlan(plan.edit,plan.words,plan.hasAudio,dir,stage,fs.existsSync(path.join(dir,'source-metadata.json'))?JSON.parse(fs.readFileSync(path.join(dir,'source-metadata.json'),'utf8')):undefined,()=>notify(id,{type:'preview',data:{label:'Bản xem trước đã sẵn sàng · Đang xuất Full HD'}}));
       await api('/local/'+id+'/complete',{});
     } catch(error) {await api('/local/'+id+'/fail',{}).catch(()=>{}); throw error;}
     finally {window.setTitle('AIEV Studio');}
@@ -130,6 +145,7 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
               else metadata=await folderSource(selected.filePaths.map(file=>({name:path.basename(file),file})),dir,media,stage,(file,destination)=>fs.promises.copyFile(file.file,destination));
             }
             metadata ||= {...await media.probe('source.mp4',dir),bytes:fs.statSync(path.join(dir,'source.mp4')).size};
+            metadata.visualAnalysis=true;
             fs.writeFileSync(path.join(dir,'source-metadata.json'),JSON.stringify(metadata));
             const result=await api('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,url:url || 'local-file',metadata});
             records[result.jobId]={directory}; persist(); return {result};

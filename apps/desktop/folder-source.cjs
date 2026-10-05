@@ -17,7 +17,7 @@ async function folderSource(files,dir,media,progress=()=>{},load=(file,destinati
     args.push('-map','0:v:0','-map',info.hasAudio?'0:a:0':'1:a:0','-t',String(info.duration),'-vf',`scale=${width}:${height}:force_original_aspect_ratio=decrease,pad=${width}:${height}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30`,'-af','aresample=48000:async=1:first_pts=0','-ac','2','-c:v','libx264','-preset','fast','-crf','20','-pix_fmt','yuv420p','-c:a','aac','-b:a','160k','-movflags','+faststart',output);
     await media.runMedia('ffmpeg',args,dir,Math.max(20*60_000,info.duration*2000));
     const normalized=await media.probe(output,dir);
-    sources.push({name:String(file.name).slice(0,500),start:offset,duration:normalized.duration,hasAudio:info.hasAudio});
+    sources.push({name:String(file.name).slice(0,500),start:offset,duration:normalized.duration,hasAudio:info.hasAudio,content:media.contentRect(info.width,info.height,width,height)});
     offset+=normalized.duration;
     fs.unlinkSync(path.join(dir,input));
   }

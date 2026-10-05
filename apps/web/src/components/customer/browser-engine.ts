@@ -1,11 +1,12 @@
+import {visualSampleTimes,contentRect,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
 import { customerApi } from './api';
 import type { ChatEvent, ChatResult } from './chat';
 import { validateEdit, subtitleDocument, renderArguments, speechChunks, type Edit, type Word } from './browser-plan';
 type FFmpeg={load:(config:object)=>Promise<boolean>;createDir:(name:string)=>Promise<boolean>;writeFile:(name:string,data:string|Uint8Array)=>Promise<boolean>;readFile:(name:string,encoding?:string)=>Promise<string|Uint8Array>;deleteFile:(name:string)=>Promise<boolean>;exec:(args:string[])=>Promise<number>;ffprobe:(args:string[])=>Promise<number>;terminate:()=>void;on:(event:string,callback:(event:{progress:number;message?:string})=>void)=>void};
 
-type Metadata={duration:number;width:number;height:number;hasAudio:boolean;bytes:number;sources?:{name:string;start:number;duration:number;hasAudio:boolean}[]};
+type Metadata={duration:number;width:number;height:number;hasAudio:boolean;bytes:number;sources?:{name:string;start:number;duration:number;hasAudio:boolean;content?:SourceClip['content']}[];visualAnalysis?:boolean};
 type Plan={edit:Edit;words:Word[];hasAudio:boolean};
-type RecordData={key:string;owner:string;id:string;source:Blob;metadata:Metadata;plan?:Plan;output?:Blob};
+type RecordData={key:string;owner:string;id:string;source:Blob;metadata:Metadata;plan?:Plan;output?:Blob;preview?:Blob};
 const records=new Map<string,RecordData>();
 let libraryOwner='',library: {id:string;file:File}[]=[],working=false,libraryTruncated=false;
 export const browserSupported=()=>typeof window!=='undefined' && Boolean(window.Worker && window.WebAssembly && window.indexedDB) && window.isSecureContext && !/AIEV(?:Android|Desktop|iOS)\//.test(navigator.userAgent);
@@ -38,14 +39,14 @@ export async function browserDecision(decision:ChatResult & {sourceIds?:string[]
  const progress=(event:Event)=>onEvent({type:'status',data:{label:(event as CustomEvent<string>).detail,cancellable:false}});window.addEventListener('aiev-browser-stage',progress);
  try{const account=await owner();let source:Blob,metadata:Metadata;
   if(decision.sourceJobId && !decision.url && !decision.sourceIds?.length){const previous=await read(account,decision.sourceJobId);source=previous.source;metadata=previous.metadata;}
-  else{const files=await sourceFiles(decision,account);capacity(files.reduce((n,f)=>n+f.size,0));onEvent({type:'status',data:{label:'Đang chuẩn bị nguồn trên thiết bị',cancellable:false}});ff=await core();const clips:NonNullable<Metadata['sources']>=[];let duration=0,bytes=0;
-   for(const [i,file] of files.entries()){stage(`Đang đọc video ${i+1}/${files.length}`);await ff.writeFile('input.mp4',new Uint8Array(await file.arrayBuffer()));const m=await probe(ff,'input.mp4');clips.push({name:file.name,start:duration,duration:m.duration,hasAudio:m.hasAudio});duration+=m.duration;bytes+=file.size;
+  else{const files=await sourceFiles(decision,account);capacity(files.reduce((n,f)=>n+f.size,0));onEvent({type:'status',data:{label:'Đang chuẩn bị nguồn trên thiết bị',cancellable:false}});ff=await core();const clips:NonNullable<Metadata['sources']>=[];let duration=0,bytes=0,sourceWidth=1920,sourceHeight=1080;
+   for(const [i,file] of files.entries()){stage(`Đang đọc video ${i+1}/${files.length}`);await ff.writeFile('input.mp4',new Uint8Array(await file.arrayBuffer()));const m=await probe(ff,'input.mp4');if(i===0){const ratio=m.width/m.height;[sourceWidth,sourceHeight]=ratio<0.8?[1080,1920]:ratio>1.2?[1920,1080]:[1080,1080];}clips.push({name:file.name,start:duration,duration:m.duration,hasAudio:m.hasAudio,content:contentRect(m.width,m.height,sourceWidth,sourceHeight)});duration+=m.duration;bytes+=file.size;
     if(files.length===1){metadata={...m,bytes};source=file;break;}
     // Normalize each clip before joining, including silent audio for silent clips.
-    await exec(ff,['-y','-i','input.mp4',...(!m.hasAudio?['-f','lavfi','-i','anullsrc=r=48000:cl=stereo']:[]),'-map','0:v:0','-map',m.hasAudio?'0:a:0':'1:a:0','-vf','scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30','-t',String(m.duration),'-c:v','libx264','-preset','ultrafast','-crf','25','-c:a','aac','-ar','48000','-ac','2',`clip${i}.mp4`]);await ff.deleteFile('input.mp4');}
+    await exec(ff,['-y','-i','input.mp4',...(!m.hasAudio?['-f','lavfi','-i','anullsrc=r=48000:cl=stereo']:[]),'-map','0:v:0','-map',m.hasAudio?'0:a:0':'1:a:0','-vf',`scale=${sourceWidth}:${sourceHeight}:force_original_aspect_ratio=decrease,pad=${sourceWidth}:${sourceHeight}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30`,'-t',String(m.duration),'-c:v','libx264','-preset','ultrafast','-crf','18','-c:a','aac','-ar','48000','-ac','2',`clip${i}.mp4`]);await ff.deleteFile('input.mp4');}
    if(files.length>1){stage('Đang ghép nguồn trong trình duyệt');await ff.writeFile('clips.txt',files.map((_,i)=>`file 'clip${i}.mp4'`).join('\n'));await exec(ff,['-y','-f','concat','-safe','0','-i','clips.txt','-c','copy','source.mp4']);source=blob(await ff.readFile('source.mp4') as Uint8Array);metadata={...await probe(ff,'source.mp4'),bytes,sources:clips};}
   }
-  capacity(source!.size);const result=await customerApi<{jobId:string;threadId:string}>('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,metadata:metadata!,url:'browser-file'});
+  metadata!.visualAnalysis=true;capacity(source!.size);const result=await customerApi<{jobId:string;threadId:string}>('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,metadata:metadata!,url:'browser-file'});
   const record:RecordData={key:key(account,result.jobId),owner:account,id:result.jobId,source:source!,metadata:metadata!};
   try{await write(record);}catch(error){await customerApi('/local/'+result.jobId+'/fail',{}).catch(()=>{});throw error;}
   return {...decision,...result};
@@ -59,10 +60,23 @@ export async function confirmBrowser(id:string){if(working)throw Error('Đang d�
 }
 async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await core();await ff.writeFile('source.mp4',new Uint8Array(await record.source.arrayBuffer()));
  if(!record.plan){if(record.metadata.hasAudio)for(const [i,chunk] of [...speechChunks(record.metadata.duration)].entries()){stage(`Nhận diện lời thoại đoạn ${i+1}`);await exec(ff,['-y','-ss',String(chunk.start),'-i','source.mp4','-t',String(chunk.seconds),'-vn','-ac','1','-ar','16000','-b:a','48k','speech.mp3']);const r=await fetch('/api/customer/local/'+record.id+'/audio/'+i,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/octet-stream'},body:blob(await ff.readFile('speech.mp3') as Uint8Array,'audio/mpeg')});if(!r.ok)throw Error((await r.json()).error || 'Không nhận diện được lời thoại');await ff.deleteFile('speech.mp3');}
- stage('AI đang lên kế hoạch dựng');record.plan=await customerApi<Plan>('/local/'+record.id+'/plan',{});await write(record);}
- const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);const {args,width,height}=renderArguments(plan.edit,plan.hasAudio);await ff.writeFile('captions.ass',subtitleDocument(plan.edit,plan.words,width,height).replaceAll('Arial','Noto Sans'));
- stage('Đang xuất MP4 trên thiết bị · Giữ tab này mở');ff.on('progress',({progress})=>{if(progress>=0 && progress<=1)stage(`Đang xuất MP4 trên thiết bị · ${Math.floor(progress*100)}%`);});await exec(ff,args);
- const data=await ff.readFile('final.mp4') as Uint8Array;const check=await probe(ff,'final.mp4');const expected=plan.edit.segments.reduce((n,s)=>n+s.end-s.start,0);if(data.length<1000 || Math.abs(check.duration-expected)>1 || check.width!==width || check.height!==height)throw Error('Video xuất chưa đạt kiểm tra chất lượng. Có thể thử lại cùng kế hoạch miễn phí.');
- record.output=blob(data);await write(record);await customerApi('/local/'+record.id+'/complete',{});stage('Video đã lưu trong trình duyệt này');
+ const frames:VisualFrame[]=[];const times=visualSampleTimes(record.metadata.duration,record.metadata.sources);
+ for(const [i,time] of times.entries()){stage(`Đang xem cảnh ${i+1}/${times.length}`);await exec(ff,['-y','-ss',String(time),'-i','source.mp4','-frames:v','1','-vf','scale=320:320:force_original_aspect_ratio=decrease','-q:v','9','frame.jpg']);const data=await ff.readFile('frame.jpg') as Uint8Array;if(data.length>28*1024)throw Error('Ảnh phân tích quá lớn');let binary='';for(const byte of data)binary+=String.fromCharCode(byte);frames.push({time,image:'data:image/jpeg;base64,'+btoa(binary)});await ff.deleteFile('frame.jpg');}
+ stage('AI đang chọn cảnh và sắp xếp câu chuyện');record.plan=await customerApi<Plan>('/local/'+record.id+'/plan',{frames});await write(record);}
+ const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);
+ for(const preview of record.preview?[false]:[true,false]) {
+  const {args,width,height}=renderArguments(plan.edit,plan.hasAudio,record.metadata.sources,preview);
+  await ff.writeFile('captions.ass',subtitleDocument(plan.edit,plan.words,width,height).replaceAll('Arial','Noto Sans'));
+  stage(preview?'Đang dựng bản xem trước':'Đang xuất Full HD · Bạn có thể xem bản dựng trước');
+  await exec(ff,args);
+  const file=preview?'preview.mp4':'final.mp4',data=await ff.readFile(file) as Uint8Array,check=await probe(ff,file);
+  const expected=plan.edit.segments.reduce((n,s)=>n+s.end-s.start,0);
+  if(data.length<1000 || Math.abs(check.duration-expected)>1 || check.width!==width || check.height!==height){console.warn('AIEV output check '+JSON.stringify({expected,width,height,actual:check,bytes:data.length}));throw Error('Video xuất chưa đạt kiểm tra chất lượng. Có thể thử lại cùng kế hoạch miễn phí.');}
+  if(preview)record.preview=blob(data);else record.output=blob(data);
+  await write(record);await ff.deleteFile(file);window.dispatchEvent(new CustomEvent('aiev-browser-preview',{detail:record.id}));
+ }
+ await customerApi('/local/'+record.id+'/complete',{});stage('Video Full HD đã lưu trong trình duyệt này');
  }catch(error){await customerApi('/local/'+record.id+'/fail',{}).catch(()=>{});throw error;}finally{ff?.terminate();}}
 export async function browserOutput(id:string){const record=await read(await owner(),id);if(!record.output)throw Error('Video chưa được lưu trong trình duyệt này. Mở thiết bị đã dựng hoặc tiếp tục dựng.');return record.output;}
+
+export async function browserPreview(id:string){const record=await read(await owner(),id);const output=record.output||record.preview;if(!output)throw Error("Bản xem trước đang được dựng");return {blob:output,preview:!record.output,story:record.plan?.edit.story};}

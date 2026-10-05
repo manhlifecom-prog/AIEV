@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Menu, shell, dialog, session, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, shell, dialog, session, ipcMain, protocol } = require('electron');
 const path = require('node:path');
 const { ORIGIN, inside, external, videoDownload } = require('./policy.cjs');
+protocol.registerSchemesAsPrivileged([{scheme:'aiev-media',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:true,stream:true}}]);
 let window;
 if (!app.requestSingleInstanceLock()) app.quit();
 app.on('second-instance', () => { if (window) { if (window.isMinimized()) window.restore(); window.focus(); } });
