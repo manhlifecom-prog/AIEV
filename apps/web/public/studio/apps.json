@@ -1,12 +1,12 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "sha256": {
-    "windows": "79267f1134650af17beb775c730921fb4b72d8aa208a1d70ec05d96d1643f681",
+    "windows": "c3af233af80ee1e530c77ec31f5466c53122d05c7bddb071f3e4ea93c530451b",
     "android": "ca4a90a45664c1c342fdf67b9ab9ba0e3ce4639a1ec54e5a1ecff0c8d5a1b34d",
     "macos-arm64": "9ec9c7e462326d1873f7982d5d1804d83e12c003424884ac5571b4bd46141ac7",
     "macos-x64": "4b4181f1aaaa24cf84949813c4e67ae65a2fa7c4297964ea32d4a6fd273f4680"
   },
-  "windows": "https://github.com/manhlifecom-prog/AIEV/releases/download/studio-1.1.0/AIEV-Studio-Setup-1.1.0.exe",
+  "windows": "https://github.com/manhlifecom-prog/AIEV/releases/download/studio-1.2.0/AIEV-Studio-Setup-1.2.0.exe",
   "android": "/studio/downloads/AIEV-Studio-0.1.0.apk",
   "processingMode": "local",
   "apple": {
@@ -29,5 +29,10 @@
     "driveDownload": "choose-downloaded-files",
     "preview": true,
     "visualAnalysis": true
+  },
+  "updates": {
+    "windows": true,
+    "feed": "/studio/updates/latest.yml",
+    "install": "on-quit"
   }
 }

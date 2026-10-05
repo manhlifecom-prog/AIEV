@@ -1,0 +1,8 @@
+version: 1.2.0
+files:
+  - url: https://github.com/manhlifecom-prog/AIEV/releases/download/studio-1.2.0/AIEV-Studio-Setup-1.2.0.exe
+    sha512: +aE1MaDzz5q9fvt/klOCX9JNYIfUVRlQ6TSPUZMo2ECn2Y809p8GEjDoAE+Qo+86OokT53zOtrpCMfwfqzbOrw==
+    size: 167531055
+path: https://github.com/manhlifecom-prog/AIEV/releases/download/studio-1.2.0/AIEV-Studio-Setup-1.2.0.exe
+sha512: +aE1MaDzz5q9fvt/klOCX9JNYIfUVRlQ6TSPUZMo2ECn2Y809p8GEjDoAE+Qo+86OokT53zOtrpCMfwfqzbOrw==
+releaseDate: '2026-10-05T06:21:10.502Z'

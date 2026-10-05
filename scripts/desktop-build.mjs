@@ -19,11 +19,14 @@ fs.mkdirSync(stage);
 for (const name of ['main.cjs', 'policy.cjs', 'preload.cjs', 'local-engine.cjs', 'media-preview.cjs', 'media-library.cjs', 'folder-source.cjs', 'chat-stream.cjs', 'runtime.cjs', 'entitlements.mac.plist', 'icon.png', 'icon.ico']) fs.copyFileSync(path.join(source, name), path.join(stage, name));
 const { build } = await import('esbuild');
 await build({entryPoints:[path.join(source,'renderer-entry.ts')],outfile:path.join(stage,'renderer.mjs'),bundle:true,platform:'node',format:'esm',packages:'bundle',banner:{js:"import { createRequire } from 'node:module'; const require = createRequire(import.meta.url);"}});
+await build({entryPoints:[path.join(source,'updater-entry.cjs')],outfile:path.join(stage,'updater.cjs'),bundle:true,platform:'node',format:'cjs',external:['electron']});
 const manifest = JSON.parse(fs.readFileSync(path.join(source, 'package.json'), 'utf8'));
 manifest.build.electronVersion = manifest.devDependencies.electron;
 delete manifest.devDependencies;
+delete manifest.dependencies;
+if(targetPlatform==='win32')manifest.build.publish=[{provider:'generic',url:'https://video.manh.marketing/studio/updates/'}];
 manifest.build.npmRebuild = false;
-manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs', 'media-preview.cjs','media-library.cjs','folder-source.cjs', 'chat-stream.cjs','runtime.cjs','renderer.mjs','icon.png','package.json'];
+manifest.build.files = ['main.cjs','policy.cjs','preload.cjs','local-engine.cjs', 'media-preview.cjs','media-library.cjs','folder-source.cjs', 'chat-stream.cjs','runtime.cjs','renderer.mjs','updater.cjs','icon.png','package.json'];
 const extension = targetPlatform === 'win32' ? '.exe' : '';
 const mediaDirectory = process.env.AIEV_MEDIA_DIR || path.join(root,'.runtime','bin');
 manifest.build.extraResources = ['ffmpeg','ffprobe'].map(name=>{
@@ -44,5 +47,5 @@ fs.writeFileSync(path.join(stage, 'package.json'), JSON.stringify(manifest, null
 fs.writeFileSync(path.join(stage,'pnpm-lock.yaml'),"lockfileVersion: '9.0'\nsettings:\n  autoInstallPeers: true\n  excludeLinksFromLockfile: false\nimporters:\n  .: {}\n");
 fs.mkdirSync(path.join(stage,'node_modules'));
 const builder = path.join(source, 'node_modules', 'electron-builder', 'cli.js');
-const result = spawnSync(process.execPath, [builder, '--projectDir', stage, ...args.filter(arg=>arg!=='--production')], { stdio: 'inherit', windowsHide: true });
+const result = spawnSync(process.execPath, [builder, '--projectDir', stage, '--publish','never',...args.filter(arg=>arg!=='--production')], { stdio: 'inherit', windowsHide: true });
 process.exit(result.status ?? 1);

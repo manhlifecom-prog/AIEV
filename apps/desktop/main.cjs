@@ -8,7 +8,8 @@ app.on('second-instance', () => { if (window) { if (window.isMinimized()) window
 async function openStudio() {
   window = new BrowserWindow({ width: 1280, height: 850, minWidth: 380, minHeight: 600, title: 'AIEV Studio', backgroundColor: '#11131a', icon: path.join(__dirname, 'icon.png'), show: false,
     webPreferences: { preload: path.join(__dirname,'preload.cjs'), nodeIntegration: false, contextIsolation: true, sandbox: true, webSecurity: true, partition: 'persist:aiev-studio' } });
-  require('./local-engine.cjs').attachLocal({app,ipcMain,dialog,shell,window});
+  const local=require('./local-engine.cjs').attachLocal({app,ipcMain,dialog,shell,window});
+  const updates=process.platform==='win32' && app.isPackaged ? require('./updater.cjs').attachUpdates({app,ipcMain,dialog,window,isBusy:local.isBusy}) : null;
   window.webContents.setUserAgent(window.webContents.getUserAgent() + ' AIEVDesktop/'+app.getVersion());
   const permissions = window.webContents.session;
   permissions.setPermissionRequestHandler((_contents, _permission, callback) => callback(false));
@@ -20,7 +21,7 @@ async function openStudio() {
     item.setSaveDialogOptions({ title: 'Lưu video AIEV', defaultPath: path.join(app.getPath('downloads'), 'AIEV-video.mp4'), filters: [{ name: 'Video MP4', extensions: ['mp4'] }] });
     item.once('done', (_event, state) => { if (state !== 'completed' && state !== 'cancelled') void dialog.showMessageBox(window, { type: 'error', message: 'Chưa tải được video', detail: 'Kiểm tra kết nối Internet và thử lại.' }); });
   });
-  Menu.setApplicationMenu(Menu.buildFromTemplate([{ label: 'AIEV Studio', submenu: [{ label: 'Tải lại Studio', accelerator: 'CmdOrCtrl+R', click: () => window.webContents.reload() }, { label: 'Mở bằng trình duyệt', click: () => shell.openExternal(ORIGIN + '/studio') }, { type: 'separator' }, { role: 'quit', label: 'Thoát' }] }, { label: 'Chỉnh sửa', submenu: [{ role: 'undo' }, { role: 'redo' }, { type: 'separator' }, { role: 'cut' }, { role: 'copy' }, { role: 'paste' }, { role: 'selectAll' }] }]));
+  Menu.setApplicationMenu(Menu.buildFromTemplate([{ label: 'AIEV Studio', submenu: [...(updates?[{label:'Kiểm tra cập nhật',click:()=>{void updates.check(true);}}]:[]), { label: 'Tải lại Studio', accelerator: 'CmdOrCtrl+R', click: () => window.webContents.reload() }, { label: 'Mở bằng trình duyệt', click: () => shell.openExternal(ORIGIN + '/studio') }, { type: 'separator' }, { role: 'quit', label: 'Thoát' }] }, { label: 'Chỉnh sửa', submenu: [{ role: 'undo' }, { role: 'redo' }, { type: 'separator' }, { role: 'cut' }, { role: 'copy' }, { role: 'paste' }, { role: 'selectAll' }] }]));
   window.once('ready-to-show', () => window.show());
   window.on('closed', () => { window = null; });
   try { await window.loadURL(ORIGIN + '/studio?app=desktop'); }

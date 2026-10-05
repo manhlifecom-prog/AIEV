@@ -174,5 +174,6 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
     if(save) {const target=await dialog.showSaveDialog(window,{title:'Lưu video MP4',defaultPath:path.join(app.getPath('downloads'),'AIEV-video.mp4'),filters:[{name:'MP4',extensions:['mp4']}]}); if(!target.canceled) fs.copyFileSync(file,target.filePath);}
     else await shell.openPath(file);
   });
+  return {isBusy:()=>working || chatWorking || libraryWorking};
 }
 module.exports={attachLocal};

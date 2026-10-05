@@ -1,6 +1,6 @@
 {
   "name": "aiev-studio-desktop",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "description": "Ứng dụng AIEV Studio cho máy tính",
   "author": "AIEV Studio",
@@ -55,5 +55,8 @@
       "category": "AudioVideo",
       "icon": "icon.png"
     }
+  },
+  "dependencies": {
+    "electron-updater": "6.8.9"
   }
 }
