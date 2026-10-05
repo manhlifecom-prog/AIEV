@@ -1,6 +1,6 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('aievDesktop',{
-  version:'1.2.0',
+  version:'1.2.1',
   mediaLibrary:true,
   ...(process.platform==='win32'?{update:action=>ipcRenderer.invoke('aiev:update',action),onUpdate:callback=>{const listener=(_event,value)=>callback(value);const show=()=>callback({open:true});ipcRenderer.on('aiev:update-state',listener);ipcRenderer.on('aiev:update-open',show);return()=>{ipcRenderer.removeListener('aiev:update-state',listener);ipcRenderer.removeListener('aiev:update-open',show);};}}:{}),
   platform:process.platform==='darwin'?'macos':process.platform==='win32'?'windows':'linux',

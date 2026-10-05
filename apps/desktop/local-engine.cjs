@@ -45,7 +45,7 @@ function attachLocal({app,ipcMain,dialog,shell,window}) {
     return {file,preview:file===preview,story:typeof plan.edit?.story==='string'?plan.edit.story:''};
   }});
   const protocol=window.webContents.session.protocol;
-  if(protocol.isProtocolHandled)void protocol.isProtocolHandled('aiev-media').then(handled=>{if(handled)protocol.unhandle('aiev-media');protocol.handle('aiev-media',previews.handle);});
+  if(protocol.isProtocolHandled)void Promise.resolve(protocol.isProtocolHandled('aiev-media')).then(handled=>{if(handled)protocol.unhandle('aiev-media');protocol.handle('aiev-media',previews.handle);});
   ipcMain.handle('aiev:preview',async(event,id)=>{trusted(event);return previews.issue(id);});
   const launch=id=>{
     working=true;renderRequest=id;
