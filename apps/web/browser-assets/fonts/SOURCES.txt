@@ -1,0 +1,5 @@
+Fonts from https://github.com/google/fonts/tree/main/ofl/
+Be Vietnam Pro: bevietnampro
+Barlow Condensed: barlowcondensed
+Judson: judson
+All distributed under the included SIL Open Font License.

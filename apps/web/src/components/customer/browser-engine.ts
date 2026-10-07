@@ -1,3 +1,4 @@
+import {captionFonts,captionStyle} from '../../../../server/src/customer/caption-styles';
 import {visualSampleTimes,contentRect,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
 import { customerApi } from './api';
 import type { ChatEvent, ChatResult } from './chat';
@@ -64,6 +65,7 @@ async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await co
  for(const [i,time] of times.entries()){stage(`Đang xem cảnh ${i+1}/${times.length}`);await exec(ff,['-y','-ss',String(time),'-i','source.mp4','-frames:v','1','-vf','scale=320:320:force_original_aspect_ratio=decrease','-q:v','9','frame.jpg']);const data=await ff.readFile('frame.jpg') as Uint8Array;if(data.length>28*1024)throw Error('Ảnh phân tích quá lớn');let binary='';for(const byte of data)binary+=String.fromCharCode(byte);frames.push({time,image:'data:image/jpeg;base64,'+btoa(binary)});await ff.deleteFile('frame.jpg');}
  stage('AI đang chọn cảnh và sắp xếp câu chuyện');record.plan=await customerApi<Plan>('/local/'+record.id+'/plan',{frames});await write(record);}
  const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);
+ if(plan.edit.captionStyle){const files=new Set([captionFonts[captionStyle(plan.edit.captionStyle).font].file,...(plan.edit.title?[captionFonts.strong.file]:[])]);await Promise.all([...files].map(async file=>{const response=await fetch('/studio/renderer/fonts/'+file,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Chưa tải được phông chữ đã chọn. Hãy thử lại.');await ff!.writeFile('fonts/'+file,new Uint8Array(await response.arrayBuffer()));}));}
  for(const preview of record.preview?[false]:[true,false]) {
   const {args,width,height}=renderArguments(plan.edit,plan.hasAudio,record.metadata.sources,preview);
   await ff.writeFile('captions.ass',subtitleDocument(plan.edit,plan.words,width,height).replaceAll('Arial','Noto Sans'));
