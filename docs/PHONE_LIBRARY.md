@@ -7,3 +7,5 @@ iOS 0.7.0 uses PHPicker restricted to videos, copies provider URLs before the ca
 Web/mobile Studio shows Connect video library, selected sources and Revoke. Video reading requires the user's selection; it does not scan a whole phone or search ungranted assets. Finding arbitrary trips by date/location across the entire library is not implemented. Voice/frame analysis follows the existing AI processing flow after sources are selected.
 
 Rollout requires both web/API deployment and the new native build. Android 0.1.0 remains chat-only. Do not advertise the feature as live until both have been deployed. Physical Android/iPhone verification is still required; this Windows build host has no connected phone.
+
+Validation: Android release build and lint passed; APK signature matches 0.1.0; six web/API source-isolation tests and production build passed; UI selection/revocation verified with a synthetic clip. iOS simulator tests and unsigned device archive passed on GitHub Actions run 37569115512 for commit d594460. Whole-library search and physical-device verification remain outside the completed functionality.

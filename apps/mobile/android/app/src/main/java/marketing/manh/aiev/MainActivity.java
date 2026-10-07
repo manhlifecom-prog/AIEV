@@ -112,8 +112,12 @@ public class MainActivity extends Activity {
             }
         });
         web.setWebViewClient(new WebViewClient() {
+            @Override public void onPageStarted(WebView view, String url, android.graphics.Bitmap icon) {
+                cancelSelection(); discardExport();
+            }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
+                if (request.isForMainFrame() && request.hasGesture() && "blob".equals(uri.getScheme())) { beginExport(uri.toString()); return true; }
                 if (trusted(uri)) return false;
                 if (request.isForMainFrame() && "https".equals(uri.getScheme()) && ("drive.google.com".equals(uri.getHost()) || "docs.google.com".equals(uri.getHost()))) {
                     try { startActivity(new Intent(Intent.ACTION_VIEW, uri)); } catch (Exception ignored) { Toast.makeText(MainActivity.this, "Chưa mở được trình duyệt", Toast.LENGTH_SHORT).show(); }

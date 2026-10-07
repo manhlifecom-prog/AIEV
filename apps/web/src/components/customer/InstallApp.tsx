@@ -28,11 +28,11 @@ export function InstallApp() {
     if (!prompt) return;
     await prompt.prompt(); const result = await prompt.userChoice; setPrompt(null); if (result.outcome === "accepted") setOpen(false);
   }
-  const needsUpdate=Boolean(desktopVersion && (desktopVersion !== (platform==='macos'?'0.6.0':downloads?.version || '1.2.1') || !window.aievDesktop));
-  const needsRenderer=installed && ['windows','macos','ios'].includes(platform) && !window.aievDesktop && !browserSupported();
+  const needsUpdate=Boolean(desktopVersion && ['windows','macos'].includes(platform) && (desktopVersion !== (platform==='macos'?'0.6.0':downloads?.version || '1.2.1') || !window.aievDesktop));
+  const needsRenderer=installed && ['windows','macos','ios','android'].includes(platform) && !window.aievDesktop && !browserSupported();
   if (typeof window!=='undefined' && window.aievDesktop?.update && window.aievDesktop?.onUpdate) return <DesktopUpdate/>;
   if (installed && !needsUpdate && !needsRenderer) return null;
-  const nativeLabel=platform==='macos'?'Mac':platform==='ios'?'iPhone/iPad':'Windows';
+  const nativeLabel=platform==='macos'?'Mac':platform==='ios'?'iPhone/iPad':platform==='android'?'Android':'Windows';
   return <>
     <button className="studio-text-button studio-install" aria-label={needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài ứng dụng"} onClick={() => setOpen(true)}><Download size={20}/><span>{needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài app"}</span></button>
     {open ? <StudioModal title="Cài AIEV Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
