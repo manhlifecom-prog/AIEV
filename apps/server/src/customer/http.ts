@@ -9,6 +9,7 @@ import { CustomerError, CustomerStore, type User } from "./store.js";
 import { localRoutes } from "./local.js";
 import { assistantRoutes } from "./assistant.js";
 import { adminRoutes } from "./admin.js";
+import { googleRoutes } from "./google-auth.js";
 import { folderRoutes } from "./drive-folder.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
@@ -44,6 +45,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     res.locals.user = user; next();
   }
   function user(res: Response) { return res.locals.user as User; }
+  googleRoutes(app, store, limit, sessionCookie);
   localRoutes(app, store, auth);
   assistantRoutes(app, store, auth);
   adminRoutes(app,store,auth);

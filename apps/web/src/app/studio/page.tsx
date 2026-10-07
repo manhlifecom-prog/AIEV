@@ -41,6 +41,7 @@ export default function StudioPage() {
   useEffect(() => { setBrowserReady(browserSupported()); setDevice(window.aievDesktop ? window.aievDesktop.platform || 'windows' : /AIEV(?:Desktop|iOS)\//.test(navigator.userAgent) ? 'disconnected' : 'web'); return () => { abortChat.current?.abort(); }; }, []);
   useEffect(() => {
     const parameters = new URLSearchParams(window.location.search);
+    if (parameters.has("google")) setModal("auth");
     const shared = ["share_title", "share_text", "share_url"].map(key => parameters.get(key)).filter(Boolean).join("\n").slice(0, 16000);
     if (shared) { setText(shared); window.history.replaceState(null, "", "/studio"); }
   }, []);
