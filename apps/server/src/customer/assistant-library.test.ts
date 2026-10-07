@@ -4,7 +4,7 @@ import express from 'express';
 import {CustomerStore,CustomerError} from './store.js';
 import {assistantRoutes} from './assistant.js';
 
-test('native library selection is bounded, strips extra fields and refunds invalid selections; chat stays available during rendering',async()=>{
+for (const device of ['macos','ios']) test(`${device} library selection is bounded, strips extra fields and refunds invalid selections; chat stays available during rendering`,async()=>{
  const store=new CustomerStore(':memory:');const user=store.register('library@example.invalid','Library','safe-password');
  store.db.prepare('UPDATE users SET balance=10 WHERE id=?').run(user.id);
  const id='a'.repeat(32);let received:any,invalid=false,calls=0;
@@ -16,8 +16,8 @@ test('native library selection is bounded, strips extra fields and refunds inval
  const library={total:1,role:'admin',path:'C:/private',files:[{id,name:'du-lich.mp4',bytes:1000,path:'C:/private/video.mp4'}]};
  const post=(body:object)=>fetch(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});
  try {
-  const response=await post({message:'Cắt video du lịch',device:'macos',deviceVersion:'1.0.0',localLibrary:library,unlimitedTokens:true});assert.equal(response.status,200);
-  const first=await response.json();assert.deepEqual(first.sourceIds,[id]);assert.equal(received.device,'macos');assert.deepEqual(received.localLibrary,{total:1,files:[{id,name:'du-lich.mp4',bytes:1000}]});assert.equal(received.billing.unlimitedTokens,false);assert.equal(store.user(user.id)?.balance,9);
+  const response=await post({message:'Cắt video du lịch',device,deviceVersion:'1.0.0',localLibrary:library,unlimitedTokens:true});assert.equal(response.status,200);
+  const first=await response.json();assert.deepEqual(first.sourceIds,[id]);assert.equal(received.device,device);assert.deepEqual(received.localLibrary,{total:1,files:[{id,name:'du-lich.mp4',bytes:1000}]});assert.equal(received.billing.unlimitedTokens,false);assert.equal(store.user(user.id)?.balance,9);
   invalid=true;assert.equal((await post({message:'Làm tiếp',threadId:first.threadId,device:'windows',localLibrary:library})).status,400);assert.equal(store.user(user.id)?.balance,9);
   invalid=false;const job=store.createJob(user.id,first.threadId,'Video đang dựng','local-file');store.update(job.id,'local_running','Đang xuất MP4');
   const active=await post({message:'Sau đó đổi sang dọc',threadId:first.threadId,device:'windows',deviceVersion:'1.0.0',localLibrary:library});assert.equal(active.status,200);const reply=await active.json();assert.equal(reply.action,'reply');assert.deepEqual(reply.sourceIds,[]);assert.equal(received.activeJob.stage,'Đang xuất MP4');assert.equal(store.jobs(user.id).length,1);assert.equal(store.user(user.id)?.balance,8);

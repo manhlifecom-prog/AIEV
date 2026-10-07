@@ -10,7 +10,7 @@ export function appDownloads(value: unknown): AppDownloads | null {
   const data=value as AppDownloads;
   const version=typeof data?.version==='string' && /^\d+\.\d+\.\d+$/.test(data.version)?data.version:undefined;
   const released=version && data?.windows===`https://github.com/manhlifecom-prog/AIEV/releases/download/studio-${version}/AIEV-Studio-Setup-${version}.exe`;
-  if((!released && !["/studio/downloads/AIEV-Studio-Setup-0.5.0.exe","/studio/downloads/AIEV-Studio-Setup-1.0.0.exe"].includes(data?.windows)) || data?.android!=="/studio/downloads/AIEV-Studio-0.1.0.apk")return null;
+  if((!released && !["/studio/downloads/AIEV-Studio-Setup-0.5.0.exe","/studio/downloads/AIEV-Studio-Setup-1.0.0.exe"].includes(data?.windows)) || !["/studio/downloads/AIEV-Studio-0.1.0.apk","https://github.com/manhlifecom-prog/AIEV/releases/download/android-0.2.0/AIEV-Studio-0.2.0.apk"].includes(data?.android))return null;
   const result: AppDownloads={version,windows:data.windows,android:data.android};
   if(data.apple?.version==='0.6.0') {
     const apple=data.apple;

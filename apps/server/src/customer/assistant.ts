@@ -46,7 +46,7 @@ export function assistantRoutes(app: Express, store: CustomerStore, auth: Reques
     const device = req.body?.device==='browser' && req.body?.browserRenderer===1 ? 'browser' : req.body?.device==='windows' ? 'windows' : ['macos','ios'].includes(req.body?.device) && modernNative ? req.body.device : 'web';
     const localDevice=device!=='web';
     let localLibrary:null|{total:number;files:{id:string;name:string;bytes:number}[]}=null;
-    if(req.body.localLibrary && ['windows','macos','browser'].includes(device)) {
+    if(req.body.localLibrary && ['windows','macos','ios','browser'].includes(device)) {
       const raw=req.body.localLibrary;
       if(!Number.isSafeInteger(raw.total) || raw.total<0 || !Array.isArray(raw.files) || raw.files.length>200 || raw.total<raw.files.length || raw.files.some((file:any)=>!file || typeof file.id!=='string' || !/^[a-f0-9]{32}$/.test(file.id) || typeof file.name!=='string' || file.name.length>500 || !file.name.trim() || /[\x00-\x1f]/.test(file.name) || !Number.isSafeInteger(file.bytes) || file.bytes<100) || new Set(raw.files.map((f:any)=>f.id)).size!==raw.files.length)throw new CustomerError(400,'Danh mục video tại máy không hợp lệ');
       localLibrary={total:raw.total,files:raw.files.map((file:any)=>({id:file.id,name:file.name,bytes:file.bytes}))};

@@ -5,6 +5,8 @@ private struct LocalRecord: Codable { var directory: String; var owner: String }
 @MainActor final class NativeEngine {
     let api = NativeAPI(), media = NativeMedia()
     var activity: (String, JSONObject) -> Void = { _, _ in }
+    let library = SelectedVideoLibrary()
+    var selectFiles: () async throws -> [URL] = { throw NativeFailure(message: "Chưa mở được Tệp") }
     var selectVideos: () async throws -> [URL] = { throw NativeFailure(message: "Chưa mở được bộ chọn video") }
     var share: (URL) -> Void = { _ in }
     var failure: (String) -> Void = { _ in }
@@ -34,10 +36,25 @@ private struct LocalRecord: Codable { var directory: String; var owner: String }
         guard !working else { throw NativeFailure(message: "Thiết bị đang xử lý yêu cầu trước", status: 409) }
         working = true
         defer { if !rendering { working = false }; chatTask = nil }
+        if endpoint.hasPrefix("/library/") {
+            let account = try await owner(); try library.useAccount(account)
+            switch endpoint {
+            case "/library/status", "/library/refresh": break
+            case "/library/revoke": try library.revoke()
+            case "/library/pick-files", "/library/pick-folder":
+                let urls = try await (endpoint == "/library/pick-files" ? selectVideos() : selectFiles())
+                // Picker may outlive the web login session; recheck before granting.
+                guard try await owner() == account else { throw NativeFailure(message: "Tài khoản đã thay đổi; hãy chọn lại video") }
+                try library.replace(urls, owner: account)
+            default: throw NativeFailure(message: "Chức năng không được phép")
+            }
+            return library.summary()
+        }
         if endpoint == "/chat" {
             guard let message = body["message"] as? String, !message.isEmpty, message.count <= 8000 else { throw NativeFailure(message: "Yêu cầu không hợp lệ") }
             currentRequest = body["requestId"] as? String ?? UUID().uuidString
-            var payload = body; payload["requestId"] = currentRequest
+            let account = try await owner(); try library.useAccount(account)
+            var payload = body; payload["requestId"] = currentRequest; payload["localLibrary"] = library.summary()
             chatTask = Task { try await api.chat(payload) { [weak self] event in guard let self else { return }; self.activity(self.currentRequest, event) } }
             let decision = try await chatTask!.value; chatTask = nil
             if decision["action"] as? String == "confirm", let jobId = decision["jobId"] as? String {
@@ -63,13 +80,15 @@ private struct LocalRecord: Codable { var directory: String; var owner: String }
         stage("Chuẩn bị video tại iPhone/iPad")
         let source = dir.appendingPathComponent("source.mp4"), link = decision["url"] as? String
         let metadata: MediaInfo
-        if let previousId = decision["sourceJobId"] as? String, records[previousId]?.owner == account {
+        let sourceIds = decision["sourceIds"] as? [String] ?? []
+        try library.useAccount(account)
+        if sourceIds.isEmpty, link == nil, let previousId = decision["sourceJobId"] as? String, records[previousId]?.owner == account {
             let previous = try directory(previousId, owner: account)
             try FileManager.default.copyItem(at: previous.appendingPathComponent("source.mp4"), to: source)
             metadata = try JSONDecoder().decode(MediaInfo.self, from: Data(contentsOf: previous.appendingPathComponent("metadata.json")))
         } else {
             var files = [(URL, String)]()
-            if let link {
+            if let link, sourceIds.isEmpty {
                 if link.range(of: "/drive/(?:u/\\d+/)?folders/", options: .regularExpression) != nil {
                     stage("Đang đọc thư mục Drive")
                     guard let listing = try await api.call("/drive/folder", body: ["url": link]) as? JSONObject, let entries = listing["files"] as? [JSONObject], !entries.isEmpty else { throw NativeFailure(message: "Không có video trong thư mục") }
@@ -81,8 +100,16 @@ private struct LocalRecord: Codable { var directory: String; var owner: String }
                     }
                 } else { stage("Đang tải video về điện thoại"); let file = dir.appendingPathComponent("clip-0.mp4"); try await api.downloadDrive(link, to: file); files.append((file, "Video Drive")) }
             } else {
-                stage("Chọn video trong ứng dụng Tệp")
-                let selected = try await selectVideos()
+                stage("Đang đọc video đã cấp quyền")
+                let selected: [URL]
+                if !sourceIds.isEmpty { selected = try library.resolve(sourceIds) }
+                else if !library.entries.isEmpty { selected = Array(library.entries.prefix(50)).map { $0.url } }
+                else {
+                    let urls = try await selectVideos()
+                    guard try await owner() == account else { throw NativeFailure(message: "Tài khoản đã thay đổi") }
+                    try library.replace(urls, owner: account)
+                    selected = Array(library.entries.prefix(50)).map { $0.url }
+                }
                 for (index, input) in selected.enumerated() {
                     let access = input.startAccessingSecurityScopedResource(); defer { if access { input.stopAccessingSecurityScopedResource() } }
                     let file = dir.appendingPathComponent("clip-\(index).mp4")

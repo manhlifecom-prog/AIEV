@@ -2,6 +2,7 @@ import SwiftUI
 import WebKit
 import AVKit
 import UniformTypeIdentifiers
+import PhotosUI
 
 @main struct AIEVStudioApp: App {
     var body: some Scene {
@@ -65,7 +66,7 @@ struct StudioWebView: UIViewRepresentable {
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.websiteDataStore = .default(); config.allowsInlineMediaPlayback = true
-        config.applicationNameForUserAgent = "AIEViOS/0.6.0"
+        config.applicationNameForUserAgent = "AIEViOS/0.7.0"
         config.userContentController.addScriptMessageHandler(context.coordinator, contentWorld: .page, name: "aiev")
         if let url = Bundle.main.url(forResource: "native-bridge", withExtension: "js"), let script = try? String(contentsOf: url) {
             config.userContentController.addUserScript(WKUserScript(source: script, injectionTime: .atDocumentStart, forMainFrameOnly: true))
@@ -79,7 +80,7 @@ struct StudioWebView: UIViewRepresentable {
     }
     func updateUIView(_ web: WKWebView, context: Context) { context.coordinator.parent = self }
     static func dismantleUIView(_ web: WKWebView, coordinator: Coordinator) { web.configuration.userContentController.removeScriptMessageHandler(forName: "aiev", contentWorld: .page) }
-    @MainActor class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandlerWithReply, UIDocumentPickerDelegate {
+    @MainActor class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandlerWithReply, UIDocumentPickerDelegate, PHPickerViewControllerDelegate {
         var parent: StudioWebView
         let engine = NativeEngine()
         private var selected: CheckedContinuation<[URL], Error>?
@@ -87,7 +88,8 @@ struct StudioWebView: UIViewRepresentable {
             self.parent = parent; super.init()
             engine.share = { [weak self] url in self?.parent.video = SharedVideo(url: url) }
             engine.failure = { [weak self] message in self?.parent.failure = message }
-            engine.selectVideos = { [weak self] in guard let self else { throw NativeFailure(message: "App đã đóng") }; return try await self.pickVideos() }
+            engine.selectVideos = { [weak self] in guard let self else { throw NativeFailure(message: "App đã đóng") }; return try await self.pickPhotos() }
+            engine.selectFiles = { [weak self] in guard let self else { throw NativeFailure(message: "App đã đóng") }; return try await self.pickVideos() }
             engine.activity = { [weak self] id, event in
                 guard let web = self?.engine.api.web, StudioOrigin.trusted(web.url) else { return }
                 var value = event; value["requestId"] = id
@@ -112,6 +114,54 @@ struct StudioWebView: UIViewRepresentable {
                 } catch {
                     if method == "request" { replyHandler(["error": error.localizedDescription, "status": (error as? NativeFailure)?.status ?? 400], nil) }
                     else { replyHandler(nil, error.localizedDescription) }
+                }
+            }
+        }
+        private func pickPhotos() async throws -> [URL] {
+            guard selected == nil, let controller = engine.api.web?.window?.rootViewController else { throw NativeFailure(message: "Chưa mở được thư viện video") }
+            return try await withCheckedThrowingContinuation { continuation in
+                selected = continuation
+                var configuration = PHPickerConfiguration()
+                configuration.filter = .videos
+                configuration.selectionLimit = 200
+                configuration.preferredAssetRepresentationMode = .current
+                let picker = PHPickerViewController(configuration: configuration)
+                picker.delegate = self
+                controller.present(picker, animated: true)
+            }
+        }
+        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+            picker.dismiss(animated: true)
+            guard let pending = selected else { return }
+            // Keep selection locked while iCloud providers finish copying.
+            Task { @MainActor in
+                let folder = FileManager.default.temporaryDirectory.appendingPathComponent("AIEV-photo-import-" + UUID().uuidString, isDirectory: true)
+                do {
+                    guard !results.isEmpty else { throw NativeFailure(message: "Đã hủy chọn video") }
+                    try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+                    var urls: [URL] = []
+                    for (index, result) in results.enumerated() {
+                        guard result.itemProvider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) else { throw NativeFailure(message: "Nguồn đã chọn không phải video") }
+                        let target = folder.appendingPathComponent("clip-\(index).mov")
+                        let copied: URL = try await withCheckedThrowingContinuation { continuation in
+                            result.itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.movie.identifier) { url, error in
+                                do {
+                                    if let error { throw error }
+                                    guard let url else { throw NativeFailure(message: "Chưa tải được video từ thư viện/iCloud") }
+                                    // The provider URL expires when this callback returns.
+                                    let name = url.lastPathComponent
+                                    let destination = target.deletingLastPathComponent().appendingPathComponent("\(index)-" + name)
+                                    try FileManager.default.copyItem(at: url, to: destination)
+                                    continuation.resume(returning: destination)
+                                } catch { continuation.resume(throwing: error) }
+                            }
+                        }
+                        urls.append(copied)
+                    }
+                    self.selected = nil; pending.resume(returning: urls)
+                } catch {
+                    try? FileManager.default.removeItem(at: folder)
+                    self.selected = nil; pending.resume(throwing: error)
                 }
             }
         }

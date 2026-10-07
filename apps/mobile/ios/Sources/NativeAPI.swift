@@ -64,7 +64,7 @@ final class RestrictedRedirects: NSObject, URLSessionTaskDelegate {
         return result
     }
     func chat(_ body: JSONObject, event: @escaping (JSONObject) -> Void) async throws -> JSONObject {
-        var body = body; body["device"] = "ios"; body["deviceVersion"] = "0.6.0"; body["stream"] = true
+        var body = body; body["device"] = "ios"; body["deviceVersion"] = "0.7.0"; body["stream"] = true
         let request = try await request("/assistant", body: body), connection = session()
         defer { connection.invalidateAndCancel() }
         return try await withTaskCancellationHandler {

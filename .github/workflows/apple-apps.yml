@@ -80,8 +80,8 @@ jobs:
           with (app / 'Info.plist').open('rb') as source:
               info = plistlib.load(source)
           assert info['CFBundleIdentifier'] == 'marketing.manh.aiev'
-          assert info['CFBundleShortVersionString'] == '0.6.0'
-          assert info['CFBundleVersion'] == '6'
+          assert info['CFBundleShortVersionString'] == '0.7.0'
+          assert info['CFBundleVersion'] == '7'
           assert info['MinimumOSVersion'] == '17.0'
           assert set(info['UIDeviceFamily']) == {1, 2}
           assert (app / 'native-bridge.js').is_file()

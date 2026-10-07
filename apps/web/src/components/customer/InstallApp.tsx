@@ -28,7 +28,7 @@ export function InstallApp() {
     if (!prompt) return;
     await prompt.prompt(); const result = await prompt.userChoice; setPrompt(null); if (result.outcome === "accepted") setOpen(false);
   }
-  const needsUpdate=Boolean(desktopVersion && (desktopVersion !== (platform==='macos'?'0.6.0':downloads?.version || '1.2.0') || !window.aievDesktop));
+  const needsUpdate=Boolean(desktopVersion && (desktopVersion !== (platform==='macos'?'0.6.0':downloads?.version || '1.2.1') || !window.aievDesktop));
   const needsRenderer=installed && ['windows','macos','ios'].includes(platform) && !window.aievDesktop && !browserSupported();
   if (typeof window!=='undefined' && window.aievDesktop?.update && window.aievDesktop?.onUpdate) return <DesktopUpdate/>;
   if (installed && !needsUpdate && !needsRenderer) return null;
@@ -36,11 +36,11 @@ export function InstallApp() {
   return <>
     <button className="studio-text-button studio-install" aria-label={needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài ứng dụng"} onClick={() => setOpen(true)}><Download size={20}/><span>{needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài app"}</span></button>
     {open ? <StudioModal title="Cài AIEV Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
-      <p>{needsRenderer ? "Web có thể dựng và xuất MP4 ngay trên thiết bị. App Windows phù hợp nguồn lớn; bản Android APK hiện chỉ chat." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
-      {needsUpdate ? <p>Bản Windows hiện tại chưa có bộ tự cập nhật. Cài bản 1.2.0 một lần để bật nút Cập nhật và tải bản mới tự động về sau. Đóng app trước khi chạy bộ cài; tài khoản và video được giữ lại.</p> : null}
+      <p>{needsRenderer ? "Web có thể dựng và xuất MP4 ngay trên thiết bị. App Windows phù hợp nguồn lớn; Android 0.2.0 có bộ chọn video trên điện thoại." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
+      {needsUpdate ? <p>Bản Windows hiện tại chưa có bộ tự cập nhật. Cài bản 1.2.1 một lần để bật nút Cập nhật và tải bản mới tự động về sau. Đóng app trước khi chạy bộ cài; tài khoản và video được giữ lại.</p> : null}
       {downloads ? <div className="studio-app-downloads">
         <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows · Tải EXE</a>
-        <small>Windows 10/11 64-bit · Bản 1.2.0 tự cập nhật, xem trước ngay trong Studio và xuất Full HD. Cài xong mở AIEV Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
+        <small>Windows 10/11 64-bit · Bản 1.2.1 tự cập nhật, xem trước ngay trong Studio và xuất Full HD. Cài xong mở AIEV Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
         <h3>MacBook / iMac</h3>
         {downloads.apple?.macos?.arm64 || downloads.apple?.macos?.x64 ? <>
           {downloads.apple.macos.arm64 ? <a className="studio-secondary" href={downloads.apple.macos.arm64} target="_blank" rel="noopener noreferrer"><Download size={18}/>Mac chip M · Tải DMG</a> : null}
@@ -49,7 +49,7 @@ export function InstallApp() {
         </> : <p>App Mac đang được kiểm thử; chưa có bản cài để tải.</p>}
         <h3>iPhone / iPad</h3>
         {downloads.apple?.ios?.testFlight ? <a className="studio-secondary" href={downloads.apple.ios.testFlight} target="_blank" rel="noopener noreferrer">Cài bản thử qua TestFlight</a> : <p>App iPhone/iPad chưa phát hành. Bạn có thể dùng web trên Safari trong lúc chờ bản cài. Dựng web cần đủ bộ nhớ và giữ tab mở.</p>}
-        <h3>Android</h3><a className="studio-secondary" href={downloads.android} download><Download size={18}/>Android · Tải APK</a><small>Android 10 trở lên · Hiện hỗ trợ chat, chưa dựng tại máy.</small>
+        <h3>Android</h3><a className="studio-secondary" href={downloads.android} download><Download size={18}/>Android · Tải APK</a><small>Android 10 trở lên · Chọn video từ thư viện, chat và dựng trên thiết bị. Giữ app mở trong lúc dựng.</small>
       </div> : <p role="status">Chưa tải được danh sách bản cài. Đóng hướng dẫn rồi thử lại.</p>}
       {!needsRenderer ? <>
         <h3>Cài web trên màn hình</h3>

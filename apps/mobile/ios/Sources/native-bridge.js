@@ -3,7 +3,7 @@
   const listeners = new Set();
   const call = (method, args) => window.webkit.messageHandlers.aiev.postMessage({method, ...args});
   const bridge = {
-    version: '0.6.0', platform: 'ios',
+    version: '0.7.0', platform: 'ios', mediaLibrary: true,
     request: (endpoint, body) => call('request', {endpoint, body}),
     cancelChat: id => call('cancel', {id}),
     onActivity: callback => { listeners.add(callback); return () => listeners.delete(callback); },
