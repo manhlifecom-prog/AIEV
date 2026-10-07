@@ -1,3 +1,4 @@
+import {captionStyles, styleCaptionDocument, selectedCaptionStyle, type CaptionStyleId} from './caption-styles.js';
 import fs from "node:fs";
 import path from "node:path";
 import OpenAI from "openai";
@@ -7,11 +8,12 @@ import type { Job } from "./store.js";
 import { frameFilter, fullHdSize, splitAtSources, validFraming, visualSampleTimes, type Framing, type SourceClip, type VisualFrame } from "./edit-quality.js";
 export { visualSampleTimes, contentRect } from "./edit-quality.js";
 
-export type Edit = { title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?: string; segments: ({ start: number; end: number } & Framing)[] };
+export type Edit = { captionStyle?: CaptionStyleId; title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?: string; segments: ({ start: number; end: number } & Framing)[] };
 export function validateEdit(value: unknown, duration: number): Edit {
   const plan = value as Edit;
   if (!plan || typeof plan.title !== "string" || plan.title.length > 100 || !["16:9", "9:16", "1:1"].includes(plan.ratio) || typeof plan.subtitles !== "boolean" || !Array.isArray(plan.segments) || !plan.segments.length || plan.segments.length > 50) throw new Error("AI chưa tạo được kế hoạch dựng video hợp lệ");
   if (plan.story !== undefined && (typeof plan.story !== "string" || plan.story.length > 800)) throw new Error("Mô tả bản dựng không hợp lệ");
+  if(plan.captionStyle !== undefined && !captionStyles.some(s=>s.id===plan.captionStyle))throw new Error("Kiểu phụ đề không hợp lệ");
   let total = 0;
   for (const segment of plan.segments) {
     if (!validFraming(segment) || !Number.isFinite(segment.start) || !Number.isFinite(segment.end) || segment.start < 0 || segment.end > duration + 0.05 || segment.end - segment.start < 0.3) throw new Error("AI chọn đoạn video ngoài thời lượng nguồn");
@@ -53,7 +55,7 @@ export function subtitleDocument(plan: Edit, words: Word[], width: number, heigh
     }
     offset += segment.end - segment.start;
   }
-  return header + rows.join("\n") + "\n";
+  return styleCaptionDocument(header + rows.join("\n") + "\n",plan.captionStyle);
 }
 export async function renderControlled(job: Job, directory: string, onStage: (message: string) => void) {
   if (!process.env.OPENAI_API_KEY?.trim()) throw new Error("Dịch vụ AI chưa được kích hoạt. Vui lòng thử lại sau.");
@@ -94,7 +96,9 @@ Output Full HD. ratio 9:16 for vertical/shorts, 16:9 for landscape, 1:1 for squa
     input: [{role:'user',content:[{type:'input_text',text:JSON.stringify({request:prompt,source:metadata,transcript:transcript.length<=80000?transcript:transcript.slice(0,40000)+'\n[transcript shortened]\n'+transcript.slice(-40000),words:words.length<=16000?words:words.filter((_w,i)=>i%Math.ceil(words.length/16000)===0)})},...frames.flatMap(frame=>[{type:'input_text' as const,text:`Source frame at ${frame.time.toFixed(2)} seconds`},{type:'input_image' as const,image_url:frame.image,detail:'low' as const}])]}],
     text: { format: { type: "json_schema", name: "customer_video_edit", strict: true, schema: EDIT_SCHEMA } },
   });
-  return validateEdit(JSON.parse(response.output_text), metadata.duration);
+  const plan=validateEdit(JSON.parse(response.output_text), metadata.duration);
+  const style=selectedCaptionStyle(prompt);if(style)plan.captionStyle=style;
+  return plan;
 }
 export async function extractVisualFrames(directory: string, metadata: {duration:number;sources?:SourceClip[]}, onStage: (message:string)=>void): Promise<VisualFrame[]> {
   const frames: VisualFrame[] = [];

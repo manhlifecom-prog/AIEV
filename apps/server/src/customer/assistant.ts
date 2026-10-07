@@ -1,3 +1,4 @@
+import {selectedCaptionStyle} from './caption-styles.js';
 import { randomUUID } from 'node:crypto';
 import OpenAI from 'openai';
 import type { Express, RequestHandler } from 'express';
@@ -125,6 +126,8 @@ export function assistantRoutes(app: Express, store: CustomerStore, auth: Reques
       controller.signal.throwIfAborted();
       emitStatus('AI đang trả lời');
       const decision = await decide({ billing:{unlimitedTokens}, conversation: conversationContext(history), message, device, localLibrary, activeJob:activeJob ? {status:activeJob.status,stage:activeJob.stage,request:activeJob.prompt} : null, sourceError, currentSource: folder ? {kind:'drive-folder',url,videoCount:folder.length,files:folder.slice(0,40).map(f=>({name:f.name,bytes:f.bytes}))} : prior ? {jobId:prior.id, request:prior.prompt, seconds:prior.duration, status:prior.status} : url ? {kind:'drive-file',url} : null }, { signal: controller.signal, reply: streaming ? text => emit('reply', { text }) : undefined });
+      const selectedStyle=selectedCaptionStyle([...history.filter(m=>m.role==='user').map(m=>String(m.content)),message].join('\n'));
+      if(selectedStyle && decision.action==='prepare') decision.prompt = decision.prompt.slice(0,7950)+'\n[caption-style:'+selectedStyle+']';
       const ids=decision.sourceIds || [];
       if(ids.length && (!localLibrary || ids.length>50 || new Set(ids).size!==ids.length || ids.some(id=>!localLibrary!.files.some(file=>file.id===id))))throw new CustomerError(400,'AI chọn nguồn ngoài thư viện được cấp quyền; hãy thử lại. Token chat chưa bị trừ.');
       if(sourceError && !ids.length && decision.action==='prepare') {decision.action='reply';decision.prompt='';decision.sourceIds=[];decision.reply += '\nChưa đọc được video nguồn. Bạn có thể tiếp tục viết kịch bản, hoặc chọn video trên thiết bị để dựng.';}

@@ -1,8 +1,10 @@
+import {captionStyles, styleCaptionDocument, selectedCaptionStyle, type CaptionStyleId} from '../../../../server/src/customer/caption-styles';
 import {frameFilter, fullHdSize, splitAtSources, validFraming, type Framing, type SourceClip} from "../../../../server/src/customer/edit-quality";
-export type Edit = { title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?:string; segments: ({ start: number; end: number } & Framing)[] };
+export type Edit = { captionStyle?: CaptionStyleId; title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?:string; segments: ({ start: number; end: number } & Framing)[] };
 export function validateEdit(value: unknown, duration: number): Edit {
   const plan = value as Edit;
   if (!plan || typeof plan.title !== "string" || plan.title.length > 100 || !["16:9", "9:16", "1:1"].includes(plan.ratio) || typeof plan.subtitles !== "boolean" || !Array.isArray(plan.segments) || !plan.segments.length || plan.segments.length > 50) throw new Error("AI chưa tạo được kế hoạch dựng video hợp lệ");
+  if(plan.captionStyle !== undefined && !captionStyles.some(s=>s.id===plan.captionStyle))throw new Error("Kiểu phụ đề không hợp lệ");
   let total = 0;
   for (const segment of plan.segments) {
     if (!validFraming(segment) || !Number.isFinite(segment.start) || !Number.isFinite(segment.end) || segment.start < 0 || segment.end > duration + 0.05 || segment.end - segment.start < 0.3) throw new Error("AI chọn đoạn video ngoài thời lượng nguồn");
@@ -37,7 +39,7 @@ export function subtitleDocument(plan: Edit, words: Word[], width: number, heigh
     }
     offset += segment.end - segment.start;
   }
-  return header + rows.join("\n") + "\n";
+  return styleCaptionDocument(header + rows.join("\n") + "\n",plan.captionStyle);
 }
 
 export function renderArguments(plan:Edit, hasAudio:boolean, sources:SourceClip[]=[], preview=false) {
