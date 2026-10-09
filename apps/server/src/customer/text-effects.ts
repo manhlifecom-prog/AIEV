@@ -18,7 +18,19 @@ export const socialPresets = [
  {id:'social-callout',scene:5,name:'Chữ nổi kết nối',description:'Chữ gradient bật lên, icon hội thoại'},
 ] as const;
 export const socialPreset=(id?:string)=>socialPresets.find(p=>p.id===id);
+export const storyPresets = [
+ {id:'story-quote',name:'Trích dẫn Ivory',layout:'quote',bg:'#F1EADC',ink:'#24382E',accent:'#597B51',heading:'Hiểu sâu bắt đầu từ một câu hỏi',points:['Chậm lại một nhịp','Hỏi đúng trọng tâm','Tự mình tìm lời giải'],description:'Khung trích dẫn lớn, chữ xanh trên nền giấy'},
+ {id:'story-steps',name:'Ba bước Blueprint',layout:'steps',bg:'#10264D',ink:'#ECF5FF',accent:'#76D9FF',heading:'Biến ý tưởng thành hành động',points:['Xác định mục tiêu','Chọn một việc nhỏ','Thực hiện hôm nay'],description:'Sơ đồ ba bước nối nhau, icon xuất hiện theo nhịp'},
+ {id:'story-compare',name:'So sánh Split',layout:'compare',bg:'#151C24',ink:'#F1F5F8',accent:'#B4ED9A',heading:'Cùng một việc, hai cách tiếp cận',points:['Làm thật nhiều','Chọn việc quan trọng','Chạy theo lịch','Giữ thời gian tập trung'],description:'Hai cột đối chiếu, thẻ màu và đường phân chia'},
+ {id:'story-data',name:'Dữ liệu Dashboard',layout:'data',bg:'#082E32',ink:'#E7FFF5',accent:'#71E2B3',heading:'Để dữ liệu kể câu chuyện',points:['Quan sát','Đối chiếu','Rút ra bài học'],description:'Biểu đồ chuyển động và thẻ chỉ số; không tự bịa số liệu'},
+ {id:'story-fact',name:'Góc nhìn Myth / Fact',layout:'fact',bg:'#F9EEE8',ink:'#422332',accent:'#BA3968',heading:'Thử nhìn theo một cách khác',points:['Học nhiều là nhớ lâu','Hiểu và ôn mới giúp nhớ'],description:'Thẻ hiểu lầm và góc nhìn mới, dấu X và dấu kiểm'},
+ {id:'story-timeline',name:'Hành trình Timeline',layout:'timeline',bg:'#241C38',ink:'#F8F0FF',accent:'#C3A1FF',heading:'Mỗi bước nhỏ đều đáng kể',points:['Bắt đầu','Thực hành','Điều chỉnh','Tiến bộ'],description:'Đường thời gian vẽ dần, các mốc sáng lần lượt'},
+ {id:'story-tips',name:'Mẹo nhanh Sticky',layout:'tips',bg:'#EEE8D4',ink:'#303B2B',accent:'#596B32',heading:'Một thay đổi nhỏ mỗi ngày',points:['Đặt một câu hỏi','Ghi một điều mới','Thử một cách khác'],description:'Giấy ghi chú xếp lớp, băng dính và nét bút'},
+ {id:'story-coaching',name:'Lời mời Coaching',layout:'coaching',bg:'#201C1B',ink:'#FFF1DC',accent:'#E6BC77',heading:'Dành thời gian cho điều quan trọng',points:['Nhìn rõ vấn đề','Cùng tìm hướng đi','Bắt đầu cuộc trò chuyện'],description:'Vòng sáng chân dung, thẻ lợi ích và lời mời tinh tế'},
+] as const;
+export const storyPreset=(id?:string)=>storyPresets.find(p=>p.id===id);
 export const textEffects = [
+ ...storyPresets.map(p=>({id:p.id,name:p.name,kind:'story' as const,font:'strong' as const,accent:p.accent,ink:p.ink,description:p.description,sample:p.heading})),
  ...socialPresets.map(p=>({id:p.id,name:p.name,kind:'infographic' as const,font:'strong' as const,accent:'#FF91CC',ink:'#FFF2FA',description:p.description,sample:p.name})),
  {id:'social-infographic',name:'Social Magenta · Infographic',kind:'infographic',font:'strong',accent:'#FF91CC',ink:'#FFF2FA',description:'Chữ đậm, đồng hồ chuyển động và sơ đồ tảng băng',sample:'Biến ý tưởng thành giá trị'},
  ...expertPresets.map(p=>({id:p.id,name:p.name,kind:'expert' as const,font:p.font,accent:p.accent,ink:p.ink,description:p.subtitle,sample:p.heading})),
