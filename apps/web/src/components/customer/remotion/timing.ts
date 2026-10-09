@@ -1,0 +1,5 @@
+import type {Caption} from '@remotion/captions';
+export type TimedWord={word:string;start:number;end:number};
+export function remapCaptions(words:TimedWord[],segments:{start:number;end:number}[]):Caption[]{let offset=0;const result:Caption[]=[];for(const segment of segments){for(const word of words){const start=Math.max(word.start,segment.start),end=Math.min(word.end,segment.end);if(end>start)result.push({text:' '+word.word.trim(),startMs:(offset+start-segment.start)*1000,endMs:(offset+end-segment.start)*1000,timestampMs:null,confidence:null});}offset+=segment.end-segment.start;}return result;}
+export function captionPages(captions:Caption[]){const pages:Caption[][]=[];for(const word of captions){const page=pages[pages.length-1];if(!page||page.length>=6||word.startMs-page[page.length-1].endMs>650||page.map(x=>x.text.length).reduce((a,b)=>a+b,0)+word.text.length>64)pages.push([word]);else page.push(word);}return pages;}
+export function demoCaptions(text:string):Caption[]{return text.trim().split(/\s+/).filter(Boolean).map((text,i,all)=>({text:' '+text,startMs:400+i*4000/all.length,endMs:400+(i+1)*4000/all.length,timestampMs:null,confidence:null}));}

@@ -1,10 +1,12 @@
+import {getTextEffect,selectedTextEffect,type TextEffectId} from '../../../../server/src/customer/text-effects';
 import {captionStyles, styleCaptionDocument, selectedCaptionStyle, type CaptionStyleId} from '../../../../server/src/customer/caption-styles';
 import {frameFilter, fullHdSize, splitAtSources, validFraming, type Framing, type SourceClip} from "../../../../server/src/customer/edit-quality";
-export type Edit = { captionStyle?: CaptionStyleId; title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?:string; segments: ({ start: number; end: number } & Framing)[] };
+export type Edit = { textEffect?:TextEffectId; captionStyle?: CaptionStyleId; title: string; ratio: "16:9" | "9:16" | "1:1"; subtitles: boolean; story?:string; segments: ({ start: number; end: number } & Framing)[] };
 export function validateEdit(value: unknown, duration: number): Edit {
   const plan = value as Edit;
   if (!plan || typeof plan.title !== "string" || plan.title.length > 100 || !["16:9", "9:16", "1:1"].includes(plan.ratio) || typeof plan.subtitles !== "boolean" || !Array.isArray(plan.segments) || !plan.segments.length || plan.segments.length > 50) throw new Error("AI chưa tạo được kế hoạch dựng video hợp lệ");
   if(plan.captionStyle !== undefined && !captionStyles.some(s=>s.id===plan.captionStyle))throw new Error("Kiểu phụ đề không hợp lệ");
+  if(plan.textEffect!==undefined&&!getTextEffect(plan.textEffect))throw new Error('Hiệu ứng chữ không hợp lệ');
   let total = 0;
   for (const segment of plan.segments) {
     if (!validFraming(segment) || !Number.isFinite(segment.start) || !Number.isFinite(segment.end) || segment.start < 0 || segment.end > duration + 0.05 || segment.end - segment.start < 0.3) throw new Error("AI chọn đoạn video ngoài thời lượng nguồn");

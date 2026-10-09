@@ -1,4 +1,6 @@
 "use client";
+import dynamic from 'next/dynamic';
+const MotionGallery=dynamic(()=>import('./MotionGallery').then(m=>m.MotionGallery),{ssr:false,loading:()=> <p role="status">Đang tải thư viện hiệu ứng chữ…</p>});
 import {CaptionGallery} from './CaptionGallery';
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Play, Pause, Captions, Type, Scissors } from 'lucide-react';
@@ -46,10 +48,10 @@ function TemplatePreview({item}:{item:Template}) {
 
 export function TemplateGallery({select}:{select:(prompt:string)=>void}) {
   const [category,setCategory]=useState('Tất cả');
-  const [tab,setTab]=useState<'video'|'sub'>('sub');
+  const [tab,setTab]=useState<'video'|'sub'|'motion'>('motion');
   return <section className="studio-templates" aria-label="Thư viện mẫu video">
-    <div className="template-filters" aria-label="Loại mẫu"><button type="button" aria-pressed={tab==='sub'} onClick={()=>setTab('sub')}>Mẫu phụ đề · 18</button><button type="button" aria-pressed={tab==='video'} onClick={()=>setTab('video')}>Mẫu video · 6</button></div>
-    {tab==='sub'?<CaptionGallery select={select}/>:<>
+    <div className="template-filters" aria-label="Loại mẫu"><button type="button" aria-pressed={tab==='motion'} onClick={()=>setTab('motion')}>Hiệu ứng chữ · Remotion</button><button type="button" aria-pressed={tab==='sub'} onClick={()=>setTab('sub')}>Mẫu phụ đề · 18</button><button type="button" aria-pressed={tab==='video'} onClick={()=>setTab('video')}>Mẫu video · 6</button></div>
+    {tab==='motion'?<MotionGallery select={select}/>:tab==='sub'?<CaptionGallery select={select}/>:<>
     <p>Bấm Xem mẫu để xem phụ đề, chữ tiêu đề và nhịp cắt 3 cảnh. Hình và lời thoại là minh họa; video thật dùng nguồn của bạn.</p>
     <div className="template-filters" aria-label="Lọc mẫu">{['Tất cả','Bán hàng','Đời sống','Kiến thức'].map(item=><button key={item} type="button" aria-pressed={category===item} onClick={()=>setCategory(item)}>{item}</button>)}</div>
     <div className="template-grid">{videoTemplates.filter(item=>category==='Tất cả'||item.category===category).map(item=><article key={item.id} className="template-card">

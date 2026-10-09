@@ -1,3 +1,4 @@
+import {selectedTextEffect} from './text-effects.js';
 import {selectedCaptionStyle} from './caption-styles.js';
 import { randomUUID } from 'node:crypto';
 import OpenAI from 'openai';
@@ -33,7 +34,7 @@ export async function converse(input: unknown, progress: ConversationProgress = 
       properties: { reply: { type: 'string' }, action: { type: 'string', enum: ['reply', 'prepare'] }, prompt: { type: 'string' }, sourceIds:{type:'array',items:{type:'string'}} },
     } } },
   } as const;
-  const options={...request,instructions:request.instructions+localInstructions+CONTENT_INSTRUCTIONS+'\ndevice=browser là web đã kết nối bộ dựng WebAssembly tại thiết bị. Với browser, chủ động prepare và confirm như app native, không nói website chỉ chat, không yêu cầu cài app. Khách chọn video/thư mục qua bộ chọn trình duyệt, AI dùng sourceIds trong localLibrary. Xuất MP4 Full HD 1080p, cắt/ghép/đổi tỷ lệ/phụ đề/tiêu đề. Nguồn và video xuất ở trình duyệt khách, không dựng trên VPS. Link Drive có thể bị CORS; nếu chưa có nguồn localLibrary, hướng dẫn tải Drive về máy rồi bấm Chọn video/Chọn thư mục. Cần giữ tab mở khi dựng, nguồn lớn có thể cần app Windows.'};
+  const options={...request,instructions:request.instructions+localInstructions+CONTENT_INSTRUCTIONS+' Trên device=browser hỗ trợ thư viện hiệu ứng chữ Remotion đã chọn bằng mã [text-effect:...]: karaoke, pop từng từ, máy chữ, reveal, marker, circle, điện ảnh, glitch. Giữ lựa chọn đó trong yêu cầu dựng; không từ chối hiệu ứng có sẵn. Không tự bịa thêm hiệu ứng ngoài thư viện.'+'\ndevice=browser là web đã kết nối bộ dựng WebAssembly tại thiết bị. Với browser, chủ động prepare và confirm như app native, không nói website chỉ chat, không yêu cầu cài app. Khách chọn video/thư mục qua bộ chọn trình duyệt, AI dùng sourceIds trong localLibrary. Xuất MP4 Full HD 1080p, cắt/ghép/đổi tỷ lệ/phụ đề/tiêu đề. Nguồn và video xuất ở trình duyệt khách, không dựng trên VPS. Link Drive có thể bị CORS; nếu chưa có nguồn localLibrary, hướng dẫn tải Drive về máy rồi bấm Chọn video/Chọn thư mục. Cần giữ tab mở khi dựng, nguồn lớn có thể cần app Windows.'};
   let output = '';
   if (progress.reply) {
     const stream = await client.responses.create({ ...options, stream: true }, { signal: progress.signal });
@@ -126,6 +127,8 @@ export function assistantRoutes(app: Express, store: CustomerStore, auth: Reques
       controller.signal.throwIfAborted();
       emitStatus('AI đang trả lời');
       const decision = await decide({ billing:{unlimitedTokens}, conversation: conversationContext(history), message, device, localLibrary, activeJob:activeJob ? {status:activeJob.status,stage:activeJob.stage,request:activeJob.prompt} : null, sourceError, currentSource: folder ? {kind:'drive-folder',url,videoCount:folder.length,files:folder.slice(0,40).map(f=>({name:f.name,bytes:f.bytes}))} : prior ? {jobId:prior.id, request:prior.prompt, seconds:prior.duration, status:prior.status} : url ? {kind:'drive-file',url} : null }, { signal: controller.signal, reply: streaming ? text => emit('reply', { text }) : undefined });
+      const selectedEffect=selectedTextEffect([...history.filter(m=>m.role==='user').map(m=>String(m.content)),message].join('\n'));
+      if(selectedEffect && decision.action==='prepare'){if(device==='browser')decision.prompt=decision.prompt.slice(0,7880)+'\n[text-effect:'+selectedEffect+']';else{decision.action='reply';decision.prompt='';decision.reply='Hiệu ứng chữ Remotion đã được chọn. Hãy mở video.manh.marketing/studio bằng Chrome/Edge, chọn video rồi nhắn dựng theo yêu cầu này; app hiện tại chưa xuất được hiệu ứng Remotion.';}}
       const selectedStyle=selectedCaptionStyle([...history.filter(m=>m.role==='user').map(m=>String(m.content)),message].join('\n'));
       if(selectedStyle && decision.action==='prepare') decision.prompt = decision.prompt.slice(0,7950)+'\n[caption-style:'+selectedStyle+']';
       const ids=decision.sourceIds || [];
