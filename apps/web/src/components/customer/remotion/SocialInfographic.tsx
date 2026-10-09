@@ -7,8 +7,8 @@ import {captionPages} from './timing';
 import {SocialScenes} from './SocialScenes';
 
 function lines(text:string,max=23){const rows:string[]=[''];for(const word of text.split(/\s+/)){const last=rows.length-1;if(rows[last]&&(rows[last]+' '+word).length>max)rows.push(word);else rows[last]+=(rows[last]?' ':'')+word;}if(rows.length>1&&rows[rows.length-1].length<8){const previous=rows[rows.length-2].split(" ");if(previous.length>1){rows[rows.length-1]=previous.pop()+" "+rows[rows.length-1];rows[rows.length-2]=previous.join(" ");}}return rows;}
-export function SocialInfographic({src,title,captions=[],fontCss,demo=false}:{src?:string;title?:string;captions?:Caption[];fontCss?:string;demo?:boolean}){
- const frame=useCurrentFrame(),{fps}=useVideoConfig(),seconds=frame/fps,scene=Math.floor(seconds/6)%6;
+export function SocialInfographic({src,title,captions=[],fontCss,demo=false,sceneOverride}:{src?:string;title?:string;captions?:Caption[];fontCss?:string;demo?:boolean;sceneOverride?:number}){
+ const frame=useCurrentFrame(),{fps}=useVideoConfig(),seconds=frame/fps,scene=sceneOverride??Math.floor(seconds/6)%6;
  const enter=interpolate(seconds%6,[0,.55],[0,1],{extrapolateLeft:'clamp',extrapolateRight:'clamp'});
  const page=captionPages(captions).find(p=>seconds*1000>=p[0].startMs&&seconds*1000<p[p.length-1].endMs);
  const headings=['Biến ý tưởng thành giá trị','Điều bạn thấy chỉ là phần nổi','Một video, nhiều lớp chăm chút','Đưa câu chuyện vào từng khung hình','Nhịp dựng tạo nên khác biệt','Đến lượt câu chuyện của bạn'];

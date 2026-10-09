@@ -9,7 +9,7 @@ import {captionPages,demoCaptions} from './timing';
 import {EditorialVideo} from './EditorialVideo';
 import {SocialInfographic} from './SocialInfographic';
 import {ExpertVideo} from './ExpertVideo';
-import {expertPreset} from '../../../../../server/src/customer/text-effects';
+import {expertPreset,socialPreset} from '../../../../../server/src/customer/text-effects';
 export type MotionTextProps={fontCss?:string;effect:TextEffectId;text?:string;captions?:Caption[];src?:string;title?:string};
 // Timed-word highlight/pop adapted for SVG rendering from Remotion Elements:
 // https://www.remotion.dev/elements/captions/popping-word-captions/
@@ -27,7 +27,8 @@ export function MotionText({effect,text='Biến khoảnh khắc thành câu chuy
  const items=page.map((word,index)=>({word,index,w:Math.min(maxWidth,ctx?.measureText(word.text.trim()).width||word.text.length*fontSize*.55)}));const rows:typeof items[]=[[]];let rowWidth=0;for(const item of items){if(rowWidth+item.w+fontSize*.25>maxWidth&&rows.at(-1)!.length){rows.push([]);rowWidth=0;}rows.at(-1)!.push(item);rowWidth+=item.w+fontSize*.25;}
  return rows.flatMap((row,line)=>{let x=(width-row.reduce((n,w)=>n+w.w,0)-(row.length-1)*fontSize*.25)/2;return row.map(item=>{const r={...item,x,y:(titleOnly?height*.22:src?height*.84:height*.51)+(line-(rows.length-1)/2)*fontSize*1.4};x+=item.w+fontSize*.25;return r;});});},[page,font,fontSize,maxWidth,width,height,src,titleOnly]);
  const localFrame=page?(time-page[0].startMs)/1000*fps:0;
- if(effect==='social-infographic')return <SocialInfographic src={src} title={title||text} captions={captions} fontCss={fontCss} demo={!src}/>;
+ const social=socialPreset(effect);
+ if(effect==='social-infographic'||social)return <SocialInfographic sceneOverride={social?.scene} src={src} title={title||text} captions={captions} fontCss={fontCss} demo={!src}/>;
  const expert=expertPreset(effect);if(expert&&src)return <ExpertVideo preset={expert.id} src={src} title={title} captions={captions} fontCss={fontCss}/>;
  if(effect==='coffee-editorial'&&src)return <EditorialVideo src={src} title={title} captions={captions} fontCss={fontCss}/>;
  return <AbsoluteFill style={{backgroundColor:src?'transparent':'#10131C'}}>{src?<Video src={src} style={{width:'100%',height:'100%'}}/>:null}

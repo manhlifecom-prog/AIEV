@@ -9,7 +9,17 @@ export const expertPresets=[
 export type ExpertPresetId=typeof expertPresets[number]['id'];
 export const expertPreset=(id?:string)=>expertPresets.find(p=>p.id===id);
 
+export const socialPresets = [
+ {id:'social-gauge',scene:0,name:'Đồng hồ tăng trưởng',description:'Kim chuyển động, vòng chia vạch và chữ nhấn'},
+ {id:'social-iceberg',scene:1,name:'Tảng băng kiến thức',description:'Sơ đồ phân tầng, đường nối và thẻ chú thích'},
+ {id:'social-receipt',scene:2,name:'Hóa đơn nội dung',description:'Giấy cuộn xuất hiện, từng ý hiện lần lượt'},
+ {id:'social-phone',scene:3,name:'Điện thoại sáng tạo',description:'Khung điện thoại, timeline và sóng âm minh họa'},
+ {id:'social-checklist',scene:4,name:'Checklist hành động',description:'Đồng hồ và các bước được đánh dấu'},
+ {id:'social-callout',scene:5,name:'Chữ nổi kết nối',description:'Chữ gradient bật lên, icon hội thoại'},
+] as const;
+export const socialPreset=(id?:string)=>socialPresets.find(p=>p.id===id);
 export const textEffects = [
+ ...socialPresets.map(p=>({id:p.id,name:p.name,kind:'infographic' as const,font:'strong' as const,accent:'#FF91CC',ink:'#FFF2FA',description:p.description,sample:p.name})),
  {id:'social-infographic',name:'Social Magenta · Infographic',kind:'infographic',font:'strong',accent:'#FF91CC',ink:'#FFF2FA',description:'Chữ đậm, đồng hồ chuyển động và sơ đồ tảng băng',sample:'Biến ý tưởng thành giá trị'},
  ...expertPresets.map(p=>({id:p.id,name:p.name,kind:'expert' as const,font:p.font,accent:p.accent,ink:p.ink,description:p.subtitle,sample:p.heading})),
  {id:'coffee-editorial',name:'Editorial · Chữ & icon',kind:'editorial',font:'editorial',accent:'#D5E6A6',ink:'#F7EFDB',description:'Bố cục tạp chí, icon và thẻ hành trình',sample:'Chậm lại để tận hưởng'},
