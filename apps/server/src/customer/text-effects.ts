@@ -10,6 +10,7 @@ export type ExpertPresetId=typeof expertPresets[number]['id'];
 export const expertPreset=(id?:string)=>expertPresets.find(p=>p.id===id);
 
 export const textEffects = [
+ {id:'social-infographic',name:'Social Magenta · Infographic',kind:'infographic',font:'strong',accent:'#FF91CC',ink:'#FFF2FA',description:'Chữ đậm, đồng hồ chuyển động và sơ đồ tảng băng',sample:'Biến ý tưởng thành giá trị'},
  ...expertPresets.map(p=>({id:p.id,name:p.name,kind:'expert' as const,font:p.font,accent:p.accent,ink:p.ink,description:p.subtitle,sample:p.heading})),
  {id:'coffee-editorial',name:'Editorial · Chữ & icon',kind:'editorial',font:'editorial',accent:'#D5E6A6',ink:'#F7EFDB',description:'Bố cục tạp chí, icon và thẻ hành trình',sample:'Chậm lại để tận hưởng'},
  {id:'word-highlight',name:'Karaoke Neon',kind:'highlight',font:'strong',accent:'#D9FF64',ink:'#FFFFFF',description:'Tô màu từng từ theo lời nói',sample:'Ý tưởng nhỏ tạo nên khác biệt'},
