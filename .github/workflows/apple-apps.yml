@@ -1,0 +1,108 @@
+name: Apple apps
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['apps/desktop/**', 'apps/mobile/ios/**', 'scripts/*mac*.mjs', 'scripts/desktop-build.mjs', '.github/workflows/apple-apps.yml']
+permissions:
+  contents: read
+concurrency:
+  group: apple-apps-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  mac:
+    name: Mac ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm ci --prefix apps/desktop
+      - run: npm install --global pnpm@9.15.9 --no-audit --no-fund
+      - run: node scripts/prepare-mac-media.mjs
+      - run: node --test apps/desktop/*.test.cjs
+      - name: Build preview DMG and ZIP
+        # Ad-hoc preview; official Developer ID builds retain hardenedRuntime=true.
+        run: node scripts/desktop-build.mjs --mac dmg zip --${{ matrix.arch }} --publish never --config.mac.identity=- --config.mac.hardenedRuntime=false
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+          # Only an ad-hoc preview signature; CI has no Apple signing credentials.
+          CSC_FOR_PULL_REQUEST: 'true'
+      - name: Verify packaged engine and application
+        run: node scripts/verify-mac-app.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AIEV-Mac-${{ matrix.arch }}-preview
+          path: |
+            .runtime/app-builds/desktop/*.dmg
+            .runtime/app-builds/desktop/*.zip
+            .runtime/app-builds/desktop/mac-verification.json
+          if-no-files-found: error
+          retention-days: 30
+  ios:
+    name: iPhone and iPad
+    runs-on: macos-15
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install xcodegen
+      - run: xcodegen generate --spec apps/mobile/ios/project.yml
+      - name: Compile and test on iPhone simulator
+        run: |
+          DEVICE=$(xcrun simctl list devices available --json | python3 -c 'import json,sys; print(next(d["udid"] for ds in json.load(sys.stdin)["devices"].values() for d in ds if d["name"].startswith("iPhone")))')
+          export DEVICE
+          # Complete boot before xcodebuild starts its test manager. Bound a
+          # stalled simulator and retain boot progress in the CI log.
+          python3 - <<'PY'
+          import os, subprocess
+          subprocess.run(['xcrun', 'simctl', 'bootstatus', os.environ['DEVICE'], '-b'], check=True, timeout=240)
+          PY
+          # Xcode 16.4 / iOS 18.5 WebKit simulator bug 293831; device archive stays iOS 17.
+          xcodebuild test -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination "platform=iOS Simulator,id=$DEVICE" -derivedDataPath .runtime/ios-build -test-timeouts-enabled YES -default-test-execution-time-allowance 180 -maximum-test-execution-time-allowance 180 IPHONEOS_DEPLOYMENT_TARGET=18.4 CODE_SIGNING_ALLOWED=NO
+      - name: Compile device archive without distribution signature
+        run: |
+          xcodebuild archive -project apps/mobile/ios/AIEVStudio.xcodeproj -scheme AIEVStudio -destination 'generic/platform=iOS' -archivePath .runtime/AIEV-iOS.xcarchive CODE_SIGNING_ALLOWED=NO
+          python3 - <<'PY'
+          import json, plistlib
+          from pathlib import Path
+          app = Path('.runtime/AIEV-iOS.xcarchive/Products/Applications/AIEVStudio.app')
+          with (app / 'Info.plist').open('rb') as source:
+              info = plistlib.load(source)
+          assert info['CFBundleIdentifier'] == 'marketing.manh.aiev'
+          assert info['CFBundleShortVersionString'] == '0.7.0'
+          assert info['CFBundleVersion'] == '7'
+          assert info['MinimumOSVersion'] == '17.0'
+          assert set(info['UIDeviceFamily']) == {1, 2}
+          assert (app / 'native-bridge.js').is_file()
+          print(json.dumps({'version': info['CFBundleShortVersionString'], 'build': info['CFBundleVersion'], 'minimumIOS': info['MinimumOSVersion'], 'iPhoneAndIPad': True, 'unsigned': True}))
+          PY
+      - name: Export test diagnostics
+        if: always()
+        run: |
+          mkdir -p .runtime/ios-diagnostics
+          for RESULT in .runtime/ios-build/Logs/Test/*.xcresult; do
+            [ -d "$RESULT" ] || continue
+            xcrun xcresulttool export diagnostics --path "$RESULT" --output-path .runtime/ios-diagnostics || true
+            xcrun xcresulttool export attachments --path "$RESULT" --output-path .runtime/ios-diagnostics/attachments || true
+          done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: AIEV-iPhone-iPad-build
+          path: |
+            .runtime/AIEV-iOS.xcarchive
+            .runtime/ios-build/Logs/Test/*.xcresult
+            .runtime/ios-diagnostics
+          if-no-files-found: error
+          retention-days: 30

@@ -1213,6 +1213,34 @@ POST /api/update/apply  → 202 { ok: true, logHint, target } | 409 JOB_RUNNING 
   `npm install` và khởi động lại; UI poll `/api/health` chờ server chết → sống lại rồi tự reload.
   Bản cài cũ chưa có file target thì script mặc định `origin/main`, giữ nguyên hành vi cũ.
 
+## API riêng cho AIEV Studio
+
+Chạy bằng `npm run customer:dev`, giao diện `/studio`, API loopback cổng 6871. Tất cả endpoint nằm dưới `/api/customer`. Chế độ `CUSTOMER_MODE=1` chỉ proxy prefix này, không mở API quản trị của backend cá nhân. Xem [vận hành và giới hạn](CUSTOMER_STUDIO.md).
+
+| Method | Đường dẫn tương đối | Hợp đồng |
+| --- | --- | --- |
+| GET | `/config` | Ngân hàng, số tài khoản nhận tiền, giá token, gói, giới hạn, boolean `aiReady`, `mediaReady`, `paymentReady`; không có secret |
+| POST | `/auth/register` | `{email,name,password}`; 201 và cookie session HttpOnly |
+| POST | `/auth/login` | `{email,password}`; trả `{id,name,email,balance,role}` và cookie |
+| POST | `/auth/password` | Session và `{currentPassword,newPassword}`; kiểm tra mật khẩu cũ, hủy mọi session cũ và cấp cookie mới |
+| POST | `/auth/logout` | Xóa session và cookie |
+| GET | `/me` | Tài khoản đang đăng nhập, không có password hash |
+| GET | `/admin/overview` | Chỉ role admin; `{stats,users,jobs,orders}` tổng quan và tối đa 100 mục mới nhất mỗi danh sách, không trả password hash hoặc secret |
+| GET | `/threads` | Cuộc trò chuyện của khách đang đăng nhập |
+| GET | `/threads/:id` | `{messages,jobs}` của chủ sở hữu |
+| POST | `/chat` | `{message,threadId?}`; trả `{threadId,jobId?}`. Link Drive bắt đầu kiểm tra nguồn; link thư mục hoặc link không hợp lệ trả HTTP 400 kèm hướng dẫn lấy link file. `đồng ý dựng` xác nhận báo giá gần nhất; `hủy yêu cầu` bỏ báo giá chưa chạy |
+| GET | `/videos` | Tác vụ riêng của khách |
+| POST | `/videos/:id/confirm` | Xác nhận theo ID, giữ token đúng một lần, trả 202 |
+| GET | `/videos/:id/file` | MP4 chỉ khi tác vụ done; `?download=1` tải file |
+| GET | `/wallet` | `{balance,transactions:[{delta,kind,created_at}]}` |
+| POST | `/orders` | `{tokens:100\|500\|1000}`; tạo/reuse đơn pending, trả `{id,code,tokens,amount,status,expires,...}` |
+| GET | `/orders/:id` | Đơn riêng của chủ sở hữu; status pending/paid/expired |
+| POST | `/payments/sepay` | Payload giao dịch SePay, phải có `Authorization: Apikey <secret>`; trả `{success:true,credited?,duplicate?}` |
+
+Ngoại trừ config, đăng ký/đăng nhập/đăng xuất và webhook đã xác thực riêng, mọi endpoint bắt buộc session khách hàng. Lỗi có dạng `{error:string}`. Tài nguyên thuộc người khác trả 404. Ví thiếu token trả 402. Chưa sẵn sàng AI/media/payment trả 503 trước khi trừ token hoặc nhận đơn nạp. Cookie Secure khi cấu hình origin HTTPS; các request thay đổi có Origin khác bị từ chối.
+
+Trạng thái tác vụ: `inspecting -> awaiting_confirmation -> queued -> running -> done`; lỗi thành `failed`, hủy trước xác nhận thành `cancelled`. Giá theo phút nguồn được chốt khi báo giá, ghi trong `job.tokens`. Lượt sửa mới có ID mới và báo giá mới. Tác vụ lỗi hoàn khoản giữ một lần; done không hoàn. Token dịch vụ không phải usage token của nhà cung cấp AI.
+
 ## Ghi chú cho render Remotion
 
 - Composition lắp ráp video là `Assemble`, data-driven từ props (schema = meta.json, xem skill `remotion-assemble`); Root.tsx còn đăng ký 2 composition still: `Poster` (image project) và `Thumbnail` (thumbnail video).

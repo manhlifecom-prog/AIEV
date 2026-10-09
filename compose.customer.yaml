@@ -1,0 +1,55 @@
+name: aiev-video
+services:
+  studio:
+    build:
+      context: .
+      dockerfile: Dockerfile.customer
+    restart: unless-stopped
+    init: true
+    environment:
+      CUSTOMER_ORIGIN: https://video.manh.marketing
+      CUSTOMER_BANK: MB
+      CUSTOMER_BANK_ACCOUNT: "0383199234"
+      CUSTOMER_BANK_NAME: Mạnh
+      CUSTOMER_TOKEN_PRICE_VND: ${CUSTOMER_TOKEN_PRICE_VND:-1000}
+      CUSTOMER_BASE_TOKENS: ${CUSTOMER_BASE_TOKENS:-10}
+      CUSTOMER_TOKENS_PER_MINUTE: ${CUSTOMER_TOKENS_PER_MINUTE:-20}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      CUSTOMER_DIRECTOR_MODEL: ${CUSTOMER_DIRECTOR_MODEL:-gpt-5.5}
+      CUSTOMER_SEPAY_WEBHOOK_KEY: ${CUSTOMER_SEPAY_WEBHOOK_KEY:-}
+    volumes:
+      - customer_data:/var/lib/aiev
+    expose:
+      - "6870"
+    cpus: 2
+    mem_limit: 4g
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+  https:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      studio:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/customer/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+volumes:
+  customer_data:
+  caddy_data:
+  caddy_config:

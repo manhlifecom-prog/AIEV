@@ -1,0 +1,25 @@
+# Keep the customer deployment isolated from local credentials, users and media.
+*
+!package.json
+!package-lock.json
+!apps/
+!apps/**
+!engines/
+!engines/remotion/
+!engines/remotion/package.json
+!scripts/
+!scripts/customer.mjs
+!scripts/customer-build.mjs
+!scripts/customer-healthcheck.mjs
+!Dockerfile.customer
+**/node_modules
+**/.next
+**/.next-*
+**/dist
+**/*.tsbuildinfo
+**/.env
+**/.env.*
+apps/server/data
+apps/web/public/staging
+**/*.sqlite*
+**/*.db

@@ -1,0 +1,38 @@
+{
+  "version": "1.2.1",
+  "sha256": {
+    "windows": "99ace15289e706a74ab646d5617058ce1ea34194ba057d4d43b8f43c2cf1713c",
+    "android": "bb609d700744bc20f6403ac23e85b98acf1975ad15bf8e56fb59c4cd6b25d03b",
+    "macos-arm64": "9ec9c7e462326d1873f7982d5d1804d83e12c003424884ac5571b4bd46141ac7",
+    "macos-x64": "4b4181f1aaaa24cf84949813c4e67ae65a2fa7c4297964ea32d4a6fd273f4680"
+  },
+  "windows": "https://github.com/manhlifecom-prog/AIEV/releases/download/studio-1.2.1/AIEV-Studio-Setup-1.2.1.exe",
+  "android": "https://github.com/manhlifecom-prog/AIEV/releases/download/android-0.2.0/AIEV-Studio-0.2.0.apk",
+  "processingMode": "local",
+  "apple": {
+    "version": "0.6.0",
+    "macos": {
+      "arm64": "https://github.com/manhlifecom-prog/AIEV/releases/download/apple-preview-0.6.0/AIEV-Studio-Mac-0.6.0-arm64.dmg",
+      "x64": "https://github.com/manhlifecom-prog/AIEV/releases/download/apple-preview-0.6.0/AIEV-Studio-Mac-0.6.0-x64.dmg",
+      "preview": true
+    },
+    "ios": {
+      "status": "awaiting-signing"
+    }
+  },
+  "browser": {
+    "renderer": true,
+    "version": "1.1.0",
+    "output": "mp4",
+    "resolution": "1080p",
+    "processing": "device",
+    "driveDownload": "choose-downloaded-files",
+    "preview": true,
+    "visualAnalysis": true
+  },
+  "updates": {
+    "windows": true,
+    "feed": "/studio/updates/latest.yml",
+    "install": "on-quit"
+  }
+}
