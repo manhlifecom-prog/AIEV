@@ -1,4 +1,5 @@
 export const textEffects = [
+ {id:'coffee-editorial',name:'Editorial · Chữ & icon',kind:'editorial',font:'editorial',accent:'#D5E6A6',ink:'#F7EFDB',description:'Bố cục tạp chí, icon và thẻ hành trình',sample:'Chậm lại để tận hưởng'},
  {id:'word-highlight',name:'Karaoke Neon',kind:'highlight',font:'strong',accent:'#D9FF64',ink:'#FFFFFF',description:'Tô màu từng từ theo lời nói',sample:'Ý tưởng nhỏ tạo nên khác biệt'},
  {id:'popping-word',name:'Pop theo nhịp',kind:'pop',font:'strong',accent:'#FFCB6B',ink:'#FFFFFF',description:'Từng từ bật lên và trở về vị trí',sample:'Một khoảnh khắc thật đáng nhớ'},
  {id:'typewriter',name:'Máy chữ',kind:'type',font:'modern',accent:'#72E5D3',ink:'#FFFFFF',description:'Gõ từng ký tự với con trỏ sáng',sample:'Câu chuyện của bạn bắt đầu ở đây'},
