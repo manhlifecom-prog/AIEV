@@ -1,4 +1,16 @@
+export const expertPresets=[
+ {id:'expert-note',name:'Sổ tay chuyên gia',layout:'note',bg:'#F2EBDD',ink:'#243B32',accent:'#426F58',font:'editorial',speaker:'vinh',heading:'Suy luận ngược',subtitle:'Bắt đầu từ điều cần chứng minh',points:['Điều cần chứng minh','Các yếu tố cần có','Tiếp tục suy luận']},
+ {id:'expert-quote',name:'Trích dẫn điện ảnh',layout:'quote',bg:'#172132',ink:'#F7F0E1',accent:'#D9BD82',font:'poetic',speaker:'vinh',heading:'Sơ đồ tư duy ngược',subtitle:'Một cách tiếp cận bài toán hình',points:['Đặt câu hỏi','Tìm điều kiện','Kết nối lập luận']},
+ {id:'expert-map',name:'Sơ đồ kiến thức',layout:'map',bg:'#0B282B',ink:'#E2F8EB',accent:'#9FEDD8',font:'strong',speaker:'vinh',heading:'Từ đích đến cách giải',subtitle:'Nhìn bài toán theo từng mắt xích',points:['Cần chứng minh gì?','Cần những yếu tố nào?','Suy luận ngược']},
+ {id:'expert-paper',name:'Bài học tinh gọn',layout:'note',bg:'#F6F1E7',ink:'#352D38',accent:'#976548',font:'editorial',speaker:'thanh',heading:'Học để hiểu sâu',subtitle:'Phương pháp Feynman',points:['Hiểu bản chất','Diễn đạt được','Vận dụng được']},
+ {id:'expert-spotlight',name:'Điểm nhấn diễn giả',layout:'quote',bg:'#281A2D',ink:'#FFF1E7',accent:'#F0BCA4',font:'poetic',speaker:'thanh',heading:'Giảng lại cho người khác',subtitle:'Từ học thuộc đến hiểu bản chất',points:['Giảng lại','Người nghe hiểu','Nắm kiến thức sâu']},
+ {id:'expert-path',name:'Lộ trình học hiểu',layout:'map',bg:'#112747',ink:'#F0F6FF',accent:'#A8CFFF',font:'strong',speaker:'thanh',heading:'Hiểu • Diễn đạt • Vận dụng',subtitle:'Ba điểm nhấn trong lời chia sẻ',points:['Hiểu bản chất','Diễn đạt được','Vận dụng được']},
+] as const;
+export type ExpertPresetId=typeof expertPresets[number]['id'];
+export const expertPreset=(id?:string)=>expertPresets.find(p=>p.id===id);
+
 export const textEffects = [
+ ...expertPresets.map(p=>({id:p.id,name:p.name,kind:'expert' as const,font:p.font,accent:p.accent,ink:p.ink,description:p.subtitle,sample:p.heading})),
  {id:'coffee-editorial',name:'Editorial · Chữ & icon',kind:'editorial',font:'editorial',accent:'#D5E6A6',ink:'#F7EFDB',description:'Bố cục tạp chí, icon và thẻ hành trình',sample:'Chậm lại để tận hưởng'},
  {id:'word-highlight',name:'Karaoke Neon',kind:'highlight',font:'strong',accent:'#D9FF64',ink:'#FFFFFF',description:'Tô màu từng từ theo lời nói',sample:'Ý tưởng nhỏ tạo nên khác biệt'},
  {id:'popping-word',name:'Pop theo nhịp',kind:'pop',font:'strong',accent:'#FFCB6B',ink:'#FFFFFF',description:'Từng từ bật lên và trở về vị trí',sample:'Một khoảnh khắc thật đáng nhớ'},

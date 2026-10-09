@@ -109,3 +109,6 @@ apps/mobile/ios/ExportOptions.plist
 *.xcarchive/
 *.xcresult/
 apps/web/public/studio/renderer/
+# Customer-authorized expert samples are published to AIEV, not the public source repository.
+/apps/web/public/studio/templates/experts/*.mp4
+/apps/web/public/studio/templates/experts/*.jpg
