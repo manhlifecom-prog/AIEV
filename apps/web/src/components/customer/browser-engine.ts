@@ -1,3 +1,4 @@
+import {browserMotionEdit,motionPreview,type MotionPreview} from './remotion/browser-motion';
 import {captionFonts,captionStyle} from '../../../../server/src/customer/caption-styles';
 import {visualSampleTimes,contentRect,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
 import { customerApi } from './api';
@@ -7,7 +8,7 @@ type FFmpeg={load:(config:object)=>Promise<boolean>;createDir:(name:string)=>Pro
 
 type Metadata={duration:number;width:number;height:number;hasAudio:boolean;bytes:number;sources?:{name:string;start:number;duration:number;hasAudio:boolean;content?:SourceClip['content']}[];visualAnalysis?:boolean};
 type Plan={edit:Edit;words:Word[];hasAudio:boolean};
-type RecordData={key:string;owner:string;id:string;source:Blob;metadata:Metadata;plan?:Plan;output?:Blob;preview?:Blob};
+type RecordData={key:string;owner:string;id:string;source:Blob;metadata:Metadata;plan?:Plan;output?:Blob;preview?:Blob;motion?:MotionPreview};
 const records=new Map<string,RecordData>();
 let libraryOwner='',library: {id:string;file:File}[]=[],working=false,libraryTruncated=false;
 export const browserSupported=()=>typeof window!=='undefined' && Boolean(window.Worker && window.WebAssembly && window.indexedDB) && window.isSecureContext && !/AIEV(?:Desktop|iOS)\//.test(navigator.userAgent) && !/AIEVAndroid\/0\.1\./.test(navigator.userAgent);
@@ -64,7 +65,7 @@ async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await co
  const frames:VisualFrame[]=[];const times=visualSampleTimes(record.metadata.duration,record.metadata.sources);
  for(const [i,time] of times.entries()){stage(`Đang xem cảnh ${i+1}/${times.length}`);await exec(ff,['-y','-ss',String(time),'-i','source.mp4','-frames:v','1','-vf','scale=320:320:force_original_aspect_ratio=decrease','-q:v','9','frame.jpg']);const data=await ff.readFile('frame.jpg') as Uint8Array;if(data.length>28*1024)throw Error('Ảnh phân tích quá lớn');let binary='';for(const byte of data)binary+=String.fromCharCode(byte);frames.push({time,image:'data:image/jpeg;base64,'+btoa(binary)});await ff.deleteFile('frame.jpg');}
  stage('AI đang chọn cảnh và sắp xếp câu chuyện');record.plan=await customerApi<Plan>('/local/'+record.id+'/plan',{frames});await write(record);}
- const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);
+ const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);plan.edit=browserMotionEdit(plan.edit);
  if(plan.edit.captionStyle){const files=new Set([captionFonts[captionStyle(plan.edit.captionStyle).font].file,...(plan.edit.title?[captionFonts.strong.file]:[])]);await Promise.all([...files].map(async file=>{const response=await fetch('/studio/renderer/fonts/'+file,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Chưa tải được phông chữ đã chọn. Hãy thử lại.');await ff!.writeFile('fonts/'+file,new Uint8Array(await response.arrayBuffer()));}));}
  for(const preview of record.preview?[false]:[true,false]) {
   const {args,width,height}=renderArguments(plan.edit.textEffect?{...plan.edit,title:'',subtitles:false}:plan.edit,plan.hasAudio,record.metadata.sources,preview);
@@ -72,15 +73,15 @@ async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await co
   stage(preview?'Đang dựng bản xem trước':'Đang xuất Full HD · Bạn có thể xem bản dựng trước');
   await exec(ff,args);
   const file=preview?'preview.mp4':'final.mp4';let data=await ff.readFile(file) as Uint8Array;
-  if(plan.edit.textEffect){const {renderTextEffectVideo}=await import('./remotion/export');const output=await renderTextEffectVideo(blob(data),plan.edit,plan.words,width,height,p=>stage('Đang dựng hiệu ứng chữ Remotion · '+Math.round(p*100)+'%'));data=new Uint8Array(await output.arrayBuffer());await ff.writeFile(file,data);}
+  if(plan.edit.textEffect&&!preview){const {renderTextEffectVideo}=await import('./remotion/export');const output=await renderTextEffectVideo(blob(data),plan.edit,plan.words,width,height,p=>stage('Đang dựng hiệu ứng chữ Remotion · '+Math.round(p*100)+'%'));data=new Uint8Array(await output.arrayBuffer());/* FFmpeg transfers the buffer to its worker; retain MP4 bytes for validation and storage. */await ff.writeFile(file,new Uint8Array(data));}
   const check=await probe(ff,file);
   const expected=plan.edit.segments.reduce((n,s)=>n+s.end-s.start,0);
   if(data.length<1000 || Math.abs(check.duration-expected)>1 || check.width!==width || check.height!==height){console.warn('AIEV output check '+JSON.stringify({expected,width,height,actual:check,bytes:data.length}));throw Error('Video xuất chưa đạt kiểm tra chất lượng. Có thể thử lại cùng kế hoạch miễn phí.');}
-  if(preview)record.preview=blob(data);else record.output=blob(data);
+  if(preview){record.preview=blob(data);record.motion=motionPreview(plan.edit,plan.words,width,height);}else record.output=blob(data);
   await write(record);await ff.deleteFile(file);window.dispatchEvent(new CustomEvent('aiev-browser-preview',{detail:record.id}));
  }
  await customerApi('/local/'+record.id+'/complete',{});stage('Video Full HD đã lưu trong trình duyệt này');
  }catch(error){await customerApi('/local/'+record.id+'/fail',{}).catch(()=>{});throw error;}finally{ff?.terminate();}}
 export async function browserOutput(id:string){const record=await read(await owner(),id);if(!record.output)throw Error('Video chưa được lưu trong trình duyệt này. Mở thiết bị đã dựng hoặc tiếp tục dựng.');return record.output;}
 
-export async function browserPreview(id:string){const record=await read(await owner(),id);const output=record.output||record.preview;if(!output)throw Error("Bản xem trước đang được dựng");return {blob:output,preview:!record.output,story:record.plan?.edit.story};}
+export async function browserPreview(id:string){const record=await read(await owner(),id);const output=record.output||record.preview;if(!output)throw Error("Bản xem trước đang được dựng");return {blob:output,preview:!record.output,story:record.plan?.edit.story,motion:record.output?undefined:record.motion};}
