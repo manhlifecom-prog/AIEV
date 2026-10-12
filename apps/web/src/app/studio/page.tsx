@@ -9,9 +9,9 @@ import { WalletPanel } from "@/components/customer/WalletPanel";
 import { PasswordForm } from "@/components/customer/PasswordForm";
 import { InstallApp } from "@/components/customer/InstallApp";
 import { VideoResult } from "@/components/customer/VideoResult";
-import { customerChat } from '@/components/customer/chat';
+import { customerChat, type ChatResult } from '@/components/customer/chat';
 import { ChatContent } from '@/components/customer/ChatContent';
-import { browserSupported } from '@/components/customer/browser-engine';
+import { browserSupported, browserDecision } from '@/components/customer/browser-engine';
 import { MediaLibraryPanel } from '@/components/customer/MediaLibraryPanel';
 import "./studio.css";
 
@@ -20,6 +20,7 @@ const active = (status: string) => ["inspecting", "queued", "running", "local_ru
 export default function StudioPage() {
   const [user, setUser] = useState<CustomerUser | null>(null), [config, setConfig] = useState<StudioConfig | null>(null);
   const [threads, setThreads] = useState<Thread[]>([]), [videos, setVideos] = useState<VideoJob[]>([]), [messages, setMessages] = useState<Message[]>([]);
+  const [pendingSource,setPendingSource]=useState<ChatResult|null>(null);
   const [threadId, setThreadId] = useState<string | null>(null), [text, setText] = useState(""), [drive, setDrive] = useState(""), [showDrive, setShowDrive] = useState(false);
   const [modal, setModal] = useState<"auth" | "wallet" | "videos" | "help" | "password" | "account" | "templates" | null>(null), [wallet, setWallet] = useState<Wallet | null>(null), [order, setOrder] = useState<Order | null>(null);
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
@@ -59,16 +60,16 @@ export default function StudioPage() {
     const sequence = ++refreshSequence.current;
     const [account, recent, jobs, funds, conversation] = await Promise.all([
       customerApi<CustomerUser>("/me"), customerApi<Thread[]>("/threads"), customerApi<VideoJob[]>("/videos"), customerApi<Wallet>("/wallet"),
-      threadId ? customerApi<{ messages: Message[] }>(`/threads/${threadId}`) : Promise.resolve({ messages: [] as Message[] }),
+      threadId ? customerApi<{ messages: Message[]; pendingSource?:ChatResult|null }>(`/threads/${threadId}`) : Promise.resolve({ messages: [] as Message[], pendingSource:null as ChatResult|null }),
     ]);
     if (sequence !== refreshSequence.current) return;
-    setUser(account); setThreads(recent); setVideos(jobs); setWallet(funds); if(!sending.current && !failedTurn.current) setMessages(conversation.messages);
+    setUser(account); setThreads(recent); setVideos(jobs); setWallet(funds); setPendingSource(conversation.pendingSource || null); if(!sending.current && !failedTurn.current) setMessages(conversation.messages);
   }, [user?.id, threadId]);
   useEffect(() => {
     let live = true;
     const update = () => refresh().catch(reason => {
       if (!live) return;
-      if (reason instanceof StudioApiError && reason.status === 401) { setUser(null); setThreads([]); setVideos([]); setMessages([]); setThreadId(null); setWallet(null); setOrder(null); setModal("auth"); }
+      if (reason instanceof StudioApiError && reason.status === 401) { setUser(null); setThreads([]); setVideos([]); setMessages([]);setPendingSource(null); setThreadId(null); setWallet(null); setOrder(null); setModal("auth"); }
       else setError(reason instanceof Error ? reason.message : "Không tải được dữ liệu");
     });
     void update();
@@ -83,7 +84,7 @@ export default function StudioPage() {
   }, [order?.id, order?.status]);
   useEffect(() => { if(pinned.current && conversation.current) conversation.current.scrollTop=conversation.current.scrollHeight; }, [messages,liveReply,activity]);
   function openWallet() { setModal(user ? "wallet" : "auth"); }
-  function newChat() { if(sending.current) return; failedTurn.current=false;setRetry(null); setLiveReply(""); setThreadId(null); setMessages([]); setText(""); setDrive(""); setError(""); input.current?.focus(); }
+  function newChat() { if(sending.current) return; failedTurn.current=false;setRetry(null); setLiveReply(""); setThreadId(null); setMessages([]);setPendingSource(null); setText(""); setDrive(""); setError(""); input.current?.focus(); }
   async function submit(reuse?: {message:string;requestId:string;threadId?:string}) {
     if(sending.current || busy) return;
     const message=reuse?.message || [text.trim(),drive.trim()].filter(Boolean).join('\n');
@@ -111,6 +112,13 @@ export default function StudioPage() {
     } finally {activeRequest.current=null;sending.current=false;abortChat.current=null;setBusy(false);setCanStop(false);setActivity('');}
   }
   async function send(event: FormEvent) {event.preventDefault();await submit();}
+  async function resumeSource() {
+    if(!pendingSource || busy)return;
+    sending.current=true;setBusy(true);setError('');setCanStop(false);setActivity('Đang tải lại nguồn Drive…');
+    try {const result=await browserDecision(pendingSource,event=>{if(event.type==='status')setActivity(event.data.label || 'Đang chuẩn bị nguồn…');});if(result.localError)setError(result.localError);await refresh();}
+    catch(reason){setError(reason instanceof Error?reason.message:'Chưa tải được nguồn Drive');}
+    finally {sending.current=false;setBusy(false);setActivity('');}
+  }
   async function confirm() {
     if (!job) return;
     setBusy(true); setError("");
@@ -127,7 +135,7 @@ export default function StudioPage() {
       <nav aria-label="Điều hướng"><button onClick={() => setModal(user ? "videos" : "auth")}><Video size={20} />Video của tôi</button><button onClick={openWallet}><WalletIcon size={20} />Ví token</button></nav>
       {user?.role === "admin" ? <a className="studio-admin-button studio-secondary" href="/studio/admin"><Shield size={18} />Quản trị</a> : null}
       {user ? <button className="studio-password-button studio-text-button" aria-label="Đổi mật khẩu" onClick={() => setModal("password")}><KeyRound size={18} /><span>Đổi mật khẩu</span></button> : null}
-      <div className="studio-recent"><h2>Gần đây</h2>{threads.length ? threads.map(thread => <button key={thread.id} disabled={busy} aria-current={threadId === thread.id ? "page" : undefined} onClick={() => { failedTurn.current=false;setRetry(null);setLiveReply("");setThreadId(thread.id);setMessages([]); setError(""); }}>{thread.title}</button>) : <p>Chưa có video</p>}</div>
+      <div className="studio-recent"><h2>Gần đây</h2>{threads.length ? threads.map(thread => <button key={thread.id} disabled={busy} aria-current={threadId === thread.id ? "page" : undefined} onClick={() => { failedTurn.current=false;setRetry(null);setLiveReply("");setThreadId(thread.id);setMessages([]);setPendingSource(null); setError(""); }}>{thread.title}</button>) : <p>Chưa có video</p>}</div>
       <div className="studio-account"><button className="studio-secondary" aria-label={user?.name || "Đăng nhập"} onClick={() => setModal(user ? "account" : "auth")}><UserRound size={20} /><span>{user?.name || "Đăng nhập"}</span></button>{user ? <button className="studio-icon" aria-label="Đăng xuất" disabled={busy} onClick={() => { void logout().catch(() => setError("Không đăng xuất được")); }}><LogOut size={18} /></button> : null}</div>
     </aside>
     <main className="studio-main">
@@ -135,6 +143,7 @@ export default function StudioPage() {
       <section ref={conversation} onScroll={event=>{const element=event.currentTarget;pinned.current=element.scrollHeight-element.scrollTop-element.clientHeight<100;}} className="studio-conversation" aria-label="Cuộc trò chuyện">
         {messages.length ? <div className="studio-messages" role="log" aria-live="polite">{messages.map((message, index) => <div key={`${message.created_at}-${index}`} className={`studio-message ${message.role === "user" ? "from-user" : "from-ai"}`}><span className="studio-message-label">{message.role === "user" ? "Bạn" : "Mạnh AI"}</span><ChatContent content={message.content}/></div>)}
           {liveReply || busy ? <div className="studio-message from-ai studio-live"><span className="studio-message-label">Mạnh AI</span>{liveReply ? <ChatContent content={liveReply}/> : null}{busy ? <div className="studio-chat-activity" role="status"><span className="studio-activity-dot"/><span>{activity || 'Đang xử lý…'}{elapsed>0 ? <small> · {elapsed}s</small> : null}</span></div> : <small>Phản hồi chưa hoàn tất</small>}</div> : null}
+          {pendingSource && browserReady && !window.aievDesktop && !job && !busy ? <button type="button" className="studio-secondary" onClick={()=>void resumeSource()}><Download size={18}/>Tiếp tục tải nguồn Drive<span>Không gọi lại AI chat</span></button> : null}
           {["awaiting_confirmation", "local_running"].includes(job?.status || "") ? <div className="studio-quote"><strong>{unlimited ? "Miễn token cho quản trị" : `${number(job.tokens)} token cho lượt dựng này`}</strong><p>Video nguồn: {Math.ceil(job.duration)} giây. {unlimited ? `Chi phí ước tính: ${number(job.tokens)} token · Không trừ số dư.` : `Số dư: ${number(user?.balance || 0)} token.`}</p><button className="studio-primary" disabled={busy || !config?.aiReady} onClick={confirm}>{busy ? "Đang bắt đầu…" : job.status === "local_running" ? "Tiếp tục dựng trên máy" : "Xác nhận dựng video"}</button>{!config?.aiReady ? <small>Dịch vụ AI đang được cấu hình; bạn chưa bị trừ token.</small> : null}</div> : null}
           {working ? <p className="studio-job-stage"><LoaderCircle className="studio-spin" size={18} />{nativeStage || job.stage}</p> : null}
           {["done", "local_running"].includes(job?.status || "") ? <div className="studio-mobile-result studio-result"><VideoResult job={job!} pendingLabel={nativeStage || job?.stage} /></div> : null}<div ref={messagesEnd} /></div> : <div className="studio-welcome"><h2>Bạn muốn sáng tạo gì hôm nay?</h2><p>Trao đổi ý tưởng, viết kịch bản và content ngay trong chat — chưa cần chọn video.</p><p>{config?.processingMode === "local" ? browserReady ? "Nhắn ý tưởng hoặc bấm + để thêm video." : "Chat với AI để chuẩn bị yêu cầu. Mở web trong Chrome/Edge để chọn video và dựng ngay trên thiết bị, hoặc dùng app Windows." : "Dán link Google Drive và mô tả video bạn muốn. Tôi sẽ lo phần dựng."}</p><div className="studio-examples">{examples.map((example, index) => <button key={example} onClick={() => { setText(example); input.current?.focus(); }}>{index === 0 ? <Scissors size={22} /> : index === 1 ? <Captions size={22} /> : <Video size={22} />}<span>{example}</span></button>)}</div></div>}
@@ -154,7 +163,7 @@ export default function StudioPage() {
       {modal === "templates" ? <TemplateGallery select={prompt=>{setText(prompt);setModal(null);input.current?.focus();}}/> : null}
       {modal === "account" && user ? <div className="studio-form"><p>{user.name}<br />{user.email}</p>{user.role === "admin" ? <><p className="studio-success">Quản trị · Token không giới hạn</p><a className="studio-secondary" href="/studio/admin"><Shield size={18} />Quản trị</a></> : null}<button className="studio-secondary" onClick={() => setModal("password")}><KeyRound size={18} />Đổi mật khẩu</button><button className="studio-secondary" onClick={openWallet}><WalletIcon size={18} />Ví token</button></div> : null}
       {modal === "password" && user ? <PasswordForm /> : null}
-      {modal === "auth" ? <AuthForm success={account => { if (account.role === "admin") { window.location.assign("/studio/admin"); return; } setUser(account); setModal(null); setError(""); }} /> : modal === "wallet" ? <WalletPanel unlimitedTokens={unlimited} config={config} wallet={wallet} order={order} setOrder={setOrder} /> : modal === "videos" ? <div className="studio-video-list">{videos.length ? videos.map(video => <button key={video.id} className="studio-secondary" disabled={busy} onClick={() => { failedTurn.current=false;setRetry(null);setLiveReply("");setMessages([]);setThreadId(video.thread_id); setModal(null); }}><Video size={20} /><span>{threads.find(thread => thread.id === video.thread_id)?.title || "Video của bạn"}<small>{video.stage}</small></span></button>) : <p>Chưa có video. Bắt đầu bằng cách nhắn cho AI và dán link Drive.</p>}</div> : modal === "help" ? <div className="studio-help"><ol><li>Đăng ký hoặc đăng nhập tài khoản.</li><li>Chọn video hoặc thư mục trên máy. Có thể dán link file hoặc thư mục Drive công khai; web tải nguồn về thiết bị để dựng.</li><li>Mô tả cách chỉnh: chọn đoạn hay, đổi khung hình, thêm phụ đề hoặc bỏ khoảng lặng.</li><li>{unlimited ? "Quản trị được miễn token; xác nhận để bắt đầu dựng." : "Xem báo giá token, nạp qua chuyển khoản MB và xác nhận để bắt đầu."}</li><li>Xem video, tải MP4 hoặc nhắn tiếp để chỉnh thêm.</li></ol><p>Có thể dùng một file hoặc thư mục chứa nhiều video, kể cả thư mục con. {config ? config.maxMinutes > 0 || config.maxMegabytes > 0 ? `Giới hạn cấu hình: ${config.maxMinutes > 0 ? `${config.maxMinutes} phút` : "không giới hạn thời lượng"}, ${config.maxMegabytes > 0 ? `${config.maxMegabytes} MB` : "không giới hạn dung lượng file"}.` : "Không đặt giới hạn cố định về dung lượng file hoặc thời lượng. Video lớn hoặc dài được báo giá theo token." : "Đang tải cấu hình dịch vụ."} Bật quyền chia sẻ và tải xuống cho bất kỳ ai có đường liên kết.</p><p>Chi phí: {config?.baseTokens ?? 10} token mỗi lượt + {config?.tokensPerMinute ?? 20} token mỗi phút nguồn (làm tròn lên) + {config?.tokensPerGiB ?? 10} token mỗi GiB nguồn (làm tròn chi phí lên token nguyên). Hệ thống báo tổng trước khi bạn xác nhận. Web và app dựng video tại thiết bị; máy chủ quản lý tài khoản, token và kết nối AI. Web xuất MP4 720p, cần giữ tab mở. Trình duyệt có giới hạn bộ nhớ; dùng app Windows khi nguồn quá lớn. Âm thanh lời thoại được gửi tới dịch vụ AI để nhận diện, nguồn Drive được chuyển tiếp qua máy chủ tới thiết bị, không lưu video hoặc dựng trên VPS. iPhone/iPad nhận MP4/MOV/M4V và cần giữ app trên màn hình khi dựng. Video xuất nằm trên thiết bị đã dựng, chưa đồng bộ sang thiết bị khác. Nếu AI chưa trả kế hoạch và xử lý thất bại, token được hoàn. Đã nhận kế hoạch thì có thể thử dựng lại miễn phí, không hoàn phí AI. Máy bạn cần đủ chỗ lưu nguồn và file xuất.</p><p>Nếu yêu cầu hiệu ứng ngoài khả năng hiện tại, hãy mô tả rõ để được hỗ trợ trước khi dựng.</p></div> : null}
+      {modal === "auth" ? <AuthForm success={account => { if (account.role === "admin") { window.location.assign("/studio/admin"); return; } setUser(account); setModal(null); setError(""); }} /> : modal === "wallet" ? <WalletPanel unlimitedTokens={unlimited} config={config} wallet={wallet} order={order} setOrder={setOrder} /> : modal === "videos" ? <div className="studio-video-list">{videos.length ? videos.map(video => <button key={video.id} className="studio-secondary" disabled={busy} onClick={() => { failedTurn.current=false;setRetry(null);setLiveReply("");setMessages([]);setPendingSource(null);setThreadId(video.thread_id); setModal(null); }}><Video size={20} /><span>{threads.find(thread => thread.id === video.thread_id)?.title || "Video của bạn"}<small>{video.stage}</small></span></button>) : <p>Chưa có video. Bắt đầu bằng cách nhắn cho AI và dán link Drive.</p>}</div> : modal === "help" ? <div className="studio-help"><ol><li>Đăng ký hoặc đăng nhập tài khoản.</li><li>Chọn video hoặc thư mục trên máy. Có thể dán link file hoặc thư mục Drive công khai; web tải nguồn về thiết bị để dựng.</li><li>Mô tả cách chỉnh: chọn đoạn hay, đổi khung hình, thêm phụ đề hoặc bỏ khoảng lặng.</li><li>{unlimited ? "Quản trị được miễn token; xác nhận để bắt đầu dựng." : "Xem báo giá token, nạp qua chuyển khoản MB và xác nhận để bắt đầu."}</li><li>Xem video, tải MP4 hoặc nhắn tiếp để chỉnh thêm.</li></ol><p>Có thể dùng một file hoặc thư mục chứa nhiều video, kể cả thư mục con. {config ? config.maxMinutes > 0 || config.maxMegabytes > 0 ? `Giới hạn cấu hình: ${config.maxMinutes > 0 ? `${config.maxMinutes} phút` : "không giới hạn thời lượng"}, ${config.maxMegabytes > 0 ? `${config.maxMegabytes} MB` : "không giới hạn dung lượng file"}.` : "Không đặt giới hạn cố định về dung lượng file hoặc thời lượng. Video lớn hoặc dài được báo giá theo token." : "Đang tải cấu hình dịch vụ."} Bật quyền chia sẻ và tải xuống cho bất kỳ ai có đường liên kết.</p><p>Chi phí: {config?.baseTokens ?? 10} token mỗi lượt + {config?.tokensPerMinute ?? 20} token mỗi phút nguồn (làm tròn lên) + {config?.tokensPerGiB ?? 10} token mỗi GiB nguồn (làm tròn chi phí lên token nguyên). Hệ thống báo tổng trước khi bạn xác nhận. Web và app dựng video tại thiết bị; máy chủ quản lý tài khoản, token và kết nối AI. Web xuất MP4 720p, cần giữ tab mở. Trình duyệt có giới hạn bộ nhớ; dùng app Windows khi nguồn quá lớn. Âm thanh lời thoại được gửi tới dịch vụ AI để nhận diện, nguồn Drive được chuyển tiếp qua máy chủ tới thiết bị, không lưu video hoặc dựng trên VPS. iPhone/iPad nhận MP4/MOV/M4V và cần giữ app trên màn hình khi dựng. Video xuất nằm trên thiết bị đã dựng, chưa đồng bộ sang thiết bị khác. Nếu AI chưa trả kế hoạch và xử lý thất bại, token được hoàn. Đã nhận kế hoạch thì có thể thử dựng lại miễn phí, không hoàn phí AI. Máy bạn cần đủ chỗ lưu nguồn và file xuất.</p><p>Nếu yêu cầu hiệu ứng ngoài khả năng hiện tại, hãy mô tả rõ để được hỗ trợ trước khi dựng.</p></div> : null}
     </StudioModal> : null}
   </div>;
 }

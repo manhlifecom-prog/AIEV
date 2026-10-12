@@ -84,7 +84,12 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
     sessionCookie(res, store.createSession(user(res).id)); res.json({ success: true });
   });
   app.get("/api/customer/threads", auth, (_req, res) => res.json(store.threads(user(res).id)));
-  app.get("/api/customer/threads/:id", auth, (req, res) => res.json({ messages: store.messages(user(res).id, String(req.params.id)), jobs: store.jobs(user(res).id).filter(x => x.thread_id === req.params.id) }));
+  app.get("/api/customer/threads/:id", auth, (req, res) => {
+    const owner=user(res).id,threadId=String(req.params.id),messages=store.messages(owner,threadId),jobs=store.jobs(owner).filter(x=>x.thread_id===threadId);
+    const cached=jobs.length?null:store.db.prepare("SELECT result FROM assistant_turns WHERE user_id=? AND json_extract(result,'$.threadId')=? ORDER BY rowid DESC LIMIT 1").get(owner,threadId);
+    const decision=cached?JSON.parse(String(cached.result)):null;
+    res.json({messages,jobs,pendingSource:decision?.action==='prepare' && decision.url ? decision : null});
+  });
   app.get("/api/customer/videos", auth, (_req, res) => res.json(store.jobs(user(res).id)));
   app.get("/api/customer/wallet", auth, (_req, res) => res.json({ balance: store.user(user(res).id)!.balance, transactions: store.db.prepare("SELECT l.delta,l.kind,l.created_at,CASE WHEN l.kind='chat' THEN 1 WHEN l.kind='reserve' THEN COALESCE(j.tokens,0) ELSE 0 END AS estimatedTokens FROM ledger l LEFT JOIN jobs j ON j.id=l.reference AND j.user_id=l.user_id WHERE l.user_id=? ORDER BY l.rowid DESC LIMIT 100").all(user(res).id) }));
   app.post("/api/customer/chat", auth, async (req, res) => {

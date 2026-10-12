@@ -4,6 +4,8 @@ import express from 'express';
 import type { AddressInfo } from 'node:net';
 import type dns from 'node:dns/promises';
 import {openDriveTransfer,driveTransferRoutes} from './drive-transfer.js';
+import {customerApp} from './http.js';
+import {CustomerStore} from './store.js';
 const url='https://drive.google.com/file/d/abcdefghijk/view';
 const publicLookup=(async()=>[{address:'142.250.1.1',family:4}]) as unknown as typeof dns.lookup;
 test('Drive rejects private destinations, redirects and non-video bodies',async()=>{
@@ -25,4 +27,17 @@ test('Transfer authenticates, streams original bytes and releases concurrency af
   for(let i=0;i<2;i++){const response=await post(true);assert.equal(response.status,200);assert.equal(response.headers.get('x-accel-buffering'),'no');assert.deepEqual(new Uint8Array(await response.arrayBuffer()),new Uint8Array(256).fill(7));}
   assert.equal(calls,2);
  }finally{await new Promise<void>(r=>server.close(()=>r()));}
+});
+test('Source resume returns only the authenticated owner cached plan without charging chat',async()=>{
+ const store=new CustomerStore(':memory:');const owner=store.register('drive-owner@example.com','Owner','valid-password-owner');const other=store.register('drive-other@example.com','Other','valid-password-other');
+ const app=customerApp(store).app,threadId=store.createThread(owner.id,'Drive');const decision={threadId,turnId:'cached-drive',action:'prepare',url,prompt:'Dựng video'};
+ store.db.prepare('INSERT INTO assistant_turns VALUES(?,?,?)').run('cached-drive',owner.id,JSON.stringify(decision));
+ const token=store.createSession(owner.id),otherToken=store.createSession(other.id);const server=app.listen(0,'127.0.0.1');await new Promise<void>(r=>server.once('listening',r));const endpoint=`http://127.0.0.1:${(server.address() as AddressInfo).port}/api/customer/threads/${threadId}`;
+ try {
+  assert.deepEqual((await (await fetch(endpoint,{headers:{cookie:'aiev_customer='+token}})).json()).pendingSource,decision);
+  assert.equal((await fetch(endpoint,{headers:{cookie:'aiev_customer='+otherToken}})).status,404);
+  assert.equal(store.user(owner.id)?.balance,0);
+  store.createJob(owner.id,threadId,'Dựng video',url);
+  assert.equal((await (await fetch(endpoint,{headers:{cookie:'aiev_customer='+token}})).json()).pendingSource,null);
+ }finally{await new Promise<void>(r=>server.close(()=>r()));store.db.close();}
 });
