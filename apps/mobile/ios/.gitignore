@@ -1,0 +1,6 @@
+*.xcodeproj/
+Info.plist
+build/
+*.ipa
+*.p12
+*.mobileprovision

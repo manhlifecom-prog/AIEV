@@ -6,10 +6,8 @@ import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
 import "./globals.css";
 import { FAVICON } from "@/lib/brand";
-import { Shell } from "@/components/Shell";
+import { AppFrame } from "@/components/AppFrame";
 import { StaleChunkGuard } from "@/components/StaleChunkGuard";
-import { LanguageProvider } from "@/lib/i18n";
-import { EventsProvider } from "@/lib/useEvents";
 
 export const metadata: Metadata = {
   title: "AI Edit Video by: noti.vn",
@@ -29,11 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <StaleChunkGuard />
-        <LanguageProvider>
-          <EventsProvider>
-            <Shell>{children}</Shell>
-          </EventsProvider>
-        </LanguageProvider>
+        <AppFrame>{children}</AppFrame>
       </body>
     </html>
   );

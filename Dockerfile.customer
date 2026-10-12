@@ -1,0 +1,28 @@
+FROM node:24-bookworm-slim AS build
+WORKDIR /app
+ENV NEXT_TELEMETRY_DISABLED=1
+COPY package.json package-lock.json ./
+COPY apps/server/package.json apps/server/package.json
+COPY apps/web/package.json apps/web/package.json
+COPY engines/remotion/package.json engines/remotion/package.json
+# Customer mode uses node:sqlite and FFmpeg, not the operator's native addons.
+RUN npm ci --ignore-scripts
+COPY . .
+ENV CUSTOMER_MODE=1 CUSTOMER_PORT=6871 CUSTOMER_WEB_PORT=6870
+RUN node scripts/customer-build.mjs
+
+FROM node:24-bookworm-slim AS runtime
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core fonts-liberation ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY --from=build --chown=node:node /app /app
+RUN mkdir -p /var/lib/aiev && chown node:node /var/lib/aiev
+ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 \
+    CUSTOMER_MODE=1 CUSTOMER_PORT=6871 CUSTOMER_WEB_PORT=6870 \
+    CUSTOMER_DATA_DIR=/var/lib/aiev
+USER node
+EXPOSE 6870
+HEALTHCHECK --interval=30s --timeout=15s --start-period=90s --retries=3 \
+  CMD ["node", "scripts/customer-healthcheck.mjs"]
+CMD ["node", "scripts/customer.mjs", "--production"]
