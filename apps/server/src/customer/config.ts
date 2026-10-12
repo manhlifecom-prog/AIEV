@@ -34,3 +34,5 @@ export function quoteTokens(seconds: number, bytes = 0) {
   if (!Number.isSafeInteger(tokens)) throw new Error("Không tính được chi phí video");
   return tokens;
 }
+
+export function allowedCustomerOrigin(origin:string){return origin===customerConfig.origin || Boolean(process.env.CUSTOMER_LEGACY_ORIGIN&&origin===process.env.CUSTOMER_LEGACY_ORIGIN);}

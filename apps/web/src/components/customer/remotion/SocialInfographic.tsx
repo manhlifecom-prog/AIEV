@@ -24,7 +24,7 @@ export function SocialInfographic({src,title,captions=[],fontCss,demo=false,scen
  <defs><linearGradient id="social-metal"><stop stopColor="#8c6078"/><stop offset=".5" stopColor="#fff2e6"/><stop offset="1" stopColor="#995478"/></linearGradient><linearGradient id="social-type"><stop stopColor="#ffd6ec"/><stop offset="1" stopColor="#ff409c"/></linearGradient><linearGradient id="social-bg" x2=".25" y2="1"><stop stopColor="#851451"/><stop offset=".52" stopColor="#330c2c"/><stop offset="1" stopColor="#0f0916"/></linearGradient><linearGradient id="ice-face" x2="1" y2="1"><stop stopColor="#ffe5f5"/><stop offset="1" stopColor="#e46cb5"/></linearGradient>{fontCss&&<style>{fontCss}</style>}</defs>
  {!src&&<rect width="1080" height="1920" fill="url(#social-bg)"/>}
  {Array.from({length:12},(_,i)=><line key={i} x1={i*100} x2={i*100} y1="0" y2="1920" stroke="#ffc0e7" strokeOpacity=".035"/>)}
- <text x="84" y="128" fill="#f4a8d4" fontFamily="Be Vietnam Pro" fontSize="27" fontWeight="700" letterSpacing="5">AIEV / SOCIAL STORY</text>
+ <text x="84" y="128" fill="#f4a8d4" fontFamily="Be Vietnam Pro" fontSize="27" fontWeight="700" letterSpacing="5">MẠNH AI / SOCIAL STORY</text>
  {heading.map((line,i)=><text key={i} x="84" y={220+i*75} fill={i===heading.length-1?'url(#social-type)':'#fff1fa'} style={{filter:'drop-shadow(0px 7px 0px #4b0c2d)',transform:`translateY(${(1-enter)*22}px)`}} fontFamily="Be Vietnam Pro" fontWeight="700" fontSize={Math.min(74,900/Math.max(1,line.length)*1.8)}>{line}</text>)}
  <g transform={src?'translate(259 1070) scale(.52)':'translate(0 410)'} opacity={enter}>
  {scene===0?<>

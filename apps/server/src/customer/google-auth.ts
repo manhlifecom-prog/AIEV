@@ -1,7 +1,7 @@
 import { createHash, randomBytes } from 'node:crypto';
 import type { Express, Request, Response, RequestHandler } from 'express';
 import { OAuth2Client } from 'google-auth-library';
-import { customerConfig } from './config.js';
+import { allowedCustomerOrigin, customerConfig } from './config.js';
 import { CustomerError, CustomerStore, type User } from './store.js';
 
 const digest = (s: string) => createHash('sha256').update(s).digest('hex');
@@ -74,7 +74,7 @@ export function googleRoutes(app: Express, store: CustomerStore, limit: RequestH
     } catch { res.redirect('/studio?google=failed'); }
   });
   app.post('/api/customer/auth/google/link', limit, (req, res) => {
-    if (req.headers.origin !== customerConfig.origin) throw new CustomerError(403, 'Nguồn yêu cầu không hợp lệ');
+    if (!req.headers.origin || !allowedCustomerOrigin(req.headers.origin)) throw new CustomerError(403, 'Nguồn yêu cầu không hợp lệ');
     const hash = digest(readCookie(req));
     const flow = store.db.prepare('SELECT identity FROM google_flows WHERE hash=? AND expires>?').get(hash, Date.now());
     if (!flow?.identity) throw new CustomerError(401, 'Hãy đăng nhập Google lại.');

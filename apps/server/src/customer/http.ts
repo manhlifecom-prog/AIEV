@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { timingSafeEqual } from "node:crypto";
 import express, { type Request, type Response, type NextFunction } from "express";
-import { customerConfig } from "./config.js";
+import { allowedCustomerOrigin, customerConfig } from "./config.js";
 import { mediaBinary, driveFile, runMedia } from "./media.js";
 import { CustomerService } from "./service.js";
 import { CustomerError, CustomerStore, type User } from "./store.js";
@@ -26,7 +26,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   app.set("trust proxy", "loopback");
   app.use((req, res, next) => {
     res.set({ "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "same-origin", "X-Frame-Options": "DENY" });
-    if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.path !== "/api/customer/payments/sepay" && req.headers.origin && req.headers.origin !== customerConfig.origin) return res.status(403).json({ error: "Nguồn yêu cầu không được phép" });
+    if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method) && req.path !== "/api/customer/payments/sepay" && req.headers.origin && !allowedCustomerOrigin(req.headers.origin)) return res.status(403).json({ error: "Nguồn yêu cầu không được phép" });
     next();
   });
   app.use(express.json({ limit: "1mb" }));

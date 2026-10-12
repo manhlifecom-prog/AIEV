@@ -35,12 +35,12 @@ export function InstallApp() {
   const nativeLabel=platform==='macos'?'Mac':platform==='ios'?'iPhone/iPad':platform==='android'?'Android':'Windows';
   return <>
     <button className="studio-text-button studio-install" aria-label={needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài ứng dụng"} onClick={() => setOpen(true)}><Download size={20}/><span>{needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài app"}</span></button>
-    {open ? <StudioModal title="Cài AIEV Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
+    {open ? <StudioModal title="Cài Mạnh AI Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
       <p>{needsRenderer ? "Web có thể dựng và xuất MP4 ngay trên thiết bị. App Windows phù hợp nguồn lớn; Android 0.2.0 có bộ chọn video trên điện thoại." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
       {needsUpdate ? <p>Bản Windows hiện tại chưa có bộ tự cập nhật. Cài bản 1.2.1 một lần để bật nút Cập nhật và tải bản mới tự động về sau. Đóng app trước khi chạy bộ cài; tài khoản và video được giữ lại.</p> : null}
       {downloads ? <div className="studio-app-downloads">
         <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows · Tải EXE</a>
-        <small>Windows 10/11 64-bit · Bản 1.2.1 tự cập nhật, xem trước ngay trong Studio và xuất Full HD. Cài xong mở AIEV Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
+        <small>Windows 10/11 64-bit · Bản 1.2.1 tự cập nhật, xem trước ngay trong Studio và xuất Full HD. Cài xong mở Mạnh AI Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
         <h3>MacBook / iMac</h3>
         {downloads.apple?.macos?.arm64 || downloads.apple?.macos?.x64 ? <>
           {downloads.apple.macos.arm64 ? <a className="studio-secondary" href={downloads.apple.macos.arm64} target="_blank" rel="noopener noreferrer"><Download size={18}/>Mac chip M · Tải DMG</a> : null}

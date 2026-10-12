@@ -1,7 +1,7 @@
 {
   "id": "/studio",
-  "name": "AIEV Studio",
-  "short_name": "AIEV",
+  "name": "Mạnh AI Studio",
+  "short_name": "Mạnh AI",
   "description": "Trò chuyện, dán link Drive và chỉnh sửa video bằng AI.",
   "start_url": "/studio?app=1",
   "scope": "/studio",

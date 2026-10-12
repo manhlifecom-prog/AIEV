@@ -22,7 +22,7 @@ export function StoryVideo({preset,src,title,captions=[],fontCss,demo=false}:{pr
  <svg viewBox="0 0 1080 1920" width="100%" height="100%" style={{position:'absolute',inset:0}} fontFamily="Be Vietnam Pro" fontWeight="700">
  <defs>{fontCss&&<style>{fontCss}</style>}<linearGradient id={'story-gradient-'+preset}><stop stopColor={p.accent}/><stop offset="1" stopColor={p.bg}/></linearGradient></defs>
  <circle cx="1000" cy="50" r="390" fill={p.accent} opacity=".06"/><path d="M80 132H1000" stroke={p.accent} strokeOpacity=".4"/>
- <text x="80" y="105" fill={p.accent} fontSize="24" letterSpacing="5">AIEV / {p.layout.toUpperCase()}</text>
+ <text x="80" y="105" fill={p.accent} fontSize="24" letterSpacing="5">MẠNH AI / {p.layout.toUpperCase()}</text>
  <g opacity={show(0)} transform={`translate(0 ${24*(1-show(0))})`}><Label text={header} x={80} y={230} width={920} size={68} fill={p.ink}/></g>
  <g transform={src?'translate(310 1090) scale(.50)':'translate(80 460)'}>
  {p.layout==='quote'&&<><text x="0" y="285" fontSize="330" fill={p.accent} opacity=".25">“</text><path d="M20 400V1010" stroke={p.accent} strokeWidth="8"/><g opacity={show(.3)}><Label text={demo?'Đừng chỉ tìm đáp án. Hãy tìm cách đặt câu hỏi.':content||header} x={65} y={420} width={790} size={66} fill={p.ink}/><path d="M65 835H820" stroke={p.accent} strokeWidth="2"/><text x="65" y="905" fontSize="27" fill={p.accent}>GÓC NHÌN CHUYÊN GIA</text></g></>}

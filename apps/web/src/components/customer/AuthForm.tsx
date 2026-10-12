@@ -15,7 +15,7 @@ export function AuthForm({ success }: { success: (user: CustomerUser) => void })
   return <form className="studio-form" onSubmit={submit}>
     <p>Đăng nhập để lưu video và sử dụng ví token của bạn.</p>
     {register ? <label>Tên của bạn<input name="name" autoComplete="name" required maxLength={100} /></label> : null}
-    {google.linkRequired ? <p>Google đã xác nhận email. Nhập mật khẩu AIEV hiện tại để liên kết và giữ nguyên ví token, video và quyền tài khoản.</p> : <label>Email<input name="email" type="email" autoComplete="email" required maxLength={254} /></label>}
+    {google.linkRequired ? <p>Google đã xác nhận email. Nhập mật khẩu Mạnh AI Studio hiện tại để liên kết và giữ nguyên ví token, video và quyền tài khoản.</p> : <label>Email<input name="email" type="email" autoComplete="email" required maxLength={254} /></label>}
     <label>Mật khẩu<input name="password" type="password" autoComplete={register ? "new-password" : "current-password"} required minLength={register ? 10 : 1} maxLength={128} /></label>
     {register ? <small>Mật khẩu cần ít nhất 10 ký tự.</small> : null}
     {error ? <p className="studio-error" role="alert">{error}</p> : null}
