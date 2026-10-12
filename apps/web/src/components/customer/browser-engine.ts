@@ -1,15 +1,16 @@
 import {browserMotionEdit,motionPreview,type MotionPreview} from './remotion/browser-motion';
 import {captionFonts,captionStyle} from '../../../../server/src/customer/caption-styles';
-import {visualSampleTimes,contentRect,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
+import {visualSampleTimes,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
 import { customerApi } from './api';
 import { browserDriveFiles } from './browser-drive';
+import { displayDimensions,sourceAtTime,sourceCuts,sourceAudioArgs,sourceCutArgs } from './browser-source-timeline';
 import type { ChatEvent, ChatResult } from './chat';
 import { validateEdit, subtitleDocument, renderArguments, speechChunks, type Edit, type Word } from './browser-plan';
 type FFmpeg={load:(config:object)=>Promise<boolean>;createDir:(name:string)=>Promise<boolean>;writeFile:(name:string,data:string|Uint8Array)=>Promise<boolean>;readFile:(name:string,encoding?:string)=>Promise<string|Uint8Array>;deleteFile:(name:string)=>Promise<boolean>;exec:(args:string[])=>Promise<number>;ffprobe:(args:string[])=>Promise<number>;terminate:()=>void;on:(event:string,callback:(event:{progress:number;message?:string})=>void)=>void};
 
 type Metadata={duration:number;width:number;height:number;hasAudio:boolean;bytes:number;sources?:{name:string;start:number;duration:number;hasAudio:boolean;content?:SourceClip['content']}[];visualAnalysis?:boolean};
 type Plan={edit:Edit;words:Word[];hasAudio:boolean};
-type RecordData={key:string;owner:string;id:string;source:Blob;metadata:Metadata;plan?:Plan;output?:Blob;preview?:Blob;motion?:MotionPreview};
+type RecordData={key:string;owner:string;id:string;source:Blob;sourceFiles?:File[];metadata:Metadata;plan?:Plan;output?:Blob;preview?:Blob;motion?:MotionPreview};
 const records=new Map<string,RecordData>();
 let libraryOwner='',library: {id:string;file:File}[]=[],working=false,libraryTruncated=false;
 export const browserSupported=()=>typeof window!=='undefined' && Boolean(window.Worker && window.WebAssembly && window.indexedDB) && window.isSecureContext && !/AIEV(?:Desktop|iOS)\//.test(navigator.userAgent) && !/AIEVAndroid\/0\.1\./.test(navigator.userAgent);
@@ -25,10 +26,10 @@ export async function browserLibrary(action:string){const account=await owner();
 function stage(label:string){if(working)window.addEventListener('beforeunload',beforeUnload);else window.removeEventListener('beforeunload',beforeUnload);window.dispatchEvent(new CustomEvent('aiev-browser-stage',{detail:label}));}
 async function core():Promise<FFmpeg>{stage('Đang tải bộ dựng về trình duyệt…');const moduleUrl='/studio/renderer/ffmpeg/index.js';const {FFmpeg}=await import(/* webpackIgnore: true */ moduleUrl);const ff:FFmpeg=new FFmpeg();try{let timer:ReturnType<typeof setTimeout>|undefined;try{await Promise.race([ff.load({classWorkerURL:'/studio/renderer/ffmpeg/worker.js',coreURL:'/studio/renderer/core/ffmpeg-core.js',wasmURL:'/studio/renderer/core/ffmpeg-core.wasm'}),new Promise<never>((_resolve,reject)=>{timer=setTimeout(()=>reject(Error('Chưa tải được bộ dựng. Kiểm tra kết nối và thử lại.')),60000);})]);}finally{clearTimeout(timer);}await ff.createDir('fonts');const r=await fetch('/studio/renderer/caption.ttf',{signal:AbortSignal.timeout(30000)});if(!r.ok)throw Error('Chưa tải được phông chữ phụ đề');await ff.writeFile('fonts/caption.ttf',new Uint8Array(await r.arrayBuffer()));return ff;}catch(error){ff.terminate();throw error;}}
 async function exec(ff:FFmpeg,args:string[]){if(await ff.exec(args)!==0)throw Error('Bộ dựng chưa xử lý được video. Kiểm tra định dạng và bộ nhớ của thiết bị; có thể dùng app Windows cho nguồn lớn.');}
-async function probe(ff:FFmpeg,name:string):Promise<Omit<Metadata,'bytes'>>{await ff.deleteFile('probe.json').catch(()=>{});const status=await ff.ffprobe(['-v','error','-show_format','-show_streams','-of','json',name,'-o','probe.json']);if(status>0)throw Error('Không đọc được video nguồn ('+status+')');const data=await ff.readFile('probe.json','utf8');const m=JSON.parse(String(data)),v=m.streams?.find((s:{codec_type:string})=>s.codec_type==='video');const duration=Number(m.format?.duration);if(!v || !Number.isFinite(duration)||duration<=0)throw Error('Video không có thời lượng hợp lệ');return {duration,width:Number(v.width),height:Number(v.height),hasAudio:m.streams.some((s:{codec_type:string})=>s.codec_type==='audio')};}
+async function probe(ff:FFmpeg,name:string):Promise<Omit<Metadata,'bytes'>>{await ff.deleteFile('probe.json').catch(()=>{});const status=await ff.ffprobe(['-v','error','-show_format','-show_streams','-of','json',name,'-o','probe.json']);if(status>0)throw Error('Không đọc được video nguồn ('+status+')');const data=await ff.readFile('probe.json','utf8');const m=JSON.parse(String(data)),v=m.streams?.find((s:{codec_type:string})=>s.codec_type==='video');const duration=Number(m.format?.duration);if(!v || !Number.isFinite(duration)||duration<=0)throw Error('Video không có thời lượng hợp lệ');return {duration,...displayDimensions(Number(v.width),Number(v.height),Number(v.side_data_list?.find((entry:{rotation?:number})=>entry.rotation!==undefined)?.rotation || v.tags?.rotate || 0)),hasAudio:m.streams.some((s:{codec_type:string})=>s.codec_type==='audio')};}
 function blob(data:Uint8Array,type='video/mp4'){return new Blob([new Uint8Array(data).buffer],{type});}
 function capacity(bytes:number){if(bytes>1024*1024*1024)throw Error('Nguồn này lớn hơn khả năng bộ nhớ của bộ dựng web. Hãy dùng app Windows để xử lý nguồn lớn trên máy bạn. Chưa trừ phí dựng.');}
-async function sourceFiles(decision:ChatResult & {sourceIds?:string[];url?:string;sourceJobId?:string},account:string){
+async function sourceFilesForDecision(decision:ChatResult & {sourceIds?:string[];url?:string;sourceJobId?:string},account:string){
  if(decision.sourceIds?.length){if(libraryOwner!==account)throw Error('Hãy chọn video trước khi dựng');return decision.sourceIds.map(id=>{const entry=library.find(f=>f.id===id);if(!entry)throw Error('Nguồn đã thay đổi. Chọn lại video.');return entry.file;});}
  if(decision.url){return browserDriveFiles(decision.url,stage);}
  if(libraryOwner===account && library.length)return library.slice(0,50).map(f=>f.file);
@@ -40,17 +41,14 @@ export async function browserDecision(decision:ChatResult & {sourceIds?:string[]
  if(working)return {...decision,localError:'Đang dựng video khác trong trình duyệt. Bạn vẫn có thể chat với AI.'};
  working=true;let ff:FFmpeg|undefined;
  const progress=(event:Event)=>onEvent({type:'status',data:{label:(event as CustomEvent<string>).detail,cancellable:false}});window.addEventListener('aiev-browser-stage',progress);
- try{const account=await owner();let source:Blob,metadata:Metadata;
-  if(decision.sourceJobId && !decision.url && !decision.sourceIds?.length){const previous=await read(account,decision.sourceJobId);source=previous.source;metadata=previous.metadata;}
-  else{const files=await sourceFiles(decision,account);capacity(files.reduce((n,f)=>n+f.size,0));onEvent({type:'status',data:{label:'Đang chuẩn bị nguồn trên thiết bị',cancellable:false}});ff=await core();const clips:NonNullable<Metadata['sources']>=[];let duration=0,bytes=0,sourceWidth=1920,sourceHeight=1080;
-   for(const [i,file] of files.entries()){stage(`Đang đọc video ${i+1}/${files.length}`);await ff.writeFile('input.mp4',new Uint8Array(await file.arrayBuffer()));const m=await probe(ff,'input.mp4');if(i===0){const ratio=m.width/m.height;[sourceWidth,sourceHeight]=ratio<0.8?[1080,1920]:ratio>1.2?[1920,1080]:[1080,1080];}clips.push({name:file.name,start:duration,duration:m.duration,hasAudio:m.hasAudio,content:contentRect(m.width,m.height,sourceWidth,sourceHeight)});duration+=m.duration;bytes+=file.size;
-    if(files.length===1){metadata={...m,bytes};source=file;break;}
-    // Normalize each clip before joining, including silent audio for silent clips.
-    await exec(ff,['-y','-i','input.mp4',...(!m.hasAudio?['-f','lavfi','-i','anullsrc=r=48000:cl=stereo']:[]),'-map','0:v:0','-map',m.hasAudio?'0:a:0':'1:a:0','-vf',`scale=${sourceWidth}:${sourceHeight}:force_original_aspect_ratio=decrease,pad=${sourceWidth}:${sourceHeight}:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30`,'-t',String(m.duration),'-c:v','libx264','-preset','ultrafast','-crf','18','-c:a','aac','-ar','48000','-ac','2',`clip${i}.mp4`]);await ff.deleteFile('input.mp4');}
-   if(files.length>1){stage('Đang ghép nguồn trong trình duyệt');await ff.writeFile('clips.txt',files.map((_,i)=>`file 'clip${i}.mp4'`).join('\n'));await exec(ff,['-y','-f','concat','-safe','0','-i','clips.txt','-c','copy','source.mp4']);source=blob(await ff.readFile('source.mp4') as Uint8Array);metadata={...await probe(ff,'source.mp4'),bytes,sources:clips};}
+ try{const account=await owner();let source:Blob,metadata:Metadata,sourceFiles:File[]|undefined;
+  if(decision.sourceJobId && !decision.url && !decision.sourceIds?.length){const previous=await read(account,decision.sourceJobId);source=previous.source;metadata=previous.metadata;sourceFiles=previous.sourceFiles;}
+  else{const files=await sourceFilesForDecision(decision,account);capacity(files.reduce((n,f)=>n+f.size,0));onEvent({type:'status',data:{label:'Đang đọc thông tin nguồn tại thiết bị',cancellable:false}});ff=await core();const clips:NonNullable<Metadata['sources']>=[];let duration=0,bytes=0,width=0,height=0;
+   for(const [i,file] of files.entries()){stage(`Đang kiểm tra video ${i+1}/${files.length}`);await ff.writeFile('input.mp4',new Uint8Array(await file.arrayBuffer()));const m=await probe(ff,'input.mp4');width=Math.max(width,m.width);height=Math.max(height,m.height);clips.push({name:file.name,start:duration,duration:m.duration,hasAudio:m.hasAudio,content:{x:0,y:0,width:m.width,height:m.height}});duration+=m.duration;bytes+=file.size;await ff.deleteFile('input.mp4');}
+   source=files[0];sourceFiles=files.length>1?files:undefined;metadata={duration,width,height,bytes,hasAudio:clips.some(c=>c.hasAudio),...(sourceFiles?{sources:clips}:{})};
   }
   metadata!.visualAnalysis=true;capacity(source!.size);const result=await customerApi<{jobId:string;threadId:string}>('/local/quote',{threadId:decision.threadId,turnId:decision.turnId,message:decision.prompt,metadata:metadata!,url:'browser-file'});
-  const record:RecordData={key:key(account,result.jobId),owner:account,id:result.jobId,source:source!,metadata:metadata!};
+  const record:RecordData={key:key(account,result.jobId),owner:account,id:result.jobId,source:source!,sourceFiles,metadata:metadata!};
   try{await write(record);}catch(error){await customerApi('/local/'+result.jobId+'/fail',{}).catch(()=>{});throw error;}
   return {...decision,...result};
  }catch(error){return {...decision,localError:(error as Error).message};}finally{ff?.terminate();window.removeEventListener('aiev-browser-stage',progress);working=false;stage('');}
@@ -61,15 +59,34 @@ export async function confirmBrowser(id:string){if(working)throw Error('Đang d�
  void render(record).catch(error=>{stage((error as Error).message);window.dispatchEvent(new CustomEvent('aiev-browser-error',{detail:(error as Error).message}));}).finally(()=>{working=false;window.removeEventListener('beforeunload',beforeUnload);window.dispatchEvent(new Event('aiev-browser-complete'));});
  return {success:true};
 }
-async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await core();await ff.writeFile('source.mp4',new Uint8Array(await record.source.arrayBuffer()));
- if(!record.plan){if(record.metadata.hasAudio)for(const [i,chunk] of [...speechChunks(record.metadata.duration)].entries()){stage(`Nhận diện lời thoại đoạn ${i+1}`);await exec(ff,['-y','-ss',String(chunk.start),'-i','source.mp4','-t',String(chunk.seconds),'-vn','-ac','1','-ar','16000','-b:a','48k','speech.mp3']);const r=await fetch('/api/customer/local/'+record.id+'/audio/'+i,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/octet-stream'},body:blob(await ff.readFile('speech.mp3') as Uint8Array,'audio/mpeg')});if(!r.ok)throw Error((await r.json()).error || 'Không nhận diện được lời thoại');await ff.deleteFile('speech.mp3');}
+async function virtualAudio(ff:FFmpeg,record:RecordData){
+ const clips=record.metadata.sources!;
+ for(const [i,file] of record.sourceFiles!.entries()){stage(`Đang đọc âm thanh clip ${i+1}/${clips.length}`);await ff.writeFile('input.mp4',new Uint8Array(await file.arrayBuffer()));await exec(ff,sourceAudioArgs(clips[i],'input.mp4',`audio${i}.wav`));await ff.deleteFile('input.mp4');}
+ await ff.writeFile('audio-list.txt',clips.map((_,i)=>`file 'audio${i}.wav'`).join('\n'));await exec(ff,['-y','-f','concat','-safe','0','-i','audio-list.txt','-c:a','pcm_s16le','speech-source.wav']);
+ for(const [i] of clips.entries())await ff.deleteFile(`audio${i}.wav`);
+}
+async function virtualCuts(ff:FFmpeg,record:RecordData,edit:Edit,preview:boolean,width:number,height:number){
+ const cuts=sourceCuts(edit.segments,record.metadata.sources!);let loaded=-1;
+ for(const [i,cut] of cuts.entries()){
+  if(loaded!==cut.index){await ff.deleteFile('input.mp4').catch(()=>{});await ff.writeFile('input.mp4',new Uint8Array(await record.sourceFiles![cut.index].arrayBuffer()));loaded=cut.index;}
+  stage(`${preview?'Đang dựng bản xem trước':'Đang xuất Full HD'} · Đoạn ${i+1}/${cuts.length}`);await exec(ff,sourceCutArgs(cut,record.plan!.hasAudio,width,height,preview,`cut${i}.mp4`));
+ }
+ await ff.deleteFile('input.mp4').catch(()=>{});await ff.writeFile('cut-list.txt',cuts.map((_,i)=>`file 'cut${i}.mp4'`).join('\n'));await exec(ff,['-y','-f','concat','-safe','0','-i','cut-list.txt','-c','copy','source.mp4']);
+ for(const [i] of cuts.entries())await ff.deleteFile(`cut${i}.mp4`);
+}
+async function render(record:RecordData){let ff:FFmpeg|undefined;try{ff=await core();if(!record.sourceFiles)await ff.writeFile('source.mp4',new Uint8Array(await record.source.arrayBuffer()));else if(record.sourceFiles.length!==record.metadata.sources?.length)throw Error('Danh sách nguồn không khớp dữ liệu tại thiết bị');
+ if(!record.plan){if(record.sourceFiles && record.metadata.hasAudio)await virtualAudio(ff,record);if(record.metadata.hasAudio)for(const [i,chunk] of [...speechChunks(record.metadata.duration)].entries()){stage(`Nhận diện lời thoại đoạn ${i+1}`);await exec(ff,['-y','-ss',String(chunk.start),'-i',record.sourceFiles?'speech-source.wav':'source.mp4','-t',String(chunk.seconds),'-vn','-ac','1','-ar','16000','-b:a','48k','speech.mp3']);const r=await fetch('/api/customer/local/'+record.id+'/audio/'+i,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/octet-stream'},body:blob(await ff.readFile('speech.mp3') as Uint8Array,'audio/mpeg')});if(!r.ok)throw Error((await r.json()).error || 'Không nhận diện được lời thoại');await ff.deleteFile('speech.mp3');}
  const frames:VisualFrame[]=[];const times=visualSampleTimes(record.metadata.duration,record.metadata.sources);
- for(const [i,time] of times.entries()){stage(`Đang xem cảnh ${i+1}/${times.length}`);await exec(ff,['-y','-ss',String(time),'-i','source.mp4','-frames:v','1','-vf','scale=320:320:force_original_aspect_ratio=decrease','-q:v','9','frame.jpg']);const data=await ff.readFile('frame.jpg') as Uint8Array;if(data.length>28*1024)throw Error('Ảnh phân tích quá lớn');let binary='';for(const byte of data)binary+=String.fromCharCode(byte);frames.push({time,image:'data:image/jpeg;base64,'+btoa(binary)});await ff.deleteFile('frame.jpg');}
+ let frameSource=-1;
+ for(const [i,time] of times.entries()){let localTime=time;if(record.sourceFiles){const current=sourceAtTime(record.metadata.sources!,time);localTime=current.time;if(frameSource!==current.index){await ff.writeFile('input.mp4',new Uint8Array(await record.sourceFiles[current.index].arrayBuffer()));frameSource=current.index;}}stage(`Đang xem cảnh ${i+1}/${times.length}`);await exec(ff,['-y','-ss',String(localTime),'-i',record.sourceFiles?'input.mp4':'source.mp4','-frames:v','1','-vf','scale=320:320:force_original_aspect_ratio=decrease','-q:v','9','frame.jpg']);const data=await ff.readFile('frame.jpg') as Uint8Array;if(data.length>28*1024)throw Error('Ảnh phân tích quá lớn');let binary='';for(const byte of data)binary+=String.fromCharCode(byte);frames.push({time,image:'data:image/jpeg;base64,'+btoa(binary)});await ff.deleteFile('frame.jpg');}
  stage('AI đang chọn cảnh và sắp xếp câu chuyện');record.plan=await customerApi<Plan>('/local/'+record.id+'/plan',{frames});await write(record);}
  const plan=record.plan;validateEdit(plan.edit,record.metadata.duration);plan.edit=browserMotionEdit(plan.edit);
  if(plan.edit.captionStyle){const files=new Set([captionFonts[captionStyle(plan.edit.captionStyle).font].file,...(plan.edit.title?[captionFonts.strong.file]:[])]);await Promise.all([...files].map(async file=>{const response=await fetch('/studio/renderer/fonts/'+file,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Chưa tải được phông chữ đã chọn. Hãy thử lại.');await ff!.writeFile('fonts/'+file,new Uint8Array(await response.arrayBuffer()));}));}
  for(const preview of record.preview?[false]:[true,false]) {
-  const {args,width,height}=renderArguments(plan.edit.textEffect?{...plan.edit,title:'',subtitles:false}:plan.edit,plan.hasAudio,record.metadata.sources,preview);
+  const visualEdit=plan.edit.textEffect?{...plan.edit,title:'',subtitles:false}:plan.edit;
+  const outputEdit=record.sourceFiles?{...visualEdit,segments:[{start:0,end:plan.edit.segments.reduce((n,cut)=>n+cut.end-cut.start,0),framing:'fit' as const}]}:visualEdit;
+  const {args,width,height}=renderArguments(outputEdit,plan.hasAudio,record.sourceFiles?[]:record.metadata.sources,preview);
+  if(record.sourceFiles)await virtualCuts(ff,record,plan.edit,preview,width,height);
   await ff.writeFile('captions.ass',subtitleDocument(plan.edit.textEffect?{...plan.edit,title:'',subtitles:false}:plan.edit,plan.words,width,height).replaceAll('Arial','Noto Sans'));
   stage(preview?'Đang dựng bản xem trước':'Đang xuất Full HD · Bạn có thể xem bản dựng trước');
   await exec(ff,args);
