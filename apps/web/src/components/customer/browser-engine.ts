@@ -2,6 +2,7 @@ import {browserMotionEdit,motionPreview,type MotionPreview} from './remotion/bro
 import {captionFonts,captionStyle} from '../../../../server/src/customer/caption-styles';
 import {visualSampleTimes,contentRect,type SourceClip,type VisualFrame} from "../../../../server/src/customer/edit-quality";
 import { customerApi } from './api';
+import { browserDriveFiles } from './browser-drive';
 import type { ChatEvent, ChatResult } from './chat';
 import { validateEdit, subtitleDocument, renderArguments, speechChunks, type Edit, type Word } from './browser-plan';
 type FFmpeg={load:(config:object)=>Promise<boolean>;createDir:(name:string)=>Promise<boolean>;writeFile:(name:string,data:string|Uint8Array)=>Promise<boolean>;readFile:(name:string,encoding?:string)=>Promise<string|Uint8Array>;deleteFile:(name:string)=>Promise<boolean>;exec:(args:string[])=>Promise<number>;ffprobe:(args:string[])=>Promise<number>;terminate:()=>void;on:(event:string,callback:(event:{progress:number;message?:string})=>void)=>void};
@@ -29,7 +30,7 @@ function blob(data:Uint8Array,type='video/mp4'){return new Blob([new Uint8Array(
 function capacity(bytes:number){if(bytes>1024*1024*1024)throw Error('Nguồn này lớn hơn khả năng bộ nhớ của bộ dựng web. Hãy dùng app Windows để xử lý nguồn lớn trên máy bạn. Chưa trừ phí dựng.');}
 async function sourceFiles(decision:ChatResult & {sourceIds?:string[];url?:string;sourceJobId?:string},account:string){
  if(decision.sourceIds?.length){if(libraryOwner!==account)throw Error('Hãy chọn video trước khi dựng');return decision.sourceIds.map(id=>{const entry=library.find(f=>f.id===id);if(!entry)throw Error('Nguồn đã thay đổi. Chọn lại video.');return entry.file;});}
- if(decision.url){throw Error('Google Drive có thể chặn trình duyệt tải video trực tiếp. Tải file hoặc thư mục Drive về máy, bấm Chọn video/Chọn thư mục rồi nhắn “làm theo yêu cầu trên”. Video không chuyển qua VPS.');}
+ if(decision.url){return browserDriveFiles(decision.url,stage);}
  if(libraryOwner===account && library.length)return library.slice(0,50).map(f=>f.file);
  throw Error('Bấm Chọn video hoặc Chọn thư mục ở dưới khung chat, rồi nhắn “làm theo yêu cầu trên”.');
 }

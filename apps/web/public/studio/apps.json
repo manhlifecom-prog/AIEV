@@ -26,7 +26,7 @@
     "output": "mp4",
     "resolution": "1080p",
     "processing": "device",
-    "driveDownload": "choose-downloaded-files",
+    "driveDownload": "stream-to-device",
     "preview": true,
     "visualAnalysis": true
   },

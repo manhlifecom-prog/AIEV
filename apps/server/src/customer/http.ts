@@ -11,6 +11,7 @@ import { assistantRoutes } from "./assistant.js";
 import { adminRoutes } from "./admin.js";
 import { googleRoutes } from "./google-auth.js";
 import { folderRoutes } from "./drive-folder.js";
+import { driveTransferRoutes } from "./drive-transfer.js";
 
 function cookie(req: Request) { return req.headers.cookie?.split(";").map(x => x.trim()).find(x => x.startsWith("aiev_customer="))?.slice(14) || ""; }
 function sameSecret(a: string, b: string) { const aa = Buffer.from(a), bb = Buffer.from(b); return aa.length === bb.length && aa.length > 0 && timingSafeEqual(aa, bb); }
@@ -50,6 +51,7 @@ export function customerApp(store = new CustomerStore(), service = new CustomerS
   assistantRoutes(app, store, auth);
   adminRoutes(app,store,auth);
   folderRoutes(app,auth);
+  driveTransferRoutes(app,auth);
   let mediaReady: boolean | null = null;
   let readinessCheckedAt = 0;
   async function ready() {
