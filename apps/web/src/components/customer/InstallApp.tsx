@@ -37,9 +37,14 @@ export function InstallApp() {
     <button className="studio-text-button studio-install" aria-label={needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài ứng dụng"} onClick={() => setOpen(true)}><Download size={20}/><span>{needsUpdate ? "Cập nhật app" : needsRenderer ? "Bộ dựng "+nativeLabel : "Cài app"}</span></button>
     {open ? <StudioModal title="Cài Mạnh AI Studio" close={() => setOpen(false)}><div className="studio-form studio-install-guide">
       <p>{needsRenderer ? "Web có thể dựng và xuất MP4 ngay trên thiết bị. App Windows phù hợp nguồn lớn; Android 0.2.0 có bộ chọn video trên điện thoại." : "Tài khoản, token và cuộc trò chuyện dùng chung. Video nguồn và bản xuất được lưu trên thiết bị đã dựng."}</p>
+      {!window.aievDesktop && browserSupported() ? <section className="studio-web-install">
+        <h3>Cài ứng dụng web · Không cần EXE</h3>
+        <p>Dùng chat, tải nguồn Drive và dựng video tại thiết bị. Web tự nhận bản cập nhật mới, không cần tải lại bộ cài.</p>
+        {prompt ? <button className="studio-primary" onClick={()=>{void install();}}>Cài Mạnh AI Studio</button> : <p>{platform==='ios' ? "Safari → Chia sẻ → Thêm vào Màn hình chính." : "Chrome/Edge → menu → Cài ứng dụng hoặc Cài trang này dưới dạng ứng dụng."}</p>}
+      </section> : null}
       {needsUpdate ? <p>Bản Windows hiện tại chưa có bộ tự cập nhật. Cài bản 1.2.1 một lần để bật nút Cập nhật và tải bản mới tự động về sau. Đóng app trước khi chạy bộ cài; tài khoản và video được giữ lại.</p> : null}
       {downloads ? <div className="studio-app-downloads">
-        <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows · Tải EXE</a>
+        <a className="studio-secondary" href={downloads.windows} target="_blank" rel="noopener noreferrer"><Download size={18}/>Windows native · Tải EXE</a>
         <small>Windows 10/11 64-bit · Bản 1.2.1 tự cập nhật, xem trước ngay trong Studio và xuất Full HD. Cài xong mở Mạnh AI Studio từ Start Menu. Bộ cài hiện chưa có chữ ký nhà phát hành.</small>
         <h3>MacBook / iMac</h3>
         {downloads.apple?.macos?.arm64 || downloads.apple?.macos?.x64 ? <>
@@ -51,11 +56,6 @@ export function InstallApp() {
         {downloads.apple?.ios?.testFlight ? <a className="studio-secondary" href={downloads.apple.ios.testFlight} target="_blank" rel="noopener noreferrer">Cài bản thử qua TestFlight</a> : <p>App iPhone/iPad chưa phát hành. Bạn có thể dùng web trên Safari trong lúc chờ bản cài. Dựng web cần đủ bộ nhớ và giữ tab mở.</p>}
         <h3>Android</h3><a className="studio-secondary" href={downloads.android} download><Download size={18}/>Android · Tải APK</a><small>Android 10 trở lên · Chọn video từ thư viện, chat và dựng trên thiết bị. Giữ app mở trong lúc dựng.</small>
       </div> : <p role="status">Chưa tải được danh sách bản cài. Đóng hướng dẫn rồi thử lại.</p>}
-      {!needsRenderer ? <>
-        <h3>Cài web trên màn hình</h3>
-        {prompt ? <button className="studio-secondary" onClick={() => { void install(); }}>Cài ứng dụng web</button> : null}
-        <p>{platform==='ios' ? "Safari → Chia sẻ → Thêm vào Màn hình chính. Web dựng trong trình duyệt; giữ màn hình mở khi xuất MP4." : "Chrome/Edge → menu → Cài ứng dụng. Web dùng máy của bạn để dựng video và xuất MP4."}</p>
-      </> : null}
       <p>App có bộ dựng cần Internet để kết nối AI và quản lý token. Với iPhone/iPad, giữ app trên màn hình khi xuất video; thiết bị cần đủ chỗ lưu nguồn và MP4.</p>
     </div></StudioModal> : null}
   </>;
